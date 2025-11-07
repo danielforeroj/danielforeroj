@@ -7,29 +7,30 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ---------- GLOBAL ACCENT (updated via JS) ---------- */
+:root {
+  /* This will be overwritten by JS on load and when user clicks presets */
+  --accent: #000000;
+  --accent-contrast: #ffffff;
+}
+
 /* ---------- LIGHT THEME (default) ---------- */
 :root,
 :root.light {
-  /* Core tokens */
-  --md-sys-color-primary: #0A2342;         /* Navy */
-  --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-primary-container: #E8EEF7;
-  --md-sys-color-on-primary-container: #0A2342;
+  --md-sys-color-background: #ffffff;
+  --md-sys-color-on-background: #1e293b;
 
-  --md-sys-color-secondary: #D7263D;       /* Accent red */
-  --md-sys-color-on-secondary: #ffffff;
-
-  --md-sys-color-background: #ffffff;      /* ✅ Light background */
-  --md-sys-color-on-background: #1e293b;   /* Slate-800 */
-
-  --md-sys-color-surface: #f2f4f7;         /* Light card */
-  --md-sys-color-on-surface: #111827;      /* Slate-900 */
+  --md-sys-color-surface: #f2f4f7;
+  --md-sys-color-on-surface: #111827;
 
   --md-sys-color-surface-variant: #e9edf3;
   --md-sys-color-outline: #d1d8e3;
 
-  --md-sys-color-inverse-surface: #0b162b;
-  --md-sys-color-inverse-on-surface: #e6eaf2;
+  /* These are tied to --accent dynamically by JS */
+  --md-sys-color-primary: var(--accent);
+  --md-sys-color-on-primary: var(--accent-contrast);
+  --md-sys-color-secondary: var(--accent);
+  --md-sys-color-on-secondary: var(--accent-contrast);
 
   --brand-radius: 18px;
   color-scheme: light;
@@ -37,26 +38,23 @@ html, body {
 
 /* ---------- DARK THEME ---------- */
 :root.dark {
-  --md-sys-color-primary: #8fb6ff;         /* Lightened navy as primary in dark */
-  --md-sys-color-on-primary: #0a0f1a;
-  --md-sys-color-primary-container: #163057;
-  --md-sys-color-on-primary-container: #e6eaf2;
+  /* Your requested dark background */
+  --md-sys-color-background: #1b1c1e;
+  --md-sys-color-on-background: #e7e9ea;
 
-  --md-sys-color-secondary: #ff7786;       /* Red accent in dark */
-  --md-sys-color-on-secondary: #1b0d10;
+  --md-sys-color-surface: #2a2b2e;
+  --md-sys-color-on-surface: #e7e9ea;
 
-  --md-sys-color-background: #0b162b;      /* ✅ Dark background */
-  --md-sys-color-on-background: #e6eaf2;
+  --md-sys-color-surface-variant: #313236;
+  --md-sys-color-outline: #3b3d42;
 
-  --md-sys-color-surface: #0f213f;         /* Dark card */
-  --md-sys-color-on-surface: #e6eaf2;
+  /* Primaries remain tied to accent */
+  --md-sys-color-primary: var(--accent);
+  --md-sys-color-on-primary: var(--accent-contrast);
+  --md-sys-color-secondary: var(--accent);
+  --md-sys-color-on-secondary: var(--accent-contrast);
 
-  --md-sys-color-surface-variant: #10264a;
-  --md-sys-color-outline: #354a6c;
-
-  --md-sys-color-inverse-surface: #e6eaf2;
-  --md-sys-color-inverse-on-surface: #101520;
-
+  --brand-radius: 18px;
   color-scheme: dark;
 }
 
@@ -66,29 +64,87 @@ body {
   color: var(--md-sys-color-on-background);
 }
 
-/* Helper classes that your components can rely on */
-.df-surface {
+/* -------------- Accent-driven utilities -------------- */
+
+/* Buttons: anything with these classes will follow accent */
+.btn-primary,
+button.btn-primary,
+a.btn-primary,
+button[data-variant="primary"],
+.button-primary {
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border: 1px solid var(--md-sys-color-primary);
+  border-radius: var(--brand-radius);
+}
+
+.btn-primary:hover,
+button.btn-primary:hover,
+a.btn-primary:hover,
+button[data-variant="primary"]:hover,
+.button-primary:hover {
+  filter: brightness(0.92);
+}
+
+.btn-outline,
+button.btn-outline,
+a.btn-outline,
+button[data-variant="outline"],
+.button-outline {
+  background: transparent;
+  color: var(--md-sys-color-primary);
+  border: 1px solid var(--md-sys-color-primary);
+  border-radius: var(--brand-radius);
+}
+
+.btn-outline:hover,
+button.btn-outline:hover,
+a.btn-outline:hover,
+button[data-variant="outline"]:hover,
+.button-outline:hover {
+  background: color-mix(in srgb, var(--md-sys-color-primary) 10%, var(--md-sys-color-surface));
+}
+
+/* Links */
+a,
+.link-accent {
+  color: var(--md-sys-color-primary);
+}
+a:hover,
+.link-accent:hover {
+  opacity: 0.9;
+  text-decoration: underline;
+}
+
+/* Pills / Chips / Tags */
+.chip, .badge, .tag, .pill,
+[class*="chip"], [class*="badge"], [class*="tag"], [class*="pill"] {
+  background: color-mix(in srgb, var(--md-sys-color-primary) 8%, var(--md-sys-color-surface));
+  color: var(--md-sys-color-on-surface);
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-primary) 30%, var(--md-sys-color-outline));
+  border-radius: 9999px;
+}
+
+/* Cards (ensure they react to theme tokens) */
+.df-surface, .card {
   background: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
   border: 1px solid var(--md-sys-color-outline);
   border-radius: var(--brand-radius);
 }
 
-.df-surface-variant {
-  background: var(--md-sys-color-surface-variant);
+/* Section headings can accent the underline/border if used */
+.section-accent-border {
+  border-bottom: 3px solid var(--md-sys-color-primary);
+}
+
+/* Nav active bubble if you use one */
+.nav-active, .active-bubble {
+  background: color-mix(in srgb, var(--md-sys-color-primary) 15%, var(--md-sys-color-surface));
   color: var(--md-sys-color-on-surface);
-  border: 1px solid var(--md-sys-color-outline);
-  border-radius: var(--brand-radius);
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-primary) 35%, var(--md-sys-color-outline));
+  border-radius: 9999px;
 }
-
-.df-primary {
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-  border-radius: var(--brand-radius);
-}
-
-a { color: var(--md-sys-color-primary); text-decoration: none; }
-a:hover { text-decoration: underline; }
 
 /* Optional micro animations */
 @keyframes scroll { from { transform: translateX(0) } to { transform: translateX(-100%) } }
