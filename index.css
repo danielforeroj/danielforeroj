@@ -7,11 +7,13 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ---------- GLOBAL ACCENT (updated via JS) ---------- */
+/* ---------- GLOBAL ACCENT (JS updates these) ---------- */
 :root {
-  /* This will be overwritten by JS on load and when user clicks presets */
   --accent: #000000;
   --accent-contrast: #ffffff;
+  --df-accent-10: color-mix(in srgb, var(--accent) 10%, transparent);
+  --df-accent-30: color-mix(in srgb, var(--accent) 30%, transparent);
+  --tw-ring-color: color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 /* ---------- LIGHT THEME (default) ---------- */
@@ -26,7 +28,6 @@ html, body {
   --md-sys-color-surface-variant: #e9edf3;
   --md-sys-color-outline: #d1d8e3;
 
-  /* These are tied to --accent dynamically by JS */
   --md-sys-color-primary: var(--accent);
   --md-sys-color-on-primary: var(--accent-contrast);
   --md-sys-color-secondary: var(--accent);
@@ -38,8 +39,7 @@ html, body {
 
 /* ---------- DARK THEME ---------- */
 :root.dark {
-  /* Your requested dark background */
-  --md-sys-color-background: #1b1c1e;
+  --md-sys-color-background: #1b1c1e;     /* requested */
   --md-sys-color-on-background: #e7e9ea;
 
   --md-sys-color-surface: #2a2b2e;
@@ -48,7 +48,6 @@ html, body {
   --md-sys-color-surface-variant: #313236;
   --md-sys-color-outline: #3b3d42;
 
-  /* Primaries remain tied to accent */
   --md-sys-color-primary: var(--accent);
   --md-sys-color-on-primary: var(--accent-contrast);
   --md-sys-color-secondary: var(--accent);
@@ -58,7 +57,7 @@ html, body {
   color-scheme: dark;
 }
 
-/* Apply background & text automatically from tokens */
+/* Apply bg + text from tokens */
 body {
   background: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
@@ -66,26 +65,24 @@ body {
 
 /* -------------- Accent-driven utilities -------------- */
 
-/* Buttons: anything with these classes will follow accent */
+/* Buttons: ensure accent wins even if Tailwind blue classes are present */
 .btn-primary,
 button.btn-primary,
 a.btn-primary,
 button[data-variant="primary"],
-.button-primary {
+.button-primary,
+button,
+a.button {
   background: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
   border: 1px solid var(--md-sys-color-primary);
   border-radius: var(--brand-radius);
 }
+button:hover,
+a.button:hover,
+.btn-primary:hover { filter: brightness(0.92); }
 
-.btn-primary:hover,
-button.btn-primary:hover,
-a.btn-primary:hover,
-button[data-variant="primary"]:hover,
-.button-primary:hover {
-  filter: brightness(0.92);
-}
-
+/* Outline buttons */
 .btn-outline,
 button.btn-outline,
 a.btn-outline,
@@ -96,36 +93,25 @@ button[data-variant="outline"],
   border: 1px solid var(--md-sys-color-primary);
   border-radius: var(--brand-radius);
 }
-
 .btn-outline:hover,
-button.btn-outline:hover,
-a.btn-outline:hover,
-button[data-variant="outline"]:hover,
 .button-outline:hover {
-  background: color-mix(in srgb, var(--md-sys-color-primary) 10%, var(--md-sys-color-surface));
+  background: color-mix(in srgb, var(--accent) 10%, var(--md-sys-color-surface));
 }
 
 /* Links */
-a,
-.link-accent {
-  color: var(--md-sys-color-primary);
-}
-a:hover,
-.link-accent:hover {
-  opacity: 0.9;
-  text-decoration: underline;
-}
+a, .link-accent { color: var(--md-sys-color-primary); }
+a:hover, .link-accent:hover { opacity: .9; text-decoration: underline; }
 
-/* Pills / Chips / Tags */
+/* Chips / Pills */
 .chip, .badge, .tag, .pill,
 [class*="chip"], [class*="badge"], [class*="tag"], [class*="pill"] {
-  background: color-mix(in srgb, var(--md-sys-color-primary) 8%, var(--md-sys-color-surface));
+  background: color-mix(in srgb, var(--accent) 8%, var(--md-sys-color-surface));
   color: var(--md-sys-color-on-surface);
-  border: 1px solid color-mix(in srgb, var(--md-sys-color-primary) 30%, var(--md-sys-color-outline));
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--md-sys-color-outline));
   border-radius: 9999px;
 }
 
-/* Cards (ensure they react to theme tokens) */
+/* Cards */
 .df-surface, .card {
   background: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
@@ -133,18 +119,42 @@ a:hover,
   border-radius: var(--brand-radius);
 }
 
-/* Section headings can accent the underline/border if used */
-.section-accent-border {
-  border-bottom: 3px solid var(--md-sys-color-primary);
-}
-
-/* Nav active bubble if you use one */
+/* Nav active bubble if used */
 .nav-active, .active-bubble {
-  background: color-mix(in srgb, var(--md-sys-color-primary) 15%, var(--md-sys-color-surface));
+  background: color-mix(in srgb, var(--accent) 15%, var(--md-sys-color-surface));
   color: var(--md-sys-color-on-surface);
-  border: 1px solid color-mix(in srgb, var(--md-sys-color-primary) 35%, var(--md-sys-color-outline));
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--md-sys-color-outline));
   border-radius: 9999px;
 }
+
+/* ---------- Tailwind “blue” override shim (forces accent) ---------- */
+/* This catches common classes you already have like text-blue-500, bg-blue-500, focus:ring-blue-300, etc. */
+
+.text-blue-400, .text-blue-500, .text-blue-600, .text-blue-700,
+.hover\:text-blue-400:hover, .hover\:text-blue-500:hover, .hover\:text-blue-600:hover, .hover\:text-blue-700:hover {
+  color: var(--md-sys-color-primary) !important;
+}
+
+.bg-blue-400, .bg-blue-500, .bg-blue-600, .bg-blue-700,
+.hover\:bg-blue-400:hover, .hover\:bg-blue-500:hover, .hover\:bg-blue-600:hover, .hover\:bg-blue-700:hover {
+  background-color: var(--md-sys-color-primary) !important;
+}
+
+.border-blue-400, .border-blue-500, .border-blue-600, .border-blue-700 {
+  border-color: var(--md-sys-color-primary) !important;
+}
+
+.focus\:ring-blue-200:focus,
+.focus\:ring-blue-300:focus,
+.focus\:ring-blue-400:focus,
+.focus\:ring-blue-500:focus,
+.focus\:ring-blue-600:focus {
+  --tw-ring-color: var(--tw-ring-color) !important; /* root var already derived from accent */
+  --tw-ring-color: color-mix(in srgb, var(--accent) 45%, transparent) !important;
+}
+
+.fill-blue-400, .fill-blue-500, .fill-blue-600, .fill-blue-700 { fill: var(--md-sys-color-primary) !important; }
+.stroke-blue-400, .stroke-blue-500, .stroke-blue-600, .stroke-blue-700 { stroke: var(--md-sys-color-primary) !important; }
 
 /* Optional micro animations */
 @keyframes scroll { from { transform: translateX(0) } to { transform: translateX(-100%) } }
