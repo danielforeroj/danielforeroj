@@ -21,7 +21,7 @@ export const initialHomeContent: HomeContent = {
   ],
   about: {
     title: "Who’s this guy?",
-    body: "I turn Web3 ideas into real-world businesses—and then make sure the world hears about them.\n\nOver the past decade I’ve launched ventures that tokenize real-estate, push millions in stablecoin flows across borders, and crack open new revenue models for everyday users. My growth playbook has powered mainstream traction for global brands, generated nine-figure TVL, and even put blockchain on the pop-culture stage with headline NFT drops for Quentin Tarantino, Doja Cat, and Jennifer Esposito."
+    body: "I turn Web3 ideas into real-world businesses, and then make sure the world hears about them.\n\nOver the past decade, I’ve helped my clients raise over $100M combined, push millions in stablecoin flows across borders, and crack open new revenue models for everyday users. My growth playbook has powered mainstream traction for global brands, generated nine-figure TVL, and even put blockchain on the pop-culture stage with headline NFT drops for Quentin Tarantino, Doja Cat, and Jennifer Esposito."
   },
   operator: {
     title: "Operator ➜ Angel Investor",
