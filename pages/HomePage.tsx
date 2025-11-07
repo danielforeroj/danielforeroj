@@ -39,8 +39,7 @@ const HomePage: React.FC = () => {
           <article className="card p-8">
             <h2 className="section-title text-2xl font-extrabold mb-3">{c.operator.title}</h2>
             <p className="leading-relaxed whitespace-pre-line">{c.operator.body}</p>
-
-            {/* CARD TAGS — same component, left aligned */}
+            {/* CARD TAGS — identical renderer */}
             <TagList items={c.hero_tags} align="left" className="mt-6" />
           </article>
         </div>
