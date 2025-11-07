@@ -1,4 +1,4 @@
-/* Base typography and smoothing */
+/* Base typography */
 html, body {
   margin: 0;
   padding: 0;
@@ -11,8 +11,13 @@ html, body {
 :root {
   --accent: #000000;
   --accent-contrast: #ffffff;
+
+  /* Useful mixes */
+  --df-accent-08: color-mix(in srgb, var(--accent) 8%, transparent);
   --df-accent-10: color-mix(in srgb, var(--accent) 10%, transparent);
   --df-accent-30: color-mix(in srgb, var(--accent) 30%, transparent);
+
+  /* Tailwind ring fallback */
   --tw-ring-color: color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
@@ -23,13 +28,14 @@ html, body {
   --md-sys-color-background: #f8f9fb;
   --md-sys-color-on-background: #1e293b;
 
-  /* Give cards clean white on light bg */
+  /* Clean white cards on the light bg */
   --md-sys-color-surface: #ffffff;
   --md-sys-color-on-surface: #111827;
 
   --md-sys-color-surface-variant: #eef1f6;
   --md-sys-color-outline: #d7dde8;
 
+  /* Primaries derive from accent */
   --md-sys-color-primary: var(--accent);
   --md-sys-color-on-primary: var(--accent-contrast);
   --md-sys-color-secondary: var(--accent);
@@ -41,7 +47,8 @@ html, body {
 
 /* ---------- DARK THEME ---------- */
 :root.dark {
-  --md-sys-color-background: #1b1c1e;     /* requested */
+  /* ✅ Requested dark background */
+  --md-sys-color-background: #1b1c1e;
   --md-sys-color-on-background: #e7e9ea;
 
   --md-sys-color-surface: #2a2b2e;
@@ -67,7 +74,7 @@ body {
 
 /* ---------------- Accent-driven utilities ---------------- */
 
-/* Buttons: ensure accent wins even if Tailwind blue classes are present */
+/* Buttons */
 .btn-primary,
 button.btn-primary,
 a.btn-primary,
@@ -107,9 +114,9 @@ a:hover, .link-accent:hover { opacity: .9; text-decoration: underline; }
 /* Chips / Pills */
 .chip, .badge, .tag, .pill,
 [class*="chip"], [class*="badge"], [class*="tag"], [class*="pill"] {
-  background: color-mix(in srgb, var(--accent) 8%, var(--md-sys-color-surface));
+  background: var(--df-accent-08);
   color: var(--md-sys-color-on-surface);
-  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--md-sys-color-outline));
+  border: 1px solid var(--df-accent-30);
   border-radius: 9999px;
 }
 
@@ -121,7 +128,7 @@ a:hover, .link-accent:hover { opacity: .9; text-decoration: underline; }
   border-radius: var(--brand-radius);
 }
 
-/* Nav active bubble if used */
+/* Nav active bubble */
 .nav-active, .active-bubble {
   background: color-mix(in srgb, var(--accent) 15%, var(--md-sys-color-surface));
   color: var(--md-sys-color-on-surface);
@@ -129,15 +136,24 @@ a:hover, .link-accent:hover { opacity: .9; text-decoration: underline; }
   border-radius: 9999px;
 }
 
-/* ---------- Force TITLES to follow ACCENT ---------- */
-/* This overrides Tailwind utilities like text-black / text-slate-900 on headings */
+/* ---------- FORCE TITLES TO ACCENT (even with gradients or text-black) ---------- */
 h1, h2, h3,
-.title, .heading, .hero-title, .section-title,
-h1[class*="text-"], h2[class*="text-"], h3[class*="text-"] {
+.title, .heading, .hero-title, .section-title {
+  /* kill any gradient text and force accent */
+  background-image: none !important;
+  -webkit-text-fill-color: var(--md-sys-color-primary) !important;
   color: var(--md-sys-color-primary) !important;
 }
 
-/* ---------- Tailwind “blue” override shim (ensures accent everywhere) ---------- */
+/* If headings had Tailwind text-black / text-slate-900, override them */
+h1.text-black, h2.text-black, h3.text-black,
+h1.text-slate-900, h2.text-slate-900, h3.text-slate-900,
+h1.text-gray-900, h2.text-gray-900, h3.text-gray-900 {
+  color: var(--md-sys-color-primary) !important;
+}
+
+/* ---------- Tailwind “blue” override shim (colors & gradients) ---------- */
+/* Plain blue utilities */
 .text-blue-400, .text-blue-500, .text-blue-600, .text-blue-700,
 .hover\:text-blue-400:hover, .hover\:text-blue-500:hover, .hover\:text-blue-600:hover, .hover\:text-blue-700:hover {
   color: var(--md-sys-color-primary) !important;
@@ -158,6 +174,20 @@ h1[class*="text-"], h2[class*="text-"], h3[class*="text-"] {
 }
 .fill-blue-400, .fill-blue-500, .fill-blue-600, .fill-blue-700 { fill: var(--md-sys-color-primary) !important; }
 .stroke-blue-400, .stroke-blue-500, .stroke-blue-600, .stroke-blue-700 { stroke: var(--md-sys-color-primary) !important; }
+
+/* Gradient text/background (bg-clip-text + from/to/via-blue-*) */
+[class*="from-blue-"] {
+  --tw-gradient-from: var(--accent) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+[class*="to-blue-"] {
+  --tw-gradient-to: color-mix(in srgb, var(--accent) 60%, transparent) !important;
+}
+[class*="via-blue-"] {
+  --tw-gradient-stops: var(--tw-gradient-from),
+    color-mix(in srgb, var(--accent) 80%, transparent),
+    var(--tw-gradient-to) !important;
+}
 
 /* Optional micro animations */
 @keyframes scroll { from { transform: translateX(0) } to { transform: translateX(-100%) } }
