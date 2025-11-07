@@ -1,146 +1,5 @@
-/* Base typography */
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* ---------- GLOBAL ACCENT (JS updates these) ---------- */
-:root {
-  --accent: #000000;
-  --accent-contrast: #ffffff;
-  --df-accent-08: color-mix(in srgb, var(--accent) 8%, transparent);
-  --df-accent-10: color-mix(in srgb, var(--accent) 10%, transparent);
-  --df-accent-30: color-mix(in srgb, var(--accent) 30%, transparent);
-  --tw-ring-color: color-mix(in srgb, var(--accent) 45%, transparent);
-}
-
-/* ---------- LIGHT THEME (default) ---------- */
-:root, :root.light {
-  --md-sys-color-background: #f8f9fb;   /* requested */
-  --md-sys-color-on-background: #1e293b;
-
-  --md-sys-color-surface: #ffffff;
-  --md-sys-color-on-surface: #111827;
-
-  --md-sys-color-surface-variant: #eef1f6;
-  --md-sys-color-outline: #d7dde8;
-
-  --md-sys-color-primary: var(--accent);
-  --md-sys-color-on-primary: var(--accent-contrast);
-  --md-sys-color-secondary: var(--accent);
-  --md-sys-color-on-secondary: var(--accent-contrast);
-
-  --brand-radius: 18px;
-  color-scheme: light;
-}
-
-/* ---------- DARK THEME ---------- */
-:root.dark {
-  --md-sys-color-background: #1b1c1e;   /* requested */
-  --md-sys-color-on-background: #e7e9ea;
-
-  --md-sys-color-surface: #2a2b2e;
-  --md-sys-color-on-surface: #e7e9ea;
-
-  --md-sys-color-surface-variant: #313236;
-  --md-sys-color-outline: #3b3d42;
-
-  --md-sys-color-primary: var(--accent);
-  --md-sys-color-on-primary: var(--accent-contrast);
-  --md-sys-color-secondary: var(--accent);
-  --md-sys-color-on-secondary: var(--accent-contrast);
-
-  --brand-radius: 18px;
-  color-scheme: dark;
-}
-
-/* Apply bg + text from tokens */
-body {
-  background: var(--md-sys-color-background);
-  color: var(--md-sys-color-on-background);
-}
-
-/* ---------------- Accent-driven utilities ---------------- */
-
-/* Buttons */
-.btn-primary, button.btn-primary, a.btn-primary,
-button[data-variant="primary"], .button-primary, button, a.button {
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-  border: 1px solid var(--md-sys-color-primary);
-  border-radius: var(--brand-radius);
-}
-button:hover, a.button:hover, .btn-primary:hover { filter: brightness(0.92); }
-
-/* Outline buttons */
-.btn-outline, button.btn-outline, a.btn-outline,
-button[data-variant="outline"], .button-outline {
-  background: transparent;
-  color: var(--md-sys-color-primary);
-  border: 1px solid var(--md-sys-color-primary);
-  border-radius: var(--brand-radius);
-}
-.btn-outline:hover, .button-outline:hover {
-  background: color-mix(in srgb, var(--accent) 10%, var(--md-sys-color-surface));
-}
-
-/* Links */
-a, .link-accent { color: var(--md-sys-color-primary); }
-a:hover, .link-accent:hover { opacity: .9; text-decoration: underline; }
-
-/* Cards */
-.df-surface, .card {
-  background: var(--md-sys-color-surface);
-  color: var(--md-sys-color-on-surface);
-  border: 1px solid var(--md-sys-color-outline);
-  border-radius: var(--brand-radius);
-}
-
-/* Nav active bubble */
-.nav-active, .active-bubble {
-  background: color-mix(in srgb, var(--accent) 15%, var(--md-sys-color-surface));
-  color: var(--md-sys-color-on-surface);
-  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--md-sys-color-outline));
-  border-radius: 9999px;
-}
-
-/* ---------- TITLES use ACCENT ---------- */
-h1, h2, h3,
-.title, .heading, .hero-title, .section-title {
-  background-image: none !important;
-  -webkit-text-fill-color: var(--md-sys-color-primary) !important;
-  color: var(--md-sys-color-primary) !important;
-}
-
-/* ---------- Tailwind “blue” override (colors & gradients) ---------- */
-.text-blue-400, .text-blue-500, .text-blue-600, .text-blue-700,
-.hover\:text-blue-400:hover, .hover\:text-blue-500:hover, .hover\:text-blue-600:hover, .hover\:text-blue-700:hover {
-  color: var(--md-sys-color-primary) !important;
-}
-.bg-blue-400, .bg-blue-500, .bg-blue-600, .bg-blue-700,
-.hover\:bg-blue-400:hover, .hover\:bg-blue-500:hover, .hover\:bg-blue-600:hover, .hover\:bg-blue-700:hover {
-  background-color: var(--md-sys-color-primary) !important;
-}
-.border-blue-400, .border-blue-500, .border-blue-600, .border-blue-700 {
-  border-color: var(--md-sys-color-primary) !important;
-}
-.focus\:ring-blue-200:focus, .focus\:ring-blue-300:focus,
-.focus\:ring-blue-400:focus, .focus\:ring-blue-500:focus, .focus\:ring-blue-600:focus {
-  --tw-ring-color: color-mix(in srgb, var(--accent) 45%, transparent) !important;
-}
-.fill-blue-400, .fill-blue-500, .fill-blue-600, .fill-blue-700 { fill: var(--md-sys-color-primary) !important; }
-.stroke-blue-400, .stroke-blue-500, .stroke-blue-600, .stroke-blue-700 { stroke: var(--md-sys-color-primary) !important; }
-
-/* Gradients */
-[class*="from-blue-"] { --tw-gradient-from: var(--accent) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
-[class*="to-blue-"]   { --tw-gradient-to: color-mix(in srgb, var(--accent) 60%, transparent) !important; }
-[class*="via-blue-"]  { --tw-gradient-stops: var(--tw-gradient-from), color-mix(in srgb, var(--accent) 80%, transparent), var(--tw-gradient-to) !important; }
-
 /* ---------- TAG PILLS (robust) ---------- */
-/* Works if elements have .chip/.tag/etc... */
+/* Base pill look (works when elements already have .chip/.tag classes) */
 .chip, .badge, .tag, .pill,
 [class*="chip"], [class*="badge"], [class*="tag"], [class*="pill"] {
   display: inline-flex;
@@ -157,7 +16,7 @@ h1, h2, h3,
   box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
-/* Fallback: style the row immediately after the hero H1 even if no classes are present */
+/* 1) HERO row (immediately after the H1) */
 main h1 + div {
   display: flex;
   flex-wrap: wrap;
@@ -179,6 +38,24 @@ main h1 + div > *:not(button) {
   box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
-/* Optional micro animations */
-@keyframes scroll { from { transform: translateX(0) } to { transform: translateX(-100%) } }
-.animate-scroll { animation: scroll 60s linear infinite; }
+/* 2) Any TAG row inside cards (Operator section, etc.)
+   Uses :has() to detect a container that holds multiple inline items. */
+.card :is(div,ul,ol):has(> :is(span,a):nth-child(2)) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.card :is(div,ul,ol):has(> :is(span,a):nth-child(2)) > :is(span,a) {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  background: var(--df-accent-08);
+  border: 1px solid var(--df-accent-30);
+  color: var(--md-sys-color-on-surface);
+  border-radius: 9999px;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent);
+}
