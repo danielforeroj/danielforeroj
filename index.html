@@ -2,65 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-  <!-- Site settings + theme bootstrap (used by App.tsx/ThemePicker) -->
+  <!-- Theme + site settings bootstrap -->
   <script>
     (function () {
-      const set=(k,v)=>localStorage.setItem(k,v);
-      const get=(k)=>localStorage.getItem(k);
+      const set = (k, v) => localStorage.setItem(k, v);
+      const get = (k) => localStorage.getItem(k);
 
+      // ✅ Default to LIGHT; still support "system" and "dark"
       window.__siteSettings = {
         branding: {
-          theme_default: "system",
-          accent_default: "#000000",
-          palette: ["#000000", "#fb0100", "#00ff85", "#3a83f3"]
+          theme_default: "light",
+          accent_default: "#0A2342",
+          palette: ["#0A2342", "#D7263D", "#3A83F3", "#00C389"]
         },
         seo: {
-          site_title: "Daniel Forero • Material 3 Web Portfolio",
+          site_title: "Daniel Forero — Web3/AI Marketing & PR",
           site_description:
             "I turn Web3 ideas into real-world businesses—and then make sure the world hears about them."
         }
       };
 
-      function applyTheme(mode, persist=false){
-        const root=document.documentElement;
-        root.classList.remove('light','dark');
+      // Single <meta name="theme-color"> we keep updated (for mobile UI)
+      const themeMeta =
+        document.querySelector('meta[name="theme-color"]') ||
+        (function () {
+          const m = document.createElement("meta");
+          m.name = "theme-color";
+          document.head.appendChild(m);
+          return m;
+        })();
+
+      function applyTheme(mode, persist = false) {
+        const root = document.documentElement;
+        root.classList.remove("light", "dark");
         let finalMode = mode;
-        if (mode === 'system') {
-          finalMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+        if (mode === "system") {
+          finalMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
         }
+
         root.dataset.theme = finalMode;
-        if(finalMode === 'light') root.classList.add('light');
-        if(finalMode === 'dark')  root.classList.add('dark');
-        if(persist) set('df_theme',mode);
+        root.classList.add(finalMode);
+
+        // Update color-scheme hint and meta theme-color to match tokens
+        if (finalMode === "dark") {
+          root.style.colorScheme = "dark";
+          themeMeta.setAttribute("content", "#0b162b"); // matches --background in dark
+        } else {
+          root.style.colorScheme = "light";
+          themeMeta.setAttribute("content", "#ffffff"); // matches --background in light
+        }
+
+        if (persist) set("df_theme", mode);
+
+        // If in system mode, react to OS changes
+        if (mode === "system") {
+          const mq = window.matchMedia("(prefers-color-scheme: dark)");
+          // Avoid stacking listeners on subsequent calls
+          if (!window.__dfSysListenerAttached) {
+            mq.addEventListener("change", () => applyTheme("system", false));
+            window.__dfSysListenerAttached = true;
+          }
+        }
       }
 
-      function applyAccent(hex, persist=false){
-        if(persist) set('df_accent',hex);
-        // Detailed palette will be applied by the React app.
+      function applyAccent(hex, persist = false) {
+        if (persist) set("df_accent", hex);
+        // Your React app/components can read and apply detailed palettes if needed.
       }
 
       const s = window.__siteSettings;
       document.title = s.seo.site_title;
 
-      const metaDesc = document.querySelector('meta[name="description"]') || (function(){
-        const m=document.createElement('meta'); m.name='description'; document.head.appendChild(m); return m;
-      })();
-      metaDesc.setAttribute('content', s.seo.site_description);
+      const metaDesc =
+        document.querySelector('meta[name="description"]') ||
+        (function () {
+          const m = document.createElement("meta");
+          m.name = "description";
+          document.head.appendChild(m);
+          return m;
+        })();
+      metaDesc.setAttribute("content", s.seo.site_description);
 
-      applyTheme(get('df_theme') || s.branding.theme_default);
-      if (!get('df_accent')) set('df_accent', s.branding.accent_default);
+      applyTheme(get("df_theme") || s.branding.theme_default);
+      if (!get("df_accent")) set("df_accent", s.branding.accent_default);
 
       window.DFTheme = {
         applyTheme,
         applyAccent,
-        resetToDefaults(){
-          localStorage.removeItem('df_theme');
-          localStorage.removeItem('df_accent');
+        resetToDefaults() {
+          localStorage.removeItem("df_theme");
+          localStorage.removeItem("df_accent");
           applyTheme(s.branding.theme_default, true);
           applyAccent(s.branding.accent_default, true);
           window.location.reload();
@@ -71,13 +107,14 @@
   </script>
 
   <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Daniel Forero • Material 3 Web Portfolio" />
+  <meta property="og:title" content="Daniel Forero — Web3/AI Marketing & PR" />
   <meta property="og:description" content="I turn Web3 ideas into real-world businesses—and then make sure the world hears about them." />
   <meta property="og:image" content="https://picsum.photos/1200/630" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#ffffff" />
 
-  <!-- Tailwind via CDN (works fine with Vite for this use-case) -->
+  <!-- Tailwind CDN (fine with Vite for this use-case) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Fonts & icons -->
@@ -86,13 +123,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
-  <!-- Base styles; App adds dynamic theme palette -->
+  <!-- Base styles; token sets for light/dark are in here -->
   <link rel="stylesheet" href="/index.css" />
 </head>
 <body class="antialiased">
   <div id="root"></div>
-
-  <!-- IMPORTANT: Only one entry. The old /src/index.tsx does not exist. -->
+  <!-- One entry point only -->
   <script type="module" src="/index.tsx"></script>
 </body>
 </html>
