@@ -80,7 +80,7 @@ h1, h2, h3,
 }
 .btn-primary:hover { filter: brightness(.92); }
 
-/* ---------- CHIPS (scoped + identical in hero and cards) ---------- */
+/* CHIPS (same look in hero and cards) */
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -104,4 +104,3 @@ h1, h2, h3,
   box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent);
   white-space: nowrap;
 }
-
