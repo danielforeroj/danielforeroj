@@ -2,7 +2,7 @@ import { Post, PostType, HomeContent } from '../types';
 
 export const initialHomeContent: HomeContent = {
   hero_title: "Daniel Forero",
-  hero_tags: ["Father", "Husband", "Marketer", "Angel Investor", "Nerd", "Crypto Degen"],
+  hero_tags: ["Father", "Husband", "Marketer", "Crypto Degen", "AI Nerd", "Angel Investor", "Gamer"],
   logos: [
     { name: 'Google', logoUrl: 'https://cdn.svgporn.com/logos/google.svg' },
     { name: 'Apple', logoUrl: 'https://cdn.svgporn.com/logos/apple.svg' },
