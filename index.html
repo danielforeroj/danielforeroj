@@ -10,12 +10,12 @@
       const set = (k, v) => localStorage.setItem(k, v);
       const get = (k) => localStorage.getItem(k);
 
-      // ✅ Default to LIGHT; still support "system" and "dark"
+      // ✅ Default LIGHT; dark uses #1b1c1e
       window.__siteSettings = {
         branding: {
           theme_default: "light",
-          accent_default: "#0A2342",
-          palette: ["#0A2342", "#D7263D", "#3A83F3", "#00C389"]
+          // Accent presets you asked for (index 0 = default)
+          palette: ["#000000", "#f80301", "#00ff86", "#3786ec"]
         },
         seo: {
           site_title: "Daniel Forero — Web3/AI Marketing & PR",
@@ -24,7 +24,7 @@
         }
       };
 
-      // Single <meta name="theme-color"> we keep updated (for mobile UI)
+      // Ensure we have a theme-color meta for mobile address bar
       const themeMeta =
         document.querySelector('meta[name="theme-color"]') ||
         (function () {
@@ -33,6 +33,20 @@
           document.head.appendChild(m);
           return m;
         })();
+
+      // Utility: choose black/white text for contrast
+      function contrastText(hex) {
+        const h = hex.replace("#", "");
+        const bigint = parseInt(h.length === 3 ? h.split("").map(c=>c+c).join("") : h, 16);
+        const r = (bigint >> 16) & 255, g = (bigint >> 8) & 255, b = bigint & 255;
+        // WCAG relative luminance
+        const [R,G,B] = [r,g,b].map(v => {
+          v /= 255;
+          return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4);
+        });
+        const L = 0.2126*R + 0.7152*G + 0.0722*B;
+        return L > 0.5 ? "#000000" : "#ffffff";
+      }
 
       function applyTheme(mode, persist = false) {
         const root = document.documentElement;
@@ -47,22 +61,19 @@
 
         root.dataset.theme = finalMode;
         root.classList.add(finalMode);
+        root.style.colorScheme = finalMode;
 
-        // Update color-scheme hint and meta theme-color to match tokens
+        // Update meta theme-color to match background
         if (finalMode === "dark") {
-          root.style.colorScheme = "dark";
-          themeMeta.setAttribute("content", "#0b162b"); // matches --background in dark
+          themeMeta.setAttribute("content", "#1b1c1e");
         } else {
-          root.style.colorScheme = "light";
-          themeMeta.setAttribute("content", "#ffffff"); // matches --background in light
+          themeMeta.setAttribute("content", "#ffffff");
         }
 
         if (persist) set("df_theme", mode);
 
-        // If in system mode, react to OS changes
         if (mode === "system") {
           const mq = window.matchMedia("(prefers-color-scheme: dark)");
-          // Avoid stacking listeners on subsequent calls
           if (!window.__dfSysListenerAttached) {
             mq.addEventListener("change", () => applyTheme("system", false));
             window.__dfSysListenerAttached = true;
@@ -70,14 +81,30 @@
         }
       }
 
+      // 🔑 Single source of truth for accent → updates all tokens
       function applyAccent(hex, persist = false) {
+        const style = document.documentElement.style;
+        const on = contrastText(hex);
+
+        // Core accent vars
+        style.setProperty("--accent", hex);
+        style.setProperty("--accent-contrast", on);
+
+        // Tie Material-like tokens to accent so the whole UI follows
+        style.setProperty("--md-sys-color-primary", hex);
+        style.setProperty("--md-sys-color-on-primary", on);
+        style.setProperty("--md-sys-color-secondary", hex);
+        style.setProperty("--md-sys-color-on-secondary", on);
+
+        // Subtle tints (used for chips/pills/outline mix)
+        // We rely on color-mix in CSS for backgrounds; contrast is enough here.
+
         if (persist) set("df_accent", hex);
-        // Your React app/components can read and apply detailed palettes if needed.
       }
 
+      // SEO
       const s = window.__siteSettings;
       document.title = s.seo.site_title;
-
       const metaDesc =
         document.querySelector('meta[name="description"]') ||
         (function () {
@@ -88,9 +115,12 @@
         })();
       metaDesc.setAttribute("content", s.seo.site_description);
 
+      // Initialize
       applyTheme(get("df_theme") || s.branding.theme_default);
-      if (!get("df_accent")) set("df_accent", s.branding.accent_default);
+      const initialAccent = get("df_accent") || s.branding.palette[0];
+      applyAccent(initialAccent);
 
+      // Expose API for your preset buttons
       window.DFTheme = {
         applyTheme,
         applyAccent,
@@ -98,7 +128,7 @@
           localStorage.removeItem("df_theme");
           localStorage.removeItem("df_accent");
           applyTheme(s.branding.theme_default, true);
-          applyAccent(s.branding.accent_default, true);
+          applyAccent(s.branding.palette[0], true);
           window.location.reload();
         },
         palette: s.branding.palette
@@ -114,7 +144,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#ffffff" />
 
-  <!-- Tailwind CDN (fine with Vite for this use-case) -->
+  <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Fonts & icons -->
@@ -123,12 +153,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
-  <!-- Base styles; token sets for light/dark are in here -->
+  <!-- Base styles and theme tokens -->
   <link rel="stylesheet" href="/index.css" />
 </head>
 <body class="antialiased">
   <div id="root"></div>
-  <!-- One entry point only -->
+  <!-- Single entry for Vite -->
   <script type="module" src="/index.tsx"></script>
 </body>
 </html>
