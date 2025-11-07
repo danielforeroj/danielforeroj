@@ -14,7 +14,7 @@
       window.__siteSettings = {
         branding: {
           theme_default: "light",
-          palette: ["#000000", "#f80301", "#00ff86", "#3786ec"] // 1) black 2) red 3) green 4) blue
+          palette: ["#000000", "#f80301", "#00ff86", "#3786ec"]
         },
         seo: {
           site_title: "Daniel Forero — Web3/AI Marketing & PR",
@@ -55,7 +55,10 @@
         root.dataset.theme = finalMode;
         root.classList.add(finalMode);
         root.style.colorScheme = finalMode;
-        themeMeta.setAttribute("content", finalMode === "dark" ? "#1b1c1e" : "#ffffff");
+
+        // ✅ Light uses #f8f9fb; Dark uses #1b1c1e
+        themeMeta.setAttribute("content", finalMode === "dark" ? "#1b1c1e" : "#f8f9fb");
+
         if (persist) set("df_theme", mode);
         if (mode === "system") {
           const mq = matchMedia("(prefers-color-scheme: dark)");
@@ -79,9 +82,9 @@
         s.setProperty("--md-sys-color-secondary", hex);
         s.setProperty("--md-sys-color-on-secondary", on);
 
-        // Tailwind ring global fallback (used if a component doesn’t set a specific ring color)
+        // Tailwind ring global fallback (for any focus rings)
         s.setProperty("--tw-ring-color", "color-mix(in srgb, " + hex + " 45%, transparent)");
-        // Accent tints used by chips/hover/outline via CSS color-mix
+        // Accent tints for chips/hover/outline
         s.setProperty("--df-accent-10", "color-mix(in srgb, " + hex + " 10%, transparent)");
         s.setProperty("--df-accent-30", "color-mix(in srgb, " + hex + " 30%, transparent)");
 
@@ -120,7 +123,7 @@
   <meta property="og:image" content="https://picsum.photos/1200/630" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#f8f9fb" />
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
