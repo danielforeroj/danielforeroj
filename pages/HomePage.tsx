@@ -1,6 +1,6 @@
 import React from "react";
 import TagList from "../src/components/TagList";
-import { initialHomeContent } from "../src/content/mock";
+import { initialHomeContent } from "../data/mockData";
 
 const HomePage: React.FC = () => {
   const c = initialHomeContent;
@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
         {/* HERO TAGS */}
         <TagList items={c.hero_tags} align="center" className="mt-6" />
 
-        {/* CTA */}
+        {/* HERO CTAs */}
         <div className="mt-8 flex items-center justify-center gap-4">
           {c.hero_buttons?.map((b) => (
             <a key={b.label} href={b.url} className="btn btn-primary">
@@ -39,7 +39,8 @@ const HomePage: React.FC = () => {
           <article className="card p-8">
             <h2 className="section-title text-2xl font-extrabold mb-3">{c.operator.title}</h2>
             <p className="leading-relaxed whitespace-pre-line">{c.operator.body}</p>
-            {/* CARD TAGS — identical renderer */}
+
+            {/* CARD TAGS — use the SAME component so pills match the hero */}
             <TagList items={c.hero_tags} align="left" className="mt-6" />
           </article>
         </div>
