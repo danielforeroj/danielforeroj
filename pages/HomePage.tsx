@@ -1,5 +1,6 @@
 import React from "react";
-import { initialHomeContent } from "../content/mock"; // <-- if your path is different, point this to your mock/content file
+import TagList from "../components/TagList";
+import { initialHomeContent } from "../content/mock"; // adjust path if your mock lives elsewhere
 
 const HomePage: React.FC = () => {
   const c = initialHomeContent;
@@ -13,13 +14,9 @@ const HomePage: React.FC = () => {
         </h1>
 
         {/* HERO TAGS */}
-        <div className="chips chips-hero mt-6">
-          {c.hero_tags.map((t) => (
-            <span key={t} className="chip">{t}</span>
-          ))}
-        </div>
+        <TagList items={c.hero_tags} align="center" className="mt-6" />
 
-        {/* HERO CTAs */}
+        {/* CTA */}
         <div className="mt-8 flex items-center justify-center gap-4">
           {c.hero_buttons?.map((b) => (
             <a key={b.label} href={b.url} className="btn btn-primary">
@@ -43,12 +40,8 @@ const HomePage: React.FC = () => {
             <h2 className="section-title text-2xl font-extrabold mb-3">{c.operator.title}</h2>
             <p className="leading-relaxed whitespace-pre-line">{c.operator.body}</p>
 
-            {/* CARD TAGS (explicit classes) */}
-            <div className="chips chips-card mt-6">
-              {c.hero_tags.map((t) => (
-                <span key={`op-${t}`} className="chip">{t}</span>
-              ))}
-            </div>
+            {/* CARD TAGS — same component, left aligned */}
+            <TagList items={c.hero_tags} align="left" className="mt-6" />
           </article>
         </div>
       </section>
