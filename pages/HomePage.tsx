@@ -1,6 +1,6 @@
 import React from "react";
-import TagList from "../components/TagList";
-import { initialHomeContent } from "../content/mock"; // adjust path if your mock lives elsewhere
+import TagList from "../src/components/TagList";
+import { initialHomeContent } from "../src/content/mock";
 
 const HomePage: React.FC = () => {
   const c = initialHomeContent;
