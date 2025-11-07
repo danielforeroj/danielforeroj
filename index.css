@@ -1,0 +1,25 @@
+/* Minimal baseline; your App injects the dynamic palette */
+:root {
+  --md-sys-color-primary: #0A2342;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #102d55;
+  --md-sys-color-on-primary-container: #e6eaf2;
+  --md-sys-color-surface: #0b162b;
+  --md-sys-color-on-surface: #e6eaf2;
+  --md-sys-color-surface-variant: #122744;
+  --md-sys-color-background: #071327;
+  --md-sys-color-on-background: #e6eaf2;
+  --md-sys-color-outline: #3b4a64;
+  --md-sys-color-inverse-surface: #e6eaf2;
+  --md-sys-color-inverse-on-surface: #101520;
+  --md-sys-color-inverse-primary: #5F6368;
+}
+body {
+  background: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+}
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+@keyframes scroll { from { transform: translateX(0) } to { transform: translateX(-100%) } }
+.animate-scroll { animation: scroll 60s linear infinite; }
