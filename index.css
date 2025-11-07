@@ -19,14 +19,16 @@ html, body {
 /* ---------- LIGHT THEME (default) ---------- */
 :root,
 :root.light {
-  --md-sys-color-background: #ffffff;
+  /* ✅ Requested light background */
+  --md-sys-color-background: #f8f9fb;
   --md-sys-color-on-background: #1e293b;
 
-  --md-sys-color-surface: #f2f4f7;
+  /* Give cards clean white on light bg */
+  --md-sys-color-surface: #ffffff;
   --md-sys-color-on-surface: #111827;
 
-  --md-sys-color-surface-variant: #e9edf3;
-  --md-sys-color-outline: #d1d8e3;
+  --md-sys-color-surface-variant: #eef1f6;
+  --md-sys-color-outline: #d7dde8;
 
   --md-sys-color-primary: var(--accent);
   --md-sys-color-on-primary: var(--accent-contrast);
@@ -63,7 +65,7 @@ body {
   color: var(--md-sys-color-on-background);
 }
 
-/* -------------- Accent-driven utilities -------------- */
+/* ---------------- Accent-driven utilities ---------------- */
 
 /* Buttons: ensure accent wins even if Tailwind blue classes are present */
 .btn-primary,
@@ -127,32 +129,33 @@ a:hover, .link-accent:hover { opacity: .9; text-decoration: underline; }
   border-radius: 9999px;
 }
 
-/* ---------- Tailwind “blue” override shim (forces accent) ---------- */
-/* This catches common classes you already have like text-blue-500, bg-blue-500, focus:ring-blue-300, etc. */
+/* ---------- Force TITLES to follow ACCENT ---------- */
+/* This overrides Tailwind utilities like text-black / text-slate-900 on headings */
+h1, h2, h3,
+.title, .heading, .hero-title, .section-title,
+h1[class*="text-"], h2[class*="text-"], h3[class*="text-"] {
+  color: var(--md-sys-color-primary) !important;
+}
 
+/* ---------- Tailwind “blue” override shim (ensures accent everywhere) ---------- */
 .text-blue-400, .text-blue-500, .text-blue-600, .text-blue-700,
 .hover\:text-blue-400:hover, .hover\:text-blue-500:hover, .hover\:text-blue-600:hover, .hover\:text-blue-700:hover {
   color: var(--md-sys-color-primary) !important;
 }
-
 .bg-blue-400, .bg-blue-500, .bg-blue-600, .bg-blue-700,
 .hover\:bg-blue-400:hover, .hover\:bg-blue-500:hover, .hover\:bg-blue-600:hover, .hover\:bg-blue-700:hover {
   background-color: var(--md-sys-color-primary) !important;
 }
-
 .border-blue-400, .border-blue-500, .border-blue-600, .border-blue-700 {
   border-color: var(--md-sys-color-primary) !important;
 }
-
 .focus\:ring-blue-200:focus,
 .focus\:ring-blue-300:focus,
 .focus\:ring-blue-400:focus,
 .focus\:ring-blue-500:focus,
 .focus\:ring-blue-600:focus {
-  --tw-ring-color: var(--tw-ring-color) !important; /* root var already derived from accent */
   --tw-ring-color: color-mix(in srgb, var(--accent) 45%, transparent) !important;
 }
-
 .fill-blue-400, .fill-blue-500, .fill-blue-600, .fill-blue-700 { fill: var(--md-sys-color-primary) !important; }
 .stroke-blue-400, .stroke-blue-500, .stroke-blue-600, .stroke-blue-700 { stroke: var(--md-sys-color-primary) !important; }
 
