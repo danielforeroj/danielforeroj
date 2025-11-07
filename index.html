@@ -10,12 +10,11 @@
       const set = (k, v) => localStorage.setItem(k, v);
       const get = (k) => localStorage.getItem(k);
 
-      // ✅ Default LIGHT; dark uses #1b1c1e
+      // Default LIGHT; DARK bg = #1b1c1e
       window.__siteSettings = {
         branding: {
           theme_default: "light",
-          // Accent presets you asked for (index 0 = default)
-          palette: ["#000000", "#f80301", "#00ff86", "#3786ec"]
+          palette: ["#000000", "#f80301", "#00ff86", "#3786ec"] // 1) black 2) red 3) green 4) blue
         },
         seo: {
           site_title: "Daniel Forero — Web3/AI Marketing & PR",
@@ -24,7 +23,6 @@
         }
       };
 
-      // Ensure we have a theme-color meta for mobile address bar
       const themeMeta =
         document.querySelector('meta[name="theme-color"]') ||
         (function () {
@@ -34,109 +32,89 @@
           return m;
         })();
 
-      // Utility: choose black/white text for contrast
       function contrastText(hex) {
         const h = hex.replace("#", "");
-        const bigint = parseInt(h.length === 3 ? h.split("").map(c=>c+c).join("") : h, 16);
-        const r = (bigint >> 16) & 255, g = (bigint >> 8) & 255, b = bigint & 255;
-        // WCAG relative luminance
-        const [R,G,B] = [r,g,b].map(v => {
+        const n = h.length === 3 ? h.split("").map(c=>c+c).join("") : h;
+        const num = parseInt(n, 16);
+        const r = (num >> 16) & 255, g = (num >> 8) & 255, b = num & 255;
+        const L = [r, g, b].map(v => {
           v /= 255;
           return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4);
         });
-        const L = 0.2126*R + 0.7152*G + 0.0722*B;
-        return L > 0.5 ? "#000000" : "#ffffff";
+        const lum = 0.2126*L[0] + 0.7152*L[1] + 0.0722*L[2];
+        return lum > 0.5 ? "#000000" : "#ffffff";
       }
 
       function applyTheme(mode, persist = false) {
         const root = document.documentElement;
-        root.classList.remove("light", "dark");
+        root.classList.remove("light","dark");
         let finalMode = mode;
-
         if (mode === "system") {
-          finalMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
+          finalMode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         }
-
         root.dataset.theme = finalMode;
         root.classList.add(finalMode);
         root.style.colorScheme = finalMode;
-
-        // Update meta theme-color to match background
-        if (finalMode === "dark") {
-          themeMeta.setAttribute("content", "#1b1c1e");
-        } else {
-          themeMeta.setAttribute("content", "#ffffff");
-        }
-
+        themeMeta.setAttribute("content", finalMode === "dark" ? "#1b1c1e" : "#ffffff");
         if (persist) set("df_theme", mode);
-
         if (mode === "system") {
-          const mq = window.matchMedia("(prefers-color-scheme: dark)");
+          const mq = matchMedia("(prefers-color-scheme: dark)");
           if (!window.__dfSysListenerAttached) {
-            mq.addEventListener("change", () => applyTheme("system", false));
+            mq.addEventListener("change", () => applyTheme("system"));
             window.__dfSysListenerAttached = true;
           }
         }
       }
 
-      // 🔑 Single source of truth for accent → updates all tokens
+      // SINGLE source of truth for accent
       function applyAccent(hex, persist = false) {
-        const style = document.documentElement.style;
         const on = contrastText(hex);
+        const s = document.documentElement.style;
 
-        // Core accent vars
-        style.setProperty("--accent", hex);
-        style.setProperty("--accent-contrast", on);
+        // Core accent + material-ish tokens
+        s.setProperty("--accent", hex);
+        s.setProperty("--accent-contrast", on);
+        s.setProperty("--md-sys-color-primary", hex);
+        s.setProperty("--md-sys-color-on-primary", on);
+        s.setProperty("--md-sys-color-secondary", hex);
+        s.setProperty("--md-sys-color-on-secondary", on);
 
-        // Tie Material-like tokens to accent so the whole UI follows
-        style.setProperty("--md-sys-color-primary", hex);
-        style.setProperty("--md-sys-color-on-primary", on);
-        style.setProperty("--md-sys-color-secondary", hex);
-        style.setProperty("--md-sys-color-on-secondary", on);
-
-        // Subtle tints (used for chips/pills/outline mix)
-        // We rely on color-mix in CSS for backgrounds; contrast is enough here.
+        // Tailwind ring global fallback (used if a component doesn’t set a specific ring color)
+        s.setProperty("--tw-ring-color", "color-mix(in srgb, " + hex + " 45%, transparent)");
+        // Accent tints used by chips/hover/outline via CSS color-mix
+        s.setProperty("--df-accent-10", "color-mix(in srgb, " + hex + " 10%, transparent)");
+        s.setProperty("--df-accent-30", "color-mix(in srgb, " + hex + " 30%, transparent)");
 
         if (persist) set("df_accent", hex);
       }
 
       // SEO
-      const s = window.__siteSettings;
-      document.title = s.seo.site_title;
-      const metaDesc =
-        document.querySelector('meta[name="description"]') ||
-        (function () {
-          const m = document.createElement("meta");
-          m.name = "description";
-          document.head.appendChild(m);
-          return m;
-        })();
-      metaDesc.setAttribute("content", s.seo.site_description);
+      const cfg = window.__siteSettings;
+      document.title = cfg.seo.site_title;
+      (document.querySelector('meta[name="description"]') || (() => {
+        const m = document.createElement("meta"); m.name = "description"; document.head.appendChild(m); return m;
+      })()).setAttribute("content", cfg.seo.site_description);
 
-      // Initialize
-      applyTheme(get("df_theme") || s.branding.theme_default);
-      const initialAccent = get("df_accent") || s.branding.palette[0];
-      applyAccent(initialAccent);
+      // Init
+      applyTheme(get("df_theme") || cfg.branding.theme_default);
+      applyAccent(get("df_accent") || cfg.branding.palette[0]);
 
-      // Expose API for your preset buttons
+      // Expose to UI
       window.DFTheme = {
-        applyTheme,
-        applyAccent,
+        applyTheme, applyAccent,
         resetToDefaults() {
           localStorage.removeItem("df_theme");
           localStorage.removeItem("df_accent");
-          applyTheme(s.branding.theme_default, true);
-          applyAccent(s.branding.palette[0], true);
-          window.location.reload();
+          applyTheme(cfg.branding.theme_default, true);
+          applyAccent(cfg.branding.palette[0], true);
+          location.reload();
         },
-        palette: s.branding.palette
+        palette: cfg.branding.palette
       };
     })();
   </script>
 
-  <!-- Open Graph / Twitter -->
+  <!-- OG / Twitter -->
   <meta property="og:title" content="Daniel Forero — Web3/AI Marketing & PR" />
   <meta property="og:description" content="I turn Web3 ideas into real-world businesses—and then make sure the world hears about them." />
   <meta property="og:image" content="https://picsum.photos/1200/630" />
@@ -144,7 +122,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#ffffff" />
 
-  <!-- Tailwind (CDN) -->
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Fonts & icons -->
