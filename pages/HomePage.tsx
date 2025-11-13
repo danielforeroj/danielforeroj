@@ -1,24 +1,50 @@
 // /pages/HomePage.tsx
 import React from "react";
 import { initialHomeContent } from "../data/mockData";
+import { posts } from "../data/mockData";
 
-/** Inline chip renderer so we avoid any cross-folder import issues */
-const Chips: React.FC<{ items: string[]; align?: "left" | "center"; className?: string }> = ({
-  items,
-  align = "center",
-  className = "",
-}) => (
-  <div className={`chips ${align === "center" ? "chips-hero" : "chips-card"} ${className}`} role="list">
-    {items.map((t) => (
-      <span key={t} className="chip" role="listitem">
-        {t}
-      </span>
-    ))}
-  </div>
-);
+/** Small inline chip renderer to avoid fragile imports */
+const Chips: React.FC<{
+  items: Array<string | { name: string; url?: string }>;
+  align?: "left" | "center";
+  className?: string;
+  asLinks?: boolean;
+}> = ({ items, align = "center", className = "", asLinks = false }) => {
+  const justify = align === "center" ? "justify-center" : "justify-start";
+  return (
+    <div className={`chips flex flex-wrap gap-3 ${justify} ${className}`}>
+      {items.map((it) => {
+        const label = typeof it === "string" ? it : it.name;
+        const href = typeof it === "string" ? undefined : it.url;
+        if (asLinks && href) {
+          return (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="chip inline-flex items-center px-3 py-2 rounded-full border"
+            >
+              {label}
+            </a>
+          );
+        }
+        return (
+          <span key={label} className="chip inline-flex items-center px-3 py-2 rounded-full border">
+            {label}
+          </span>
+        );
+      })}
+    </div>
+  );
+};
+
+const fmt = (iso: string) =>
+  new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 
 const HomePage: React.FC = () => {
   const c = initialHomeContent;
+  const latest = (posts ?? []).slice(0, 6);
 
   return (
     <div>
@@ -39,7 +65,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* CARDS */}
+      {/* ABOUT + OPERATOR */}
       <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* ABOUT */}
@@ -52,12 +78,56 @@ const HomePage: React.FC = () => {
           <article className="card p-8">
             <h2 className="section-title text-2xl font-extrabold mb-3">{c.operator.title}</h2>
             <p className="leading-relaxed whitespace-pre-line">{c.operator.body}</p>
-
-            {/* same chips as hero, left-aligned */}
             <Chips items={c.hero_tags} align="left" className="mt-6" />
           </article>
         </div>
       </section>
+
+      {/* SOCIALS */}
+      {c.socials?.length ? (
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 text-center">
+          <h3 className="text-2xl font-extrabold mb-4">My Official SM Channels</h3>
+          <Chips items={c.socials} align="center" asLinks className="mt-2" />
+        </section>
+      ) : null}
+
+      {/* VENTURES */}
+      {c.ventures?.length ? (
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <h3 className="text-2xl font-extrabold mb-6 text-center">Ventures & Roles</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {c.ventures.map((v) => (
+              <article key={v.title} className="card p-8">
+                <h4 className="text-xl font-bold mb-2">{v.title}</h4>
+                <p className="leading-relaxed mb-4">{v.body}</p>
+                {v.ctaUrl && v.ctaLabel ? (
+                  <a href={v.ctaUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                    {v.ctaLabel}
+                  </a>
+                ) : null}
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {/* LATEST POSTS */}
+      {latest.length ? (
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+          <h3 className="text-2xl font-extrabold mb-6 text-center">Latest writing</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {latest.map((p) => (
+              <article key={p.slug} className="card p-8">
+                <div className="text-sm opacity-70 mb-2">{fmt(p.date)}</div>
+                <h4 className="text-xl font-bold mb-2">{p.title}</h4>
+                <p className="mb-4">{p.excerpt}</p>
+                {p.tags?.length ? <Chips items={p.tags.slice(0, 6)} align="left" className="mb-4" /> : null}
+                <a href={`/post/${p.slug}`} className="btn btn-primary">Read</a>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 };
