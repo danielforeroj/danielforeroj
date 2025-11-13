@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
         {/* HERO TAGS */}
         <TagList items={c.hero_tags} align="center" className="mt-6" />
 
-        {/* HERO CTAs */}
+        {/* CTAs */}
         <div className="mt-8 flex items-center justify-center gap-4">
           {c.hero_buttons?.map((b) => (
             <a key={b.label} href={b.url} className="btn btn-primary">
@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* TWO CARDS */}
+      {/* CARDS */}
       <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* ABOUT */}
@@ -39,8 +39,7 @@ const HomePage: React.FC = () => {
           <article className="card p-8">
             <h2 className="section-title text-2xl font-extrabold mb-3">{c.operator.title}</h2>
             <p className="leading-relaxed whitespace-pre-line">{c.operator.body}</p>
-
-            {/* CARD TAGS — use the SAME component so pills match the hero */}
+            {/* exact same chip renderer, left aligned */}
             <TagList items={c.hero_tags} align="left" className="mt-6" />
           </article>
         </div>
