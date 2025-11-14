@@ -1,57 +1,82 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
 
-// FIX: Updated props to be more flexible for polymorphic use.
-// It accepts all button attributes, plus 'as', 'href', 'to', 'target', 'rel'
-// to satisfy usage with `<a>` and `NavLink` and fix TS errors.
+type Variant =
+  | "cta1"                 // filled → outline on hover → pressed inner tint
+  | "cta2"                 // outline → filled on hover → pressed inner tint
+  // kept for backward-compat with any older usage:
+  | "filled"
+  | "outlined"
+  | "tonal"
+  | "ghost"
+  | "filled-to-ghost";
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant?: 'filled' | 'tonal' | 'outlined' | 'ghost' | 'filled-to-ghost';
-  icon?: string;
-  as?: React.ElementType;
-  href?: string;
-  to?: string;
+  variant?: Variant;
+  icon?: string;                       // Material Symbols name (optional)
+  as?: React.ElementType;              // polymorphic (a, button, Link, etc.)
+  href?: string;                       // for <a>
+  to?: string;                         // for routers
   target?: string;
   rel?: string;
-  // FIX: Added 'download' property to support the download attribute on anchor tags.
-  download?: boolean | string;
+  download?: boolean | string;         // for <a download>
+  className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, variant = 'filled', icon, as, href, ...props }) => {
-  // FIX: Implement polymorphic behavior to correctly render `button`, `a`, or custom components like `NavLink`.
-  const Component = as || (href ? 'a' : 'button');
+/**
+ * Button
+ * - Variants "cta1" and "cta2" implement the exact interactions Daniel specified.
+ * - Uses CSS classes defined in index.css (see step 2 below).
+ * - Polymorphic via `as` (defaults to 'button'); auto-works with <a>, React Router, etc.
+ */
+const Button: React.FC<ButtonProps> = ({
+  children,
+  variant = "cta1",
+  icon,
+  as,
+  href,
+  to,
+  className = "",
+  ...rest
+}) => {
+  const Component = (as ?? (href ? "a" : "button")) as React.ElementType;
 
-  const baseClasses = 'inline-flex items-center justify-center gap-2 px-6 h-10 rounded-full font-semibold text-sm tracking-wide transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--md-sys-color-background)]';
-  
-  const variantClasses = {
-    filled: 'bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] hover:shadow-md hover:brightness-110 active:brightness-100 focus-visible:ring-[var(--md-sys-color-primary)]',
-    tonal: 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] hover:shadow-sm hover:brightness-95 active:brightness-90 focus-visible:ring-[var(--md-sys-color-secondary-container)]',
-    outlined: 'text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary)]/10 active:bg-[var(--md-sys-color-primary)]/15 focus-visible:ring-[var(--md-sys-color-primary)]',
-    ghost: 'border border-[var(--md-sys-color-outline)] text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary)] hover:text-[var(--md-sys-color-on-primary)] focus-visible:ring-[var(--md-sys-color-primary)]',
-    'filled-to-ghost': 'bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] border-2 border-transparent hover:bg-transparent hover:text-[var(--md-sys-color-primary)] hover:border-[var(--md-sys-color-outline)] focus-visible:ring-[var(--md-sys-color-primary)]'
-  };
+  // map legacy variants to sane defaults so older code doesn't break
+  const normalized: Variant =
+    variant === "filled" ? "cta1"
+    : variant === "outlined" ? "cta2"
+    : variant === "filled-to-ghost" ? "cta1"
+    : variant; // cta1 | cta2 | tonal | ghost
 
-  const className = `${baseClasses} ${variantClasses[variant]} ${props.className || ''}`;
+  const vClass =
+    normalized === "cta1" ? "btn-cta1"
+    : normalized === "cta2" ? "btn-cta2"
+    : normalized === "tonal" ? "btn-tonal"
+    : normalized === "ghost" ? "btn-ghost"
+    : "btn-cta1";
+
+  const classes = `btn ${vClass} ${className}`.trim();
 
   const content = (
     <>
-      {icon && <span className="material-symbols-outlined text-lg">{icon}</span>}
+      {icon ? (
+        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 18, marginRight: 6 }}>
+          {icon}
+        </span>
+      ) : null}
       {children}
     </>
   );
 
+  // pass through unknown props (polymorphic)
   const allProps = {
-    ...props,
+    ...rest,
     href,
-    className,
+    to,
+    className: classes,
   };
 
-  // The cast to `any` is a pragmatic way to handle the polymorphic nature
-  // without overly complex conditional types, given the mixed props.
-  return (
-    <Component {...allProps as any}>
-      {content}
-    </Component>
-  );
+  return <Component {...(allProps as any)}>{content}</Component>;
 };
 
 export default Button;
