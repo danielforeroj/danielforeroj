@@ -104,3 +104,51 @@ h1, h2, h3,
   box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent);
   white-space: nowrap;
 }
+/* ===== CTA BUTTONS (Daniel) =====
+   Uses CSS vars already set by DFTheme (applyAccent/applyTheme)
+   --accent and --md-sys-color-primary exist in your setup.
+*/
+:root{
+  --on-accent: var(--md-sys-color-on-primary, #fff);
+}
+/* pressed tint changes by theme */
+.light { --btn-pressed-tint: rgba(0,0,0,.10); }
+.dark  { --btn-pressed-tint: rgba(255,255,255,.16); }
+
+/* Base button (respects your existing .btn if present; this augments it safely) */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:9999px; padding:0.625rem 1.1rem;
+  font-weight:600; line-height:1; border:2px solid transparent;
+  transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s, transform .05s;
+  text-decoration:none;
+}
+.btn:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 40%, transparent); outline-offset: 2px; }
+
+/* CTA 1 — filled (still) → outline (hover) → pressed inner tint */
+.btn-cta1{ background:var(--accent); color:var(--on-accent); }
+.btn-cta1:hover{ background:transparent; color:var(--accent); border-color:var(--accent); }
+.btn-cta1:active{
+  background:var(--accent); color:var(--on-accent);
+  box-shadow: inset 0 0 0 9999px var(--btn-pressed-tint); transform: translateY(1px);
+}
+
+/* CTA 2 — outline (still) → filled (hover) → pressed inner tint */
+.btn-cta2{ background:transparent; color:var(--accent); border-color:var(--accent); }
+.btn-cta2:hover{ background:var(--accent); color:var(--on-accent); }
+.btn-cta2:active{
+  background:var(--accent); color:var(--on-accent);
+  box-shadow: inset 0 0 0 9999px var(--btn-pressed-tint); transform: translateY(1px);
+}
+
+/* Optional compatible variants if legacy code uses them */
+.btn-tonal{
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--md-sys-color-on-surface);
+  border-color: transparent;
+}
+.btn-ghost{
+  background: transparent;
+  color: var(--md-sys-color-on-surface);
+  border-color: transparent;
+}
