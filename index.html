@@ -143,6 +143,40 @@
 
   <!-- Base styles and theme tokens -->
   <link rel="stylesheet" href="/index.css" />
+  <style id="cta-styles">
+  /* Uses your live accent + theme vars set by DFTheme.applyAccent/applyTheme */
+  :root{
+    --accent: var(--md-sys-color-primary, #000000);
+    --on-accent: var(--md-sys-color-on-primary, #ffffff);
+  }
+  .light{ --pressed-tint: rgba(0,0,0,.10); }
+  .dark { --pressed-tint: rgba(255,255,255,.16); }
+
+  /* Base button */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    border-radius:9999px; padding:0.625rem 1.1rem;
+    font-weight:600; line-height:1; border:2px solid transparent;
+    transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s, transform .05s;
+  }
+
+  /* CTA 1 — filled → outline on hover → pressed inner shadow */
+  .btn-cta1{ background:var(--accent); color:var(--on-accent); }
+  .btn-cta1:hover{ background:transparent; color:var(--accent); border-color:var(--accent); }
+  .btn-cta1:active{
+    background:var(--accent); color:var(--on-accent);
+    box-shadow: inset 0 0 0 9999px var(--pressed-tint); transform: translateY(1px);
+  }
+
+  /* CTA 2 — outline → filled on hover → pressed inner shadow */
+  .btn-cta2{ background:transparent; color:var(--accent); border-color:var(--accent); }
+  .btn-cta2:hover{ background:var(--accent); color:var(--on-accent); }
+  .btn-cta2:active{
+    background:var(--accent); color:var(--on-accent);
+    box-shadow: inset 0 0 0 9999px var(--pressed-tint); transform: translateY(1px);
+  }
+</style>
+
 </head>
 <body class="antialiased">
   <div id="root"></div>
