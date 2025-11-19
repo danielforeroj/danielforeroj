@@ -62,27 +62,45 @@ const App: React.FC = () => {
 
     if (metaTheme) metaTheme.setAttribute('content', finalMode === 'dark' ? DARK_BG : LIGHT_BG);
   }, []);
+// keep these imports:
+// import { applyAccentTokens, persistThemeAndAccent, defaultPalette, ThemeMode } from "./themes/colorPalettes";
 
-  /* ---------- Apply Accent ---------- */
-  const applyAccent = useCallback((hex: string) => {
-    const on = contrastText(hex);
-    const s = document.documentElement.style;
+const [theme, setTheme]   = React.useState<ThemeMode>(
+  (localStorage.getItem("df_theme") as ThemeMode) ?? "light"
+);
+const [accent, setAccent] = React.useState<string>(
+  localStorage.getItem("df_accent") ?? defaultPalette[0]
+);
 
-    // Core tokens + Tailwind ring fallback
-    s.setProperty('--accent', hex);
-    s.setProperty('--accent-contrast', on);
-    s.setProperty('--md-sys-color-primary', hex);
-    s.setProperty('--md-sys-color-on-primary', on);
-    s.setProperty('--md-sys-color-secondary', hex);
-    s.setProperty('--md-sys-color-on-secondary', on);
-    s.setProperty('--tw-ring-color', `color-mix(in srgb, ${hex} 45%, transparent)`);
-    s.setProperty('--df-accent-10', `color-mix(in srgb, ${hex} 10%, transparent)`);
-    s.setProperty('--df-accent-30', `color-mix(in srgb, ${hex} 30%, transparent)`);
+// run once on mount – paints current theme/accent and sets meta theme-color
+React.useEffect(() => {
+  applyAccentTokens(accent, theme);
+  persistThemeAndAccent(theme, accent);
+  const meta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
+  if (meta) meta.content = theme === "dark" ? "#121316" : "#F8F9FB";
+}, []);
 
-    // Optional: generate M3-like extended palette (kept for your components)
-    const p = generatePalette(hex);
-    Object.entries(p).forEach(([k, v]) => s.setProperty(`--md-sys-color-${k.replaceAll('_', '-')}`, v));
-  }, []);
+// re-apply whenever theme or accent changes
+React.useEffect(() => {
+  applyAccentTokens(accent, theme);
+  persistThemeAndAccent(theme, accent);
+}, [accent, theme]);
+
+// call this when the user picks a new accent
+const onChangeAccent = React.useCallback((hex: string) => {
+  setAccent(hex);
+  applyAccentTokens(hex, theme);
+  persistThemeAndAccent(theme, hex);
+}, [theme]);
+
+// call this when the user switches theme
+const onChangeTheme = React.useCallback((mode: ThemeMode) => {
+  setTheme(mode);
+  applyAccentTokens(accent, mode);
+  persistThemeAndAccent(mode, accent);
+  const meta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
+  if (meta) meta.content = mode === "dark" ? "#121316" : "#F8F9FB";
+}, [accent]);
 
   /* ---------- Effects ---------- */
   useEffect(() => {
