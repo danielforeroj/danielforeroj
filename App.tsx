@@ -8,7 +8,6 @@ import PostDetailPage from './pages/PostDetailPage';
 import { PostType } from './types';
 import SkipToContent from './components/SkipToContent';
 import ThemePicker from './components/ThemePicker';
-import { generatePalette } from './themes/colorPalettes';
 import { applyAccentTokens, persistThemeAndAccent, defaultPalette, ThemeMode } from "./themes/colorPalettes";
 
 
