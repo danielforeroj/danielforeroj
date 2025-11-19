@@ -9,6 +9,8 @@ import { PostType } from './types';
 import SkipToContent from './components/SkipToContent';
 import ThemePicker from './components/ThemePicker';
 import { generatePalette } from './themes/colorPalettes';
+import { applyAccentTokens, persistThemeAndAccent, defaultPalette, ThemeMode } from "./themes/colorPalettes";
+
 
 /* ---------- Utilities ---------- */
 const THEME_KEY = 'df_theme';   // 'light' | 'dark' | 'system'
