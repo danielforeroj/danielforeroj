@@ -2,6 +2,7 @@
 import React from "react";
 import { initialHomeContent } from "../data/mockData";
 import { posts } from "../data/mockData";
+import Button from "../components/Button";
 
 /** Small inline chip renderer to avoid fragile imports */
 const Chips: React.FC<{
