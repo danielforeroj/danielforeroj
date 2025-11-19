@@ -152,3 +152,38 @@ h1, h2, h3,
   color: var(--md-sys-color-on-surface);
   border-color: transparent;
 }
+/* ------- SURFACE TOKENS (light/dark) ------- */
+:root{
+  /* page bg already set to #f8f9fb via your bootstrap */
+  --surface: #ffffff;                       /* header/FAB/card base */
+  --surface-2: color-mix(in srgb, #000 4%, var(--surface));
+  --hairline: color-mix(in srgb, #0a0a0a 12%, transparent); /* subtle border */
+  --on-surface: #0f1115;
+}
+
+.dark{
+  --surface: #111315;
+  --surface-2: color-mix(in srgb, #fff 4%, var(--surface));
+  --hairline: color-mix(in srgb, #ffffff 14%, transparent);
+  --on-surface: #e6e8ec;
+}
+
+/* ------- OPAQUE HEADER + FAB ------- */
+.header-opaque{
+  position: sticky; top: 0; z-index: 50;
+  background: var(--surface);
+  border-bottom: 1px solid var(--hairline);
+  /* keep it crisp; if you like blur, add: backdrop-filter: blur(8px) saturate(160%); */
+}
+
+.fab-opaque{
+  background: var(--surface);
+  color: var(--on-surface);
+  border: 1px solid var(--hairline);
+  box-shadow:
+    0 8px 24px color-mix(in srgb, #000 16%, transparent),
+    0 1px 0 color-mix(in srgb, #fff 4%, transparent) inset;
+}
+
+/* Ensures no accidental transparency leaks */
+.header-opaque *, .fab-opaque * { background-color: transparent; }
