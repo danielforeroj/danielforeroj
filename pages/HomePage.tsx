@@ -3,7 +3,7 @@ import React from "react";
 import { initialHomeContent, posts } from "../data/mockData";
 import Button from "../components/Button";
 
-/** Inline chips (for tags) so we avoid fragile imports */
+/** Small inline chip renderer */
 const Chips: React.FC<{
   items: Array<string | { name: string; url?: string }>;
   align?: "left" | "center";
@@ -45,21 +45,11 @@ const fmt = (iso: string) =>
 const HomePage: React.FC = () => {
   const c = initialHomeContent;
 
-  // Build CTA1 list = hero_buttons + socials (dedup by label)
-  const heroCTAItems = [
-    ...(c.hero_buttons ?? []),
-    ...(c.socials ?? []).map((s) => ({ label: s.name, url: s.url })),
-  ].filter(Boolean) as Array<{ label: string; url: string }>;
+  // Top hero CTAs: ONLY what's defined in hero_buttons (CTA1)
+  const heroCTA = (c.hero_buttons ?? []).slice(0, 4); // safe cap if extended later
 
-  const dedupedHeroCTA = (() => {
-    const seen = new Set<string>();
-    return heroCTAItems.filter((b) => {
-      const k = b.label.trim().toLowerCase();
-      if (seen.has(k)) return false;
-      seen.add(k);
-      return true;
-    });
-  })();
+  // Social CTAs (CTA1)
+  const socialCTA = (c.socials ?? []).map((s) => ({ label: s.name, url: s.url }));
 
   const latest = (posts ?? []).slice(0, 6);
 
@@ -72,9 +62,9 @@ const HomePage: React.FC = () => {
         {/* HERO TAGS */}
         <Chips items={c.hero_tags} align="center" className="mt-6" />
 
-        {/* HERO CTAs (CTA1 behavior) */}
+        {/* HERO CTAs (CTA1 only: Get in touch, LinkedIn) */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          {dedupedHeroCTA.map((b) => (
+          {heroCTA.map((b) => (
             <Button key={b.label} as="a" href={b.url} variant="cta1">
               {b.label}
             </Button>
@@ -100,11 +90,17 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* SOCIALS SECTION (kept for structure; links shown as chips here) */}
-      {c.socials?.length ? (
-        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 text-center">
+      {/* SOCIALS as CTA1 */}
+      {socialCTA.length ? (
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 text-center">
           <h3 className="text-2xl font-extrabold mb-4">My Official SM Channels</h3>
-          <Chips items={c.socials} align="center" asLinks className="mt-2" />
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {socialCTA.map((b) => (
+              <Button key={b.label} as="a" href={b.url} variant="cta1" target="_blank" rel="noopener noreferrer">
+                {b.label}
+              </Button>
+            ))}
+          </div>
         </section>
       ) : null}
 
@@ -118,13 +114,7 @@ const HomePage: React.FC = () => {
                 <h4 className="text-xl font-bold mb-2">{v.title}</h4>
                 <p className="leading-relaxed mb-4">{v.body}</p>
                 {v.ctaUrl && v.ctaLabel ? (
-                  <Button
-                    as="a"
-                    href={v.ctaUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    variant="cta2"
-                  >
+                  <Button as="a" href={v.ctaUrl} target="_blank" rel="noopener noreferrer" variant="cta2">
                     {v.ctaLabel}
                   </Button>
                 ) : null}
