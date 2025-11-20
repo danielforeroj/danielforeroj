@@ -7,141 +7,95 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ---------- THEME TOKENS ---------- */
-:root {
+/* Fallbacks before JS paints */
+:root{
   --accent: #000000;
-  --accent-contrast: #ffffff;
-
-  /* surfaces */
-  --bg: #ffffff;           /* <— pure white. If you want off-white, change to #f8f9fb */
-  --on-bg: #111822;
-
-  --surface: #f2f4f7;
-  --on-surface: #111822;
-  --outline: #e5e8ee;
-
-  /* primary from accent */
-  --primary: var(--accent);
-  --on-primary: var(--accent-contrast);
-
-  --radius: 18px;
-
-  /* helper tints */
-  --accent-8: color-mix(in srgb, var(--accent) 8%, transparent);
-  --accent-30: color-mix(in srgb, var(--accent) 30%, transparent);
-  --ring: color-mix(in srgb, var(--accent) 45%, transparent);
-}
-
-/* Dark */
-:root.dark {
-  --bg: #1b1c1e;
-  --on-bg: #e7e9ea;
-
-  --surface: #2a2b2e;
-  --on-surface: #e7e9ea;
-  --outline: #3b3d42;
+  --accent-contrast: #FFFFFF;
+  --md-sys-color-background: #F8F9FB;
+  --md-sys-color-on-background: #0E0F11;
+  --md-sys-color-surface: #FFFFFF;
+  --md-sys-color-on-surface: #0F1115;
+  --md-sys-color-primary: var(--accent);
+  --md-sys-color-on-primary: var(--accent-contrast);
+  --md-sys-color-primary-container: #EEEEEE;
+  --md-sys-color-on-primary-container: #141414;
+  --md-sys-color-surface-variant: #F2F4F7;
+  --hairline: rgba(0,0,0,.08);
+  --btn-pressed-tint: rgba(0,0,0,.14);
 }
 
 body {
-  background: var(--bg);
-  color: var(--on-bg);
+  background: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
 }
 
-/* ---------- HEADINGS FOLLOW ACCENT ---------- */
+/* Headings pick accent */
 h1, h2, h3,
 .hero-title, .section-title {
-  color: var(--primary) !important;
+  color: var(--md-sys-color-primary) !important;
 }
 
-/* ---------- CARDS ---------- */
+/* Cards */
 .card {
-  background: var(--surface);
-  color: var(--on-surface);
-  border: 1px solid var(--outline);
-  border-radius: var(--radius);
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  border: 1px solid var(--hairline);
+  border-radius: 18px;
 }
 
-/* ---------- BUTTONS (scoped) ---------- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .5rem;
-  padding: .65rem 1.05rem;
-  border-radius: 9999px;
-  font-weight: 700;
-  line-height: 1;
-  border: 1px solid transparent;
-}
-.btn-primary {
-  background: var(--primary);
-  color: var(--on-primary);
-  border-color: var(--primary);
-}
-.btn-primary:hover { filter: brightness(.92); }
-
-/* CHIPS (same look in hero and cards) */
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.chips-hero { justify-content: center; }
-.chips-card { justify-content: flex-start; }
-
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: .375rem;
-  padding: 6px 12px;
-  font-size: .875rem;
-  font-weight: 600;
-  line-height: 1;
-  background: var(--df-accent-08) !important;
-  border: 1px solid var(--df-accent-30) !important;
-  color: var(--md-sys-color-on-surface) !important;
-  border-radius: 9999px;
-  box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent);
-  white-space: nowrap;
-}
-/* ===== CTA BUTTONS (Daniel) =====
-   Uses CSS vars already set by DFTheme (applyAccent/applyTheme)
-   --accent and --md-sys-color-primary exist in your setup.
-*/
-:root{
-  --on-accent: var(--md-sys-color-on-primary, #fff);
-}
-/* pressed tint changes by theme */
-.light { --btn-pressed-tint: rgba(0,0,0,.10); }
-.dark  { --btn-pressed-tint: rgba(255,255,255,.16); }
-
-/* Base button (respects your existing .btn if present; this augments it safely) */
+/* Buttons (base) */
 .btn{
   display:inline-flex; align-items:center; justify-content:center;
-  border-radius:9999px; padding:0.625rem 1.1rem;
-  font-weight:600; line-height:1; border:2px solid transparent;
+  gap:.5rem; padding:.65rem 1.05rem;
+  border-radius:9999px; font-weight:700; line-height:1;
+  border:2px solid transparent;
   transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s, transform .05s;
   text-decoration:none;
 }
 .btn:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 40%, transparent); outline-offset: 2px; }
 
-/* CTA 1 — filled (still) → outline (hover) → pressed inner tint */
-.btn-cta1{ background:var(--accent); color:var(--on-accent); }
+/* Legacy alias (safe) */
+.btn-primary{
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border-color: var(--md-sys-color-primary);
+}
+.btn-primary:hover{ filter: brightness(.92); }
+
+/* Chips */
+.chips{ display:flex; flex-wrap:wrap; gap:12px; }
+.chip{
+  display:inline-flex; align-items:center; gap:.375rem;
+  padding:6px 12px; font-size:.875rem; font-weight:600; line-height:1;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  color: var(--md-sys-color-on-surface);
+  border-radius:9999px;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent);
+  white-space:nowrap;
+}
+
+/* ===== CTA BUTTONS ===== */
+.light { --btn-pressed-tint: rgba(0,0,0,.10); }
+.dark  { --btn-pressed-tint: rgba(255,255,255,.16); }
+
+/* CTA 1 — filled (still) → outline (hover) → pressed */
+.btn-cta1{ background:var(--accent); color:var(--accent-contrast); border-color:var(--accent); }
 .btn-cta1:hover{ background:transparent; color:var(--accent); border-color:var(--accent); }
 .btn-cta1:active{
-  background:var(--accent); color:var(--on-accent);
+  background:var(--accent); color:var(--accent-contrast);
   box-shadow: inset 0 0 0 9999px var(--btn-pressed-tint); transform: translateY(1px);
 }
 
-/* CTA 2 — outline (still) → filled (hover) → pressed inner tint */
+/* CTA 2 — outline (still) → filled (hover) → pressed */
 .btn-cta2{ background:transparent; color:var(--accent); border-color:var(--accent); }
-.btn-cta2:hover{ background:var(--accent); color:var(--on-accent); }
+.btn-cta2:hover{ background:var(--accent); color:var(--accent-contrast); }
 .btn-cta2:active{
-  background:var(--accent); color:var(--on-accent);
+  background:var(--accent); color:var(--accent-contrast);
   box-shadow: inset 0 0 0 9999px var(--btn-pressed-tint); transform: translateY(1px);
 }
 
-/* Optional compatible variants if legacy code uses them */
+/* Tonal & ghost variants (optional) */
 .btn-tonal{
   background: color-mix(in srgb, var(--accent) 12%, transparent);
   color: var(--md-sys-color-on-surface);
@@ -152,38 +106,19 @@ h1, h2, h3,
   color: var(--md-sys-color-on-surface);
   border-color: transparent;
 }
-/* ------- SURFACE TOKENS (light/dark) ------- */
-:root{
-  /* page bg already set to #f8f9fb via your bootstrap */
-  --surface: #ffffff;                       /* header/FAB/card base */
-  --surface-2: color-mix(in srgb, #000 4%, var(--surface));
-  --hairline: color-mix(in srgb, #0a0a0a 12%, transparent); /* subtle border */
-  --on-surface: #0f1115;
-}
-
-.dark{
-  --surface: #111315;
-  --surface-2: color-mix(in srgb, #fff 4%, var(--surface));
-  --hairline: color-mix(in srgb, #ffffff 14%, transparent);
-  --on-surface: #e6e8ec;
-}
 
 /* ------- OPAQUE HEADER + FAB ------- */
 .header-opaque{
   position: sticky; top: 0; z-index: 50;
-  background: var(--surface);
+  background: var(--md-sys-color-surface);
   border-bottom: 1px solid var(--hairline);
-  /* keep it crisp; if you like blur, add: backdrop-filter: blur(8px) saturate(160%); */
 }
-
 .fab-opaque{
-  background: var(--surface);
-  color: var(--on-surface);
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
   border: 1px solid var(--hairline);
   box-shadow:
     0 8px 24px color-mix(in srgb, #000 16%, transparent),
     0 1px 0 color-mix(in srgb, #fff 4%, transparent) inset;
 }
-
-/* Ensures no accidental transparency leaks */
 .header-opaque *, .fab-opaque * { background-color: transparent; }
