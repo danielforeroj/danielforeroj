@@ -1,11 +1,11 @@
-// themes/colorPalettes.ts
-// Solid, dependency-free palette + token application utilities
+// src/themes/colorPalettes.ts
+// Dependency-free token generator + applier
 
-// ---------- helpers ----------
+export type ThemeMode = "light" | "dark";
+
 function clamp(n: number, min = 0, max = 100) {
   return Math.min(max, Math.max(min, n));
 }
-
 function hexToRgb(hex: string) {
   const h = hex.replace("#", "");
   const v =
@@ -14,12 +14,10 @@ function hexToRgb(hex: string) {
       : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
   return { r: v[0], g: v[1], b: v[2] };
 }
-
 function rgbToHex(r: number, g: number, b: number) {
   const to = (x: number) => x.toString(16).padStart(2, "0");
   return `#${to(r)}${to(g)}${to(b)}`.toUpperCase();
 }
-
 function rgbToHsl(r: number, g: number, b: number) {
   r /= 255; g /= 255; b /= 255;
   const max = Math.max(r, g, b), min = Math.min(r, g, b);
@@ -36,10 +34,9 @@ function rgbToHsl(r: number, g: number, b: number) {
   }
   return { h: h * 360, s: s * 100, l: l * 100 };
 }
-
 function hslToRgb(h: number, s: number, l: number) {
   s /= 100; l /= 100;
-  const c = (1 - Math.abs(2 * l - 1)) * (s);
+  const c = (1 - Math.abs(2 * l - 1)) * s;
   const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
   const m = l - c / 2;
   let r = 0, g = 0, b = 0;
@@ -55,15 +52,13 @@ function hslToRgb(h: number, s: number, l: number) {
     b: Math.round((b + m) * 255)
   };
 }
-
 function withL(hex: string, l: number) {
   const { r, g, b } = hexToRgb(hex);
   const hsl = rgbToHsl(r, g, b);
   const { r: rr, g: gg, b: bb } = hslToRgb(hsl.h, hsl.s, clamp(l));
   return rgbToHex(rr, gg, bb);
 }
-
-function relativeLuminance(hex: string) {
+function relLum(hex: string) {
   const { r, g, b } = hexToRgb(hex);
   const srgb = [r, g, b].map(v => {
     const c = v / 255;
@@ -71,13 +66,11 @@ function relativeLuminance(hex: string) {
   });
   return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
 }
-
-function onColorFor(bg: string) {
-  return relativeLuminance(bg) > 0.54 ? "#000000" : "#FFFFFF";
+function onFor(bg: string) {
+  return relLum(bg) > 0.54 ? "#000000" : "#FFFFFF";
 }
-
-function mix(hex: string, pct: number, withHex = "#000000") {
-  const a = hexToRgb(hex), b = hexToRgb(withHex);
+function mix(hex: string, pct: number, other = "#000000") {
+  const a = hexToRgb(hex), b = hexToRgb(other);
   const k = clamp(pct, 0, 100) / 100;
   return rgbToHex(
     Math.round(a.r * (1 - k) + b.r * k),
@@ -86,44 +79,32 @@ function mix(hex: string, pct: number, withHex = "#000000") {
   );
 }
 
-// ---------- public API ----------
+export const DEFAULT_PALETTE = ["#000000", "#F80301", "#00FF86", "#3786EC"] as const;
 
-// UI choices you wanted as defaults
-export const defaultPalette = ["#000000", "#F80301", "#00FF86", "#3786EC"] as const;
-
-export type ThemeMode = "light" | "dark";
-
-/**
- * Apply all CSS tokens derived from an accent.
- * Keeps your existing variable names so no component changes are required.
- */
 export function applyAccentTokens(accent: string, mode: ThemeMode) {
-  const root = document.documentElement;
-  const st = root.style;
+  const st = document.documentElement.style;
 
-  // surfaces by mode
-  const surface   = mode === "dark" ? "#121316" : "#F8F9FB";
+  // surfaces
+  const surface   = mode === "dark" ? "#1B1C1E" : "#F8F9FB";
   const onSurface = mode === "dark" ? "#E7E8EA" : "#0E0F11";
-  const hairline  = mode === "dark" ? mix(onSurface, 78, "#000000") : mix(onSurface, 86, "#FFFFFF");
+  const hairline  = mode === "dark" ? mix(onSurface, 78, "#000000") : mix("#000000", 86, "#FFFFFF");
 
   // primary & containers
   const primary          = accent;
-  const onPrimary        = onColorFor(primary);
+  const onPrimary        = onFor(primary);
   const primaryContainer = mode === "dark" ? withL(accent, 30) : withL(accent, 92);
-  const onPrimaryCont    = onColorFor(primaryContainer);
+  const onPrimaryCont    = onFor(primaryContainer);
 
-  // Button pressed tint that looks right in both modes
   const pressedTint = mode === "dark" ? "rgba(255,255,255,.14)" : "rgba(0,0,0,.14)";
 
-  // base tokens used across the app (your CSS already references these)
   st.setProperty("--accent", primary);
-  st.setProperty("--on-accent", onPrimary);
+  st.setProperty("--accent-contrast", onPrimary);
   st.setProperty("--btn-pressed-tint", pressedTint);
+
   st.setProperty("--surface", surface);
   st.setProperty("--on-surface", onSurface);
   st.setProperty("--hairline", hairline);
 
-  // MD-style tokens you use in components
   st.setProperty("--md-sys-color-primary", primary);
   st.setProperty("--md-sys-color-on-primary", onPrimary);
   st.setProperty("--md-sys-color-primary-container", primaryContainer);
@@ -132,12 +113,22 @@ export function applyAccentTokens(accent: string, mode: ThemeMode) {
   st.setProperty("--md-sys-color-on-surface", onSurface);
   st.setProperty("--md-sys-color-surface-variant", mode === "dark" ? mix(surface, 12, "#FFFFFF") : mix(surface, 6, "#000000"));
 
-  // helpful for focus rings
   st.setProperty("--tw-ring-color", mix(primary, 55, "#FFFFFF"));
+
+  // mobile browser address bar color
+  const meta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
+  if (meta) meta.content = surface;
 }
 
-/** Persist user choice so it applies instantly on next load */
-export function persistThemeAndAccent(theme: ThemeMode, accent: string) {
+export function persistTheme(theme: ThemeMode) {
   localStorage.setItem("df_theme", theme);
+}
+export function persistAccent(accent: string) {
   localStorage.setItem("df_accent", accent);
+}
+export function readTheme(): ThemeMode {
+  return (localStorage.getItem("df_theme") as ThemeMode) || "light";
+}
+export function readAccent(): string {
+  return localStorage.getItem("df_accent") || DEFAULT_PALETTE[0];
 }
