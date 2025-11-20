@@ -109,7 +109,7 @@ const onSurface = onBackground;
   st.setProperty("--md-sys-color-on-primary", onPrimary);
   st.setProperty("--md-sys-color-primary-container", primaryContainer);
   st.setProperty("--md-sys-color-on-primary-container", onPrimaryCont);
-st.setProperty("--md-sys-color-surface-variant", mode === "dark" ? mix(surface, 12, "#FFFFFF") : mix(surface, 8, "#000000"));
+  st.setProperty("--md-sys-color-surface-variant", mode === "dark" ? mix(surface, 12, "#FFFFFF") : mix(surface, 6, "#000000"));
 
   st.setProperty("--hairline", hairline);
   st.setProperty("--tw-ring-color", mix(primary, 55, "#FFFFFF"));
