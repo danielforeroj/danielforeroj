@@ -1,118 +1,26 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HKBGTMT9Y7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HKBGTMT9Y7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HKBGTMT9Y7');
+  </script>
 
-  gtag('config', 'G-HKBGTMT9Y7');
-</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="I turn Web3 ideas into real-world businesses—and then make sure the world hears about them.">
+  <meta name="theme-color" content="#f8f9fb" />
 
-  <script>
-    (function () {
-      const set = (k, v) => localStorage.setItem(k, v);
-      const get = (k) => localStorage.getItem(k);
-
-      // --- Config ---
-      const CFG = {
-        themeDefault: "light",            // dark background handled below
-        accentPalette: ["#000000", "#f80301", "#00ff86", "#3786ec"],
-        seoTitle: "Daniel Forero — Web3/AI Marketing & PR",
-        seoDescription: "I turn Web3 ideas into real-world businesses—and then make sure the world hears about them.",
-        lightBg: "#f8f9fb",
-        darkBg:  "#1b1c1e"
-      };
-
-      // Meta theme-color (mobile chrome UI)
-      const themeMeta =
-        document.querySelector('meta[name="theme-color"]') ||
-        (() => { const m = document.createElement("meta"); m.name = "theme-color"; document.head.appendChild(m); return m; })();
-
-      // Contrast helper for buttons/text on accent
-      function contrastText(hex) {
-        const h = hex.replace("#", "");
-        const n = h.length === 3 ? h.split("").map(c => c + c).join("") : h;
-        const num = parseInt(n, 16);
-        const r = (num >> 16) & 255, g = (num >> 8) & 255, b = num & 255;
-        const conv = v => (v /= 255) <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
-        const L = 0.2126 * conv(r) + 0.7152 * conv(g) + 0.0722 * conv(b);
-        return L > 0.5 ? "#000000" : "#ffffff";
-      }
-
-      function applyTheme(mode, persist = false) {
-        const root = document.documentElement;
-        root.classList.remove("light", "dark");
-        let finalMode = mode;
-        if (mode === "system") {
-          finalMode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        }
-        root.dataset.theme = finalMode;
-        root.classList.add(finalMode);
-        root.style.colorScheme = finalMode;
-        themeMeta.setAttribute("content", finalMode === "dark" ? CFG.darkBg : CFG.lightBg);
-        if (persist) set("df_theme", mode);
-
-        if (mode === "system") {
-          const mq = matchMedia("(prefers-color-scheme: dark)");
-          if (!window.__dfSysListenerAttached) {
-            mq.addEventListener("change", () => applyTheme("system"));
-            window.__dfSysListenerAttached = true;
-          }
-        }
-      }
-
-      // 🔑 Apply CSS variables so UI repaints immediately
-      function applyAccent(hex, persist = false) {
-        const on = contrastText(hex);
-        const st = document.documentElement.style;
-        st.setProperty("--accent", hex);
-        st.setProperty("--accent-contrast", on);
-        st.setProperty("--md-sys-color-primary", hex);
-        st.setProperty("--md-sys-color-on-primary", on);
-        st.setProperty("--md-sys-color-secondary", hex);
-        st.setProperty("--md-sys-color-on-secondary", on);
-        st.setProperty("--tw-ring-color", `color-mix(in srgb, ${hex} 45%, transparent)`);
-        st.setProperty("--df-accent-10", `color-mix(in srgb, ${hex} 10%, transparent)`);
-        st.setProperty("--df-accent-30", `color-mix(in srgb, ${hex} 30%, transparent)`);
-        if (persist) set("df_accent", hex);
-      }
-
-      // SEO
-      document.title = CFG.seoTitle;
-      (document.querySelector('meta[name="description"]') || (() => {
-        const m = document.createElement("meta"); m.name = "description"; document.head.appendChild(m); return m;
-      })()).setAttribute("content", CFG.seoDescription);
-
-      // --- Init ---
-      applyTheme(get("df_theme") || CFG.themeDefault);
-      applyAccent(get("df_accent") || CFG.accentPalette[0]);
-
-      // --- Expose API for your picker UI ---
-      window.DFTheme = {
-        applyTheme, applyAccent,
-        palette: CFG.accentPalette,
-        resetToDefaults() {
-          localStorage.removeItem("df_theme");
-          localStorage.removeItem("df_accent");
-          applyTheme(CFG.themeDefault, true);
-          applyAccent(CFG.accentPalette[0], true);
-          location.reload();
-        }
-      };
-
-
-  <!-- Social / meta -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Daniel Forero — Web3/AI Marketing & PR" />
   <meta property="og:description" content="I turn Web3 ideas into real-world businesses—and then make sure the world hears about them." />
   <meta property="og:image" content="https://picsum.photos/1200/630" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#f8f9fb" />
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -125,10 +33,10 @@
 
   <!-- Base styles and theme tokens -->
   <link rel="stylesheet" href="/index.css" />
+  <title>Daniel Forero — Web3/AI Marketing & PR</title>
 </head>
 <body class="antialiased">
   <div id="root"></div>
-  <!-- Single entry for Vite -->
   <script type="module" src="/index.tsx"></script>
 </body>
 </html>
