@@ -1,11 +1,8 @@
-// src/themes/colorPalettes.ts
-// Dependency-free token generator + applier
+// themes/colorPalettes.ts
+// Minimal, dependency-free theme & accent token applier
 
 export type ThemeMode = "light" | "dark";
 
-function clamp(n: number, min = 0, max = 100) {
-  return Math.min(max, Math.max(min, n));
-}
 function hexToRgb(hex: string) {
   const h = hex.replace("#", "");
   const v =
@@ -55,7 +52,7 @@ function hslToRgb(h: number, s: number, l: number) {
 function withL(hex: string, l: number) {
   const { r, g, b } = hexToRgb(hex);
   const hsl = rgbToHsl(r, g, b);
-  const { r: rr, g: gg, b: bb } = hslToRgb(hsl.h, hsl.s, clamp(l));
+  const { r: rr, g: gg, b: bb } = hslToRgb(hsl.h, hsl.s, Math.max(0, Math.min(100, l)));
   return rgbToHex(rr, gg, bb);
 }
 function relLum(hex: string) {
@@ -71,7 +68,7 @@ function onFor(bg: string) {
 }
 function mix(hex: string, pct: number, other = "#000000") {
   const a = hexToRgb(hex), b = hexToRgb(other);
-  const k = clamp(pct, 0, 100) / 100;
+  const k = Math.max(0, Math.min(100, pct)) / 100;
   return rgbToHex(
     Math.round(a.r * (1 - k) + b.r * k),
     Math.round(a.g * (1 - k) + b.g * k),
@@ -79,17 +76,17 @@ function mix(hex: string, pct: number, other = "#000000") {
   );
 }
 
-export const DEFAULT_PALETTE = ["#000000", "#F80301", "#00FF86", "#3786EC"] as const;
+export const defaultPalette = ["#000000", "#F80301", "#00FF86", "#3786EC"] as const;
 
 export function applyAccentTokens(accent: string, mode: ThemeMode) {
   const st = document.documentElement.style;
 
-  // surfaces
+  // Surfaces (your required hexes)
   const surface   = mode === "dark" ? "#1B1C1E" : "#F8F9FB";
   const onSurface = mode === "dark" ? "#E7E8EA" : "#0E0F11";
   const hairline  = mode === "dark" ? mix(onSurface, 78, "#000000") : mix("#000000", 86, "#FFFFFF");
 
-  // primary & containers
+  // Primary & containers
   const primary          = accent;
   const onPrimary        = onFor(primary);
   const primaryContainer = mode === "dark" ? withL(accent, 30) : withL(accent, 92);
@@ -97,38 +94,37 @@ export function applyAccentTokens(accent: string, mode: ThemeMode) {
 
   const pressedTint = mode === "dark" ? "rgba(255,255,255,.14)" : "rgba(0,0,0,.14)";
 
+  // Core tokens
   st.setProperty("--accent", primary);
   st.setProperty("--accent-contrast", onPrimary);
   st.setProperty("--btn-pressed-tint", pressedTint);
 
-  st.setProperty("--surface", surface);
-  st.setProperty("--on-surface", onSurface);
-  st.setProperty("--hairline", hairline);
-
+  st.setProperty("--md-sys-color-surface", surface);
+  st.setProperty("--md-sys-color-on-surface", onSurface);
   st.setProperty("--md-sys-color-primary", primary);
   st.setProperty("--md-sys-color-on-primary", onPrimary);
   st.setProperty("--md-sys-color-primary-container", primaryContainer);
   st.setProperty("--md-sys-color-on-primary-container", onPrimaryCont);
-  st.setProperty("--md-sys-color-surface", surface);
-  st.setProperty("--md-sys-color-on-surface", onSurface);
   st.setProperty("--md-sys-color-surface-variant", mode === "dark" ? mix(surface, 12, "#FFFFFF") : mix(surface, 6, "#000000"));
 
+  st.setProperty("--hairline", hairline);
   st.setProperty("--tw-ring-color", mix(primary, 55, "#FFFFFF"));
 
-  // mobile browser address bar color
-  const meta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
-  if (meta) meta.content = surface;
+  // Body class + meta
+  const root = document.documentElement;
+  root.classList.remove("light", "dark");
+  root.classList.add(mode);
+  root.dataset.theme = mode;
+  (document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null)?.setAttribute("content", surface);
 }
 
-export function persistTheme(theme: ThemeMode) {
+export function persistThemeAndAccent(theme: ThemeMode, accent: string) {
   localStorage.setItem("df_theme", theme);
-}
-export function persistAccent(accent: string) {
   localStorage.setItem("df_accent", accent);
 }
 export function readTheme(): ThemeMode {
   return (localStorage.getItem("df_theme") as ThemeMode) || "light";
 }
 export function readAccent(): string {
-  return localStorage.getItem("df_accent") || DEFAULT_PALETTE[0];
+  return localStorage.getItem("df_accent") || defaultPalette[0];
 }
