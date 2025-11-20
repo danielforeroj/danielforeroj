@@ -13,7 +13,7 @@ html, body {
   --accent-contrast: #FFFFFF;
   --md-sys-color-background: #F8F9FB;
   --md-sys-color-on-background: #0E0F11;
-  --md-sys-color-surface: #FFFFFF;
+  --md-sys-color-surface: #F2F4F7; /* light gray fallback before JS paints */
   --md-sys-color-on-surface: #0F1115;
   --md-sys-color-primary: var(--accent);
   --md-sys-color-on-primary: var(--accent-contrast);
