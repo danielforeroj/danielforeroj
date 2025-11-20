@@ -105,24 +105,6 @@
         }
       };
 
-      // --- LIVE WATCHERS (fixes “works only after refresh”) ---
-      let lastAccent = get("df_accent") || CFG.accentPalette[0];
-      let lastTheme  = get("df_theme")  || CFG.themeDefault;
-
-      setInterval(() => {
-        const a = get("df_accent") || CFG.accentPalette[0];
-        if (a !== lastAccent) {
-          lastAccent = a;
-          applyAccent(a, false);   // repaint now
-        }
-        const t = get("df_theme") || CFG.themeDefault;
-        if (t !== lastTheme) {
-          lastTheme = t;
-          applyTheme(t, false);    // repaint now
-        }
-      }, 150);
-    })();
-  </script>
 
   <!-- Social / meta -->
   <meta property="og:title" content="Daniel Forero — Web3/AI Marketing & PR" />
