@@ -78,13 +78,10 @@ export const defaultPalette = ["#000000", "#F80301", "#00FF86", "#3786EC"] as co
 export function applyAccentTokens(accent: string, mode: ThemeMode) {
   const st = document.documentElement.style;
 
-// Surfaces (surface is slightly elevated vs page background)
-const background   = mode === "dark" ? "#1B1C1E" : "#F8F9FB";
+// Surfaces
+const background = mode === "dark" ? "#1B1C1E" : "#F8F9FB";
 const onBackground = mode === "dark" ? "#E7E8EA" : "#0E0F11";
-
-// Light: darken bg ~6% → subtle gray
-// Dark:  lighten bg ~6% → subtle lift
-const surface   = mode === "dark" ? mix(background, 6, "#FFFFFF") : mix(background, 6, "#000000");
+const surface   = background;
 const onSurface = onBackground;
 
   // Primary & containers
