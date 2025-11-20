@@ -11,15 +11,21 @@ html, body {
 :root{
   --accent: #000000;
   --accent-contrast: #FFFFFF;
+
   --md-sys-color-background: #F8F9FB;
   --md-sys-color-on-background: #0E0F11;
-  --md-sys-color-surface: #FFFFFF;
+
+  /* ▼ make cards light gray even before JS */
+  --md-sys-color-surface: #F2F4F7;            /* was #FFFFFF */
   --md-sys-color-on-surface: #0F1115;
+
   --md-sys-color-primary: var(--accent);
   --md-sys-color-on-primary: var(--accent-contrast);
   --md-sys-color-primary-container: #EEEEEE;
   --md-sys-color-on-primary-container: #141414;
-  --md-sys-color-surface-variant: #F2F4F7;
+
+  --md-sys-color-surface-variant: #EDEFF3;    /* a hair lighter than surface */
+
   --hairline: rgba(0,0,0,.08);
   --btn-pressed-tint: rgba(0,0,0,.14);
 }
