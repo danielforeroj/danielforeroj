@@ -78,12 +78,14 @@ export const defaultPalette = ["#000000", "#F80301", "#00FF86", "#3786EC"] as co
 export function applyAccentTokens(accent: string, mode: ThemeMode) {
   const st = document.documentElement.style;
 
-  // Surfaces
-  const background = mode === "dark" ? "#1B1C1E" : "#F8F9FB";
-  const onBackground = mode === "dark" ? "#E7E8EA" : "#0E0F11";
-  const surface   = background;
-  const onSurface = onBackground;
-  const hairline  = mode === "dark" ? mix(onSurface, 78, "#000000") : mix("#000000", 86, "#FFFFFF");
+// Surfaces (surface is slightly elevated vs page background)
+const background   = mode === "dark" ? "#1B1C1E" : "#F8F9FB";
+const onBackground = mode === "dark" ? "#E7E8EA" : "#0E0F11";
+
+// Light: darken bg ~6% → subtle gray
+// Dark:  lighten bg ~6% → subtle lift
+const surface   = mode === "dark" ? mix(background, 6, "#FFFFFF") : mix(background, 6, "#000000");
+const onSurface = onBackground;
 
   // Primary & containers
   const primary          = accent;
@@ -107,7 +109,7 @@ export function applyAccentTokens(accent: string, mode: ThemeMode) {
   st.setProperty("--md-sys-color-on-primary", onPrimary);
   st.setProperty("--md-sys-color-primary-container", primaryContainer);
   st.setProperty("--md-sys-color-on-primary-container", onPrimaryCont);
-  st.setProperty("--md-sys-color-surface-variant", mode === "dark" ? mix(surface, 12, "#FFFFFF") : mix(surface, 6, "#000000"));
+st.setProperty("--md-sys-color-surface-variant", mode === "dark" ? mix(surface, 12, "#FFFFFF") : mix(surface, 8, "#000000"));
 
   st.setProperty("--hairline", hairline);
   st.setProperty("--tw-ring-color", mix(primary, 55, "#FFFFFF"));
