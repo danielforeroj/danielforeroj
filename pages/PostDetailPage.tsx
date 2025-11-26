@@ -3,10 +3,33 @@ import { useParams, NavLink } from 'react-router-dom';
 import { posts } from '../data/mockData';
 import Button from '../components/Button';
 import Chip from '../components/Chip';
+import { SITE } from '../data/siteConfig';
+import { applyPageSEO, buildBlogPostingJsonLd, buildBreadcrumbListJsonLd } from '../lib/seo';
 
 const PostDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = posts.find(p => p.slug === slug);
+
+  React.useEffect(() => {
+    if (!post) return;
+
+    const canonicalUrl = `${SITE.url}/post/${post.slug}`;
+    applyPageSEO({
+      title: `${post.title} | ${SITE.name}`,
+      description: post.excerpt,
+      canonicalUrl,
+      ogType: 'article',
+      keywords: post.tags,
+      jsonLd: [
+        buildBlogPostingJsonLd(post),
+        buildBreadcrumbListJsonLd([
+          { name: 'Home', url: SITE.url },
+          { name: 'Blog', url: `${SITE.url}/blog` },
+          { name: post.title, url: canonicalUrl },
+        ]),
+      ],
+    });
+  }, [post]);
 
   if (!post) {
     return (
@@ -33,7 +56,6 @@ const PostDetailPage: React.FC = () => {
         {post.content_md}
       </div>
 
-      {/* FIX: Corrected logic to use post.lead_magnet.file for the download link and condition. */}
       {post.lead_magnet?.file && (
         <div className="mt-12 text-center">
           <Button href={post.lead_magnet.file} as="a" variant="filled" icon="download" download>
