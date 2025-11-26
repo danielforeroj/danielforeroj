@@ -3,10 +3,33 @@ import { useParams, NavLink } from 'react-router-dom';
 import { posts } from '../data/mockData';
 import Button from '../components/Button';
 import Chip from '../components/Chip';
+import { SITE } from '../data/siteConfig';
+import { applyPageSEO, buildBlogPostingJsonLd, buildBreadcrumbListJsonLd } from '../lib/seo';
 
 const PostDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = posts.find(p => p.slug === slug);
+
+  React.useEffect(() => {
+    if (!post) return;
+
+    const canonicalUrl = `${SITE.url}/post/${post.slug}`;
+    applyPageSEO({
+      title: `${post.title} | ${SITE.name}`,
+      description: post.excerpt,
+      canonicalUrl,
+      ogType: 'article',
+      keywords: post.tags,
+      jsonLd: [
+        buildBlogPostingJsonLd(post),
+        buildBreadcrumbListJsonLd([
+          { name: 'Home', url: SITE.url },
+          { name: 'Blog', url: `${SITE.url}/blog` },
+          { name: post.title, url: canonicalUrl },
+        ]),
+      ],
+    });
+  }, [post]);
 
   if (!post) {
     return (
