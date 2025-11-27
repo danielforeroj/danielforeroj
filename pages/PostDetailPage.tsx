@@ -33,6 +33,8 @@ const PostDetailPage: React.FC = () => {
       canonicalUrl,
       ogType: 'article',
       keywords: post.tags,
+      publishedTime: post.date,
+      modifiedTime: post.date,
       jsonLd,
     });
   }, [post]);

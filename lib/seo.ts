@@ -11,6 +11,8 @@ type SEOOptions = {
   ogType?: "website" | "article";
   keywords?: string[];
   noIndex?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
   jsonLd?: JsonLd[];
 };
 
@@ -67,8 +69,14 @@ export const applyPageSEO = (options: SEOOptions) => {
   setPropertyTag("og:title", options.title);
   setPropertyTag("og:description", options.description);
   setPropertyTag("og:type", options.ogType ?? "website");
+  setPropertyTag("og:url", options.canonicalUrl);
   setPropertyTag("og:image", options.ogImage ?? SITE.defaultOgImage);
   setPropertyTag("og:site_name", SITE.name);
+
+  if (options.ogType === "article") {
+    setPropertyTag("article:published_time", options.publishedTime);
+    setPropertyTag("article:modified_time", options.modifiedTime ?? options.publishedTime);
+  }
 
   setMetaTag("twitter:card", "summary_large_image");
   setMetaTag("twitter:title", options.title);

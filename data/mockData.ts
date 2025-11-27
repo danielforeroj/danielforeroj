@@ -67,7 +67,7 @@ export const initialHomeContent: HomeContent = {
 
 
 export const posts: Post[] = [
-  {
+{
   type: PostType.BLOG,
   title: 'Fuck Web3 Jargon',
   slug: 'fuck-web3-jargon',
@@ -78,10 +78,10 @@ export const posts: Post[] = [
 # Fuck Web3 Jargon
 
 ## Key Takeaways
-- **Plain language converts.** Jargon increases cognitive load and erodes trust. Evidence from usability research shows clear, concise language improves comprehension and task completion for *experts and non-experts alike*. :contentReference[oaicite:0]{index=0}  
-- **Trust is fragile.** Most people still doubt crypto’s reliability and safety—confusing language makes that worse. Speak human, show fees, show risks, and make the first step easy. :contentReference[oaicite:1]{index=1}  
-- **UX, not hype, is the barrier.** The biggest adoption blocker isn’t regulation or throughput—it’s user experience. Reduce jargon and design progressive disclosure for wallets, fees, and signing. :contentReference[oaicite:2]{index=2}  
-- **Design for answer engines.** Write short, extractable explanations (and FAQ schema) so AI/answer engines quote *you* when people ask “What is gas?” or “How do smart wallets work?” (AEO/GEO). :contentReference[oaicite:3]{index=3}  
+- **Plain language converts.** Jargon increases cognitive load and erodes trust. Evidence from usability research shows clear, concise language improves comprehension and task completion for *experts and non-experts alike*.
+- **Trust is fragile.** Most people still doubt crypto’s reliability and safety—confusing language makes that worse. Speak human, show fees, show risks, and make the first step easy.
+- **UX, not hype, is the barrier.** The biggest adoption blocker isn’t regulation or throughput—it’s user experience. Reduce jargon and design progressive disclosure for wallets, fees, and signing.
+- **Design for answer engines.** Write short, extractable explanations (and FAQ schema) so AI/answer engines quote *you* when people ask “What is gas?” or “How do smart wallets work?” (AEO/GEO).
 - **Make it bilingual by default.** If you care about LATAM, ship Spanish/Portuguese microcopy that avoids literal translations of crypto slang and explains actions in local terms.
 
 ---
@@ -90,50 +90,50 @@ export const posts: Post[] = [
 
 Crypto didn’t stall because blockchains can’t do more transactions. It stalled because too many products assume everyone wants to learn a new language before they can do anything useful.
 
-Users are trying to solve simple jobs—send money, buy a thing, prove ownership, access a perk. When the path is lined with unexplained compounds like “AA wallets,” “zk-SNARKs,” “gas oracles,” and “MEV protection,” many bounce. The research is boring but blunt: **clarity beats cleverness**. Professionals, not just novices, prefer plain language; cognitive load kills conversion during forms and onboarding. :contentReference[oaicite:4]{index=4}
+Users are trying to solve simple jobs—send money, buy a thing, prove ownership, access a perk. When the path is lined with unexplained compounds like “AA wallets,” “zk-SNARKs,” “gas oracles,” and “MEV protection,” many bounce. The research is boring but blunt: **clarity beats cleverness**. Professionals, not just novices, prefer plain language; cognitive load kills conversion during forms and onboarding.
 
-Trust is also a language. When **63% of Americans say they aren’t confident that the current ways to invest in or use crypto are reliable and safe**, every ambiguous word—“stake,” “farm,” “airdrop”—adds friction. You won’t earn confidence with cooler jargon; you earn it with plain words, transparent fees, and predictable outcomes. :contentReference[oaicite:5]{index=5}
+Trust is also a language. When **63% of Americans say they aren’t confident that the current ways to invest in or use crypto are reliable and safe**, every ambiguous word—“stake,” “farm,” “airdrop”—adds friction. You won’t earn confidence with cooler jargon; you earn it with plain words, transparent fees, and predictable outcomes.
 
 ---
 
 ## The Principle: Write for People, Not Practitioners
 
-Plain language isn’t “dumbing down.” It’s **designing for understanding** so more people can use your product successfully—including experts who are busy and want to move fast. The UK government’s plain-language standard says it well: it improves comprehension for users with different literacy levels and for readers who speak English as an additional language. That is LATAM product reality. :contentReference[oaicite:6]{index=6}
+Plain language isn’t “dumbing down.” It’s **designing for understanding** so more people can use your product successfully—including experts who are busy and want to move fast. The UK government’s plain-language standard says it well: it improves comprehension for users with different literacy levels and for readers who speak English as an additional language. That is LATAM product reality.
 
 ---
 
 ## The Five Places Jargon Kills Conversion (and How to Fix Each)
 
 ### 1) Wallet Creation & First Signature
-**Problem:** “Create a non-custodial account, back up your seed, sign a message.”  
-**Fix:** *Progressive disclosure.* Start with social/email sign-in or embedded smart wallets. Use microcopy that explains *why* we’re asking for a signature in one line (“We use a quick signature to verify it’s you—no fees, no spending”). If you support smart wallets, say what that changes: “No seed phrases to store. Recover with your email + a backup.” Smart-wallet onboarding exists—describe it in human terms. :contentReference[oaicite:7]{index=7}
+**Problem:** “Create a non-custodial account, back up your seed, sign a message.”
+**Fix:** *Progressive disclosure.* Start with social/email sign-in or embedded smart wallets. Use microcopy that explains *why* we’re asking for a signature in one line (“We use a quick signature to verify it’s you—no fees, no spending”). If you support smart wallets, say what that changes: “No seed phrases to store. Recover with your email + a backup.” Smart-wallet onboarding exists—describe it in human terms.
 
-**Before → After**  
+**Before → After**
 “Sign this ECDSA message” → “Quick check: tap ‘Approve’ so we know this account is yours. This doesn’t move funds.”
 
 ### 2) Fees and “Gas”
-**Problem:** “Estimated gas: 0.0023 ETH (base + priority).”  
+**Problem:** “Estimated gas: 0.0023 ETH (base + priority).”
 **Fix:** Show a *total in local currency* first. “Network fee: $0.19 (paid to the network to process your transaction).” Add a “Why a fee?” tooltip with 2 sentences. Stop treating “gas” like a sacred term.
 
-**Before → After**  
+**Before → After**
 “Your gas limit is 21000” → “Network fee: $0.09 — this pays computers to process your transfer.”
 
 ### 3) Risk & Reversibility
-**Problem:** “On-chain transactions are immutable. DYOR.”  
+**Problem:** “On-chain transactions are immutable. DYOR.”
 **Fix:** Use adult language: “On-chain transfers can’t be undone. Double-check the address. If something looks wrong, stop and chat with support.”
 
-**Before → After**  
+**Before → After**
 “DYOR NFA” → “This isn’t financial advice. Learn how returns and fees work before you invest.”
 
 ### 4) Privacy & Proofs
-**Problem:** “We use zk-SNARKs so your data stays private.”  
-**Fix:** Explain the *benefit*: “You can prove you’re eligible without sharing your data.” If you need a name, add it after: “(This uses a privacy math trick called a ‘zero-knowledge proof.’)” For readers who care, link to a short explainer. :contentReference[oaicite:8]{index=8}
+**Problem:** “We use zk-SNARKs so your data stays private.”
+**Fix:** Explain the *benefit*: “You can prove you’re eligible without sharing your data.” If you need a name, add it after: “(This uses a privacy math trick called a ‘zero-knowledge proof.’)” For readers who care, link to a short explainer.
 
-**Before → After**  
+**Before → After**
 “Anonymous KYC via ZKPs” → “Prove you’re over 18 without uploading your ID.”
 
 ### 5) Rewards & Airdrops
-**Problem:** “Stake LP tokens to farm points and qualify for retroactive airdrops.”  
+**Problem:** “Stake LP tokens to farm points and qualify for retroactive airdrops.”
 **Fix:** Translate rewards into the user’s win. “Hold your pass to unlock lower trading fees and early access. You’ll also earn points that can be redeemed later.”
 
 ---
@@ -141,72 +141,72 @@ Plain language isn’t “dumbing down.” It’s **designing for understanding*
 ## The “Say It Straight” Style Guide (Steal This)
 
 **Write like this:**
-- Use **one-line purpose statements** at the top of screens: “Send money fast with a clear fee before you pay.”  
-- Prefer **verbs to nouns**: “Send,” “Swap,” “Sell” over “Settlement,” “Liquidity,” “Realization.”  
-- **Define once, nearby.** If you must use a crypto term, explain it in 9–20 words the first time.  
-- **Use examples.** “If you send \$100, you’ll see the total fee and the exact amount the other person receives.”  
+- Use **one-line purpose statements** at the top of screens: “Send money fast with a clear fee before you pay.”
+- Prefer **verbs to nouns**: “Send,” “Swap,” “Sell” over “Settlement,” “Liquidity,” “Realization.”
+- **Define once, nearby.** If you must use a crypto term, explain it in 9–20 words the first time.
+- **Use examples.** “If you send $100, you’ll see the total fee and the exact amount the other person receives.”
 - **Brevity wins.** Aim for 8–14 words per sentence in prompts and helper text.
 
 **Avoid like the plague:**
-- “DYOR” (say “Learn how it works before you invest”)  
-- “Non-custodial mnemonic seed” (say “Recovery phrase you must keep private”)  
-- “Slippage tolerance” (say “Price may change by up to X% while your trade is processing”)  
-- “Bridging” (say “Move your funds from Network A to Network B”)  
+- “DYOR” (say “Learn how it works before you invest”)
+- “Non-custodial mnemonic seed” (say “Recovery phrase you must keep private”)
+- “Slippage tolerance” (say “Price may change by up to X% while your trade is processing”)
+- “Bridging” (say “Move your funds from Network A to Network B”)
 - “Liquidity event” (say “When withdrawals/trades open”)
 
 ---
 
 ## LATAM: Language and Culture Notes You Can’t Skip
 
-- **Local currency and fees** by default (ARS, COP, MXN, PEN, BRL). People decide with local numbers first.  
-- **Spanish ≠ Spanish.** Pick a neutral Latin American Spanish for UI, avoid region-specific slang, and write for 6th–8th grade reading level.  
-- **Portuguese matters.** If Brazil is on your roadmap, invest in native PT-BR copy.  
-- **Explain compliance choices** plainly: “To follow local rules, some features aren’t available in your country yet.”  
-- **Influencers ≠ journalists.** People do get news from creators, but you’re responsible for accuracy; never outsource risk language. :contentReference[oaicite:9]{index=9}  
-- **Scam context.** Regulators have flagged a flood of misleading promotions. Be explicit about risks, eligibility, and who your product is for. Plain risk language is part of trust. :contentReference[oaicite:10]{index=10}
+- **Local currency and fees** by default (ARS, COP, MXN, PEN, BRL). People decide with local numbers first.
+- **Spanish ≠ Spanish.** Pick a neutral Latin American Spanish for UI, avoid region-specific slang, and write for 6th–8th grade reading level.
+- **Portuguese matters.** If Brazil is on your roadmap, invest in native PT-BR copy.
+- **Explain compliance choices** plainly: “To follow local rules, some features aren’t available in your country yet.”
+- **Influencers ≠ journalists.** People do get news from creators, but you’re responsible for accuracy; never outsource risk language.
+- **Scam context.** Regulators have flagged a flood of misleading promotions. Be explicit about risks, eligibility, and who your product is for. Plain risk language is part of trust.
 
 ---
 
 ## Microcopy Makeovers (Copy-and-Paste)
 
-**Email/Sign-Up**  
-- Before: “Create a Web3-native, self-custodial wallet with optional MPC recovery.”  
+**Email/Sign-Up**
+- Before: “Create a Web3-native, self-custodial wallet with optional MPC recovery.”
 - After: “Create your account. You control it. Recover with your email if you lose your phone.”
 
-**Transactions**  
-- Before: “Approve contract interaction; set gas limit and priority fee.”  
+**Transactions**
+- Before: “Approve contract interaction; set gas limit and priority fee.”
 - After: “Review and approve. You’ll see the total, including the network fee, before you pay.”
 
-**Security**  
-- Before: “Never disclose your seed phrase.”  
+**Security**
+- Before: “Never disclose your seed phrase.”
 - After: “Write down your recovery phrase and keep it offline. Anyone who sees it can take your money.”
 
-**Support**  
-- Before: “Due to the immutable nature of blockchain, refunds are not possible.”  
+**Support**
+- Before: “Due to the immutable nature of blockchain, refunds are not possible.”
 - After: “On-chain transfers can’t be reversed. If something looks wrong, stop and contact us.”
 
-**ZK/Privacy**  
-- Before: “Eligibility is proven using zk-SNARKs.”  
-- After: “Prove you qualify without sharing your data (uses a privacy-proof method).” :contentReference[oaicite:11]{index=11}
+**ZK/Privacy**
+- Before: “Eligibility is proven using zk-SNARKs.”
+- After: “Prove you qualify without sharing your data (uses a privacy-proof method).”
 
 ---
 
 ## Patterns That Replace Jargon with UX
 
-1) **Progressive disclosure**  
-Put advanced settings (gas, slippage, networks) behind “Advanced” accordions. Use sensible defaults. This reduces thinking during critical steps—exactly how you reduce cognitive load in forms. :contentReference[oaicite:12]{index=12}
+1) **Progressive disclosure**
+Put advanced settings (gas, slippage, networks) behind “Advanced” accordions. Use sensible defaults. This reduces thinking during critical steps—exactly how you reduce cognitive load in forms.
 
-2) **Explainer drawers**  
+2) **Explainer drawers**
 One-tap “What is this?” panels: 2 sentences + a diagram. No new tab, no medium post.
 
-3) **Local totals and receipts**  
+3) **Local totals and receipts**
 Show the final amount the recipient gets, the fee, and the time estimate. In local currency first.
 
-4) **Smart wallets, explained in one beat**  
-“Create a wallet in seconds—no seed phrase. Recover with your email or a backup device.” (Then add a “Learn more” for people who want the cryptography details.) :contentReference[oaicite:13]{index=13}
+4) **Smart wallets, explained in one beat**
+“Create a wallet in seconds—no seed phrase. Recover with your email or a backup device.” (Then add a “Learn more” for people who want the cryptography details.)
 
-5) **Default safety**  
-Warnings in plain language for risky actions (“This token has a history of price swings. Double-check before you trade.”). Don’t rely on abbreviations like “NFA.” Regulators are watching misleading promos—your words must be clear. :contentReference[oaicite:14]{index=14}
+5) **Default safety**
+Warnings in plain language for risky actions (“This token has a history of price swings. Double-check before you trade.”). Don’t rely on abbreviations like “NFA.” Regulators are watching misleading promos—your words must be clear.
 
 ---
 
@@ -214,11 +214,11 @@ Warnings in plain language for risky actions (“This token has a history of pri
 
 Answer engines and LLMs increasingly summarize results. You want your explanations cited when users ask simple questions. Do this on your docs/blog:
 
-- Start each explainer with a **90–120-word answer box** that defines the thing and the user benefit.  
-- Add **FAQ schema** (JSON-LD) with 4–6 direct Q&As (“How much are network fees?”, “Are transactions reversible?”).  
-- Use **tables** for comparisons (networks, fees, limits) and **bold labels** for key entities (Base, Polygon, Brazil).  
-- Publish **author pages** with credentials and link to external **primary sources** (whitepapers, audits).  
-- Keep pages fast and accessible. :contentReference[oaicite:15]{index=15}
+- Start each explainer with a **90–120-word answer box** that defines the thing and the user benefit.
+- Add **FAQ schema** (JSON-LD) with 4–6 direct Q&As (“How much are network fees?”, “Are transactions reversible?”).
+- Use **tables** for comparisons (networks, fees, limits) and **bold labels** for key entities (Base, Polygon, Brazil).
+- Publish **author pages** with credentials and link to external **primary sources** (whitepapers, audits).
+- Keep pages fast and accessible.
 
 ---
 
@@ -226,32 +226,32 @@ Answer engines and LLMs increasingly summarize results. You want your explanatio
 
 Track changes from a jargon-heavy baseline to your new copy:
 
-- **Onboarding completion rate** (account created → first successful action)  
-- **Time on critical step** (should go down)  
-- **Support ticket tags** (seed phrase, gas, slippage, network)  
-- **Mis-send rate / wrong network attempts**  
-- **Trust indicators** (“I understand the fees,” “I know how to recover my account”)  
+- **Onboarding completion rate** (account created → first successful action)
+- **Time on critical step** (should go down)
+- **Support ticket tags** (seed phrase, gas, slippage, network)
+- **Mis-send rate / wrong network attempts**
+- **Trust indicators** (“I understand the fees,” “I know how to recover my account”)
 - **Return visits** after first action
 
-If you can, run a usability test: task + think-aloud + SUS/UMUX scores. Government service manuals have simple, battle-tested guidance on user research cadence—steal it. :contentReference[oaicite:16]{index=16}
+If you can, run a usability test: task + think-aloud + SUS/UMUX scores. Government service manuals have simple, battle-tested guidance on user research cadence—steal it.
 
 ---
 
 ## Implementation Playbook (Two Weeks)
 
-**Day 1–2: Inventory & intent**  
+**Day 1–2: Inventory & intent**
 List every place jargon appears: onboarding screens, modals, settings, docs, emails, alerts. Note the user’s *intent* on each screen in one sentence.
 
-**Day 3–5: Rewrite**  
+**Day 3–5: Rewrite**
 Apply the style guide, microcopy makeovers, and bilingual pass. Replace abbreviations with sentences. Add “why this matters” tooltips.
 
-**Day 6–7: AEO/GEO pass**  
+**Day 6–7: AEO/GEO pass**
 Convert top 10 FAQs into short answer boxes + FAQ schema. Publish author pages for your PM/engineer who owns each explainer.
 
-**Day 8–10: UX patterns**  
+**Day 8–10: UX patterns**
 Add progressive disclosure and local-currency totals. If you support smart wallets, describe recovery in one sentence on the creation screen.
 
-**Day 11–14: Test & ship**  
+**Day 11–14: Test & ship**
 Run 5–8 user tests in your target market (WhatsApp recruitment works in LATAM). Compare completion rates and edit ruthlessly.
 
 ---
@@ -260,13 +260,13 @@ Run 5–8 user tests in your target market (WhatsApp recruitment works in LATAM)
 
 Great. Advanced users love speed and clarity. \`gasPrice\` and \`nonce\` still exist—just hide them under **Advanced**. Experts will find the knobs; everyone else gets a paved road.
 
-And for the truly technical concepts (like ZK proofs), respect the reader with a plain description first, then link to the math. “Prove you qualify without sharing data” is always the *first* sentence; “zk-SNARK” is the *label*, not the pitch. :contentReference[oaicite:17]{index=17}
+And for the truly technical concepts (like ZK proofs), respect the reader with a plain description first, then link to the math. “Prove you qualify without sharing data” is always the *first* sentence; “zk-SNARK” is the *label*, not the pitch.
 
 ---
 
 ## The Stakes
 
-People store recovery phrases in Notes apps, paste them into chats, and fall for fake support accounts—not because they’re careless, but because we made security **linguistic**, not **obvious**. Your words are part of your defense-in-depth. (And yes, wallets remain hard; even researchers flag usability as a core problem.) :contentReference[oaicite:18]{index=18}
+People store recovery phrases in Notes apps, paste them into chats, and fall for fake support accounts—not because they’re careless, but because we made security **linguistic**, not **obvious**. Your words are part of your defense-in-depth. (And yes, wallets remain hard; even researchers flag usability as a core problem.)
 
 ---
 
@@ -308,29 +308,29 @@ Jargon is a habit. Clarity is a strategy. Choose the one that compounds.
 # My GTM Playbook for Web3
 
 ## Key Takeaways
-- **AI SEO (AEO/GEO) first.** Structure pages so answer engines (Google AI Overviews, Perplexity, ChatGPT) can lift concise answers, cite you, and send qualified traffic. Focus on direct Q&A blocks, entities, schema, author pages, and sources. :contentReference[oaicite:0]{index=0}  
-- **Plain language over crypto-speak.** If a sentence needs a glossary, rewrite it.  
-- **Hybrid funnels win.** Use Web2 distribution (SEO, email, partnerships) with Web3 primitives (onchain credentials, fee discounts) to prove value fast.  
-- **Design the first onchain action.** One action that demonstrates real utility—no vanity mints.  
-- **Operate weekly.** A boring, repeatable test cadence beats one-off stunts.  
-- **Measure what matters.** Tie off-chain attribution to onchain behavior and lifetime value, not vanity mints or airdrop farmers.  
+- **AI SEO (AEO/GEO) first.** Structure pages so answer engines (Google AI Overviews, Perplexity, ChatGPT) can lift concise answers, cite you, and send qualified traffic. Focus on direct Q&A blocks, entities, schema, author pages, and sources.
+- **Plain language over crypto-speak.** If a sentence needs a glossary, rewrite it.
+- **Hybrid funnels win.** Use Web2 distribution (SEO, email, partnerships) with Web3 primitives (onchain credentials, fee discounts) to prove value fast.
+- **Design the first onchain action.** One action that demonstrates real utility—no vanity mints.
+- **Operate weekly.** A boring, repeatable test cadence beats one-off stunts.
+- **Measure what matters.** Tie off-chain attribution to onchain behavior and lifetime value, not vanity mints or airdrop farmers.
 - **Partners are a system.** L1/L2s, wallets, and on/off-ramps become distribution when incentives echo your user’s success.
 
 ---
 
 ## AI SEO for Web3 GTM (AEO/GEO): How to Get Cited by Answer Engines
 
-**Answer Engine Optimization (AEO)** means structuring content so AI systems can extract a clean, trustworthy answer and *mention your brand* in their responses. In practice, that means: (1) concise, scannable answers up top; (2) clear entities (people, projects, chains, regions) throughout; (3) schema markup (FAQPage/HowTo/Article) in JSON-LD; (4) visible author expertise and citations; and (5) fast pages. These tactics increase your odds of being quoted by AI Overviews and tools like Perplexity—exactly where early-stage users now discover products. :contentReference[oaicite:1]{index=1}
+**Answer Engine Optimization (AEO)** means structuring content so AI systems can extract a clean, trustworthy answer and *mention your brand* in their responses. In practice, that means: (1) concise, scannable answers up top; (2) clear entities (people, projects, chains, regions) throughout; (3) schema markup (FAQPage/HowTo/Article) in JSON-LD; (4) visible author expertise and citations; and (5) fast pages. These tactics increase your odds of being quoted by AI Overviews and tools like Perplexity—exactly where early-stage users now discover products.
 
-Closely related, **Generative Engine Optimization (GEO)** is the broader practice of shaping content for AI platforms that synthesize answers (ChatGPT, Perplexity, Gemini). The play is to combine authority signals (brand/author expertise and sources) with technically structured content that’s easy for LLMs to parse—think tight answer boxes, schema, tables, definitions, and FAQs that mirror real queries. :contentReference[oaicite:2]{index=2}
+Closely related, **Generative Engine Optimization (GEO)** is the broader practice of shaping content for AI platforms that synthesize answers (ChatGPT, Perplexity, Gemini). The play is to combine authority signals (brand/author expertise and sources) with technically structured content that’s easy for LLMs to parse—think tight answer boxes, schema, tables, definitions, and FAQs that mirror real queries.
 
 ### A fast AEO/GEO checklist you can implement this week
-- **Lead with a 90–120 word answer box** that directly solves the query (“What is X?”, “How do I do Y on Base/Polygon?”). Place it above the fold, then expand. :contentReference[oaicite:3]{index=3}  
-- **Mark up content with schema** (Article, FAQPage, HowTo). For Web3 docs, add FAQ blocks for fees, eligibility, networks, and KYC status—then ship JSON-LD. :contentReference[oaicite:4]{index=4}  
-- **Strengthen author pages + E-E-A-T signals** (bio, credentials, LinkedIn/X, speaking, notable work). AI systems and modern search reward identifiable experts. :contentReference[oaicite:5]{index=5}  
-- **Cite primary sources** (audits, docs, whitepapers, fee tables). LLMs prefer content with references they can quote. :contentReference[oaicite:6]{index=6}  
-- **Structure for extraction**: descriptive H2/H3s, bullets, tables, glossaries of chain-specific terms, and short definitions. :contentReference[oaicite:7]{index=7}  
-- **Ship speed**: compress images, lazy-load embeds, and monitor Core Web Vitals. Slow pages get less visibility—human and machine. :contentReference[oaicite:8]{index=8}
+- **Lead with a 90–120 word answer box** that directly solves the query (“What is X?”, “How do I do Y on Base/Polygon?”). Place it above the fold, then expand.
+- **Mark up content with schema** (Article, FAQPage, HowTo). For Web3 docs, add FAQ blocks for fees, eligibility, networks, and KYC status—then ship JSON-LD.
+- **Strengthen author pages + E-E-A-T signals** (bio, credentials, LinkedIn/X, speaking, notable work). AI systems and modern search reward identifiable experts.
+- **Cite primary sources** (audits, docs, whitepapers, fee tables). LLMs prefer content with references they can quote.
+- **Structure for extraction**: descriptive H2/H3s, bullets, tables, glossaries of chain-specific terms, and short definitions.
+- **Ship speed**: compress images, lazy-load embeds, and monitor Core Web Vitals. Slow pages get less visibility—human and machine.
 
 *How this plugs into Web3 GTM:* publish plain-language explainers (EN/ES) with the answer box + FAQ schema, then map them to your **first onchain action** (credential, fee discount, or trial credit). Your AEO/GEO pages become persistent top-of-funnel that AI surfaces, while your product delivers a quick, verified win.
 
@@ -411,8 +411,7 @@ Subsidize fees intelligently at the start. Remove anything that looks like a cas
 
 ### 5) Funnel Architecture: Off-chain to On-chain
 
-**Top of funnel:** SEO for real questions (and now AEO/GEO-optimized answer boxes), founder POV on X, short product demos, and localized content. :contentReference[oaicite:9]{index=9}  
-**Mid funnel:** Email nurture with a three-part sequence: problem story, proof demo, and a clear next step.  
+**Top of funnel:** SEO for real questions (and now AEO/GEO-optimized answer boxes), founder POV on X, short product demos, and localized content. **Mid funnel:** Email nurture with a three-part sequence: problem story, proof demo, and a clear next step.  
 **Activation:** Progressive wallet connection. Social logins first, then unlock wallet-required features when the user wants the benefit.  
 **Post-activation:** In-product journeys and automated lifecycle emails. A “Do the next thing” nudge inside the app, not just on social.
 
@@ -437,8 +436,7 @@ You need both off-chain analytics and onchain context.
 Content is a system, not a viral lottery ticket.
 
 - **Founder POV:** A weekly note that says something useful.  
-- **Explainers:** Plain-language posts that answer the top ten questions your support team sees—each with an AEO-friendly answer box and FAQ schema. :contentReference[oaicite:10]{index=10}  
-- **Data stories:** One chart that proves a claim and a paragraph that teaches something.  
+- **Explainers:** Plain-language posts that answer the top ten questions your support team sees—each with an AEO-friendly answer box and FAQ schema. - **Data stories:** One chart that proves a claim and a paragraph that teaches something.  
 - **Local language:** If you care about LATAM, ship Spanish and Portuguese.  
 - **User stories:** Screenshots and specifics. Cut the fluff.
 
