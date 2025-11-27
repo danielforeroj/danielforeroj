@@ -14,6 +14,18 @@ const renderInline = (value: string) => {
     .replace(/`([^`]+)`/g, "<code>$1</code>");
 };
 
+export const stripMarkdown = (markdown: string): string =>
+  markdown
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/^[-*]\s+/gm, "")
+    .replace(/\[(.*?)\]\([^)]*\)/g, "$1")
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+
 export const markdownToHtml = (markdown: string): string => {
   const lines = markdown.trim().split(/\r?\n/);
   const html: string[] = [];

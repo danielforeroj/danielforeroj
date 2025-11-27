@@ -1,5 +1,6 @@
 import { Post, PostType } from "../types";
 import { SITE } from "../data/siteConfig";
+import { stripMarkdown } from "./markdown";
 
 type JsonLd = Record<string, unknown>;
 
@@ -87,6 +88,8 @@ export const applyPageSEO = (options: SEOOptions) => {
 
   if (options.noIndex) {
     setMetaTag("robots", "noindex, nofollow");
+  } else {
+    setMetaTag("robots", "index, follow");
   }
 
   clearJsonLd();
@@ -131,7 +134,7 @@ export const buildBlogPostingJsonLd = (post: Post): JsonLd => ({
     },
   },
   keywords: post.tags ?? [],
-  articleBody: post.content_md,
+  articleBody: stripMarkdown(post.content_md),
   articleSection:
     post.type === PostType.RESEARCH ? "Research" : post.type === PostType.LEAD_MAGNET ? "Downloads" : "Blog",
   speakable: {
@@ -151,7 +154,7 @@ export const buildFaqPageJsonLd = (post: Post): JsonLd | undefined => {
       name: faq.question,
       acceptedAnswer: {
         "@type": "Answer",
-        text: faq.answer,
+        text: stripMarkdown(faq.answer),
       },
     })),
   };
