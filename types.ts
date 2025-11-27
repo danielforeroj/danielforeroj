@@ -18,6 +18,8 @@ export interface Post {
   date: string; // ISO 8601 format
   excerpt: string;
   content_md: string;
+  answer?: string;
+  faqs?: { question: string; answer: string }[];
   tags?: string[];
   lead_magnet?: LeadMagnet;
 }

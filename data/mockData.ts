@@ -73,6 +73,7 @@ export const posts: Post[] = [
   slug: 'fuck-web3-jargon',
   date: '2025-11-06T20:15:00Z',
   excerpt: 'If your product needs a glossary to sign up, you don’t have a product problem—you have a language problem. This is a field guide to killing crypto-speak, writing for real people, and shipping UX that converts.',
+  answer: 'Web3 growth stalls because most products force people to learn jargon before they can do anything useful. Replace every crypto-ism with plain, local language that explains the benefit first: social/email sign-in before wallets, total cost in local currency before “gas,” and recovery instructions without acronyms. Use progressive disclosure so advanced settings stay hidden until needed, add short answer boxes and FAQ schema so answer engines can cite you, and publish bilingual microcopy for LATAM. Clarity builds trust, cuts drop-off at critical steps, and keeps you compliant with regulators who expect transparent risk language.',
   content_md: `
 # Fuck Web3 Jargon
 
@@ -275,6 +276,24 @@ If your product needs a glossary to sign up, it needs a rewrite. Start with one 
 
 Jargon is a habit. Clarity is a strategy. Choose the one that compounds.
 `,
+  faqs: [
+    {
+      question: 'How do I remove jargon from wallet onboarding?',
+      answer: 'Start with social or email sign-in, explain that the first signature simply proves the account is yours, and describe recovery in one sentence (e.g., “Recover with your email or backup device—no seed phrase to memorize”).'
+    },
+    {
+      question: 'What should I show instead of “gas fees”?',
+      answer: 'Show the total cost in local currency first, label it as a network fee that pays to process the transaction, and keep advanced gas controls behind an accordion for power users.'
+    },
+    {
+      question: 'How can I make copy AEO/GEO-friendly?',
+      answer: 'Lead with a 90–120 word answer box, add 4–6 FAQ questions with direct answers, use descriptive H2/H3s, and include author/source links so answer engines can quote you confidently.'
+    },
+    {
+      question: 'What bilingual tweaks matter for LATAM?',
+      answer: 'Write neutral Spanish and native PT-BR microcopy, avoid literal translations of slang, default to local currencies, and explain compliance or feature availability in plain language.'
+    }
+  ],
   tags: ['web3', 'ux', 'product', 'marketing', 'plain-language', 'latam', 'seo', 'aeo', 'privacy', 'wallets']
 },
 
@@ -284,6 +303,7 @@ Jargon is a habit. Clarity is a strategy. Choose the one that compounds.
   slug: 'gtm-playbook-web3',
   date: '2025-11-06T20:00:00Z',
   excerpt: 'A field-tested, no-fluff go-to-market playbook for Web3 teams. Pragmatic strategy, hybrid funnels, onchain activation, and an operating cadence that turns momentum into defensibility—now with AI SEO/AEO tactics that get you cited by answer engines.',
+  answer: 'This Web3 GTM playbook starts with AI SEO/AEO: publish answer-box intros, FAQ schema, and author signals so answer engines cite you. Use plain language and hybrid funnels—Web2 channels like email and SEO paired with Web3 primitives such as onchain credentials or fee discounts—to prove value fast. Define painfully specific ICPs and a category narrative, design one meaningful first onchain action, and run weekly experiments with clear metrics. Pair attribution across off-chain events and onchain behavior, keep partners and communities as repeatable systems, and localize content for priority geos. Operate in short cycles so momentum compounds into defensible growth.',
   content_md: `
 # My GTM Playbook for Web3
 
@@ -571,6 +591,24 @@ Ship those artifacts in the next two weeks and you will feel momentum. Sustain t
 
 If you want help pressure testing your ICPs, designing the first onchain action, implementing AEO/GEO (answer boxes + schema + author pages), or turning partners into distribution, reach out. I’ll point you to the fastest path and the traps to avoid.
 `,
-  tags: ['web3', 'marketing', 'gtm', 'growth', 'latam', 'ai', 'seo', 'aeo', 'geo']
+  faqs: [
+    {
+      question: 'What is the first GTM move for a Web3 product?',
+      answer: 'Publish an answer-box explainer with FAQ schema tied to a single onchain action that proves value—like a credential that unlocks lower fees—so answer engines surface you and users see a fast win.'
+    },
+    {
+      question: 'How should I design the first onchain action?',
+      answer: 'Pick one action that demonstrates real utility, keep it low-friction, and connect it to tangible benefits such as fee discounts or trial credits instead of vanity mints.'
+    },
+    {
+      question: 'How do I structure funnels for Web3?',
+      answer: 'Use hybrid funnels: SEO/email/social for top-of-funnel, progressive wallet connection for activation, and in-product nudges plus lifecycle emails for post-activation. Pair them with weekly experimentation.'
+    },
+    {
+      question: 'What metrics matter most?',
+      answer: 'Track the first successful onchain action, the cost to acquire it, retention of transacting users, and partner loops that turn into distribution rather than one-off logos.'
+    }
+  ],
+  tags: ['web3', 'gtm', 'marketing', 'growth', 'aeo', 'seo', 'latam', 'playbook']
 }
 ];

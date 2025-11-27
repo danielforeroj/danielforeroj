@@ -5,6 +5,8 @@ import { posts as allPosts } from '../data/mockData';
 import { PostType } from '../types';
 import Card from '../components/Card';
 import Chip from '../components/Chip';
+import { applyPageSEO, buildBlogCollectionJsonLd, buildBreadcrumbListJsonLd, buildSiteSearchJsonLd } from '../lib/seo';
+import { SITE } from '../data/siteConfig';
 
 interface PostListPageProps {
   type: PostType;
@@ -12,9 +14,40 @@ interface PostListPageProps {
 }
 
 const PostListPage: React.FC<PostListPageProps> = ({ type, title }) => {
-  const filteredPosts = allPosts
-    .filter(post => post.type === type)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const filteredPosts = React.useMemo(
+    () =>
+      allPosts
+        .filter(post => post.type === type)
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
+    [type],
+  );
+
+  React.useEffect(() => {
+    const sectionPath =
+      type === PostType.RESEARCH ? '/research' : type === PostType.LEAD_MAGNET ? '/leads' : '/blog';
+    const canonicalUrl = `${SITE.url}${sectionPath}`;
+    const tags = filteredPosts.flatMap((post) => post.tags ?? []);
+
+    applyPageSEO({
+      title: `${title} | ${SITE.name}`,
+      description:
+        type === PostType.RESEARCH
+          ? 'Research, frameworks, and experiments for Web3/AI go-to-market.'
+          : type === PostType.LEAD_MAGNET
+            ? 'Downloads, templates, and checklists for faster GTM execution.'
+            : 'All blog posts, playbooks, and narratives from Daniel Forero.',
+      canonicalUrl,
+      keywords: [...new Set(tags)],
+      jsonLd: [
+        buildBlogCollectionJsonLd(filteredPosts, title, canonicalUrl),
+        buildBreadcrumbListJsonLd([
+          { name: 'Home', url: SITE.url },
+          { name: title, url: canonicalUrl },
+        ]),
+        buildSiteSearchJsonLd(),
+      ],
+    });
+  }, [filteredPosts, title, type]);
 
   return (
     <div className="space-y-8">
