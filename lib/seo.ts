@@ -79,6 +79,9 @@ export const applyPageSEO = (options: SEOOptions) => {
     setPropertyTag("article:modified_time", options.modifiedTime ?? options.publishedTime);
   }
 
+  setPropertyTag("og:image", options.ogImage ?? SITE.defaultOgImage);
+  setPropertyTag("og:site_name", SITE.name);
+
   setMetaTag("twitter:card", "summary_large_image");
   setMetaTag("twitter:title", options.title);
   setMetaTag("twitter:description", options.description);

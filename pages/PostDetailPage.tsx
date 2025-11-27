@@ -6,6 +6,7 @@ import Chip from '../components/Chip';
 import { SITE } from '../data/siteConfig';
 import { applyPageSEO, buildBlogPostingJsonLd, buildBreadcrumbListJsonLd, buildFaqPageJsonLd } from '../lib/seo';
 import { markdownToHtml } from '../lib/markdown';
+import { applyPageSEO, buildBlogPostingJsonLd, buildBreadcrumbListJsonLd } from '../lib/seo';
 
 const PostDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -40,6 +41,17 @@ const PostDetailPage: React.FC = () => {
   }, [post]);
 
   const renderedContent = React.useMemo(() => (post ? markdownToHtml(post.content_md) : ''), [post]);
+
+      jsonLd: [
+        buildBlogPostingJsonLd(post),
+        buildBreadcrumbListJsonLd([
+          { name: 'Home', url: SITE.url },
+          { name: 'Blog', url: `${SITE.url}/blog` },
+          { name: post.title, url: canonicalUrl },
+        ]),
+      ],
+    });
+  }, [post]);
 
   if (!post) {
     return (
