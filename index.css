@@ -132,6 +132,7 @@ h1, h2, h3,
 .markdown-content {
   color: var(--md-sys-color-on-background);
   line-height: 1.7;
+  word-break: break-word;
 }
 
 .markdown-content h1,
@@ -154,20 +155,25 @@ h1, h2, h3,
 
 .markdown-content ul,
 .markdown-content ol {
-  padding-left: 1.3rem;
-  margin: 0 0 1.1rem;
+  padding-left: 1.35rem;
+  margin: 0 0 1.15rem;
   color: var(--md-sys-color-on-background);
+  list-style-position: outside;
 }
 
 .markdown-content ul { list-style: disc; }
 .markdown-content ol { list-style: decimal; }
 
-.markdown-content li + li {
-  margin-top: 0.5rem;
+.markdown-content li {
+  margin: 0.45rem 0;
 }
 
 .markdown-content strong {
   font-weight: 700;
+}
+
+.markdown-content em {
+  font-style: italic;
 }
 
 .markdown-content code {
