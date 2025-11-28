@@ -14,6 +14,12 @@ const PostDetailPage: React.FC = () => {
     if (!post) return;
 
     const canonicalUrl = `${SITE.url}/post/${post.slug}`;
+    const breadcrumbs = [
+      { name: 'Home', url: SITE.url },
+      { name: 'Blog', url: `${SITE.url}/blog` },
+      { name: post.title, url: canonicalUrl },
+    ];
+
     applyPageSEO({
       title: `${post.title} | ${SITE.name}`,
       description: post.excerpt,
@@ -22,11 +28,7 @@ const PostDetailPage: React.FC = () => {
       keywords: post.tags,
       jsonLd: [
         buildBlogPostingJsonLd(post),
-        buildBreadcrumbListJsonLd([
-          { name: 'Home', url: SITE.url },
-          { name: 'Blog', url: `${SITE.url}/blog` },
-          { name: post.title, url: canonicalUrl },
-        ]),
+        buildBreadcrumbListJsonLd(breadcrumbs),
       ],
     });
   }, [post]);
