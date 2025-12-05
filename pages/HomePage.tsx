@@ -91,26 +91,6 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* LOGO MARQUEE */}
-      {logos.length ? (
-        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
-          <div className="text-center mb-4">
-            <p className="text-sm font-semibold uppercase tracking-wide text-[var(--md-sys-color-on-surface)] opacity-80">
-              Featured collaborations
-            </p>
-          </div>
-          <div className="logo-marquee rounded-2xl">
-            <div className="logo-marquee__track" aria-label="Brand logos carousel">
-              {[...logos, ...logos].map((logo, idx) => (
-                <div key={`${logo.logoUrl}-${idx}`} className="logo-marquee__item" aria-hidden={idx >= logos.length}>
-                  <img src={logo.logoUrl} alt={logo.name ?? "Brand logo"} loading="lazy" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      ) : null}
-
       {/* SOCIALS as CTA1 */}
       {socialCTA.length ? (
         <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 text-center">
@@ -141,6 +121,22 @@ const HomePage: React.FC = () => {
                 ) : null}
               </article>
             ))}
+          </div>
+        </section>
+      ) : null}
+
+      {/* LOGO MARQUEE */}
+      {logos.length ? (
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <h3 className="text-2xl font-extrabold mb-6 text-center">Featured collaborations</h3>
+          <div className="logo-marquee" aria-label="Brand logos carousel">
+            <div className="logo-marquee__track">
+              {[...logos, ...logos].map((logo, idx) => (
+                <div key={`${logo.logoUrl}-${idx}`} className="logo-marquee__item" aria-hidden={idx >= logos.length}>
+                  <img src={logo.logoUrl} alt={logo.name ?? "Brand logo"} loading="lazy" />
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       ) : null}

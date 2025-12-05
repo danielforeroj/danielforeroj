@@ -184,33 +184,10 @@ h1, h2, h3,
 }
 
 /* Logo marquee */
+
 .logo-marquee {
   position: relative;
   overflow: hidden;
-  background: var(--md-sys-color-surface);
-  border: 1px solid var(--hairline);
-  padding: 12px 0;
-}
-
-.logo-marquee::before,
-.logo-marquee::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 96px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.logo-marquee::before {
-  left: 0;
-  background: linear-gradient(90deg, var(--md-sys-color-surface), transparent);
-}
-
-.logo-marquee::after {
-  right: 0;
-  background: linear-gradient(270deg, var(--md-sys-color-surface), transparent);
 }
 
 .logo-marquee__track {
@@ -240,12 +217,6 @@ h1, h2, h3,
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
-  filter: grayscale(0.3);
-  opacity: 0.9;
-  transition: filter 0.2s ease, opacity 0.2s ease;
-}
-
-.logo-marquee__item img:hover {
-  filter: grayscale(0);
-  opacity: 1;
+  filter: grayscale(1);
+  opacity: 0.85;
 }
