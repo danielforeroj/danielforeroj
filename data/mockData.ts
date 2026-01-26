@@ -45,7 +45,7 @@ export const initialHomeContent: HomeContent = {
       ctaUrl: "https://outlierventures.io"
     },
     {
-      title: "VP of Marketing & Strategy at Tectonic",
+      title: "Marketing & Strategy Advisor at Tectonic",
       body: "Tectonic is building defense-grade infrastructure for the post-quantum era.",
       ctaLabel: "Learn More About Tectonic",
       ctaUrl: "https://tectonic.xyz"
@@ -56,13 +56,19 @@ export const initialHomeContent: HomeContent = {
       ctaLabel: "Learn More About Multiplied (DMC)",
       ctaUrl: "https://multipliedhq.com"
     },
-  
+    {
+      title: "Marketing & Strategy Advisor at Comet Cash",
+      body: "Payments infrastructure using bitcoin & lightning technology.",
+      ctaLabel: "Learn More About Comet Cash",
+      ctaUrl: "https://www.cometcash.com/"
+    },
     {
       title: "Partner at Capa",
       body: "Leveraging stablecoin infrastructure to move money across LATAM with zero FX drag. Raised USD$3M in pre-seed.",
       ctaLabel: "Learn More About Capa",
       ctaUrl: "https://capa.fi"
     }
+    
   ]
 };
 
