@@ -52,6 +52,25 @@ const HomePage: React.FC = () => {
   const socialCTA = (c.socials ?? []).map((s) => ({ label: s.name, url: s.url }));
 
   const latest = (posts ?? []).slice(0, 6);
+  const logos = c.logos ?? [];
+
+  const LogoMarquee = () => {
+    if (!logos.length) return null;
+
+    const duplicated = [...logos, ...logos];
+
+    return (
+      <div className="logo-marquee" aria-label="Network and Clients logos">
+        <div className="logo-track">
+          {duplicated.map((logo, idx) => (
+            <div className="logo-cell" key={`${logo.logoUrl}-${idx}`}>
+              <img src={logo.logoUrl} alt={`${logo.name ?? "Client"} logo`} loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -121,6 +140,14 @@ const HomePage: React.FC = () => {
               </article>
             ))}
           </div>
+        </section>
+      ) : null}
+
+      {/* NETWORK & CLIENTS */}
+      {logos.length ? (
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <h3 className="text-2xl font-extrabold mb-6 text-center">Network &amp; Clients</h3>
+          <LogoMarquee />
         </section>
       ) : null}
 

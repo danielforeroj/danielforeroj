@@ -182,3 +182,40 @@ h1, h2, h3,
   border-radius: 6px;
   font-size: 0.95em;
 }
+
+/* Logo marquee */
+.logo-marquee {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+  margin: 0 auto;
+  width: min(240px, 100%);
+}
+
+.logo-track {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: logo-scroll 18s linear infinite;
+  will-change: transform;
+}
+
+.logo-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  padding: 6px;
+}
+
+.logo-cell img {
+  max-height: 52px;
+  max-width: 180px;
+  filter: grayscale(1) brightness(0.4) contrast(1.1);
+  opacity: 0.9;
+}
+
+@keyframes logo-scroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
