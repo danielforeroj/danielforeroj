@@ -44,6 +44,7 @@ const fmt = (iso: string) =>
 
 const HomePage: React.FC = () => {
   const c = initialHomeContent;
+  const logos = c.logos ?? [];
 
   // Top hero CTAs: ONLY what's defined in hero_buttons (CTA1)
   const heroCTA = (c.hero_buttons ?? []).slice(0, 4); // safe cap if extended later
@@ -120,6 +121,22 @@ const HomePage: React.FC = () => {
                 ) : null}
               </article>
             ))}
+          </div>
+        </section>
+      ) : null}
+
+      {/* LOGO MARQUEE */}
+      {logos.length ? (
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <h3 className="text-2xl font-extrabold mb-6 text-center">Featured collaborations</h3>
+          <div className="logo-marquee" aria-label="Brand logos carousel">
+            <div className="logo-marquee__track">
+              {[...logos, ...logos].map((logo, idx) => (
+                <div key={`${logo.logoUrl}-${idx}`} className="logo-marquee__item" aria-hidden={idx >= logos.length}>
+                  <img src={logo.logoUrl} alt={logo.name ?? "Brand logo"} loading="lazy" />
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       ) : null}
