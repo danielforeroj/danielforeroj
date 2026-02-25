@@ -224,8 +224,9 @@ h1, h2, h3,
   width: auto;
   max-width: min(190px, 38vw);
   object-fit: contain;
-  opacity: 0.85;
-  filter: grayscale(1);
+  opacity: 0.95;
+  filter: brightness(0) saturate(100%) contrast(1.05);
+  -webkit-filter: brightness(0) saturate(100%) contrast(1.05);
 }
 
 @keyframes companies-scroll {
