@@ -208,7 +208,7 @@ h1, h2, h3,
   padding: 0;
   display: flex;
   align-items: center;
-  gap: clamp(2rem, 3.5vw, 3.5rem);
+  gap: clamp(2.75rem, 4.5vw, 4.75rem);
   padding-inline: 1.25rem;
 }
 
