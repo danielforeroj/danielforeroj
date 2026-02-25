@@ -18,6 +18,76 @@ const formatInlineMarkdown = (text: string) => {
     .replace(/\*([^*]+)\*/g, '<em>$1</em>');
 };
 
+const OAICITE_PATTERN = /:contentReference\s*\[\s*oaicite\s*:\s*\d+\s*\]\s*\{\s*index\s*=\s*\d+\s*\}/gi;
+
+const normalizeHeadingText = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[`*_~#>\-]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const stripOaiciteReferences = (markdown: string) => {
+  const lines = markdown.split(/\r?\n/);
+  let inFence = false;
+
+  return lines
+    .map((line) => {
+      const trimmedStart = line.trimStart();
+      if (trimmedStart.startsWith('```')) {
+        inFence = !inFence;
+        return line;
+      }
+
+      if (inFence) {
+        return line;
+      }
+
+      return line.replace(OAICITE_PATTERN, '').replace(/\s{2,}$/g, '');
+    })
+    .join('\n');
+};
+
+const normalizePostMarkdown = (markdown: string, title: string) => {
+  const cleaned = stripOaiciteReferences(markdown);
+  const lines = cleaned.split(/\r?\n/);
+  const normalizedTitle = normalizeHeadingText(title);
+  let inFence = false;
+  let skippedMatchingFirstH1 = false;
+
+  const normalizedLines = lines.flatMap((line) => {
+    const trimmedStart = line.trimStart();
+    if (trimmedStart.startsWith('```')) {
+      inFence = !inFence;
+      return [line];
+    }
+
+    if (inFence) {
+      return [line];
+    }
+
+    const headingMatch = line.match(/^(\s*)(#{1,6})\s+(.*)$/);
+    if (!headingMatch) {
+      return [line];
+    }
+
+    const [, indent, hashes, headingText] = headingMatch;
+
+    if (hashes.length === 1) {
+      if (!skippedMatchingFirstH1 && normalizeHeadingText(headingText) === normalizedTitle) {
+        skippedMatchingFirstH1 = true;
+        return [];
+      }
+
+      return [`${indent}## ${headingText}`];
+    }
+
+    return [line];
+  });
+
+  return normalizedLines.join('\n');
+};
+
 const markdownToHtml = (markdown: string) => {
   const lines = markdown.split(/\r?\n/);
   let html = '';
@@ -76,7 +146,7 @@ const PostDetailPage: React.FC = () => {
 
   const htmlContent = React.useMemo(() => {
     if (!post) return '';
-    return markdownToHtml(post.content_md);
+    return markdownToHtml(normalizePostMarkdown(post.content_md, post.title));
   }, [post]);
 
   React.useEffect(() => {
@@ -119,7 +189,7 @@ const PostDetailPage: React.FC = () => {
       <header className="mb-8">
         <Chip>{post.type.replace('_', ' ')}</Chip>
         <h1
-          className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight"
+          className="mt-4 text-3xl md:text-4xl font-extrabold tracking-tight"
           style={{ color: 'var(--md-sys-color-primary)' }}
         >
           {post.title}
@@ -134,7 +204,7 @@ const PostDetailPage: React.FC = () => {
       </header>
 
       <div
-        className="prose prose-lg dark:prose-invert max-w-none whitespace-pre-line"
+        className="prose prose-base dark:prose-invert max-w-none whitespace-pre-line"
         style={{ color: 'var(--md-sys-color-on-background)' }}
       >
         <div className="markdown-content" dangerouslySetInnerHTML={{ __html: htmlContent }} />
