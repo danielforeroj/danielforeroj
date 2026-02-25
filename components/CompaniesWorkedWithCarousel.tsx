@@ -79,8 +79,8 @@ const CompaniesWorkedWithCarousel: React.FC = () => {
   }
 
   return (
-    <section className="mt-14 py-12 sm:py-16" aria-label="Companies I've worked with">
-      <h3 className="text-2xl font-extrabold mb-4">Companies I&apos;ve worked with</h3>
+    <section className="mt-14 py-12 sm:py-16" aria-label="Companies I've Worked With">
+      <h3 className="text-2xl font-extrabold mb-4">Companies I&apos;ve Worked With</h3>
       <div className="companies-carousel" role="region" aria-label="Scrolling company logos">
         <div className="companies-carousel__track">
           {[0, 1].map((copyIdx) => (

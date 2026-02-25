@@ -129,7 +129,7 @@ const HomePage: React.FC = () => {
       {/* LATEST POSTS */}
       {latest.length ? (
         <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-          <h3 className="text-2xl font-extrabold mb-6 text-center">Latest writing</h3>
+          <h3 className="text-2xl font-extrabold mb-6 text-center">Latest Writing</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {latest.map((p) => (
               <article key={p.slug} className="card p-8">
