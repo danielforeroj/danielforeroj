@@ -2,6 +2,7 @@
 import React from "react";
 import { initialHomeContent, posts } from "../data/mockData";
 import Button from "../components/Button";
+import CompaniesWorkedWithCarousel from "../components/CompaniesWorkedWithCarousel";
 
 /** Small inline chip renderer */
 const Chips: React.FC<{
@@ -101,6 +102,7 @@ const HomePage: React.FC = () => {
               </Button>
             ))}
           </div>
+          <CompaniesWorkedWithCarousel />
         </section>
       ) : null}
 
