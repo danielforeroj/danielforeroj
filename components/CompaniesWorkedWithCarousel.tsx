@@ -4,6 +4,7 @@ type LogoRecord = {
   src: string;
   alt: string;
   key: string;
+  sortLabel: string;
 };
 
 const stripFileExtension = (name: string) => name.replace(/\.[a-z0-9]+$/i, "");
@@ -32,17 +33,22 @@ const logoModules = import.meta.glob("../content/brands logos/*.{png,jpg,jpeg,sv
   import: "default",
 }) as Record<string, string>;
 
+const alphabeticalSort = new Intl.Collator(undefined, { sensitivity: "base", numeric: true });
+
 const logos: LogoRecord[] = Object.entries(logoModules)
   .map(([path, src]) => {
     const filename = path.split("/").pop() ?? "";
 
+    const alt = filenameToAlt(filename);
+
     return {
       src,
-      alt: filenameToAlt(filename),
+      alt,
       key: path,
+      sortLabel: alt.toLowerCase(),
     };
   })
-  .sort((a, b) => a.alt.localeCompare(b.alt));
+  .sort((a, b) => alphabeticalSort.compare(a.sortLabel, b.sortLabel) || alphabeticalSort.compare(a.key, b.key));
 
 const CompanyLogo: React.FC<{ logo: LogoRecord }> = ({ logo }) => {
   const [failed, setFailed] = useState(false);
