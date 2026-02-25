@@ -144,10 +144,10 @@ h1, h2, h3,
   line-height: 1.3;
 }
 
-.markdown-content h1 { font-size: clamp(2.15rem, 3vw + 1rem, 2.6rem); font-weight: 800; }
-.markdown-content h2 { font-size: clamp(1.7rem, 2.5vw + 0.8rem, 2.1rem); font-weight: 750; }
-.markdown-content h3 { font-size: clamp(1.35rem, 1.5vw + 0.7rem, 1.65rem); font-weight: 700; }
-.markdown-content h4 { font-size: clamp(1.1rem, 1vw + 0.6rem, 1.25rem); font-weight: 650; }
+.markdown-content h1 { font-size: clamp(1.65rem, 1.8vw + 0.95rem, 2rem); font-weight: 800; }
+.markdown-content h2 { font-size: clamp(1.4rem, 1.4vw + 0.85rem, 1.7rem); font-weight: 750; }
+.markdown-content h3 { font-size: clamp(1.2rem, 1vw + 0.75rem, 1.45rem); font-weight: 700; }
+.markdown-content h4 { font-size: clamp(1.05rem, 0.7vw + 0.7rem, 1.2rem); font-weight: 650; }
 
 .markdown-content p {
   margin: 0 0 1rem;
@@ -181,4 +181,82 @@ h1, h2, h3,
   padding: 0.15rem 0.35rem;
   border-radius: 6px;
   font-size: 0.95em;
+}
+
+/* Companies carousel */
+.companies-carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+.companies-carousel__track {
+  display: flex;
+  width: max-content;
+  animation: companies-scroll 46s linear infinite;
+}
+
+.companies-carousel:hover .companies-carousel__track {
+  animation-play-state: paused;
+}
+
+.companies-carousel__row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(2.75rem, 4.5vw, 4.75rem);
+  padding-inline: 1.25rem;
+}
+
+.companies-carousel__item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.companies-carousel__logo {
+  height: clamp(1.75rem, 2.7vw, 2.5rem);
+  width: auto;
+  max-width: min(190px, 38vw);
+  object-fit: contain;
+  opacity: 0.95;
+  filter: brightness(0) saturate(100%) contrast(1.05);
+  -webkit-filter: brightness(0) saturate(100%) contrast(1.05);
+}
+
+@keyframes companies-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .companies-carousel {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .companies-carousel__track {
+    animation: none;
+    display: block;
+    width: auto;
+  }
+
+  .companies-carousel__row {
+    width: max-content;
+    padding-bottom: 0.25rem;
+  }
+
+  .companies-carousel__row[aria-hidden="true"] {
+    display: none;
+  }
 }
