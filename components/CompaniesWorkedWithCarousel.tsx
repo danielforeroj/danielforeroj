@@ -73,7 +73,7 @@ const CompaniesWorkedWithCarousel: React.FC = () => {
   }
 
   return (
-    <section className="mt-10 py-10 sm:py-12" aria-label="Companies I've worked with">
+    <section className="mt-14 py-12 sm:py-16" aria-label="Companies I've worked with">
       <h3 className="text-2xl font-extrabold mb-4">Companies I&apos;ve worked with</h3>
       <div className="companies-carousel" role="region" aria-label="Scrolling company logos">
         <div className="companies-carousel__track">
