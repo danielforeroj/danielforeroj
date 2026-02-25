@@ -195,7 +195,7 @@ h1, h2, h3,
 .companies-carousel__track {
   display: flex;
   width: max-content;
-  animation: companies-scroll 32s linear infinite;
+  animation: companies-scroll 46s linear infinite;
 }
 
 .companies-carousel:hover .companies-carousel__track {
