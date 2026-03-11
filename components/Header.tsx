@@ -53,6 +53,9 @@ const Header: React.FC = () => {
             <NavLink to="/leads" className={navLinkClass}>
               Downloads
             </NavLink>
+            <NavLink to="/virtual-coffee" className={navLinkClass}>
+              Virtual Coffee
+            </NavLink>
           </nav>
 
           {/* Mobile toggle */}
@@ -102,6 +105,13 @@ const Header: React.FC = () => {
               onClick={closeMenu}
             >
               Downloads
+            </NavLink>
+            <NavLink
+              to="/virtual-coffee"
+              className={mobileNavLinkClass}
+              onClick={closeMenu}
+            >
+              Virtual Coffee
             </NavLink>
           </div>
         </div>

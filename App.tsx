@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import PostListPage from './pages/PostListPage';
 import PostDetailPage from './pages/PostDetailPage';
+import VirtualCoffeePage from './pages/VirtualCoffeePage';
 import { PostType } from './types';
 import SkipToContent from './components/SkipToContent';
 import ThemePicker from './components/ThemePicker';
@@ -42,6 +43,7 @@ const App: React.FC = () => {
             <Route path="/research" element={<PostListPage type={PostType.RESEARCH} title="Research" />} />
             <Route path="/leads" element={<PostListPage type={PostType.LEAD_MAGNET} title="Downloads" />} />
             <Route path="/post/:slug" element={<PostDetailPage />} />
+            <Route path="/virtual-coffee" element={<VirtualCoffeePage />} />
           </Routes>
         </main>
         <Footer />
