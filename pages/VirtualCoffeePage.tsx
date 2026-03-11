@@ -37,6 +37,7 @@ const VirtualCoffeePage: React.FC = () => {
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Virtual Coffee</h1>
         <div className="text-base sm:text-lg" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
           <p>Let's have a conversation over a virtual coffee.</p>
+          <p className="mt-2">And let's connect on socials!</p>
           <div className="mt-3 flex items-center gap-2">
             {socials.map((social) => (
               <a
@@ -67,7 +68,7 @@ const VirtualCoffeePage: React.FC = () => {
           src="https://app.onecal.io/b/dnaielforeroj/virtual-coffee"
           className="w-full"
           style={{
-            height: 'clamp(520px, 75vh, 860px)',
+            height: 'clamp(780px, 96dvh, 1200px)',
             border: '0',
           }}
           loading="lazy"
