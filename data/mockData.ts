@@ -42,7 +42,7 @@ export const initialHomeContent: HomeContent = {
       title: "CEO & Cofounder of On Duty",
       body: "On Duty deploys autonomous AI agents that do the work, not just the talking. Proactive by design, verified by a multi agent pipeline, and built to escalate to humans when it matters. No hallucinations, no technical knowledge.",
       ctaLabel: "Learn More About On Duty",
-      ctaUrl: "https://onduty.ai"
+      ctaUrl: "https://alwaysonduty.io"
     },
     {
       title: "GTM Mentor at Outlier Ventures",
