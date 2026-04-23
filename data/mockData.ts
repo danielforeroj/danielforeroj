@@ -39,16 +39,16 @@ export const initialHomeContent: HomeContent = {
   ],
   ventures: [
     {
+      title: "CEO & Cofounder of On Duty",
+      body: "On Duty deploys autonomous AI agents that do the work, not just the talking. Proactive by design, verified by a multi agent pipeline, and built to escalate to humans when it matters. No hallucinations, no technical knowledge.",
+      ctaLabel: "Learn More About On Duty",
+      ctaUrl: "https://alwaysonduty.io"
+    },
+    {
       title: "GTM Mentor at Outlier Ventures",
       body: "Advising the next generation of Web3 founders on go-to-market strategy, product positioning, and narrative development within the Outlier Ventures accelerator program.",
       ctaLabel: "Learn More About Outlier Ventures",
       ctaUrl: "https://outlierventures.io"
-    },
-    {
-      title: "Marketing & Strategy Advisor at Tectonic",
-      body: "Tectonic is building defense-grade infrastructure for the post-quantum era.",
-      ctaLabel: "Learn More About Tectonic",
-      ctaUrl: "https://tectonic.xyz"
     },
     {
       title: "Partner at Multiplied (DMC)",
