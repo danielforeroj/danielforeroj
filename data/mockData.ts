@@ -51,12 +51,6 @@ export const initialHomeContent: HomeContent = {
       ctaUrl: "https://outlierventures.io"
     },
     {
-      title: "Marketing & Strategy Advisor at Tectonic",
-      body: "Tectonic is building defense-grade infrastructure for the post-quantum era.",
-      ctaLabel: "Learn More About Tectonic",
-      ctaUrl: "https://tectonic.xyz"
-    },
-    {
       title: "Partner at Multiplied (DMC)",
       body: "The marketing & PR agency behind headline-grabbing launches for protocols and brands alike, including Solana’s wormhole, Immutable X, Quentin Tarantino’s NFT, among many others.",
       ctaLabel: "Learn More About Multiplied (DMC)",
