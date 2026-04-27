@@ -39,8 +39,8 @@ export const initialHomeContent: HomeContent = {
   ],
   ventures: [
     {
-      title: "CEO & Cofounder of On Duty",
-      body: "On Duty deploys autonomous AI agents that do the work, not just the talking. Proactive by design, verified by a multi agent pipeline, and built to escalate to humans when it matters. No hallucinations, no technical knowledge.",
+      title: "CEO & Co-founder of On Duty",
+      body: "OnDuty is vertical AI for business operations in emerging markets.",
       ctaLabel: "Learn More About On Duty",
       ctaUrl: "https://alwaysonduty.io"
     },
@@ -52,7 +52,7 @@ export const initialHomeContent: HomeContent = {
     },
     {
       title: "Partner at Multiplied (DMC)",
-      body: "The marketing & PR agency behind headline-grabbing launches for protocols and brands alike, including Solana’s wormhole, Immutable X, Quentin Tarantino’s NFT, among many others.",
+      body: "The growth agency behind headline-grabbing launches for protocols and brands alike, including Solana’s wormhole, Immutable X, Quentin Tarantino’s NFT, among many others.",
       ctaLabel: "Learn More About Multiplied (DMC)",
       ctaUrl: "https://multipliedhq.com"
     },
@@ -64,7 +64,7 @@ export const initialHomeContent: HomeContent = {
     },
     {
       title: "Partner at Capa",
-      body: "Leveraging stablecoin infrastructure to move money across LATAM with zero FX drag. Raised USD$3M in pre-seed.",
+      body: "Payments company leveraging stablecoin infrastructure to move money across LATAM with zero FX drag. Raised USD$3M in pre-seed.",
       ctaLabel: "Learn More About Capa",
       ctaUrl: "https://capa.fi"
     }
