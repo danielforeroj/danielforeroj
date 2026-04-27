@@ -21,11 +21,11 @@ export const initialHomeContent: HomeContent = {
   ],
   about: {
     title: "Who’s this guy?",
-    body: "I turn Web3 ideas into real-world businesses, and then make sure the world hears about them.\n\nOver the past decade, I’ve helped my clients raise over $100M combined, push millions in stablecoin flows across borders, and crack open new revenue models for everyday users. My growth playbook has powered mainstream traction for global brands, generated nine-figure TVL, and even put blockchain on the pop-culture stage with headline NFT drops for Quentin Tarantino, Doja Cat, and Jennifer Esposito."
+    body: "I turn ideas into real-world businesses, and then make sure the world hears about them.\n\nOver the past decade, I’ve helped my clients raise over $50M combined, push millions in stablecoin flows across borders, and crack open new revenue models for everyday users. My growth playbook has powered mainstream traction for global brands, generated nine-figure TVL, and even put blockchain on the pop-culture stage with headline drops for Quentin Tarantino, Doja Cat, and Jennifer Esposito."
   },
   operator: {
     title: "Operator ➜ Angel Investor",
-    body: "Alongside my operating roles, I back founders who are reinventing finance, identity, and ownership—then jump in as a hands-on advisor to turn theory into traction. If you’re raising and fit that bill, let’s talk.\n\nI'm looking for relentless founders with a clear vision and the grit to execute."
+    body: "Alongside my operating roles, I back founders who are reinventing finance, processes, identity, and ownership. Then jump in as a hands-on advisor to turn theory into traction. If you’re raising and fit that bill, let’s talk.\n\nI'm looking for relentless founders with a clear vision and the grit to execute."
   },
   socials: [
     { name: 'Instagram', url: 'https://www.instagram.com/danielforeroj/' },
