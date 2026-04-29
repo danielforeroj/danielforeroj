@@ -126,6 +126,27 @@ const HomePage: React.FC = () => {
         </section>
       ) : null}
 
+      {/* RELEVANT PREVIOUS EXPERIENCE */}
+      {c.relevant_experience?.length ? (
+        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <h3 className="text-2xl font-extrabold mb-6 text-center">Relevant Previous Experience</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {c.relevant_experience.map((experience) => (
+              <article key={`${experience.company}-${experience.involvement}`} className="card p-6">
+                <h4 className="text-lg font-bold mb-3">{experience.company}</h4>
+                <div className="space-y-2 text-sm leading-relaxed">
+                  <p><span className="font-semibold">Involvement:</span> {experience.involvement}</p>
+                  <p><span className="font-semibold">Industry:</span> {experience.industry}</p>
+                  <p><span className="font-semibold">Niche:</span> {experience.niche}</p>
+                  <p><span className="font-semibold">Description:</span> {experience.description}</p>
+                  <p><span className="font-semibold">Relevant Accomplishments:</span> {experience.relevantAccomplishments}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {/* LATEST POSTS */}
       {latest.length ? (
         <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
