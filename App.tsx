@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import PostListPage from './pages/PostListPage';
 import PostDetailPage from './pages/PostDetailPage';
 import VirtualCoffeePage from './pages/VirtualCoffeePage';
+import WorkWithMePage from './pages/WorkWithMePage';
 import { PostType } from './types';
 import SkipToContent from './components/SkipToContent';
 import ThemePicker from './components/ThemePicker';
@@ -44,6 +45,7 @@ const App: React.FC = () => {
             <Route path="/leads" element={<PostListPage type={PostType.LEAD_MAGNET} title="Downloads" />} />
             <Route path="/post/:slug" element={<PostDetailPage />} />
             <Route path="/virtual-coffee" element={<VirtualCoffeePage />} />
+            <Route path="/work-w-me" element={<WorkWithMePage />} />
           </Routes>
         </main>
         <Footer />
