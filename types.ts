@@ -25,6 +25,14 @@ export interface Post {
 // Unified types for homepage content, replacing the old CMS-related types.
 export type HomeButton = { label: string; url: string };
 export type Venture = { title: string; body?: string; ctaLabel?: string; ctaUrl?: string };
+export type RelevantExperience = {
+  company: string;
+  involvement: string;
+  industry: string;
+  niche: string;
+  description: string;
+  relevantAccomplishments: string;
+};
 export type LogoItem = { name?: string; logoUrl: string };
 
 export type HomeContent = {
@@ -35,5 +43,6 @@ export type HomeContent = {
   socials: { name: string; url: string }[];
   hero_buttons?: HomeButton[];
   ventures?: Venture[];
+  relevant_experience?: RelevantExperience[];
   logos?: LogoItem[];
 };

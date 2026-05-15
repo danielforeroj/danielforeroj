@@ -69,6 +69,32 @@ export const initialHomeContent: HomeContent = {
       ctaUrl: "https://capa.fi"
     }
     
+  ],
+  relevant_experience: [
+    {
+      company: "Immutable",
+      involvement: "Marketing & Growth Advisor",
+      industry: "Web3 Gaming Infrastructure",
+      niche: "NFT and game economy go-to-market",
+      description: "Supported positioning and growth strategy for blockchain gaming narratives and ecosystem launches.",
+      relevantAccomplishments: "Helped shape campaign frameworks that supported major ecosystem partnerships and user growth initiatives."
+    },
+    {
+      company: "Rarible",
+      involvement: "Strategic Marketing Partner",
+      industry: "Digital Marketplaces",
+      niche: "NFT creator and collector growth",
+      description: "Contributed to launch planning and messaging strategy focused on creator adoption and marketplace traction.",
+      relevantAccomplishments: "Developed communication playbooks for high-visibility releases and community-led activations."
+    },
+    {
+      company: "Aptos Ecosystem Projects",
+      involvement: "Go-to-Market Advisor",
+      industry: "Blockchain Infrastructure",
+      niche: "Early-stage protocol and product storytelling",
+      description: "Advised founders on strategic messaging, launch sequencing, and investor-facing narrative design.",
+      relevantAccomplishments: "Improved launch readiness and cross-channel storytelling for teams preparing major product rollouts."
+    }
   ]
 };
 
