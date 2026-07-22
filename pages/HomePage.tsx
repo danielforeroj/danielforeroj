@@ -72,7 +72,7 @@ const HomePage: React.FC = () => {
           <span className="site-seal" aria-hidden="true" />
           <p className="eyebrow">CEO & Co-founder of Unbound Operators</p>
           <h1 className="operator-title">
-            I operate, build, and back companies at the edge of growth and AI.
+            I operate, build, and back companies at the <span className="operator-title__accent">edge of growth and AI.</span>
           </h1>
           <p className="operator-lede">
             I am Daniel Forero. Through Unbound Operators, I run a portfolio that includes Unbound Frontier
@@ -88,17 +88,34 @@ const HomePage: React.FC = () => {
           </div>
         </div>
 
-        <aside className="operator-brief" aria-label="Operating brief">
-          <p className="card-kicker">Operating brief</p>
-          <h2>Not a fund. Not an agency. An operator collective.</h2>
-          <p>
-            The work sits where strategy meets execution: growth systems, AI-native operations, frontier tech
-            positioning, and companies that need a sharper path from idea to market.
-          </p>
-          <div className="brief-stack">
+        <aside className="operator-console" aria-label="Operating system">
+          <div className="console-topline">
+            <span>UNBOUND.OS</span>
+            <span className="status-pill">Live</span>
+          </div>
+          <div className="console-screen">
+            <p className="card-kicker">Operating system</p>
+            <h2>Operate the company like a product.</h2>
+            <p>
+              Growth, AI systems, positioning, partnerships, and weekly execution loops for companies that need
+              a sharper path from idea to market.
+            </p>
+          </div>
+          <div className="console-grid" aria-label="Operating lanes">
             <span>Operate</span>
             <span>Build</span>
             <span>Back</span>
+            <span>Scale</span>
+          </div>
+          <div className="console-metrics">
+            <div>
+              <span>Portfolio</span>
+              <strong>5 units</strong>
+            </div>
+            <div>
+              <span>Mode</span>
+              <strong>Hands-on</strong>
+            </div>
           </div>
         </aside>
       </section>
