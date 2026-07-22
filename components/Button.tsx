@@ -1,9 +1,8 @@
 import React, { ReactNode } from "react";
 
 type Variant =
-  | "cta1"                 // filled → outline on hover → pressed inner tint
-  | "cta2"                 // outline → filled on hover → pressed inner tint
-  // kept for backward-compat with any older usage:
+  | "cta1"
+  | "cta2"
   | "filled"
   | "outlined"
   | "tonal"
@@ -13,22 +12,16 @@ type Variant =
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: Variant;
-  icon?: string;                       // Material Symbols name (optional)
-  as?: React.ElementType;              // polymorphic (a, button, Link, etc.)
-  href?: string;                       // for <a>
-  to?: string;                         // for routers
+  icon?: string;
+  as?: React.ElementType;
+  href?: string;
+  to?: string;
   target?: string;
   rel?: string;
-  download?: boolean | string;         // for <a download>
+  download?: boolean | string;
   className?: string;
 }
 
-/**
- * Button
- * - Variants "cta1" and "cta2" implement the exact interactions Daniel specified.
- * - Uses CSS classes defined in index.css (see step 2 below).
- * - Polymorphic via `as` (defaults to 'button'); auto-works with <a>, React Router, etc.
- */
 const Button: React.FC<ButtonProps> = ({
   children,
   variant = "cta1",
@@ -41,12 +34,11 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const Component = (as ?? (href ? "a" : "button")) as React.ElementType;
 
-  // map legacy variants to sane defaults so older code doesn't break
   const normalized: Variant =
     variant === "filled" ? "cta1"
     : variant === "outlined" ? "cta2"
     : variant === "filled-to-ghost" ? "cta1"
-    : variant; // cta1 | cta2 | tonal | ghost
+    : variant;
 
   const vClass =
     normalized === "cta1" ? "btn-cta1"
@@ -55,28 +47,19 @@ const Button: React.FC<ButtonProps> = ({
     : normalized === "ghost" ? "btn-ghost"
     : "btn-cta1";
 
-  const classes = `btn ${vClass} ${className}`.trim();
-
-  const content = (
-    <>
-      {icon ? (
-        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 18, marginRight: 6 }}>
-          {icon}
-        </span>
-      ) : null}
-      {children}
-    </>
-  );
-
-  // pass through unknown props (polymorphic)
   const allProps = {
     ...rest,
     href,
     to,
-    className: classes,
+    className: `btn ${vClass} ${className}`.trim(),
   };
 
-  return <Component {...(allProps as any)}>{content}</Component>;
+  return (
+    <Component {...(allProps as any)}>
+      {icon ? <span className="btn__icon" aria-hidden="true">{icon}</span> : null}
+      <span>{children}</span>
+    </Component>
+  );
 };
 
 export default Button;

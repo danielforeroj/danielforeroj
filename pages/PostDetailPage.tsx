@@ -2,7 +2,6 @@ import React from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { posts } from '../data/mockData';
 import Button from '../components/Button';
-import Chip from '../components/Chip';
 import { SITE } from '../data/siteConfig';
 import { applyPageSEO, buildBlogPostingJsonLd, buildBreadcrumbListJsonLd } from '../lib/seo';
 
@@ -174,45 +173,42 @@ const PostDetailPage: React.FC = () => {
 
   if (!post) {
     return (
-      <div className="text-center">
-        <h1 className="text-2xl font-bold">Post not found</h1>
-        <p className="mt-4">The post you are looking for does not exist.</p>
-        <NavLink to="/" className="mt-6 inline-block">
+      <div className="page">
+        <header className="page-header">
+          <p className="section-kicker">Missing</p>
+          <h1 className="page-title">Post not found</h1>
+          <p className="article-excerpt">The post you are looking for does not exist.</p>
+        </header>
+        <Button as={NavLink} to="/" variant="cta2">
           Go back home
-        </NavLink>
+        </Button>
       </div>
     );
   }
 
   return (
-    <article className="max-w-3xl mx-auto">
-      <header className="mb-8">
-        <Chip>{post.type.replace('_', ' ')}</Chip>
-        <h1
-          className="mt-4 text-3xl md:text-4xl font-extrabold tracking-tight"
-          style={{ color: 'var(--md-sys-color-primary)' }}
-        >
-          {post.title}
-        </h1>
-        <p className="mt-2 text-lg" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-          {post.excerpt}
+    <article className="article">
+      <header className="article-header">
+        <NavLink to="/blog" className="chip">Back to library</NavLink>
+        <h1 className="article-title">{post.title}</h1>
+        <p className="article-excerpt">{post.excerpt}</p>
+        <p className="article-date">
+          Published {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
         </p>
-        <p className="mt-4 text-sm" style={{ color: 'var(--md-sys-color-outline)' }}>
-          Published on{' '}
-          {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-        </p>
+        {post.tags?.length ? (
+          <div className="chips" style={{ marginTop: 18 }}>
+            {post.tags.slice(0, 6).map((tag) => (
+              <span key={tag} className="chip">{tag}</span>
+            ))}
+          </div>
+        ) : null}
       </header>
 
-      <div
-        className="prose prose-base dark:prose-invert max-w-none whitespace-pre-line"
-        style={{ color: 'var(--md-sys-color-on-background)' }}
-      >
-        <div className="markdown-content" dangerouslySetInnerHTML={{ __html: htmlContent }} />
-      </div>
+      <div className="markdown-content" dangerouslySetInnerHTML={{ __html: htmlContent }} />
 
       {post.lead_magnet?.file && (
-        <div className="mt-12 text-center">
-          <Button href={post.lead_magnet.file} as="a" variant="filled" icon="download" download>
+        <div className="button-row" style={{ marginTop: 48 }}>
+          <Button href={post.lead_magnet.file} as="a" variant="cta1" icon="Download" download>
             {post.lead_magnet.cta || 'Download'}
           </Button>
         </div>

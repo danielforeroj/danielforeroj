@@ -1,129 +1,60 @@
-// components/Header.tsx
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+
+const links = [
+  { to: "/", label: "Home" },
+  { to: "/blog", label: "Blog" },
+  { to: "/research", label: "Research" },
+  { to: "/leads", label: "Downloads" },
+  { to: "/virtual-coffee", label: "Coffee" },
+  { to: "/work-w-me", label: "Work" },
+];
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-    [
-      "px-3 py-2 rounded-full text-sm font-medium transition-colors",
-      isActive
-        ? "bg-[var(--accent)] text-[var(--accent-contrast)]"
-        : "text-[var(--on-surface)] hover:bg-[var(--df-accent-10)]",
-    ].join(" ");
+    `nav-link ${isActive ? "nav-link--active" : ""}`;
 
   const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
-    [
-      "block px-4 py-3 rounded-lg text-base font-medium transition-colors",
-      isActive
-        ? "bg-[var(--accent)] text-[var(--accent-contrast)]"
-        : "text-[var(--on-surface)] hover:bg-[var(--df-accent-10)]",
-    ].join(" ");
+    `mobile-nav-link ${isActive ? "mobile-nav-link--active" : ""}`;
 
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="header-opaque w-full">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Brand */}
-          <div className="flex-shrink-0">
-            <NavLink
-              to="/"
-              className="text-xl font-bold tracking-tight"
-              style={{ color: "var(--on-surface)" }}
-              onClick={closeMenu}
-            >
-              Daniel Forero
-            </NavLink>
-          </div>
+    <header className="site-header">
+      <div className="site-header__inner">
+        <NavLink to="/" className="brand-mark" onClick={closeMenu} aria-label="Daniel Forero home">
+          <span className="brand-mark__seal" aria-hidden="true" />
+          <span className="brand-mark__name">Daniel Forero</span>
+        </NavLink>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center space-x-2">
-            <NavLink to="/" className={navLinkClass}>
-              Home
+        <nav className="site-nav" aria-label="Primary navigation">
+          {links.map((link) => (
+            <NavLink key={link.to} to={link.to} className={navLinkClass}>
+              {link.label}
             </NavLink>
-            <NavLink to="/blog" className={navLinkClass}>
-              Blog
-            </NavLink>
-            <NavLink to="/research" className={navLinkClass}>
-              Research
-            </NavLink>
-            <NavLink to="/leads" className={navLinkClass}>
-              Downloads
-            </NavLink>
-            <NavLink to="/virtual-coffee" className={navLinkClass}>
-              Virtual Coffee
-            </NavLink>
-            <NavLink to="/work-w-me" className={navLinkClass}>
-              Work with me
-            </NavLink>
-          </nav>
+          ))}
+        </nav>
 
-          {/* Mobile toggle */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen((v) => !v)}
-              className="inline-flex items-center justify-center p-2 rounded-full text-[var(--on-surface)] hover:bg-[var(--df-accent-10)] focus:outline-none"
-              aria-controls="mobile-menu"
-              aria-expanded={isMenuOpen}
-            >
-              <span className="sr-only">Open main menu</span>
-              <span className="material-symbols-outlined">
-                {isMenuOpen ? "close" : "menu"}
-              </span>
-            </button>
-          </div>
-        </div>
+        <button
+          onClick={() => setIsMenuOpen((v) => !v)}
+          className="menu-button"
+          aria-controls="mobile-menu"
+          aria-expanded={isMenuOpen}
+        >
+          <span className="sr-only">Open main menu</span>
+          <span aria-hidden="true">{isMenuOpen ? "Close" : "Menu"}</span>
+        </button>
       </div>
 
-      {/* Mobile menu */}
       {isMenuOpen && (
-        <div
-          id="mobile-menu"
-          className="md:hidden border-t border-[var(--hairline)] bg-[var(--surface)]"
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <NavLink to="/" className={mobileNavLinkClass} onClick={closeMenu}>
-              Home
+        <div id="mobile-menu" className="mobile-nav">
+          {links.map((link) => (
+            <NavLink key={link.to} to={link.to} className={mobileNavLinkClass} onClick={closeMenu}>
+              {link.label}
             </NavLink>
-            <NavLink
-              to="/blog"
-              className={mobileNavLinkClass}
-              onClick={closeMenu}
-            >
-              Blog
-            </NavLink>
-            <NavLink
-              to="/research"
-              className={mobileNavLinkClass}
-              onClick={closeMenu}
-            >
-              Research
-            </NavLink>
-            <NavLink
-              to="/leads"
-              className={mobileNavLinkClass}
-              onClick={closeMenu}
-            >
-              Downloads
-            </NavLink>
-            <NavLink
-              to="/virtual-coffee"
-              className={mobileNavLinkClass}
-              onClick={closeMenu}
-            >
-              Virtual Coffee
-            </NavLink>
-            <NavLink
-              to="/work-w-me"
-              className={mobileNavLinkClass}
-              onClick={closeMenu}
-            >
-              Work with me
-            </NavLink>
-          </div>
+          ))}
         </div>
       )}
     </header>

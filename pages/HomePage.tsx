@@ -1,151 +1,205 @@
-// /pages/HomePage.tsx
 import React from "react";
-import { initialHomeContent, posts } from "../data/mockData";
+import { NavLink } from "react-router-dom";
+import { posts } from "../data/mockData";
 import Button from "../components/Button";
 import CompaniesWorkedWithCarousel from "../components/CompaniesWorkedWithCarousel";
-
-/** Small inline chip renderer */
-const Chips: React.FC<{
-  items: Array<string | { name: string; url?: string }>;
-  align?: "left" | "center";
-  className?: string;
-  asLinks?: boolean;
-}> = ({ items, align = "center", className = "", asLinks = false }) => {
-  const justify = align === "center" ? "justify-center" : "justify-start";
-  return (
-    <div className={`chips flex flex-wrap gap-3 ${justify} ${className}`}>
-      {items.map((it) => {
-        const label = typeof it === "string" ? it : it.name;
-        const href = typeof it === "string" ? undefined : it.url;
-        if (asLinks && href) {
-          return (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="chip inline-flex items-center px-3 py-2 rounded-full border"
-            >
-              {label}
-            </a>
-          );
-        }
-        return (
-          <span key={label} className="chip inline-flex items-center px-3 py-2 rounded-full border">
-            {label}
-          </span>
-        );
-      })}
-    </div>
-  );
-};
 
 const fmt = (iso: string) =>
   new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 
+const portfolio = [
+  {
+    mode: "Parent company",
+    name: "Unbound Operators",
+    body: "The operating company behind the portfolio. We operate, build, and back companies that need sharper growth, better systems, and execution that compounds.",
+    url: "https://unboundoperators.com",
+  },
+  {
+    mode: "Operate",
+    name: "Unbound Frontier Tech",
+    body: "Growth and AI for frontier technology companies from pre-seed to Series B.",
+    url: "https://withunbound.com",
+  },
+  {
+    mode: "Operate",
+    name: "Unbound Growth Partners",
+    body: "Growth and AI for companies that already work and need a serious operating partner.",
+    url: "https://unboundgrowthpartners.com",
+  },
+  {
+    mode: "Build",
+    name: "On Duty",
+    body: "Always-on AI agents for commerce and business operations.",
+    url: "https://alwaysonduty.io",
+  },
+  {
+    mode: "Build",
+    name: "Selah",
+    body: "An AI governance layer for teams deploying AI systems with control and accountability.",
+    url: "https://selahcore.com",
+  },
+];
+
+const operatingLanes = [
+  {
+    title: "Operate",
+    body: "I get close to the business: positioning, pipeline, partnerships, systems, and the weekly cadence that turns strategy into shipped work.",
+  },
+  {
+    title: "Build",
+    body: "I co-found and ship products where AI, commerce, growth, and operations intersect. The bar is usefulness, not hype.",
+  },
+  {
+    title: "Back",
+    body: "I support founders with capital, narrative, intros, and pressure-tested go-to-market judgment when the company is still taking shape.",
+  },
+];
+
+const proofPoints = [
+  { label: "Role", value: "CEO & Co-founder" },
+  { label: "Operating company", value: "Unbound Operators" },
+  { label: "Capital helped raise", value: "$50M+" },
+  { label: "Markets", value: "Web3 / AI / LATAM" },
+];
+
 const HomePage: React.FC = () => {
-  const c = initialHomeContent;
-
-  // Top hero CTAs: ONLY what's defined in hero_buttons (CTA1)
-  const heroCTA = (c.hero_buttons ?? []).slice(0, 4); // safe cap if extended later
-
-  // Social CTAs (CTA1)
-  const socialCTA = (c.socials ?? []).map((s) => ({ label: s.name, url: s.url }));
-
-  const latest = (posts ?? []).slice(0, 6);
+  const latest = (posts ?? []).slice(0, 3);
 
   return (
-    <div>
-      {/* HERO */}
-      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10 text-center">
-        <h1 className="hero-title text-6xl sm:text-7xl font-extrabold tracking-tight">{c.hero_title}</h1>
-
-        {/* HERO TAGS */}
-        <Chips items={c.hero_tags} align="center" className="mt-6" />
-
-        {/* HERO CTAs (CTA1 only: Get in touch, LinkedIn) */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          {heroCTA.map((b) => (
-            <Button key={b.label} as="a" href={b.url} variant="cta1">
-              {b.label}
+    <>
+      <section className="operator-hero">
+        <div className="operator-hero__copy">
+          <span className="site-seal" aria-hidden="true" />
+          <p className="eyebrow">CEO & Co-founder of Unbound Operators</p>
+          <h1 className="operator-title">
+            I operate, build, and back companies at the edge of growth and AI.
+          </h1>
+          <p className="operator-lede">
+            I am Daniel Forero. Through Unbound Operators, I run a portfolio that includes Unbound Frontier
+            Tech, Unbound Growth Partners, On Duty, and Selah.
+          </p>
+          <div className="hero__actions operator-hero__actions">
+            <Button as="a" href="https://unboundoperators.com" target="_blank" rel="noopener noreferrer" variant="cta1">
+              Unbound Operators
             </Button>
+            <Button as={NavLink} to="/work-w-me" variant="cta2">
+              Work with me
+            </Button>
+          </div>
+        </div>
+
+        <aside className="operator-brief" aria-label="Operating brief">
+          <p className="card-kicker">Operating brief</p>
+          <h2>Not a fund. Not an agency. An operator collective.</h2>
+          <p>
+            The work sits where strategy meets execution: growth systems, AI-native operations, frontier tech
+            positioning, and companies that need a sharper path from idea to market.
+          </p>
+          <div className="brief-stack">
+            <span>Operate</span>
+            <span>Build</span>
+            <span>Back</span>
+          </div>
+        </aside>
+      </section>
+
+      <section className="proof-band" aria-label="Selected operating proof">
+        {proofPoints.map((point) => (
+          <div key={point.label} className="proof-item">
+            <span>{point.label}</span>
+            <strong>{point.value}</strong>
+          </div>
+        ))}
+      </section>
+
+      <section className="section section--portfolio">
+        <div className="section-header">
+          <div>
+            <p className="section-kicker">Portfolio</p>
+            <h2 className="section-title">The companies I am building through Unbound.</h2>
+          </div>
+          <p className="section-copy">
+            Each company has its own mandate. Together, they form the operating system behind my current work.
+          </p>
+        </div>
+
+        <div className="portfolio-grid">
+          {portfolio.map((company, index) => (
+            <a
+              key={company.name}
+              href={company.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`portfolio-card ${index === 0 ? "portfolio-card--lead" : ""}`}
+            >
+              <span className="card-kicker">{company.mode}</span>
+              <h3>{company.name}</h3>
+              <p>{company.body}</p>
+              <span className="post-card__arrow" aria-hidden="true">Open</span>
+            </a>
           ))}
         </div>
       </section>
 
-      {/* ABOUT + OPERATOR */}
-      <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* ABOUT */}
-          <article className="card p-8">
-            <h2 className="section-title text-2xl font-extrabold mb-3">{c.about.title}</h2>
-            <p className="leading-relaxed whitespace-pre-line">{c.about.body}</p>
-          </article>
-
-          {/* OPERATOR */}
-          <article className="card p-8">
-            <h2 className="section-title text-2xl font-extrabold mb-3">{c.operator.title}</h2>
-            <p className="leading-relaxed whitespace-pre-line">{c.operator.body}</p>
-            <Chips items={c.hero_tags} align="left" className="mt-6" />
-          </article>
+      <section className="section">
+        <div className="section-header">
+          <div>
+            <p className="section-kicker">Method</p>
+            <h2 className="section-title">Operator first. Investor second.</h2>
+          </div>
+          <p className="section-copy">
+            The pattern is simple: get close to the work, clarify the market, install the operating cadence,
+            and stay accountable to momentum.
+          </p>
         </div>
+
+        <div className="lane-grid">
+          {operatingLanes.map((lane) => (
+            <article key={lane.title} className="lane-card">
+              <span className="card-kicker">{lane.title}</span>
+              <h3>{lane.title}</h3>
+              <p>{lane.body}</p>
+            </article>
+          ))}
+        </div>
+
+        <CompaniesWorkedWithCarousel />
       </section>
 
-      {/* SOCIALS as CTA1 */}
-      {socialCTA.length ? (
-        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 text-center">
-          <h3 className="text-2xl font-extrabold mb-4">My Official SM Channels</h3>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {socialCTA.map((b) => (
-              <Button key={b.label} as="a" href={b.url} variant="cta1" target="_blank" rel="noopener noreferrer">
-                {b.label}
-              </Button>
-            ))}
-          </div>
-          <CompaniesWorkedWithCarousel />
-        </section>
-      ) : null}
-
-      {/* VENTURES */}
-      {c.ventures?.length ? (
-        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          <h3 className="text-2xl font-extrabold mb-6 text-center">Ventures & Roles</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {c.ventures.map((v) => (
-              <article key={v.title} className="card p-8">
-                <h4 className="text-xl font-bold mb-2">{v.title}</h4>
-                <p className="leading-relaxed mb-4">{v.body}</p>
-                {v.ctaUrl && v.ctaLabel ? (
-                  <Button as="a" href={v.ctaUrl} target="_blank" rel="noopener noreferrer" variant="cta2">
-                    {v.ctaLabel}
-                  </Button>
-                ) : null}
-              </article>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {/* LATEST POSTS */}
       {latest.length ? (
-        <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-          <h3 className="text-2xl font-extrabold mb-6 text-center">Latest Writing</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section className="section">
+          <div className="section-header">
+            <div>
+              <p className="section-kicker">Writing</p>
+              <h2 className="section-title">Field notes from the operating room.</h2>
+            </div>
+            <Button as={NavLink} to="/blog" variant="cta2">
+              View all writing
+            </Button>
+          </div>
+
+          <div className="post-grid">
             {latest.map((p) => (
-              <article key={p.slug} className="card p-8">
-                <div className="text-sm opacity-70 mb-2">{fmt(p.date)}</div>
-                <h4 className="text-xl font-bold mb-2">{p.title}</h4>
-                <p className="mb-4">{p.excerpt}</p>
-                {p.tags?.length ? <Chips items={p.tags.slice(0, 6)} align="left" className="mb-4" /> : null}
-                <Button as="a" href={`/post/${p.slug}`} variant="cta2">
-                  Read
-                </Button>
-              </article>
+              <NavLink key={p.slug} to={`/post/${p.slug}`} className="post-card">
+                <div className="post-card__meta">{fmt(p.date)}</div>
+                <h4>{p.title}</h4>
+                <p>{p.excerpt}</p>
+                {p.tags?.length ? (
+                  <div className="post-card__tags">
+                    {p.tags.slice(0, 3).map((tag) => (
+                      <span key={tag} className="chip">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
+                <span className="post-card__arrow" aria-hidden="true">Read</span>
+              </NavLink>
             ))}
           </div>
         </section>
       ) : null}
-    </div>
+    </>
   );
 };
 

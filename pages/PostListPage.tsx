@@ -1,10 +1,7 @@
-
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { posts as allPosts } from '../data/mockData';
 import { PostType } from '../types';
-import Card from '../components/Card';
-import Chip from '../components/Chip';
 import { applyPageSEO, buildBlogCollectionJsonLd, buildBreadcrumbListJsonLd, buildSiteSearchJsonLd } from '../lib/seo';
 import { SITE } from '../data/siteConfig';
 
@@ -12,6 +9,12 @@ interface PostListPageProps {
   type: PostType;
   title: string;
 }
+
+const descriptions: Record<string, string> = {
+  Blog: 'Narrative, operating notes, and field-tested GTM thinking for Web3 and AI teams.',
+  Research: 'Frameworks, experiments, and market notes for teams building in emerging categories.',
+  Downloads: 'Templates, checklists, and practical artifacts built to move work forward.',
+};
 
 const PostListPage: React.FC<PostListPageProps> = ({ type, title }) => {
   const filteredPosts = React.useMemo(
@@ -50,35 +53,34 @@ const PostListPage: React.FC<PostListPageProps> = ({ type, title }) => {
   }, [filteredPosts, title, type]);
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-4xl font-extrabold tracking-tight" style={{color: 'var(--md-sys-color-primary)'}}>{title}</h1>
-      
+    <div className="page">
+      <header className="page-header">
+        <p className="section-kicker">Library</p>
+        <h1 className="page-title">{title}</h1>
+        <p className="article-excerpt">{descriptions[title] ?? descriptions.Blog}</p>
+      </header>
+
       {filteredPosts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="post-grid">
           {filteredPosts.map(post => (
-            <NavLink to={`/post/${post.slug}`} key={post.slug} className="block hover:no-underline">
-              <Card className="h-full flex flex-col p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
-                <div className="flex-grow">
-                  <div className="flex justify-between items-start">
-                    <h2 className="text-xl font-bold" style={{color: 'var(--md-sys-color-on-surface)'}}>{post.title}</h2>
-                    {post.type === PostType.LEAD_MAGNET && <Chip>Download</Chip>}
-                  </div>
-                  <p className="text-sm mt-1" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>
-                    {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                  </p>
-                  <p className="mt-4 text-sm">{post.excerpt}</p>
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {post.tags?.map(tag => (
-                     <span key={tag} className="text-xs px-2 py-1 rounded" style={{backgroundColor: 'var(--md-sys-color-surface)', color: 'var(--md-sys-color-on-surface-variant)'}}>#{tag}</span>
-                  ))}
-                </div>
-              </Card>
+            <NavLink to={`/post/${post.slug}`} key={post.slug} className="post-card">
+              <div className="post-card__meta">
+                {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+              </div>
+              <h2>{post.title}</h2>
+              <p>{post.excerpt}</p>
+              <div className="post-card__tags">
+                {post.type === PostType.LEAD_MAGNET ? <span className="chip">Download</span> : null}
+                {post.tags?.slice(0, 4).map(tag => (
+                  <span key={tag} className="chip">{tag}</span>
+                ))}
+              </div>
+              <span className="post-card__arrow" aria-hidden="true">Read</span>
             </NavLink>
           ))}
         </div>
       ) : (
-        <p>No posts found in this category.</p>
+        <p className="empty-state">No posts found in this category.</p>
       )}
     </div>
   );
