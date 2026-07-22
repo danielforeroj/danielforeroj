@@ -7,59 +7,59 @@ import CompaniesWorkedWithCarousel from "../components/CompaniesWorkedWithCarous
 const fmt = (iso: string) =>
   new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 
-const portfolio = [
+const verticals = [
   {
-    mode: "Parent company",
+    label: "Platform",
     name: "Unbound Operators",
-    body: "The operating company behind the portfolio. We operate, build, and back companies that need sharper growth, better systems, and execution that compounds.",
+    body: "The operating platform for the work: strategy, systems, talent, and execution.",
     url: "https://unboundoperators.com",
   },
   {
-    mode: "Operate",
+    label: "Branch",
     name: "Unbound Frontier Tech",
-    body: "Growth and AI for frontier technology companies from pre-seed to Series B.",
+    body: "Growth and AI for frontier technology teams.",
     url: "https://withunbound.com",
   },
   {
-    mode: "Operate",
+    label: "Branch",
     name: "Unbound Growth Partners",
-    body: "Growth and AI for companies that already work and need a serious operating partner.",
+    body: "Embedded growth support for companies that are ready to scale.",
     url: "https://unboundgrowthpartners.com",
   },
   {
-    mode: "Build",
+    label: "Branch",
     name: "On Duty",
-    body: "Always-on AI agents for commerce and business operations.",
+    body: "AI agents for commerce and business operations.",
     url: "https://alwaysonduty.io",
   },
   {
-    mode: "Build",
+    label: "Branch",
     name: "Selah",
-    body: "An AI governance layer for teams deploying AI systems with control and accountability.",
+    body: "Governance and control for teams deploying AI systems.",
     url: "https://selahcore.com",
   },
 ];
 
-const operatingLanes = [
+const operatingModel = [
   {
-    title: "Operate",
-    body: "I get close to the business: positioning, pipeline, partnerships, systems, and the weekly cadence that turns strategy into shipped work.",
+    title: "Clarify",
+    body: "Positioning, ICP, offer, and the operating thesis.",
   },
   {
     title: "Build",
-    body: "I co-found and ship products where AI, commerce, growth, and operations intersect. The bar is usefulness, not hype.",
+    body: "Systems, workflows, AI agents, and GTM assets.",
   },
   {
-    title: "Back",
-    body: "I support founders with capital, narrative, intros, and pressure-tested go-to-market judgment when the company is still taking shape.",
+    title: "Scale",
+    body: "Distribution, partnerships, cadence, and accountability.",
   },
 ];
 
 const proofPoints = [
   { label: "Role", value: "CEO & Co-founder" },
-  { label: "Operating company", value: "Unbound Operators" },
-  { label: "Capital helped raise", value: "$50M+" },
-  { label: "Markets", value: "Web3 / AI / LATAM" },
+  { label: "Platform", value: "Unbound Operators" },
+  { label: "Branches", value: "4 business verticals" },
+  { label: "Focus", value: "Growth / AI / Ops" },
 ];
 
 const HomePage: React.FC = () => {
@@ -67,60 +67,46 @@ const HomePage: React.FC = () => {
 
   return (
     <>
-      <section className="operator-hero">
+      <section className="operator-hero operator-hero--clean">
         <div className="operator-hero__copy">
-          <span className="site-seal" aria-hidden="true" />
-          <p className="eyebrow">CEO & Co-founder of Unbound Operators</p>
+          <p className="eyebrow">Daniel Forero / Unbound Operators</p>
           <h1 className="operator-title">
-            I operate, build, and back companies at the <span className="operator-title__accent">edge of growth and AI.</span>
+            Growth systems for AI and frontier companies.
           </h1>
           <p className="operator-lede">
-            I am Daniel Forero. Through Unbound Operators, I run a portfolio that includes Unbound Frontier
-            Tech, Unbound Growth Partners, On Duty, and Selah.
+            I am CEO and co-founder of Unbound Operators. We build business verticals across growth, AI operations,
+            frontier tech, and governance.
           </p>
           <div className="hero__actions operator-hero__actions">
-            <Button as="a" href="https://unboundoperators.com" target="_blank" rel="noopener noreferrer" variant="cta1">
-              Unbound Operators
-            </Button>
-            <Button as={NavLink} to="/work-w-me" variant="cta2">
+            <Button as={NavLink} to="/work-w-me" variant="cta1">
               Work with me
+            </Button>
+            <Button as="a" href="https://unboundoperators.com" target="_blank" rel="noopener noreferrer" variant="cta2">
+              Unbound Operators
             </Button>
           </div>
         </div>
 
-        <aside className="operator-console" aria-label="Operating system">
-          <div className="console-topline">
-            <span>UNBOUND.OS</span>
-            <span className="status-pill">Live</span>
-          </div>
-          <div className="console-screen">
-            <p className="card-kicker">Operating system</p>
-            <h2>Operate the company like a product.</h2>
-            <p>
-              Growth, AI systems, positioning, partnerships, and weekly execution loops for companies that need
-              a sharper path from idea to market.
-            </p>
-          </div>
-          <div className="console-grid" aria-label="Operating lanes">
-            <span>Operate</span>
-            <span>Build</span>
-            <span>Back</span>
-            <span>Scale</span>
-          </div>
-          <div className="console-metrics">
+        <aside className="operator-map" aria-label="Current work">
+          <p className="card-kicker">Current work</p>
+          <div className="map-list">
             <div>
-              <span>Portfolio</span>
-              <strong>5 units</strong>
+              <span>Platform</span>
+              <strong>Unbound Operators</strong>
+            </div>
+            <div>
+              <span>Branches</span>
+              <strong>Frontier Tech / Growth Partners / On Duty / Selah</strong>
             </div>
             <div>
               <span>Mode</span>
-              <strong>Hands-on</strong>
+              <strong>Hands-on operating partner</strong>
             </div>
           </div>
         </aside>
       </section>
 
-      <section className="proof-band" aria-label="Selected operating proof">
+      <section className="proof-band proof-band--clean" aria-label="Operating context">
         {proofPoints.map((point) => (
           <div key={point.label} className="proof-item">
             <span>{point.label}</span>
@@ -129,29 +115,29 @@ const HomePage: React.FC = () => {
         ))}
       </section>
 
-      <section className="section section--portfolio">
+      <section className="section section--verticals">
         <div className="section-header">
           <div>
-            <p className="section-kicker">Portfolio</p>
-            <h2 className="section-title">The companies I am building through Unbound.</h2>
+            <p className="section-kicker">Business verticals</p>
+            <h2 className="section-title">The branches under Unbound Operators.</h2>
           </div>
           <p className="section-copy">
-            Each company has its own mandate. Together, they form the operating system behind my current work.
+            Different lanes, one operating platform.
           </p>
         </div>
 
-        <div className="portfolio-grid">
-          {portfolio.map((company, index) => (
+        <div className="verticals-grid">
+          {verticals.map((vertical, index) => (
             <a
-              key={company.name}
-              href={company.url}
+              key={vertical.name}
+              href={vertical.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`portfolio-card ${index === 0 ? "portfolio-card--lead" : ""}`}
+              className={`vertical-card ${index === 0 ? "vertical-card--lead" : ""}`}
             >
-              <span className="card-kicker">{company.mode}</span>
-              <h3>{company.name}</h3>
-              <p>{company.body}</p>
+              <span className="card-kicker">{vertical.label}</span>
+              <h3>{vertical.name}</h3>
+              <p>{vertical.body}</p>
               <span className="post-card__arrow" aria-hidden="true">Open</span>
             </a>
           ))}
@@ -161,17 +147,16 @@ const HomePage: React.FC = () => {
       <section className="section">
         <div className="section-header">
           <div>
-            <p className="section-kicker">Method</p>
-            <h2 className="section-title">Operator first. Investor second.</h2>
+            <p className="section-kicker">Operating model</p>
+            <h2 className="section-title">Simple, practical, close to the work.</h2>
           </div>
           <p className="section-copy">
-            The pattern is simple: get close to the work, clarify the market, install the operating cadence,
-            and stay accountable to momentum.
+            Less theater. More shipped systems.
           </p>
         </div>
 
         <div className="lane-grid">
-          {operatingLanes.map((lane) => (
+          {operatingModel.map((lane) => (
             <article key={lane.title} className="lane-card">
               <span className="card-kicker">{lane.title}</span>
               <h3>{lane.title}</h3>
@@ -188,7 +173,7 @@ const HomePage: React.FC = () => {
           <div className="section-header">
             <div>
               <p className="section-kicker">Writing</p>
-              <h2 className="section-title">Field notes from the operating room.</h2>
+              <h2 className="section-title">Notes on growth, AI, and markets.</h2>
             </div>
             <Button as={NavLink} to="/blog" variant="cta2">
               View all writing
