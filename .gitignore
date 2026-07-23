@@ -3,3 +3,7 @@ dist/
 .DS_Store
 .vercel
 .env*
+
+# Full-resolution photo source. The optimized content/portrait.jpg and
+# public/og.jpg are generated from it by opt-portrait.mjs and are committed.
+content/portrait-source.*

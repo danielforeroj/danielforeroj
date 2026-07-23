@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const links = [
-  { to: "/", label: "Home" },
-  { to: "/blog", label: "Blog" },
+  { to: "/", label: "Index" },
+  { to: "/blog", label: "Writing" },
   { to: "/research", label: "Research" },
   { to: "/leads", label: "Downloads" },
   { to: "/virtual-coffee", label: "Coffee" },
-  { to: "/work-w-me", label: "Work" },
+  { to: "/work-w-me", label: "Work with me" },
 ];
 
 const Header: React.FC = () => {
@@ -25,7 +25,7 @@ const Header: React.FC = () => {
     <header className="site-header">
       <div className="site-header__inner">
         <NavLink to="/" className="brand-mark" onClick={closeMenu} aria-label="Daniel Forero home">
-          <span className="brand-mark__seal" aria-hidden="true" />
+          <span className="brand-mark__tick" aria-hidden="true" />
           <span className="brand-mark__name">Daniel Forero</span>
         </NavLink>
 

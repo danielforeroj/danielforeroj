@@ -2,9 +2,9 @@ export const SITE = {
   name: "Daniel Forero",
   url: "https://www.danielforeroj.com",
   description:
-    "Daniel Forero is CEO and co-founder of Unbound Operators, an operating platform with business verticals across growth, AI operations, frontier tech, and governance.",
-  defaultOgImage: "https://picsum.photos/1200/630",
-  logo: "https://cdn.svgporn.com/logos/openai.svg",
+    "Daniel Forero is an operator turned angel investor working across Web3, AI, and quantum. He builds businesses, then makes the world hear about them.",
+  defaultOgImage: "https://www.danielforeroj.com/og.jpg",
+  logo: "https://www.danielforeroj.com/favicon.ico",
   publisher: {
     name: "Daniel Forero",
     type: "Person" as const,

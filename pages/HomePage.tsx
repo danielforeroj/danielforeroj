@@ -1,207 +1,214 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { posts } from "../data/mockData";
-import Button from "../components/Button";
-import CompaniesWorkedWithCarousel from "../components/CompaniesWorkedWithCarousel";
+import { PROFILE } from "../data/profile";
 
 const fmt = (iso: string) =>
-  new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+  new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 
-const verticals = [
-  {
-    label: "Platform",
-    name: "Unbound Operators",
-    body: "The operating platform for the work: strategy, systems, talent, and execution.",
-    url: "https://unboundoperators.com",
-  },
-  {
-    label: "Branch",
-    name: "Unbound Frontier Tech",
-    body: "Growth and AI for frontier technology teams.",
-    url: "https://withunbound.com",
-  },
-  {
-    label: "Branch",
-    name: "Unbound Growth Partners",
-    body: "Embedded growth support for companies that are ready to scale.",
-    url: "https://unboundgrowthpartners.com",
-  },
-  {
-    label: "Branch",
-    name: "On Duty",
-    body: "AI agents for commerce and business operations.",
-    url: "https://alwaysonduty.io",
-  },
-  {
-    label: "Branch",
-    name: "Selah",
-    body: "Governance and control for teams deploying AI systems.",
-    url: "https://selahcore.com",
-  },
-];
+// Drop a photo at content/portrait.(jpg|png|webp) and it appears automatically.
+// Nothing breaks while the file is absent.
+const portraitModule = import.meta.glob("../content/portrait.{jpg,jpeg,png,webp,avif}", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
 
-const operatingModel = [
-  {
-    title: "Clarify",
-    body: "Positioning, ICP, offer, and the operating thesis.",
-  },
-  {
-    title: "Build",
-    body: "Systems, workflows, AI agents, and GTM assets.",
-  },
-  {
-    title: "Scale",
-    body: "Distribution, partnerships, cadence, and accountability.",
-  },
-];
-
-const proofPoints = [
-  { label: "Role", value: "CEO & Co-founder" },
-  { label: "Platform", value: "Unbound Operators" },
-  { label: "Branches", value: "4 business verticals" },
-  { label: "Focus", value: "Growth / AI / Ops" },
-];
+const portrait: string | undefined = Object.values(portraitModule)[0];
 
 const HomePage: React.FC = () => {
   const latest = (posts ?? []).slice(0, 3);
 
   return (
-    <>
-      <section className="operator-hero operator-hero--clean">
-        <div className="operator-hero__copy">
-          <p className="eyebrow">Daniel Forero / Unbound Operators</p>
-          <h1 className="operator-title">
-            Growth systems for AI and frontier companies.
-          </h1>
-          <p className="operator-lede">
-            I am CEO and co-founder of Unbound Operators. We build business verticals across growth, AI operations,
-            frontier tech, and governance.
-          </p>
-          <div className="hero__actions operator-hero__actions">
-            <Button as={NavLink} to="/work-w-me" variant="cta1">
-              Work with me
-            </Button>
-            <Button as="a" href="https://unboundoperators.com" target="_blank" rel="noopener noreferrer" variant="cta2">
-              Unbound Operators
-            </Button>
-          </div>
-        </div>
+    <div className="console">
+      <div className="console__wrap">
+        {/* ---------- HERO: status rail + main console ---------- */}
+        <section className="c-shell" aria-label="Introduction">
+          <aside className="c-rail" aria-label="Status">
+            {portrait ? (
+              <div className="c-portrait">
+                <img src={portrait} alt={`${PROFILE.name}, operator and angel investor`} />
+              </div>
+            ) : null}
+            <span className="c-live">Operating</span>
+            {PROFILE.rail.map((s) => (
+              <dl key={s.label} className="c-stat">
+                <dt>{s.label}</dt>
+                <dd>{s.value}</dd>
+              </dl>
+            ))}
+          </aside>
 
-        <aside className="operator-map" aria-label="Current work">
-          <p className="card-kicker">Current work</p>
-          <div className="map-list">
-            <div>
-              <span>Platform</span>
-              <strong>Unbound Operators</strong>
+          <div className="c-main">
+            <p className="c-path">
+              {PROFILE.handle} &nbsp;/&nbsp; <b>index</b>
+            </p>
+
+            <h1 className="c-title">
+              {PROFILE.lead} <em>{PROFILE.leadAccent}</em>
+              <span className="c-caret" aria-hidden="true" />
+            </h1>
+
+            <p className="c-sub">{PROFILE.sub}</p>
+
+            <div className="c-ticker">
+              {PROFILE.sectors.map((s, i) => (
+                <span key={s}>
+                  <b>{String(i + 1).padStart(2, "0")}</b> {s}
+                </span>
+              ))}
             </div>
-            <div>
-              <span>Branches</span>
-              <strong>Frontier Tech / Growth Partners / On Duty / Selah</strong>
-            </div>
-            <div>
-              <span>Mode</span>
-              <strong>Hands-on operating partner</strong>
-            </div>
-          </div>
-        </aside>
-      </section>
 
-      <section className="proof-band proof-band--clean" aria-label="Operating context">
-        {proofPoints.map((point) => (
-          <div key={point.label} className="proof-item">
-            <span>{point.label}</span>
-            <strong>{point.value}</strong>
-          </div>
-        ))}
-      </section>
-
-      <section className="section section--verticals">
-        <div className="section-header">
-          <div>
-            <p className="section-kicker">Business verticals</p>
-            <h2 className="section-title">The branches under Unbound Operators.</h2>
-          </div>
-          <p className="section-copy">
-            Different lanes, one operating platform.
-          </p>
-        </div>
-
-        <div className="verticals-grid">
-          {verticals.map((vertical, index) => (
-            <a
-              key={vertical.name}
-              href={vertical.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`vertical-card ${index === 0 ? "vertical-card--lead" : ""}`}
-            >
-              <span className="card-kicker">{vertical.label}</span>
-              <h3>{vertical.name}</h3>
-              <p>{vertical.body}</p>
-              <span className="post-card__arrow" aria-hidden="true">Open</span>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="section-header">
-          <div>
-            <p className="section-kicker">Operating model</p>
-            <h2 className="section-title">Simple, practical, close to the work.</h2>
-          </div>
-          <p className="section-copy">
-            Less theater. More shipped systems.
-          </p>
-        </div>
-
-        <div className="lane-grid">
-          {operatingModel.map((lane) => (
-            <article key={lane.title} className="lane-card">
-              <span className="card-kicker">{lane.title}</span>
-              <h3>{lane.title}</h3>
-              <p>{lane.body}</p>
-            </article>
-          ))}
-        </div>
-
-        <CompaniesWorkedWithCarousel />
-      </section>
-
-      {latest.length ? (
-        <section className="section">
-          <div className="section-header">
-            <div>
-              <p className="section-kicker">Writing</p>
-              <h2 className="section-title">Notes on growth, AI, and markets.</h2>
-            </div>
-            <Button as={NavLink} to="/blog" variant="cta2">
-              View all writing
-            </Button>
-          </div>
-
-          <div className="post-grid">
-            {latest.map((p) => (
-              <NavLink key={p.slug} to={`/post/${p.slug}`} className="post-card">
-                <div className="post-card__meta">{fmt(p.date)}</div>
-                <h4>{p.title}</h4>
-                <p>{p.excerpt}</p>
-                {p.tags?.length ? (
-                  <div className="post-card__tags">
-                    {p.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="chip">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
-                <span className="post-card__arrow" aria-hidden="true">Read</span>
+            <div className="c-acts">
+              <NavLink to={PROFILE.actions.primary.to} className="c-btn">
+                {PROFILE.actions.primary.label}
               </NavLink>
+              <a href={PROFILE.actions.secondary.href} className="c-btn c-btn--o">
+                {PROFILE.actions.secondary.label}
+                <span className="c-btn__note">if you're raising</span>
+              </a>
+            </div>
+
+            <ul className="c-tags" aria-label="Also">
+              {PROFILE.tags.map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* ---------- ACTIVE ENGAGEMENTS ---------- */}
+        <section className="c-section" aria-labelledby="ops-title">
+          <div className="c-section__head">
+            <h2 id="ops-title" className="c-section__title">Active engagements</h2>
+            <p className="c-kicker">Where I put the playbook to work</p>
+          </div>
+
+          <div className="c-ops">
+            {PROFILE.engagements.map((e) => {
+              const inner = (
+                <>
+                  <span className="c-op__role">{e.role}</span>
+                  <span className="c-op__org">
+                    {e.org}
+                    <small>{e.note}</small>
+                  </span>
+                  <span className="c-op__status" data-s={e.status}>{e.status}</span>
+                </>
+              );
+              return e.url ? (
+                <a key={e.org} className="c-op" href={e.url} target="_blank" rel="noopener noreferrer">
+                  {inner}
+                </a>
+              ) : (
+                <div key={e.org} className="c-op">{inner}</div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ---------- UNDER THE UMBRELLA ---------- */}
+        <section className="c-section" aria-labelledby="umbrella-title">
+          <div className="c-section__head">
+            <h2 id="umbrella-title" className="c-section__title">Under Unbound Operators</h2>
+            <p className="c-kicker">One umbrella, separate products</p>
+          </div>
+
+          <div className="c-umbrella">
+            {PROFILE.ventures.map((v) => (
+              <a
+                key={v.name}
+                className="c-venture"
+                href={v.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="c-venture__name">{v.name}</span>
+                <p>{v.note}</p>
+                <span className="c-venture__go">Open ↗</span>
+              </a>
             ))}
           </div>
         </section>
-      ) : null}
-    </>
+
+        {/* ---------- WHO ---------- */}
+        <section className="c-section" aria-labelledby="who-title">
+          <div className="c-section__head">
+            <h2 id="who-title" className="c-section__title">Who's this guy</h2>
+            <p className="c-kicker">Background</p>
+          </div>
+
+          <div className="c-who">
+            {PROFILE.who.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+
+          <dl className="c-record">
+            {PROFILE.record.map((r) => (
+              <div key={r.label}>
+                <dt>{r.figure}</dt>
+                <dd>{r.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        {/* ---------- WHO I BACK ---------- */}
+        <section className="c-section" aria-labelledby="back-title">
+          <div className="c-section__head">
+            <h2 id="back-title" className="c-section__title">Who I back</h2>
+            <p className="c-kicker">Angel</p>
+          </div>
+
+          <div className="c-back">
+            <p className="c-back__thesis">{PROFILE.back.thesis}</p>
+            <p className="c-back__looking">{PROFILE.back.looking}</p>
+            <a href={PROFILE.actions.secondary.href} className="c-btn">Pitch me</a>
+          </div>
+        </section>
+
+        {/* ---------- WRITING ---------- */}
+        {latest.length ? (
+          <section className="c-section" aria-labelledby="writing-title">
+            <div className="c-section__head">
+              <h2 id="writing-title" className="c-section__title">Writing</h2>
+              <NavLink to="/blog" className="c-section__more">All writing →</NavLink>
+            </div>
+
+            <div className="c-posts">
+              {latest.map((p) => (
+                <NavLink key={p.slug} to={`/post/${p.slug}`} className="c-post">
+                  <span className="c-post__date">{fmt(p.date)}</span>
+                  <span className="c-post__title">
+                    {p.title}
+                    <small>{p.excerpt}</small>
+                  </span>
+                  <span className="c-post__go">Read ↗</span>
+                </NavLink>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {/* ---------- CONTACT ---------- */}
+        <section className="c-contact" aria-label="Get in touch">
+          <div>
+            <p className="c-kicker">Get in touch</p>
+            <a href={`mailto:${PROFILE.email}`} className="c-contact__mail">{PROFILE.email}</a>
+          </div>
+          <ul className="c-socials">
+            {PROFILE.socials.map((s) => (
+              <li key={s.name}>
+                <a href={s.url} target="_blank" rel="noopener noreferrer">
+                  {s.name}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </div>
   );
 };
 
