@@ -27,18 +27,18 @@ export const PROFILE = {
     "Father",
     "Husband",
     "Marketer",
-    "Web3 degen",
     "AI nerd",
+    "Web3 degen",
     "Angel investor",
     "Gamer",
   ],
-  sectors: ["Web3", "AI", "Quantum"],
+  sectors: ["AI", "Web3", "Quantum", "Fintech"],
 
   // Left status rail
   rail: [
     { label: "Now building", value: "Unbound Operators" },
     { label: "Under the umbrella", value: "On Duty · Selah" },
-    { label: "Sectors", value: "Web3 / AI / Quantum" },
+    { label: "Sectors", value: "AI / Web3 / Quantum / Fintech" },
     { label: "Advising", value: "Founders, funds, governments" },
     { label: "Raised for founders", value: "$600M" },
     { label: "Off the clock", value: "Father, husband, gamer" },
@@ -74,8 +74,8 @@ export const PROFILE = {
     },
     {
       role: "Advisor",
-      org: "Web3, AI & Quantum projects",
-      note: "Hands-on advisory for teams building across blockchain, artificial intelligence, and quantum.",
+      org: "AI, Web3, Quantum & Fintech projects",
+      note: "Hands-on advisory for teams building across artificial intelligence, blockchain, quantum, and financial infrastructure.",
       status: "Active",
     },
     {
@@ -102,7 +102,7 @@ export const PROFILE = {
 
   who: [
     "Over the past decade I've helped founders raise $600M in total, moved millions in stablecoin flows across borders, and opened new revenue models for everyday users.",
-    "My growth playbook has driven mainstream traction for global brands, generated nine-figure TVL, and put emerging tech on the pop-culture stage with headline drops for Quentin Tarantino and Doja Cat. Today that work runs through Unbound Operators and spans Web3, AI, and quantum, for founders, funds, and governments.",
+    "My growth playbook has driven mainstream traction for global brands, generated nine-figure TVL, and put emerging tech on the pop-culture stage with headline drops for Quentin Tarantino and Doja Cat. Today that work runs through Unbound Operators and spans AI, Web3, quantum, and fintech, for founders, funds, and governments.",
   ],
 
   record: [

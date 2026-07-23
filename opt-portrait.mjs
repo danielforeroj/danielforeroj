@@ -37,7 +37,7 @@ await sharp({
                  font-size="27" letter-spacing="5">OPERATOR / ANGEL INVESTOR</text>
            <rect x="74" y="356" width="86" height="3" fill="#C9A15B"/>
            <text x="74" y="416" fill="#C5B5AD" font-family="Arial, sans-serif" font-size="25">
-             Web3 &#183; AI &#183; Quantum
+             AI &#183; Web3 &#183; Quantum &#183; Fintech
            </text>
            <text x="74" y="456" fill="#917D78" font-family="Consolas, monospace" font-size="20"
                  letter-spacing="3">danielforeroj.com</text>

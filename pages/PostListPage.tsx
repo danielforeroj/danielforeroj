@@ -11,7 +11,7 @@ interface PostListPageProps {
 }
 
 const descriptions: Record<string, string> = {
-  Blog: 'Narrative, operating notes, and field-tested GTM thinking for Web3 and AI teams.',
+  Blog: 'Narrative, operating notes, and field-tested GTM thinking for AI and Web3 teams.',
   Research: 'Frameworks, experiments, and market notes for teams building in emerging categories.',
   Downloads: 'Templates, checklists, and practical artifacts built to move work forward.',
 };
@@ -35,7 +35,7 @@ const PostListPage: React.FC<PostListPageProps> = ({ type, title }) => {
       title: `${title} | ${SITE.name}`,
       description:
         type === PostType.RESEARCH
-          ? 'Research, frameworks, and experiments for Web3/AI go-to-market.'
+          ? 'Research, frameworks, and experiments for AI/Web3 go-to-market.'
           : type === PostType.LEAD_MAGNET
             ? 'Downloads, templates, and checklists for faster GTM execution.'
             : 'All blog posts, playbooks, and narratives from Daniel Forero.',

@@ -73,7 +73,7 @@
 /* ---------- hero shell: rail + main ---------- */
 .c-shell {
   display: grid;
-  grid-template-columns: 258px minmax(0, 1fr);
+  grid-template-columns: 282px minmax(0, 1fr);
   border-left: 1px solid var(--c-line);
   border-right: 1px solid var(--c-line);
   border-bottom: 1px solid var(--c-line);

@@ -13,7 +13,7 @@ const VirtualCoffeePage: React.FC = () => {
         <p className="section-kicker">Conversation</p>
         <h1 className="page-title">Virtual Coffee</h1>
         <p className="article-excerpt">
-          A focused conversation for ideas, intros, operator notes, or where Web3 and AI are headed next.
+          A focused conversation for ideas, intros, operator notes, or where AI and Web3 are headed next.
         </p>
       </header>
 
