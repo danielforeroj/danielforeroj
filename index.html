@@ -1,18 +1,34 @@
 <!doctype html>
 <html lang="en">
 <head>
+
+  <!-- Google Tag Manager, deferred to window load so analytics never sits on
+       the critical rendering path. dataLayer is declared first so events pushed
+       before GTM arrives are queued rather than dropped. -->
+  <script>
+    (function () {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' })
+      function loadGtm() {
+        var s = document.createElement('script')
+        s.async = true
+        s.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-K35SVN8'
+        document.head.appendChild(s)
+      }
+      if (document.readyState === 'complete') loadGtm()
+      else window.addEventListener('load', loadGtm)
+    })()
+  </script>
   <!-- Search console ownership. The meta tag is the load-bearing method:
        cleanUrls 308s the .html verification file, and verification must never
        depend on a redirect. -->
   <meta name="msvalidate.01" content="8BA0802173A0ED44F8814BB063D3DD99" />
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HKBGTMT9Y7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-HKBGTMT9Y7');
-  </script>
+  <!-- The GA4 property G-HKBGTMT9Y7 now loads through the Tag Manager container
+       above rather than a hardcoded gtag. Same property, so the existing history
+       is kept and there is no double counting; measurement changes stop needing
+       a deploy. This tag was also one of two Search Console verification methods
+       for this site - the HTML file in public/ is the other, and it was added
+       first precisely so this could be moved safely. -->
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
