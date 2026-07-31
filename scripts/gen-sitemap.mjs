@@ -78,6 +78,13 @@ const pages = (
         (html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1] ?? '').trim(),
       )
       const description = metaContent('description').trim()
+      // A page without a title is not a page. public/ can hold files that end
+      // in .html without being documents — the Google Search Console
+      // verification file is one line of plain text with an .html name — and
+      // walking dist/ for *.html picks those up. Without this check
+      // googledfc2a3c6f2b45dd2 was listed in sitemap.xml and llms.txt as
+      // though it were content, and submitted to IndexNow.
+      if (!title) return null
       return { route, title, description }
     }),
   )
