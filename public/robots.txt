@@ -1,0 +1,104 @@
+# danielforeroj.com, open to search and answer engines.
+# All crawlers, including AI crawlers, are welcome to read the full site.
+#
+# Every agent below is allowed explicitly rather than relying on the wildcard.
+# Two reasons. Some crawlers only evaluate the block that names them and skip
+# the wildcard. And the "-Extended" tokens (Google-Extended, Applebot-Extended)
+# are opt-out controls for AI training specifically, so naming them states the
+# intent rather than leaving it to a default that may change.
+#
+# Reviewed 2026-07-31.
+
+User-agent: *
+Allow: /
+
+# --- OpenAI -----------------------------------------------------------------
+# GPTBot trains, OAI-SearchBot powers ChatGPT search, ChatGPT-User is a live
+# fetch when a user asks about a specific URL.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# --- Anthropic --------------------------------------------------------------
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# --- Google -----------------------------------------------------------------
+# Google-Extended governs Gemini and AI Overviews training use. GoogleOther is
+# the general-purpose crawler behind assorted Google products.
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# --- Microsoft --------------------------------------------------------------
+# Bing is the index behind Copilot and a meaningful share of ChatGPT search
+# results, which makes bingbot the highest-value crawler on this list.
+User-agent: bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+# --- Apple ------------------------------------------------------------------
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# --- Perplexity -------------------------------------------------------------
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# --- Common Crawl, which many models train on -------------------------------
+User-agent: CCBot
+Allow: /
+
+# --- Others -----------------------------------------------------------------
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+Sitemap: https://danielforeroj.com/sitemap.xml

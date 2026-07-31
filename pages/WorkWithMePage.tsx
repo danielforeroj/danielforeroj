@@ -1,8 +1,23 @@
 import React from 'react';
+import { SITE } from '../data/siteConfig';
+import { buildBreadcrumbListJsonLd } from '../lib/seo';
+import Seo from '../lib/SeoHead';
 
 const WorkWithMePage: React.FC = () => {
   return (
     <section className="page">
+      {/* Description is the page's own standfirst, verbatim. */}
+      <Seo
+        title={`Work with me | ${SITE.name}`}
+        description="Schedule time to pressure-test positioning, GTM, partnerships, narrative, or the operating plan behind growth."
+        path="/work-w-me"
+        jsonLd={[
+          buildBreadcrumbListJsonLd([
+            { name: 'Home', url: SITE.url },
+            { name: 'Work with me', url: `${SITE.url}/work-w-me` },
+          ]),
+        ]}
+      />
       <header className="page-header">
         <p className="section-kicker">Advisory and execution</p>
         <h1 className="page-title">Work with me</h1>

@@ -2,8 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { posts as allPosts } from '../data/mockData';
 import { PostType } from '../types';
-import { applyPageSEO, buildBlogCollectionJsonLd, buildBreadcrumbListJsonLd, buildSiteSearchJsonLd } from '../lib/seo';
+import { buildBlogCollectionJsonLd, buildBreadcrumbListJsonLd, buildSiteSearchJsonLd } from '../lib/seo';
 import { SITE } from '../data/siteConfig';
+import Seo from '../lib/SeoHead';
 
 interface PostListPageProps {
   type: PostType;
@@ -25,35 +26,33 @@ const PostListPage: React.FC<PostListPageProps> = ({ type, title }) => {
     [type],
   );
 
-  React.useEffect(() => {
-    const sectionPath =
-      type === PostType.RESEARCH ? '/research' : type === PostType.LEAD_MAGNET ? '/leads' : '/blog';
-    const canonicalUrl = `${SITE.url}${sectionPath}`;
-    const tags = filteredPosts.flatMap((post) => post.tags ?? []);
-
-    applyPageSEO({
-      title: `${title} | ${SITE.name}`,
-      description:
-        type === PostType.RESEARCH
-          ? 'Research, frameworks, and experiments for AI/Web3 go-to-market.'
-          : type === PostType.LEAD_MAGNET
-            ? 'Downloads, templates, and checklists for faster GTM execution.'
-            : 'All blog posts, playbooks, and narratives from Daniel Forero.',
-      canonicalUrl,
-      keywords: [...new Set(tags)],
-      jsonLd: [
-        buildBlogCollectionJsonLd(filteredPosts, title, canonicalUrl),
-        buildBreadcrumbListJsonLd([
-          { name: 'Home', url: SITE.url },
-          { name: title, url: canonicalUrl },
-        ]),
-        buildSiteSearchJsonLd(),
-      ],
-    });
-  }, [filteredPosts, title, type]);
+  const sectionPath =
+    type === PostType.RESEARCH ? '/research' : type === PostType.LEAD_MAGNET ? '/leads' : '/blog';
+  const canonicalUrl = `${SITE.url}${sectionPath}`;
+  const tags = filteredPosts.flatMap((post) => post.tags ?? []);
+  const metaDescription =
+    type === PostType.RESEARCH
+      ? 'Research, frameworks, and experiments for AI/Web3 go-to-market.'
+      : type === PostType.LEAD_MAGNET
+        ? 'Downloads, templates, and checklists for faster GTM execution.'
+        : 'All blog posts, playbooks, and narratives from Daniel Forero.';
 
   return (
     <div className="page">
+      <Seo
+        title={`${title} | ${SITE.name}`}
+        description={metaDescription}
+        path={sectionPath}
+        keywords={[...new Set(tags)]}
+        jsonLd={[
+          buildBlogCollectionJsonLd(filteredPosts, title, canonicalUrl),
+          buildBreadcrumbListJsonLd([
+            { name: 'Home', url: SITE.url },
+            { name: title, url: canonicalUrl },
+          ]),
+          buildSiteSearchJsonLd(),
+        ]}
+      />
       <header className="page-header">
         <p className="section-kicker">Library</p>
         <h1 className="page-title">{title}</h1>

@@ -1,4 +1,7 @@
 import React from 'react';
+import { SITE } from '../data/siteConfig';
+import { buildBreadcrumbListJsonLd } from '../lib/seo';
+import Seo from '../lib/SeoHead';
 
 const socials = [
   { name: 'Instagram', url: 'https://www.instagram.com/danielforeroj/' },
@@ -9,6 +12,18 @@ const socials = [
 const VirtualCoffeePage: React.FC = () => {
   return (
     <section className="page">
+      {/* Description is the page's own standfirst, verbatim. */}
+      <Seo
+        title={`Virtual Coffee | ${SITE.name}`}
+        description="A focused conversation for ideas, intros, operator notes, or where AI and Web3 are headed next."
+        path="/virtual-coffee"
+        jsonLd={[
+          buildBreadcrumbListJsonLd([
+            { name: 'Home', url: SITE.url },
+            { name: 'Virtual Coffee', url: `${SITE.url}/virtual-coffee` },
+          ]),
+        ]}
+      />
       <header className="page-header">
         <p className="section-kicker">Conversation</p>
         <h1 className="page-title">Virtual Coffee</h1>

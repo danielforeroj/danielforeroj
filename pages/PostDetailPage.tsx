@@ -3,7 +3,8 @@ import { useParams, NavLink } from 'react-router-dom';
 import { posts } from '../data/mockData';
 import Button from '../components/Button';
 import { SITE } from '../data/siteConfig';
-import { applyPageSEO, buildBlogPostingJsonLd, buildBreadcrumbListJsonLd } from '../lib/seo';
+import { buildBlogPostingJsonLd, buildBreadcrumbListJsonLd } from '../lib/seo';
+import Seo from '../lib/SeoHead';
 
 const formatInlineMarkdown = (text: string) => {
   const escaped = text
@@ -148,32 +149,15 @@ const PostDetailPage: React.FC = () => {
     return markdownToHtml(normalizePostMarkdown(post.content_md, post.title));
   }, [post]);
 
-  React.useEffect(() => {
-    if (!post) return;
-
-    const canonicalUrl = `${SITE.url}/post/${post.slug}`;
-    const breadcrumbs = [
-      { name: 'Home', url: SITE.url },
-      { name: 'Blog', url: `${SITE.url}/blog` },
-      { name: post.title, url: canonicalUrl },
-    ];
-
-    applyPageSEO({
-      title: `${post.title} | ${SITE.name}`,
-      description: post.excerpt,
-      canonicalUrl,
-      ogType: 'article',
-      keywords: post.tags,
-      jsonLd: [
-        buildBlogPostingJsonLd(post),
-        buildBreadcrumbListJsonLd(breadcrumbs),
-      ],
-    });
-  }, [post]);
-
   if (!post) {
     return (
       <div className="page">
+        <Seo
+          title={`Post not found | ${SITE.name}`}
+          description="The post you are looking for does not exist."
+          path="/post"
+          noIndex
+        />
         <header className="page-header">
           <p className="section-kicker">Missing</p>
           <h1 className="page-title">Post not found</h1>
@@ -186,8 +170,25 @@ const PostDetailPage: React.FC = () => {
     );
   }
 
+  const canonicalUrl = `${SITE.url}/post/${post.slug}`;
+
   return (
     <article className="article">
+      <Seo
+        title={`${post.title} | ${SITE.name}`}
+        description={post.excerpt}
+        path={`/post/${post.slug}`}
+        ogType="article"
+        keywords={post.tags}
+        jsonLd={[
+          buildBlogPostingJsonLd(post),
+          buildBreadcrumbListJsonLd([
+            { name: 'Home', url: SITE.url },
+            { name: 'Blog', url: `${SITE.url}/blog` },
+            { name: post.title, url: canonicalUrl },
+          ]),
+        ]}
+      />
       <header className="article-header">
         <NavLink to="/blog" className="chip">Back to library</NavLink>
         <h1 className="article-title">{post.title}</h1>

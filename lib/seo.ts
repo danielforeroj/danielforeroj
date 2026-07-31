@@ -1,5 +1,6 @@
 import { Post, PostType } from "../types";
 import { SITE } from "../data/siteConfig";
+import { PROFILE } from "../data/profile";
 
 type JsonLd = Record<string, unknown>;
 
@@ -151,6 +152,30 @@ export const buildBlogCollectionJsonLd = (
       description: post.excerpt,
     })),
   },
+});
+
+/**
+ * Person entity for the homepage. Every field is read from data/profile.ts, so
+ * the schema cannot state anything the page does not already say. sameAs is the
+ * set of self-owned profiles, which is what lets an answer engine resolve which
+ * "Daniel Forero" a page is about.
+ */
+export const buildPersonJsonLd = (): JsonLd => ({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: PROFILE.name,
+  url: SITE.url,
+  email: `mailto:${PROFILE.email}`,
+  description: SITE.description,
+  image: SITE.defaultOgImage,
+  jobTitle: PROFILE.engagements[0]?.role,
+  worksFor: {
+    "@type": "Organization",
+    name: PROFILE.now.org,
+    url: PROFILE.now.url,
+  },
+  knowsAbout: PROFILE.sectors,
+  sameAs: PROFILE.socials.map((social) => social.url),
 });
 
 export const buildSiteSearchJsonLd = (): JsonLd => ({

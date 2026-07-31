@@ -1,16 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
+import { ViteReactSSG } from 'vite-react-ssg'
+import { routes } from './routes'
 
-const rootElement = document.getElementById('root')
-if (!rootElement) {
-  throw new Error('Could not find root element to mount to')
-}
-
-const root = ReactDOM.createRoot(rootElement)
-
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+// Static-site-generation entry. vite-react-ssg prerenders every route in
+// routes.tsx to real HTML, then hydrates on the client. This replaces the
+// ReactDOM.createRoot bootstrap, which served an empty <div id="root"> to
+// anything that did not run JavaScript.
+export const createRoot = ViteReactSSG({ routes })

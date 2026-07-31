@@ -2,6 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { posts } from "../data/mockData";
 import { PROFILE } from "../data/profile";
+import { SITE } from "../data/siteConfig";
+import { buildPersonJsonLd, buildSiteSearchJsonLd } from "../lib/seo";
+import Seo from "../lib/SeoHead";
 
 const fmt = (iso: string) =>
   new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
@@ -20,6 +23,12 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="console">
+      <Seo
+        title={`${PROFILE.name} — Operator turned angel investor`}
+        description={SITE.description}
+        path="/"
+        jsonLd={[buildPersonJsonLd(), buildSiteSearchJsonLd()]}
+      />
       <div className="console__wrap">
         {/* ---------- HERO: status rail + main console ---------- */}
         <section className="c-shell" aria-label="Introduction">
