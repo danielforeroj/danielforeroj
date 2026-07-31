@@ -80,6 +80,9 @@ export const posts: Post[] = [
   slug: 'fuck-web3-jargon',
   date: '2025-11-06T20:15:00Z',
   excerpt: 'If your product needs a glossary to sign up, you don’t have a product problem—you have a language problem. This is a field guide to killing crypto-speak, writing for real people, and shipping UX that converts.',
+  // Same claims as the excerpt, tightened to 157 characters so search surfaces
+  // show the whole sentence instead of cutting it mid-clause.
+  metaDescription: 'If your product needs a glossary, you have a language problem. A field guide to killing crypto-speak, writing for real people, and shipping UX that converts.',
   content_md: `
 # Fuck Web3 Jargon
 
@@ -291,6 +294,9 @@ Jargon is a habit. Clarity is a strategy. Choose the one that compounds.
   slug: 'gtm-playbook-web3',
   date: '2025-11-06T20:00:00Z',
   excerpt: 'A field-tested, no-fluff go-to-market playbook for Web3 teams. Pragmatic strategy, hybrid funnels, onchain activation, and an operating cadence that turns momentum into defensibility—now with AI SEO/AEO tactics that get you cited by answer engines.',
+  // Same claims as the excerpt, tightened to 150 characters. The AEO clause is
+  // the differentiating one, so it is what survives the cut.
+  metaDescription: 'A field-tested go-to-market playbook for Web3 teams: hybrid funnels, onchain activation, operating cadence, and AI SEO/AEO tactics that get you cited.',
   content_md: `
 # My GTM Playbook for Web3
 

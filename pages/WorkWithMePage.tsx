@@ -6,14 +6,17 @@ import Seo from '../lib/SeoHead';
 const WorkWithMePage: React.FC = () => {
   return (
     <section className="page">
-      {/* Description is the page's own standfirst, verbatim. */}
+      {/*
+        Description is the page's standfirst, named. "Schedule time" on its own
+        does not say with whom, which is the one fact a search result needs.
+      */}
       <Seo
         title={`Work with me | ${SITE.name}`}
-        description="Schedule time to pressure-test positioning, GTM, partnerships, narrative, or the operating plan behind growth."
+        description="Schedule time with Daniel Forero to pressure-test positioning, GTM, partnerships, narrative, or the operating plan behind growth."
         path="/work-w-me"
         jsonLd={[
           buildBreadcrumbListJsonLd([
-            { name: 'Home', url: SITE.url },
+            { name: 'Home', url: SITE.homeUrl },
             { name: 'Work with me', url: `${SITE.url}/work-w-me` },
           ]),
         ]}

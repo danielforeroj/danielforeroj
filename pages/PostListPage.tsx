@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { posts as allPosts } from '../data/mockData';
 import { PostType } from '../types';
-import { buildBlogCollectionJsonLd, buildBreadcrumbListJsonLd, buildSiteSearchJsonLd } from '../lib/seo';
+import { buildBlogCollectionJsonLd, buildBreadcrumbListJsonLd } from '../lib/seo';
 import { SITE } from '../data/siteConfig';
 import Seo from '../lib/SeoHead';
 
@@ -11,10 +11,24 @@ interface PostListPageProps {
   title: string;
 }
 
+// On-page standfirsts. Rendered under the h1; not used as meta.
 const descriptions: Record<string, string> = {
   Blog: 'Narrative, operating notes, and field-tested GTM thinking for AI and Web3 teams.',
   Research: 'Frameworks, experiments, and market notes for teams building in emerging categories.',
   Downloads: 'Templates, checklists, and practical artifacts built to move work forward.',
+};
+
+// Search-surface descriptions, 120-158 characters. Each is the standfirst above
+// plus one clause naming the author and the sectors, both of which the page and
+// data/profile.ts already state. The strings these replaced ran 61-63
+// characters, which reads as a stub to a crawler and gives an answer engine
+// almost nothing to quote.
+const metaDescriptions: Record<string, string> = {
+  Blog: 'Narrative, operating notes, and field-tested GTM thinking for AI and Web3 teams. Every blog post by Daniel Forero, newest first.',
+  Research:
+    'Frameworks, experiments, and market notes for teams building in emerging categories. Daniel Forero on AI, Web3, quantum, and fintech.',
+  Downloads:
+    "Templates, checklists, and practical artifacts built to move work forward. Downloads from Daniel Forero's operator and GTM library.",
 };
 
 const PostListPage: React.FC<PostListPageProps> = ({ type, title }) => {
@@ -30,12 +44,7 @@ const PostListPage: React.FC<PostListPageProps> = ({ type, title }) => {
     type === PostType.RESEARCH ? '/research' : type === PostType.LEAD_MAGNET ? '/leads' : '/blog';
   const canonicalUrl = `${SITE.url}${sectionPath}`;
   const tags = filteredPosts.flatMap((post) => post.tags ?? []);
-  const metaDescription =
-    type === PostType.RESEARCH
-      ? 'Research, frameworks, and experiments for AI/Web3 go-to-market.'
-      : type === PostType.LEAD_MAGNET
-        ? 'Downloads, templates, and checklists for faster GTM execution.'
-        : 'All blog posts, playbooks, and narratives from Daniel Forero.';
+  const metaDescription = metaDescriptions[title] ?? metaDescriptions.Blog;
 
   return (
     <div className="page">
@@ -47,10 +56,9 @@ const PostListPage: React.FC<PostListPageProps> = ({ type, title }) => {
         jsonLd={[
           buildBlogCollectionJsonLd(filteredPosts, title, canonicalUrl),
           buildBreadcrumbListJsonLd([
-            { name: 'Home', url: SITE.url },
+            { name: 'Home', url: SITE.homeUrl },
             { name: title, url: canonicalUrl },
           ]),
-          buildSiteSearchJsonLd(),
         ]}
       />
       <header className="page-header">

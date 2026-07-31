@@ -12,14 +12,18 @@ const socials = [
 const VirtualCoffeePage: React.FC = () => {
   return (
     <section className="page">
-      {/* Description is the page's own standfirst, verbatim. */}
+      {/*
+        Description is the page's standfirst with the action the page actually
+        offers put in front of it. The standfirst alone ran 95 characters, short
+        enough that a search surface pads it with whatever else it can find.
+      */}
       <Seo
         title={`Virtual Coffee | ${SITE.name}`}
-        description="A focused conversation for ideas, intros, operator notes, or where AI and Web3 are headed next."
+        description="Book a virtual coffee with Daniel Forero: a focused conversation for ideas, intros, operator notes, or where AI and Web3 are headed next."
         path="/virtual-coffee"
         jsonLd={[
           buildBreadcrumbListJsonLd([
-            { name: 'Home', url: SITE.url },
+            { name: 'Home', url: SITE.homeUrl },
             { name: 'Virtual Coffee', url: `${SITE.url}/virtual-coffee` },
           ]),
         ]}

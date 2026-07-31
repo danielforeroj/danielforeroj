@@ -4,89 +4,30 @@ import { PROFILE } from "../data/profile";
 
 type JsonLd = Record<string, unknown>;
 
-type SEOOptions = {
-  title: string;
-  description?: string;
-  canonicalUrl?: string;
-  ogImage?: string;
-  ogType?: "website" | "article";
-  keywords?: string[];
-  noIndex?: boolean;
-  jsonLd?: JsonLd[];
-};
-
-const ensureMeta = (selector: string, attr: "name" | "property", key: string) => {
-  let el = document.head.querySelector(`${selector}[${attr}="${key}"]`) as HTMLMetaElement | null;
-  if (!el) {
-    el = document.createElement("meta");
-    el.setAttribute(attr, key);
-    document.head.appendChild(el);
-  }
-  return el;
-};
-
-const setMetaTag = (name: string, content?: string) => {
-  if (!content) return;
-  ensureMeta("meta", "name", name).setAttribute("content", content);
-};
-
-const setPropertyTag = (property: string, content?: string) => {
-  if (!content) return;
-  ensureMeta("meta", "property", property).setAttribute("content", content);
-};
-
-const setCanonicalLink = (href?: string) => {
-  if (!href) return;
-  let link = document.head.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
-  if (!link) {
-    link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    document.head.appendChild(link);
-  }
-  link.setAttribute("href", href);
-};
-
-const clearJsonLd = () => {
-  document.querySelectorAll("script[data-seo-jsonld='true']").forEach((node) => node.remove());
-};
-
-const addJsonLd = (data: JsonLd) => {
-  const script = document.createElement("script");
-  script.type = "application/ld+json";
-  script.dataset.seoJsonld = "true";
-  script.textContent = JSON.stringify(data, null, 2);
-  document.head.appendChild(script);
-};
-
-export const applyPageSEO = (options: SEOOptions) => {
-  if (typeof document === "undefined") return;
-
-  document.title = options.title;
-  setMetaTag("description", options.description);
-  setMetaTag("keywords", options.keywords?.filter(Boolean).join(", "));
-
-  setPropertyTag("og:title", options.title);
-  setPropertyTag("og:description", options.description);
-  setPropertyTag("og:type", options.ogType ?? "website");
-  setPropertyTag("og:image", options.ogImage ?? SITE.defaultOgImage);
-  setPropertyTag("og:site_name", SITE.name);
-
-  setMetaTag("twitter:card", "summary_large_image");
-  setMetaTag("twitter:title", options.title);
-  setMetaTag("twitter:description", options.description);
-  setMetaTag("twitter:image", options.ogImage ?? SITE.defaultOgImage);
-
-  setCanonicalLink(options.canonicalUrl);
-
-  if (options.noIndex) {
-    setMetaTag("robots", "noindex, nofollow");
-  }
-
-  clearJsonLd();
-  options.jsonLd?.forEach(addJsonLd);
-};
-
 const urlForPost = (post: Post) => `${SITE.url}/post/${post.slug}`;
+
+/**
+ * The single Person node the whole site refers to. Author and publisher are the
+ * same human here, so they must be the same node: typing the publisher as an
+ * Organization named "Daniel Forero" while the author was a Person of the same
+ * name asked an answer engine to resolve two entities with one name, which is
+ * the ambiguity that makes a model hedge instead of stating a fact.
+ *
+ * The shared @id is what does the work — the homepage Person and every
+ * BlogPosting's author/publisher all resolve to one node in the graph.
+ */
+export const PERSON_ID = `${SITE.homeUrl}#person`;
+
+const personRef = (): JsonLd => ({
+  "@type": SITE.publisher.type,
+  "@id": PERSON_ID,
+  name: SITE.publisher.name,
+  url: SITE.homeUrl,
+  image: {
+    "@type": "ImageObject",
+    url: SITE.logo,
+  },
+});
 
 export const buildBreadcrumbListJsonLd = (crumbs: Array<{ name: string; url: string }>): JsonLd => ({
   "@context": "https://schema.org",
@@ -103,25 +44,14 @@ export const buildBlogPostingJsonLd = (post: Post): JsonLd => ({
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: post.title,
-  description: post.excerpt,
+  description: post.metaDescription ?? post.excerpt,
   datePublished: post.date,
   dateModified: post.date,
   mainEntityOfPage: urlForPost(post),
   url: urlForPost(post),
   image: SITE.defaultOgImage,
-  author: {
-    "@type": SITE.publisher.type,
-    name: SITE.publisher.name,
-    url: SITE.url,
-  },
-  publisher: {
-    "@type": "Organization",
-    name: SITE.name,
-    logo: {
-      "@type": "ImageObject",
-      url: SITE.logo,
-    },
-  },
+  author: personRef(),
+  publisher: personRef(),
   keywords: post.tags ?? [],
   articleSection:
     post.type === PostType.RESEARCH ? "Research" : post.type === PostType.LEAD_MAGNET ? "Downloads" : "Blog",
@@ -163,8 +93,9 @@ export const buildBlogCollectionJsonLd = (
 export const buildPersonJsonLd = (): JsonLd => ({
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": PERSON_ID,
   name: PROFILE.name,
-  url: SITE.url,
+  url: SITE.homeUrl,
   email: `mailto:${PROFILE.email}`,
   description: SITE.description,
   image: SITE.defaultOgImage,
@@ -178,14 +109,21 @@ export const buildPersonJsonLd = (): JsonLd => ({
   sameAs: PROFILE.socials.map((social) => social.url),
 });
 
-export const buildSiteSearchJsonLd = (): JsonLd => ({
+/**
+ * WebSite is a site-level entity, so it belongs on the homepage and nowhere
+ * else. Repeating it on /blog, /research and /leads described the same site
+ * four times.
+ *
+ * It used to declare a SearchAction pointing at /search?q={search_term_string}.
+ * There is no /search route and that URL 404s, so the site was advertising a
+ * capability it does not have. The entity is worth keeping; the false claim is
+ * not. If site search is ever built, add the potentialAction back then.
+ */
+export const buildWebSiteJsonLd = (): JsonLd => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
-  url: SITE.url,
+  "@id": `${SITE.homeUrl}#website`,
+  url: SITE.homeUrl,
   name: SITE.name,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${SITE.url}/search?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
+  publisher: { "@id": PERSON_ID },
 });

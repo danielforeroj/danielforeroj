@@ -5,6 +5,7 @@ import PostListPage from './pages/PostListPage';
 import PostDetailPage from './pages/PostDetailPage';
 import VirtualCoffeePage from './pages/VirtualCoffeePage';
 import WorkWithMePage from './pages/WorkWithMePage';
+import NotFoundPage from './pages/NotFoundPage';
 import { PostType } from './types';
 import { posts } from './data/mockData';
 
@@ -28,6 +29,16 @@ export const routes: RouteRecord[] = [
       },
       { path: 'virtual-coffee', element: <VirtualCoffeePage /> },
       { path: 'work-w-me', element: <WorkWithMePage /> },
+      // Catch-all. The generator skips any path containing "*", so the wildcard
+      // alone would prerender nothing; getStaticPaths names /404 explicitly,
+      // which renders this element to dist/404.html — the file Vercel serves
+      // for an unmatched path. It also keeps the same component on screen for
+      // client-side navigation to a dead link.
+      {
+        path: '*',
+        element: <NotFoundPage />,
+        getStaticPaths: () => ['/404'],
+      },
     ],
   },
 ];

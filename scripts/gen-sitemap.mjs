@@ -27,6 +27,16 @@ async function htmlFiles(dir) {
   return out
 }
 
+/** llms.txt is plain text, so attribute-escaped characters are turned back. */
+function decode(value) {
+  return value
+    .replace(/&#x27;|&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+}
+
 /** dist/blog.html -> /blog ; dist/index.html -> / ; dist/post/x.html -> /post/x */
 function routeFor(file) {
   const rel = relative(DIST, file).split(sep).join('/')
@@ -45,19 +55,28 @@ const pages = (
       // the list of pages we are asking them to crawl.
       // Attribute-order agnostic: the renderer emits data-rh="true" first, so
       // anchoring on <meta name=... would silently match nothing.
+      //
+      // The value is read to its own closing delimiter via a backreference,
+      // not to "the next quote of either kind". The renderer leaves an
+      // apostrophe raw inside a double-quoted attribute, so the looser form
+      // silently truncated any description containing one — /leads lost
+      // everything after "Daniel Forero" in llms.txt.
       const metaContent = (name) =>
-        html
-          .match(
+        decode(
+          html.match(
             new RegExp(
-              `<meta[^>]*name=["']${name}["'][^>]*content=["']([^"']*)["']`,
+              `<meta[^>]*name=["']${name}["'][^>]*content=(["'])([\\s\\S]*?)\\1`,
               'i',
             ),
-          )?.[1] ?? ''
+          )?.[2] ?? '',
+        )
 
       if (/noindex/i.test(metaContent('robots'))) return null
       const route = routeFor(file)
       if (route === '/404') return null
-      const title = (html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1] ?? '').trim()
+      const title = decode(
+        (html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1] ?? '').trim(),
+      )
       const description = metaContent('description').trim()
       return { route, title, description }
     }),

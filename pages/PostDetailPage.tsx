@@ -5,6 +5,7 @@ import Button from '../components/Button';
 import { SITE } from '../data/siteConfig';
 import { buildBlogPostingJsonLd, buildBreadcrumbListJsonLd } from '../lib/seo';
 import Seo from '../lib/SeoHead';
+import NotFoundPage from './NotFoundPage';
 
 const formatInlineMarkdown = (text: string) => {
   const escaped = text
@@ -151,22 +152,13 @@ const PostDetailPage: React.FC = () => {
 
   if (!post) {
     return (
-      <div className="page">
-        <Seo
-          title={`Post not found | ${SITE.name}`}
-          description="The post you are looking for does not exist."
-          path="/post"
-          noIndex
-        />
-        <header className="page-header">
-          <p className="section-kicker">Missing</p>
-          <h1 className="page-title">Post not found</h1>
-          <p className="article-excerpt">The post you are looking for does not exist.</p>
-        </header>
-        <Button as={NavLink} to="/" variant="cta2">
-          Go back home
-        </Button>
-      </div>
+      <NotFoundPage
+        title={`Post not found | ${SITE.name}`}
+        kicker="Missing"
+        heading="Post not found"
+        body="The post you are looking for does not exist."
+        path="/post"
+      />
     );
   }
 
@@ -176,14 +168,17 @@ const PostDetailPage: React.FC = () => {
     <article className="article">
       <Seo
         title={`${post.title} | ${SITE.name}`}
-        description={post.excerpt}
+        // metaDescription is the length-constrained twin of the excerpt. The
+        // excerpt still renders below, unchanged; only the head-level string
+        // changes, because that is the one with a 158-character ceiling.
+        description={post.metaDescription ?? post.excerpt}
         path={`/post/${post.slug}`}
         ogType="article"
         keywords={post.tags}
         jsonLd={[
           buildBlogPostingJsonLd(post),
           buildBreadcrumbListJsonLd([
-            { name: 'Home', url: SITE.url },
+            { name: 'Home', url: SITE.homeUrl },
             { name: 'Blog', url: `${SITE.url}/blog` },
             { name: post.title, url: canonicalUrl },
           ]),

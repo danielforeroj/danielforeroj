@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { posts } from "../data/mockData";
 import { PROFILE } from "../data/profile";
 import { SITE } from "../data/siteConfig";
-import { buildPersonJsonLd, buildSiteSearchJsonLd } from "../lib/seo";
+import { buildPersonJsonLd, buildWebSiteJsonLd } from "../lib/seo";
 import Seo from "../lib/SeoHead";
 
 const fmt = (iso: string) =>
@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
         title={`${PROFILE.name} — Operator turned angel investor`}
         description={SITE.description}
         path="/"
-        jsonLd={[buildPersonJsonLd(), buildSiteSearchJsonLd()]}
+        jsonLd={[buildPersonJsonLd(), buildWebSiteJsonLd()]}
       />
       <div className="console__wrap">
         {/* ---------- HERO: status rail + main console ---------- */}

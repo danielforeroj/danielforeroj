@@ -3,11 +3,23 @@
 // a canonical at a redirect makes the two disagree for no gain.
 export const SITE = {
   name: "Daniel Forero",
+  /** Origin with no trailing slash. Concatenation base: `${SITE.url}/blog`. */
   url: "https://danielforeroj.com",
+  /**
+   * The homepage as a URL in its own right, with the trailing slash the origin
+   * and the sitemap both use. Anywhere the homepage is *referenced* rather than
+   * used as a prefix — canonical, breadcrumb root, Person.url — must use this,
+   * so the site never emits two spellings of the same page.
+   */
+  homeUrl: "https://danielforeroj.com/",
   description:
     "Daniel Forero is an operator turned angel investor working across AI, Web3, quantum, and fintech. He builds businesses, then makes the world hear about them.",
   defaultOgImage: "https://danielforeroj.com/og.jpg",
-  logo: "https://danielforeroj.com/favicon.ico",
+  // Must be a URL that actually resolves. This pointed at /favicon.ico, which
+  // 404s — public/ holds only og.jpg and robots.txt — and a 404 logo is worse
+  // than no logo, because logo is what gates knowledge-panel eligibility.
+  // public/og.jpg is the only real image the site ships (1200x630, 200 OK).
+  logo: "https://danielforeroj.com/og.jpg",
   publisher: {
     name: "Daniel Forero",
     type: "Person" as const,

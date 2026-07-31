@@ -36,7 +36,11 @@ export const Seo: React.FC<SeoProps> = ({
   noIndex,
   jsonLd,
 }) => {
-  const url = `${SITE.url}${path === '/' ? '' : path}`;
+  // The path is appended verbatim, so "/" yields "https://danielforeroj.com/".
+  // It used to be stripped, which made the homepage canonical disagree with the
+  // sitemap entry byte-for-byte. Both now emit the trailing-slash form, which is
+  // also what the origin serves.
+  const url = `${SITE.url}${path}`;
   const image = ogImage ?? SITE.defaultOgImage;
 
   return (
