@@ -27,3 +27,20 @@ export const SITE = {
 };
 
 export type SiteConfig = typeof SITE;
+
+/**
+ * Sections that exist in code but are not published yet.
+ *
+ * Research and Downloads are hidden because neither has any content: every post
+ * in data/mockData.ts is typed BLOG, so both pages rendered an empty list and
+ * invited crawlers into a dead end.
+ *
+ * Flipping a value back to true is the only change needed to publish it. The
+ * routes and the nav both read this, so they cannot drift, and sitemap.xml and
+ * llms.txt are derived from what actually builds, so they follow automatically.
+ */
+export const SECTIONS = {
+  blog: true,
+  research: false,
+  downloads: false,
+} as const;

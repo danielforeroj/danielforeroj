@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { SECTIONS } from "../data/siteConfig";
 
+// Built from the same SECTIONS flags the router reads, so the nav can never
+// advertise a section that has no route behind it.
 const links = [
   { to: "/", label: "Index" },
-  { to: "/blog", label: "Writing" },
-  { to: "/research", label: "Research" },
-  { to: "/leads", label: "Downloads" },
+  ...(SECTIONS.blog ? [{ to: "/blog", label: "Writing" }] : []),
+  ...(SECTIONS.research ? [{ to: "/research", label: "Research" }] : []),
+  ...(SECTIONS.downloads ? [{ to: "/leads", label: "Downloads" }] : []),
   { to: "/virtual-coffee", label: "Coffee" },
   { to: "/work-w-me", label: "Work with me" },
 ];
