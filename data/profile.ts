@@ -81,7 +81,7 @@ export const PROFILE = {
     {
       role: "Post-quantum security",
       org: "Governments",
-      note: "Cybersecurity for post-quantum technologies, alongside Tectonic and other projects under NDA.",
+      note: "Cybersecurity for post-quantum technologies, across projects under NDA.",
       status: "NDA",
     },
     {
@@ -89,13 +89,6 @@ export const PROFILE = {
       org: "Outlier Ventures",
       note: "Go-to-market, positioning, and narrative for founders inside the accelerator.",
       url: "https://outlierventures.io",
-      status: "Active",
-    },
-    {
-      role: "Advisor",
-      org: "Comet Cash",
-      note: "Payments infrastructure built on Bitcoin and Lightning.",
-      url: "https://www.cometcash.com/",
       status: "Active",
     },
   ] as Engagement[],

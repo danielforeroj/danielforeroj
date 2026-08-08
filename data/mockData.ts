@@ -57,12 +57,6 @@ export const initialHomeContent: HomeContent = {
       ctaUrl: "https://multipliedhq.com"
     },
     {
-      title: "Marketing & Strategy Advisor at Comet Cash",
-      body: "Payments infrastructure using bitcoin & lightning technology.",
-      ctaLabel: "Learn More About Comet Cash",
-      ctaUrl: "https://www.cometcash.com/"
-    },
-    {
       title: "Partner at Capa",
       body: "Payments company leveraging stablecoin infrastructure to move money across LATAM with zero FX drag. Raised USD$3M in pre-seed.",
       ctaLabel: "Learn More About Capa",
