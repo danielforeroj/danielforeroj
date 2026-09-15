@@ -51,7 +51,7 @@ const AiResourcePage: React.FC = () => {
       if (!startedAt) return;
       const seconds = Math.round((Date.now() - startedAt) / 1000);
       startedAt = 0;
-      if (seconds >= 1) aiApi.track({ key: state.resource.key, seconds });
+      if (seconds >= 1) aiApi.track({ key: state.resource.key, seconds, lang });
     };
     const onVisibility = () => {
       if (document.visibilityState === 'hidden') flush();
@@ -64,7 +64,7 @@ const AiResourcePage: React.FC = () => {
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('pagehide', flush);
     };
-  }, [state]);
+  }, [state, lang]);
 
   const title = state.kind === 'ready' ? state.resource.title : copy.libraryKicker;
 

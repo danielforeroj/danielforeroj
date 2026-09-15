@@ -71,12 +71,13 @@ export const aiApi = {
 
   login: (p: { email: string; lang: Lang }) => call<{ ok: true }>('POST', '/login', p),
 
-  me: () => call<Me>('GET', '/me'),
+  /** lang picks the language of offers and resource cards; without it the server uses the lead's stored one. */
+  me: (lang: Lang) => call<Me>('GET', `/me?lang=${lang}`),
 
   resource: (key: string, lang: Lang) =>
     call<ResourceView>('GET', `/resources/${encodeURIComponent(key)}?lang=${lang}`),
 
-  track: (p: { key: string; seconds: number }) => call<{ ok: true }>('POST', '/track', p, true),
+  track: (p: { key: string; seconds: number; lang: Lang }) => call<{ ok: true }>('POST', '/track', p, true),
 
   logout: () => call<{ ok: true }>('POST', '/logout'),
 };

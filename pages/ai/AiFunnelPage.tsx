@@ -55,10 +55,11 @@ const AiFunnelPage: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    setLang(detectLang());
+    const l = detectLang();
+    setLang(l);
     attribution();
     load();
-    aiApi.me().then((r) => setSignedIn(r.ok));
+    aiApi.me(l).then((r) => setSignedIn(r.ok));
   }, [load]);
 
   const { steps, answers } = React.useMemo(
@@ -368,10 +369,19 @@ const AiFunnelPage: React.FC = () => {
               ))}
               {personal ? <p className="aif-note">{pick(config.screens.contact.personal_email_note, lang)}</p> : null}
 
-              {/* Honeypot. Off screen rather than display:none, which some bots skip. */}
+              {/* Honeypot. Off screen rather than display:none, which some bots skip,
+                  with no label text so neither page text nor assistive tech exposes it. */}
               <div className="aif-hp" aria-hidden="true">
-                <label htmlFor="aif-hp">Company fax</label>
-                <input id="aif-hp" tabIndex={-1} autoComplete="off" value={hp} onChange={(e) => setHp(e.target.value)} />
+                <input
+                  id="aif-hp"
+                  name="company_fax"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={hp}
+                  onChange={(e) => setHp(e.target.value)}
+                />
               </div>
             </div>
 

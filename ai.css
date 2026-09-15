@@ -252,6 +252,13 @@
 }
 
 .aif-link:hover { color: var(--gold-light); }
+
+/* A comfortable tap target in the top bars, where the links sit alone. */
+.aif-bar .aif-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
 .aif-link:disabled { color: var(--muted-2); cursor: default; }
 
 @media (hover: none) {

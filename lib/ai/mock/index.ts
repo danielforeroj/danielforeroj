@@ -129,7 +129,7 @@ export async function mockApi<T>(method: string, path: string, body?: unknown): 
     set(SIGNED_IN, null);
     return ok({ ok: true });
   }
-  if (path === '/me') return signedIn ? ok(me()) : { ok: false, status: 401, error: '' };
+  if (path.split('?')[0] === '/me') return signedIn ? ok(me()) : { ok: false, status: 401, error: '' };
   if (path.startsWith('/resources/')) {
     if (!signedIn) return { ok: false, status: 401, error: '' };
     const [rawKey, qs] = path.slice('/resources/'.length).split('?');

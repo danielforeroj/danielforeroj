@@ -20,25 +20,26 @@ const AiLibraryPage: React.FC = () => {
   const [view, setView] = React.useState<View>({ kind: 'loading' });
   const copy = copyFor(lang);
 
-  const load = React.useCallback(async () => {
-    setView({ kind: 'loading' });
-    const r = await aiApi.me();
-    if (r.ok) {
-      setView({ kind: 'library', me: r.data });
-      // The visitor's own choice this visit wins over the language stored on the lead.
-      if (!new URLSearchParams(window.location.search).get('lang')) setLang(r.data.lang);
-    } else setView(r.status === 401 ? { kind: 'login' } : { kind: 'error' });
+  // The page language is always sent, so offers and resource cards come back in
+  // the language the visitor is reading, not the one stored on the lead.
+  const load = React.useCallback(async (l: Lang, quiet = false) => {
+    if (!quiet) setView({ kind: 'loading' });
+    const r = await aiApi.me(l);
+    if (r.ok) setView({ kind: 'library', me: r.data });
+    else setView(r.status === 401 ? { kind: 'login' } : { kind: 'error' });
   }, []);
 
   React.useEffect(() => {
-    setLang(detectLang());
-    load();
+    const l = detectLang();
+    setLang(l);
+    load(l);
   }, [load]);
 
   const switchLang = () => {
     const next: Lang = lang === 'es' ? 'en' : 'es';
     setLang(next);
     rememberLang(next);
+    if (view.kind === 'library') load(next, true);
   };
 
   return (
@@ -73,7 +74,7 @@ const AiLibraryPage: React.FC = () => {
           <p className="aif-error" role="alert">
             {copy.errorGeneric}
           </p>
-          <button type="button" className="aif-btn" onClick={load}>
+          <button type="button" className="aif-btn" onClick={() => load(lang)}>
             {copy.retry}
           </button>
         </div>
@@ -97,7 +98,7 @@ const AiLibraryPage: React.FC = () => {
               return r.ok ? { ok: true } : { ok: false, message: errorMessage(r, { generic: copy.errorGeneric, rateLimit: copy.errorRateLimit }) };
             }}
             onChangeEmail={() => setView({ kind: 'login' })}
-            onVerified={load}
+            onVerified={() => load(lang)}
           />
         </div>
       ) : null}
