@@ -13,7 +13,7 @@ export const SITE = {
    */
   homeUrl: "https://danielforeroj.com/",
   description:
-    "Daniel Forero is an operator turned angel investor working across AI, Web3, quantum, and fintech. He builds businesses, then makes the world hear about them.",
+    "Daniel Forero is co-founder of Unbound Operators, which runs growth for frontier companies and builds AI products like Selah, On Duty, and unbound geo.",
   defaultOgImage: "https://danielforeroj.com/og.jpg",
   // Must be a URL that actually resolves. This pointed at /favicon.ico, which
   // 404s — public/ holds only og.jpg and robots.txt — and a 404 logo is worse

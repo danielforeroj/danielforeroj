@@ -1,6 +1,8 @@
 // data/profile.ts
 // Single source of truth for the homepage.
-// Personal-first: this site is about Daniel, the operator turned angel investor.
+// Personal-first: this site is about Daniel, co-founder of Unbound Operators.
+// What he operates and builds leads; investing is one line inside that story,
+// not the headline. He is not actively deploying capital.
 
 export type Engagement = {
   role: string;
@@ -10,79 +12,139 @@ export type Engagement = {
   status: string;
 };
 
-export type Venture = {
+export type Platform = {
   name: string;
+  /** Daniel's or Unbound's relationship to it, shown as the card eyebrow. */
+  kind: string;
   note: string;
+  status: string;
+  /** Omit while a domain is not live; a card with no url renders unlinked. */
   url?: string;
+};
+
+export type Pillar = {
+  verb: string;
+  note: string;
 };
 
 export const PROFILE = {
   name: "Daniel Forero",
   handle: "danielforeroj",
-  eyebrow: "Operator ➜ Angel investor",
-  lead: "Operator turned",
-  leadAccent: "angel investor",
-  sub: "I turn ideas into real-world businesses, then make sure the world hears about them.",
-  tags: [
-    "Father",
-    "Husband",
-    "Marketer",
-    "AI nerd",
-    "Web3 degen",
-    "Angel investor",
-    "Gamer",
-  ],
+  eyebrow: "Co-founder, Unbound Operators",
+  lead: "Operate. Build. Back.",
+  leadAccent: "At the frontier.",
+  sub: "Co-founder of Unbound Operators. We run growth for companies building in AI, Web3, quantum, and fintech, and we ship AI products of our own.",
+  tags: ["Father", "Husband", "Operator", "Builder", "AI nerd", "Web3 degen", "Gamer"],
   sectors: ["AI", "Web3", "Quantum", "Fintech"],
 
   // Left status rail
   rail: [
-    { label: "Now building", value: "Unbound Operators" },
-    { label: "Under the umbrella", value: "On Duty · Selah" },
+    { label: "Co-founder", value: "Unbound Operators" },
+    { label: "Building", value: "Selah · On Duty · unbound geo" },
+    { label: "Hosting", value: "AI & frontier tech on Anotelo" },
     { label: "Sectors", value: "AI / Web3 / Quantum / Fintech" },
-    { label: "Advising", value: "Founders, funds, governments" },
-    { label: "Raised for founders", value: "$600M" },
+    { label: "Supported raises", value: "$600M+" },
     { label: "Off the clock", value: "Father, husband, gamer" },
   ],
 
   now: {
-    label: "Now building",
+    label: "Co-founder",
     org: "Unbound Operators",
-    note: "My operating platform. Everything I build runs under it.",
+    note: "A holding company and operator collective. Not a fund, but we invest. Not an agency, but we operate.",
     url: "https://unboundoperators.com",
   },
 
-  ventures: [
+  pillars: [
+    {
+      verb: "Operate",
+      note: "Brands we run for clients: Unbound for companies at the frontier, Unbound Growth Partners for established businesses.",
+    },
+    {
+      verb: "Build",
+      note: "Products we own and ship, mostly AI: governance for agents, context for business operations, visibility in AI search.",
+    },
+    {
+      verb: "Back",
+      note: "A few companies we take a stake in and work inside of, like Mostaza.",
+    },
+  ] as Pillar[],
+
+  platforms: [
+    {
+      name: "Selah",
+      kind: "Co-founder & CEO",
+      note: "Pre-execution governance for AI agents. It decides what any agent may do and say before it acts, not after.",
+      status: "Live",
+      url: "https://selahcore.com",
+    },
     {
       name: "On Duty",
-      note: "Vertical AI for business operations in emerging markets.",
+      kind: "Unbound product",
+      note: "The AI brain for a business. It indexes what the company already knows and turns it into context for its AI operations.",
+      status: "Live",
       url: "https://alwaysonduty.io",
     },
     {
-      name: "Selah",
-      note: "Governance for AI agents and agentic operations.",
-      url: "https://selahcore.com",
+      name: "unbound geo",
+      kind: "Unbound product",
+      note: "Are you in the answer? See whether AI answer engines name your brand when a buyer asks about your category.",
+      status: "Launching",
+      url: "https://unboundgeo.com",
     },
-  ] as Venture[],
+    {
+      name: "Unbound platform",
+      kind: "Unbound product",
+      note: "The operating system our brands run their clients on: deliverables, approvals, spend, and results in one place, open to AI agents.",
+      status: "Private",
+    },
+    {
+      name: "Mostaza",
+      kind: "Client & minority partner",
+      note: "Digital dollars for Colombia. Top up with pesos and spend anywhere with a free Mastercard.",
+      status: "Live",
+      url: "https://mostaza.co",
+    },
+    {
+      name: "Anotelo",
+      kind: "Host",
+      note: "A Spanish-language podcast. I host its vertical on AI and frontier technology.",
+      status: "Launching",
+    },
+  ] as Platform[],
+
+  operate: [
+    {
+      name: "Unbound",
+      note: "Growth for companies building at the frontier: marketing, PR, partnerships, government relations, AI operations, fundraising.",
+      url: "https://withunbound.com",
+    },
+    {
+      name: "Unbound Growth Partners",
+      note: "Modern growth and AI operations for established businesses. Done for you, not explained to you.",
+      url: "https://unboundgrowthpartners.com",
+    },
+  ],
 
   engagements: [
     {
-      role: "Founder & CEO",
+      role: "Co-founder",
       org: "Unbound Operators",
-      note: "Operating platform across growth, AI, and go-to-market. On Duty and Selah both live under it.",
+      note: "Operator collective behind Unbound, Unbound Growth Partners, On Duty, and unbound geo.",
       url: "https://unboundoperators.com",
       status: "Live",
     },
     {
-      role: "Advisor",
-      org: "AI, Web3, Quantum & Fintech projects",
-      note: "Hands-on advisory for teams building across artificial intelligence, blockchain, quantum, and financial infrastructure.",
-      status: "Active",
+      role: "Co-founder & CEO",
+      org: "Selah",
+      note: "Governance for AI agents and agentic operations.",
+      url: "https://selahcore.com",
+      status: "Live",
     },
     {
-      role: "Post-quantum security",
-      org: "Governments",
-      note: "Cybersecurity for post-quantum technologies, across projects under NDA.",
-      status: "NDA",
+      role: "Host",
+      org: "Anotelo",
+      note: "The AI and frontier technology vertical of a Spanish-language podcast.",
+      status: "Launching",
     },
     {
       role: "GTM Mentor",
@@ -91,32 +153,29 @@ export const PROFILE = {
       url: "https://outlierventures.io",
       status: "Active",
     },
+    {
+      role: "Post-quantum security",
+      org: "Governments",
+      note: "Cybersecurity for post-quantum technologies, across projects under NDA.",
+      status: "NDA",
+    },
   ] as Engagement[],
 
   who: [
-    "Over the past decade I've helped founders raise $600M in total, moved millions in stablecoin flows across borders, and opened new revenue models for everyday users.",
-    "My growth playbook has driven mainstream traction for global brands, generated nine-figure TVL, and put emerging tech on the pop-culture stage with headline drops for Quentin Tarantino and Doja Cat. Today that work runs through Unbound Operators and spans AI, Web3, quantum, and fintech, for founders, funds, and governments.",
+    "Over the past decade I've supported founders through more than $600M in raises, moved millions in stablecoin flows across borders, and opened new revenue models for everyday users. My growth playbook drove mainstream traction for global brands, generated nine-figure TVL, and put emerging tech on the pop-culture stage with drops for Quentin Tarantino and Doja Cat.",
+    "Today that work runs through Unbound Operators, and the same team now builds AI products of its own. I spend most of my time on how AI actually runs inside a business: what agents are allowed to do, what context they work from, and whether the market can find you in an AI answer. I still angel invest now and then, hands-on, when a founder is a clear fit.",
   ],
 
   record: [
-    { figure: "$600M", label: "Raised for founders" },
+    { figure: "$600M+", label: "Raises supported" },
     { figure: "9 figures", label: "TVL generated" },
     { figure: "Tarantino · Doja Cat", label: "Culture drops" },
     { figure: "Wormhole · Immutable X", label: "Launches" },
   ],
 
-  back: {
-    thesis:
-      "I back founders reinventing finance, identity, ownership, and intelligence, then jump in hands-on to turn theory into traction. If you're raising and that's you, pitch me.",
-    looking: "I'm looking for relentless founders with a clear vision and the grit to execute.",
-  },
-
   actions: {
     primary: { label: "Work with me", to: "/work-w-me" },
-    secondary: {
-      label: "Pitch me",
-      href: "mailto:hello@danielforeroj.com?subject=Pitch%20%E2%80%94%20I'm%20raising",
-    },
+    secondary: { label: "Unbound Operators", href: "https://unboundoperators.com" },
   },
 
   socials: [

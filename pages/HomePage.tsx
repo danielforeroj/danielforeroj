@@ -24,7 +24,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="console">
       <Seo
-        title={`${PROFILE.name} — Operator turned angel investor`}
+        title={`${PROFILE.name} — ${PROFILE.eyebrow}`}
         description={SITE.description}
         path="/"
         jsonLd={[buildPersonJsonLd(), buildWebSiteJsonLd()]}
@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
           <aside className="c-rail" aria-label="Status">
             {portrait ? (
               <div className="c-portrait">
-                <img src={portrait} alt={`${PROFILE.name}, operator and angel investor`} />
+                <img src={portrait} alt={`${PROFILE.name}, co-founder of Unbound Operators`} />
               </div>
             ) : null}
             <span className="c-live">Operating</span>
@@ -49,7 +49,7 @@ const HomePage: React.FC = () => {
 
           <div className="c-main">
             <p className="c-path">
-              {PROFILE.handle} &nbsp;/&nbsp; <b>index</b>
+              {PROFILE.handle} &nbsp;/&nbsp; <b>{PROFILE.eyebrow}</b>
             </p>
 
             <h1 className="c-title">
@@ -71,9 +71,13 @@ const HomePage: React.FC = () => {
               <NavLink to={PROFILE.actions.primary.to} className="c-btn">
                 {PROFILE.actions.primary.label}
               </NavLink>
-              <a href={PROFILE.actions.secondary.href} className="c-btn c-btn--o">
-                {PROFILE.actions.secondary.label}
-                <span className="c-btn__note">if you're raising</span>
+              <a
+                href={PROFILE.actions.secondary.href}
+                className="c-btn c-btn--o"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {PROFILE.actions.secondary.label} ↗
               </a>
             </div>
 
@@ -85,11 +89,76 @@ const HomePage: React.FC = () => {
           </div>
         </section>
 
-        {/* ---------- ACTIVE ENGAGEMENTS ---------- */}
+        {/* ---------- UNBOUND OPERATORS ---------- */}
+        <section className="c-section" aria-labelledby="unbound-title">
+          <div className="c-section__head">
+            <h2 id="unbound-title" className="c-section__title">{PROFILE.now.org}</h2>
+            <a href={PROFILE.now.url} className="c-section__more" target="_blank" rel="noopener noreferrer">
+              unboundoperators.com ↗
+            </a>
+          </div>
+
+          <p className="c-lede">{PROFILE.now.note}</p>
+
+          <div className="c-umbrella">
+            {PROFILE.pillars.map((p) => (
+              <div key={p.verb} className="c-venture c-venture--static">
+                <span className="c-venture__name">{p.verb}</span>
+                <p>{p.note}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="c-ops">
+            {PROFILE.operate.map((o) => (
+              <a key={o.name} className="c-op" href={o.url} target="_blank" rel="noopener noreferrer">
+                <span className="c-op__role">We operate</span>
+                <span className="c-op__org">
+                  {o.name}
+                  <small>{o.note}</small>
+                </span>
+                <span className="c-op__status" data-s="Live">Live</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* ---------- PLATFORMS ---------- */}
+        <section className="c-section" aria-labelledby="platforms-title">
+          <div className="c-section__head">
+            <h2 id="platforms-title" className="c-section__title">What we're launching</h2>
+            <p className="c-kicker">Products, partners, and media</p>
+          </div>
+
+          <div className="c-umbrella c-umbrella--3">
+            {PROFILE.platforms.map((v) => {
+              const inner = (
+                <>
+                  <span className="c-venture__meta">
+                    <span className="c-op__role">{v.kind}</span>
+                    <span className="c-op__status" data-s={v.status}>{v.status}</span>
+                  </span>
+                  <span className="c-venture__name">{v.name}</span>
+                  <p>{v.note}</p>
+                  {v.url ? <span className="c-venture__go">Open ↗</span> : null}
+                </>
+              );
+              return v.url ? (
+                <a key={v.name} className="c-venture" href={v.url} target="_blank" rel="noopener noreferrer">
+                  {inner}
+                </a>
+              ) : (
+                <div key={v.name} className="c-venture c-venture--static">{inner}</div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ---------- ROLES ---------- */}
         <section className="c-section" aria-labelledby="ops-title">
           <div className="c-section__head">
-            <h2 id="ops-title" className="c-section__title">Active engagements</h2>
-            <p className="c-kicker">Where I put the playbook to work</p>
+            <h2 id="ops-title" className="c-section__title">Where I'm active</h2>
+            <p className="c-kicker">Roles right now</p>
           </div>
 
           <div className="c-ops">
@@ -115,30 +184,6 @@ const HomePage: React.FC = () => {
           </div>
         </section>
 
-        {/* ---------- UNDER THE UMBRELLA ---------- */}
-        <section className="c-section" aria-labelledby="umbrella-title">
-          <div className="c-section__head">
-            <h2 id="umbrella-title" className="c-section__title">Under Unbound Operators</h2>
-            <p className="c-kicker">One umbrella, separate products</p>
-          </div>
-
-          <div className="c-umbrella">
-            {PROFILE.ventures.map((v) => (
-              <a
-                key={v.name}
-                className="c-venture"
-                href={v.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="c-venture__name">{v.name}</span>
-                <p>{v.note}</p>
-                <span className="c-venture__go">Open ↗</span>
-              </a>
-            ))}
-          </div>
-        </section>
-
         {/* ---------- WHO ---------- */}
         <section className="c-section" aria-labelledby="who-title">
           <div className="c-section__head">
@@ -160,20 +205,6 @@ const HomePage: React.FC = () => {
               </div>
             ))}
           </dl>
-        </section>
-
-        {/* ---------- WHO I BACK ---------- */}
-        <section className="c-section" aria-labelledby="back-title">
-          <div className="c-section__head">
-            <h2 id="back-title" className="c-section__title">Who I back</h2>
-            <p className="c-kicker">Angel</p>
-          </div>
-
-          <div className="c-back">
-            <p className="c-back__thesis">{PROFILE.back.thesis}</p>
-            <p className="c-back__looking">{PROFILE.back.looking}</p>
-            <a href={PROFILE.actions.secondary.href} className="c-btn">Pitch me</a>
-          </div>
         </section>
 
         {/* ---------- WRITING ---------- */}

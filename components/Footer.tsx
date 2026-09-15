@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
     <footer className="site-footer">
       <p>Daniel Forero</p>
       <div className="site-footer__line" aria-hidden="true" />
-      <span>Operator &#10142; Angel &middot; {currentYear}</span>
+      <span>Operate &middot; Build &middot; Back &middot; {currentYear}</span>
     </footer>
   );
 };

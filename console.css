@@ -427,6 +427,44 @@ a.c-op:hover {
 
 .c-venture:hover .c-venture__go { color: var(--gold); }
 
+.c-venture--static:hover { background: none; }
+
+/* Six cards read as two even rows of three, not four and an orphaned two. */
+.c-umbrella--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+@media (max-width: 900px) {
+  .c-umbrella--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .c-umbrella--3 { grid-template-columns: 1fr; }
+}
+
+.c-venture__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+
+.c-op__status[data-s="Launching"] { color: var(--gold-light); border-color: var(--gold-dark); }
+.c-op__status[data-s="Private"] { color: var(--muted-2); }
+
+.c-ops + .c-umbrella,
+.c-umbrella + .c-ops { margin-top: 22px; }
+
+.c-lede {
+  margin: 26px 0 0;
+  max-width: 760px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(19px, 2.1vw, 27px);
+  line-height: 1.36;
+  letter-spacing: 0.005em;
+  color: var(--c-paper);
+}
+
 /* ---------- who ---------- */
 .c-who {
   display: grid;
@@ -481,33 +519,6 @@ a.c-op:hover {
   color: var(--muted-2);
   line-height: 1.7;
 }
-
-/* ---------- back ---------- */
-.c-back {
-  display: grid;
-  gap: 20px;
-  max-width: 760px;
-  margin-top: 26px;
-}
-
-.c-back__thesis {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(19px, 2.1vw, 27px);
-  line-height: 1.36;
-  letter-spacing: 0.005em;
-  color: var(--c-paper);
-}
-
-.c-back__looking {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.66;
-  color: var(--muted);
-}
-
-.c-back .c-btn { justify-self: start; }
 
 /* ---------- writing ---------- */
 .c-posts { display: grid; margin-top: 4px; }
