@@ -6,6 +6,11 @@ import type { Lang } from './types';
 
 const COPY = {
   es: {
+    // Head copy. The prerendered HTML carries the Spanish pair, which is the
+    // default language; the client swaps it once it knows what the visitor reads.
+    seoTitle: 'Recursos de AI para operar tu empresa',
+    seoBody:
+      'Responde unas preguntas sobre tu empresa en 2 minutos y te doy acceso a los recursos de AI que aplican a tu caso.',
     loading: 'Cargando',
     back: 'Atrás',
     next: 'Siguiente',
@@ -56,6 +61,9 @@ const COPY = {
     chartTable: 'Datos del gráfico',
   },
   en: {
+    seoTitle: 'AI resources to run your company',
+    seoBody:
+      'Answer a few questions about your company in 2 minutes and I will give you access to the AI resources that fit your case.',
     loading: 'Loading',
     back: 'Back',
     next: 'Next',

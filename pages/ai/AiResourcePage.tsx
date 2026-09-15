@@ -4,7 +4,7 @@ import Seo from '../../lib/SeoHead';
 import { useHeadSync } from '../../lib/ai/useHeadSync';
 import { SITE } from '../../data/siteConfig';
 import { aiApi } from '../../lib/ai/api';
-import { detectLang, pushEvent } from '../../lib/ai/context';
+import { detectLang, pushEvent , useHtmlLang } from '../../lib/ai/context';
 import { copyFor } from '../../lib/ai/copy';
 import { Blocks } from '../../components/ai/Blocks';
 import type { Lang, ResourceView } from '../../lib/ai/types';
@@ -20,6 +20,7 @@ const AiResourcePage: React.FC = () => {
   const [lang, setLang] = React.useState<Lang>('es');
   const [state, setState] = React.useState<State>({ kind: 'loading' });
   const copy = copyFor(lang);
+  useHtmlLang(state.kind === 'ready' ? state.resource.language : lang);
   const key = params.key && params.key !== RESOURCE_SHELL_KEY ? params.key : '';
 
   const load = React.useCallback(
@@ -72,7 +73,13 @@ const AiResourcePage: React.FC = () => {
 
   return (
     <section className="aif aif--page">
-      <Seo title={`${title} | ${SITE.name}`} description={copy.readerLoading} path="/ai/recursos" noIndex />
+      <Seo
+        title={`${title} | ${SITE.name}`}
+        description={copy.readerLoading}
+        path="/ai/recursos"
+        noIndex
+        htmlLang={state.kind === 'ready' ? state.resource.language : lang}
+      />
 
       <div className="aif-bar aif-bar--page">
         <NavLink to={`/ai/recursos?lang=${lang}`} className="aif-link">

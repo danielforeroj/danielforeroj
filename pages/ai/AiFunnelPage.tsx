@@ -5,7 +5,7 @@ import { useHeadSync } from '../../lib/ai/useHeadSync';
 import { SITE } from '../../data/siteConfig';
 import { aiApi, errorMessage } from '../../lib/ai/api';
 import { buildSteps, isAnswered, looksPersonal, evaluate, type Step } from '../../lib/ai/funnel';
-import { attribution, detectLang, prefersReducedMotion, pushEvent, rememberLang, sessionId } from '../../lib/ai/context';
+import { attribution, detectLang, prefersReducedMotion, pushEvent, rememberLang, sessionId , useHtmlLang } from '../../lib/ai/context';
 import { copyFor } from '../../lib/ai/copy';
 import { CodeStep, pick } from '../../components/ai/CodeStep';
 import type { Answers, Contact, ContactField, FunnelConfig, FunnelQuestion, Lang } from '../../lib/ai/types';
@@ -40,6 +40,7 @@ const AiFunnelPage: React.FC = () => {
   const panelRef = React.useRef<HTMLDivElement>(null);
 
   const copy = copyFor(lang);
+  useHtmlLang(lang);
 
   const load = React.useCallback(async () => {
     setLoadError(false);
@@ -247,7 +248,7 @@ const AiFunnelPage: React.FC = () => {
   if (!config || !current) {
     return (
       <section className="aif" aria-busy={!loadError}>
-        <Seo title={`${copy.seoTitle} | ${SITE.name}`} description={copy.seoBody} path="/ai" />
+        <Seo title={`${copy.seoTitle} | ${SITE.name}`} description={copy.seoBody} path="/ai" htmlLang={lang} />
         <div className="aif-panel">
           <p className="aif-kicker">danielforeroj / ai</p>
           {/* The first paint and what a crawler reads: the flow itself only
@@ -275,7 +276,7 @@ const AiFunnelPage: React.FC = () => {
 
   return (
     <section className="aif">
-      <Seo title={`${copy.seoTitle} | ${SITE.name}`} description={copy.seoBody} path="/ai" />
+      <Seo title={`${copy.seoTitle} | ${SITE.name}`} description={copy.seoBody} path="/ai" htmlLang={lang} />
 
       <div className="aif-top">
         <div

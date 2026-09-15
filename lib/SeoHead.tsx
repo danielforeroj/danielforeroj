@@ -15,6 +15,8 @@ type SeoProps = {
   keywords?: string[];
   noIndex?: boolean;
   jsonLd?: JsonLd[];
+  /** Overrides <html lang> for a page whose content is not in the site's default language. */
+  htmlLang?: string;
 };
 
 /**
@@ -35,6 +37,7 @@ export const Seo: React.FC<SeoProps> = ({
   keywords,
   noIndex,
   jsonLd,
+  htmlLang,
 }) => {
   // The path is appended verbatim, so "/" yields "https://danielforeroj.com/".
   // It used to be stripped, which made the homepage canonical disagree with the
@@ -43,8 +46,23 @@ export const Seo: React.FC<SeoProps> = ({
   const url = `${SITE.url}${path}`;
   const image = ogImage ?? SITE.defaultOgImage;
 
+  // Head writes the title into the prerendered HTML, but on a client-side
+  // navigation the new page's Head mounts while the old one unmounts and the
+  // document keeps the previous title: every route change left the tab, and the
+  // title GTM reports, showing whichever page was loaded first. Setting it here
+  // is what the visitor actually sees, and it costs one assignment.
+  React.useEffect(() => {
+    document.title = title;
+  }, [title]);
+
+  React.useEffect(() => {
+    const el = document.querySelector('meta[name="description"]');
+    if (el) el.setAttribute('content', description);
+  }, [description]);
+
   return (
     <Head>
+      {htmlLang ? <html lang={htmlLang} /> : null}
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />

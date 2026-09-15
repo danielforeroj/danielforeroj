@@ -3,6 +3,7 @@
 // visitors arrive in Instagram and TikTok in-app browsers where storage can be
 // missing or throw, and the flow has to work anyway.
 
+import React from 'react';
 import type { Lang, Utm } from './types';
 
 const isBrowser = typeof window !== 'undefined';
@@ -116,6 +117,24 @@ export function pushEvent(e: DataLayerEvent) {
   const w = window as unknown as { dataLayer?: unknown[] };
   w.dataLayer = w.dataLayer || [];
   w.dataLayer.push(e);
+}
+
+/** The rest of the site is written in English, so that is what lang returns to. */
+const SITE_LANG = 'en';
+
+/**
+ * Keeps <html lang> on the language being read. The Head element sets it in the
+ * prerendered HTML but never updates it on the client, so a visitor switching to
+ * English kept lang="es" and a screen reader kept the Spanish voice. Leaving the
+ * funnel restores the site's own language.
+ */
+export function useHtmlLang(lang: Lang) {
+  React.useEffect(() => {
+    document.documentElement.lang = lang;
+    return () => {
+      document.documentElement.lang = SITE_LANG;
+    };
+  }, [lang]);
 }
 
 export const prefersReducedMotion = () =>

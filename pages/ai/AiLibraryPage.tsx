@@ -4,7 +4,7 @@ import Seo from '../../lib/SeoHead';
 import { useHeadSync } from '../../lib/ai/useHeadSync';
 import { SITE } from '../../data/siteConfig';
 import { aiApi, errorMessage } from '../../lib/ai/api';
-import { detectLang, rememberLang } from '../../lib/ai/context';
+import { detectLang, rememberLang , useHtmlLang } from '../../lib/ai/context';
 import { copyFor, resourceTypeLabel } from '../../lib/ai/copy';
 import { CodeStep } from '../../components/ai/CodeStep';
 import type { Lang, Me, Offer } from '../../lib/ai/types';
@@ -20,6 +20,7 @@ const AiLibraryPage: React.FC = () => {
   const [lang, setLang] = React.useState<Lang>('es');
   const [view, setView] = React.useState<View>({ kind: 'loading' });
   const copy = copyFor(lang);
+  useHtmlLang(lang);
 
   // The page language is always sent, so offers and resource cards come back in
   // the language the visitor is reading, not the one stored on the lead.
@@ -46,7 +47,7 @@ const AiLibraryPage: React.FC = () => {
   useHeadSync(`${copy.libraryKicker} | ${SITE.name}`, copy.loginBody);
   return (
     <section className="aif aif--page">
-      <Seo title={`${copy.libraryKicker} | ${SITE.name}`} description={copy.loginBody} path="/ai/recursos" noIndex />
+      <Seo title={`${copy.libraryKicker} | ${SITE.name}`} description={copy.loginBody} path="/ai/recursos" noIndex htmlLang={lang} />
 
       <div className="aif-bar aif-bar--page">
         <span className="aif-kicker">{copy.libraryKicker}</span>
