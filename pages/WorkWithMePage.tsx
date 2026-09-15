@@ -30,7 +30,7 @@ const WorkWithMePage: React.FC = () => {
       <div className="embed-card">
         <iframe
           title="Work with Daniel Forero"
-          src="https://app.onecal.io/b/dnaielforeroj/work-with-me"
+          src="https://unboundoperators.app/book/danielforeroj/intro-call"
           loading="lazy"
           referrerPolicy="strict-origin-when-cross-origin"
         />
