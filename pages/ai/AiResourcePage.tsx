@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Seo from '../../lib/SeoHead';
+import { useHeadSync } from '../../lib/ai/useHeadSync';
 import { SITE } from '../../data/siteConfig';
 import { aiApi } from '../../lib/ai/api';
 import { detectLang, pushEvent } from '../../lib/ai/context';
@@ -67,6 +68,7 @@ const AiResourcePage: React.FC = () => {
   }, [state, lang]);
 
   const title = state.kind === 'ready' ? state.resource.title : copy.libraryKicker;
+  useHeadSync(`${title} | ${SITE.name}`, copy.readerLoading);
 
   return (
     <section className="aif aif--page">

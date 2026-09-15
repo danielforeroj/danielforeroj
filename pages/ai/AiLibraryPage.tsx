@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Seo from '../../lib/SeoHead';
+import { useHeadSync } from '../../lib/ai/useHeadSync';
 import { SITE } from '../../data/siteConfig';
 import { aiApi, errorMessage } from '../../lib/ai/api';
 import { detectLang, rememberLang } from '../../lib/ai/context';
@@ -42,6 +43,7 @@ const AiLibraryPage: React.FC = () => {
     if (view.kind === 'library') load(next, true);
   };
 
+  useHeadSync(`${copy.libraryKicker} | ${SITE.name}`, copy.loginBody);
   return (
     <section className="aif aif--page">
       <Seo title={`${copy.libraryKicker} | ${SITE.name}`} description={copy.loginBody} path="/ai/recursos" noIndex />

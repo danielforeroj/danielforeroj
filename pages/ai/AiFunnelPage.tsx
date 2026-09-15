@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Seo from '../../lib/SeoHead';
+import { useHeadSync } from '../../lib/ai/useHeadSync';
 import { SITE } from '../../data/siteConfig';
 import { aiApi, errorMessage } from '../../lib/ai/api';
 import { buildSteps, isAnswered, looksPersonal, evaluate, type Step } from '../../lib/ai/funnel';
@@ -17,13 +18,6 @@ const EMPTY_CONTACT: Contact = {
   phone_whatsapp: '',
   consent_access: false,
 };
-
-// Prerendered for crawlers and as the first paint. The flow itself only exists
-// once GET /api/ai/funnel answers, so this is the one piece of copy the page
-// owns outright, and it is kept identical to the config's intro screen.
-const SEO_TITLE = 'Recursos de AI para operar tu empresa';
-const SEO_BODY =
-  'Responde unas preguntas sobre tu empresa en 2 minutos y te doy acceso a los recursos de AI que aplican a tu caso.';
 
 const isTypingTarget = (el: EventTarget | null) =>
   el instanceof HTMLElement && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
@@ -249,14 +243,17 @@ const AiFunnelPage: React.FC = () => {
 
   // ---------- render ----------
 
+  useHeadSync(`${copy.seoTitle} | ${SITE.name}`, copy.seoBody);
   if (!config || !current) {
     return (
       <section className="aif" aria-busy={!loadError}>
-        <Seo title={`${SEO_TITLE} | ${SITE.name}`} description={SEO_BODY} path="/ai" />
+        <Seo title={`${copy.seoTitle} | ${SITE.name}`} description={copy.seoBody} path="/ai" />
         <div className="aif-panel">
           <p className="aif-kicker">danielforeroj / ai</p>
-          <h1 className="aif-title">{SEO_TITLE}</h1>
-          <p className="aif-body">{SEO_BODY}</p>
+          {/* The first paint and what a crawler reads: the flow itself only
+              exists once GET /api/ai/funnel answers. */}
+          <h1 className="aif-title">{copy.seoTitle}</h1>
+          <p className="aif-body">{copy.seoBody}</p>
           {loadError ? (
             <>
               <p className="aif-error" role="alert">
@@ -278,7 +275,7 @@ const AiFunnelPage: React.FC = () => {
 
   return (
     <section className="aif">
-      <Seo title={`${SEO_TITLE} | ${SITE.name}`} description={SEO_BODY} path="/ai" />
+      <Seo title={`${copy.seoTitle} | ${SITE.name}`} description={copy.seoBody} path="/ai" />
 
       <div className="aif-top">
         <div
