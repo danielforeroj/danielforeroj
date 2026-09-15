@@ -43,4 +43,10 @@ export const SECTIONS = {
   blog: true,
   research: false,
   downloads: false,
+  /**
+   * The AI funnel (/ai, /ai/recursos, /ai/recursos/:key). On in local dev and
+   * `npm run dev:mock`, off in production builds until unbound-app's /api/ai is
+   * deployed and the flow is tested end to end against it. Set to true to publish.
+   */
+  ai: import.meta.env.DEV || import.meta.env.MODE === 'mock',
 } as const;

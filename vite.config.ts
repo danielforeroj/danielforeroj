@@ -7,6 +7,13 @@ import path from 'path';
 // prerendered to real HTML, then hydrated on the client.
 export default defineConfig({
   plugins: [react()],
+  server: {
+    // Same path the vercel.json rewrite proxies in production, so the dfj_ai
+    // cookie is first-party in dev too. `npm run dev:mock` skips the network.
+    proxy: {
+      '/api/ai': { target: 'https://unboundoperators.app', changeOrigin: true, secure: true },
+    },
+  },
   resolve: {
     alias: { '@': path.resolve(__dirname, 'src') }
   },

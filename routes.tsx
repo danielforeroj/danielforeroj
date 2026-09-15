@@ -5,6 +5,9 @@ import PostListPage from './pages/PostListPage';
 import PostDetailPage from './pages/PostDetailPage';
 import VirtualCoffeePage from './pages/VirtualCoffeePage';
 import WorkWithMePage from './pages/WorkWithMePage';
+import AiFunnelPage from './pages/ai/AiFunnelPage';
+import AiLibraryPage from './pages/ai/AiLibraryPage';
+import AiResourcePage, { RESOURCE_SHELL_KEY } from './pages/ai/AiResourcePage';
 import NotFoundPage from './pages/NotFoundPage';
 import { PostType } from './types';
 import { posts } from './data/mockData';
@@ -40,6 +43,21 @@ export const routes: RouteRecord[] = [
       },
       { path: 'virtual-coffee', element: <VirtualCoffeePage /> },
       { path: 'work-w-me', element: <WorkWithMePage /> },
+      ...(SECTIONS.ai
+        ? [
+            { path: 'ai', element: <AiFunnelPage /> },
+            { path: 'ai/recursos', element: <AiLibraryPage /> },
+            // Keys are per visitor and unknown at build time, so the reader is
+            // prerendered once under a placeholder segment and vercel.json
+            // rewrites every /ai/recursos/:key to that file. The page reads the
+            // real key from the URL after hydration.
+            {
+              path: 'ai/recursos/:key',
+              element: <AiResourcePage />,
+              getStaticPaths: () => [`/ai/recursos/${RESOURCE_SHELL_KEY}`],
+            },
+          ]
+        : []),
       // Catch-all. The generator skips any path containing "*", so the wildcard
       // alone would prerender nothing; getStaticPaths names /404 explicitly,
       // which renders this element to dist/404.html, the file Vercel serves

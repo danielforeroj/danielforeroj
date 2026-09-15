@@ -1,0 +1,1111 @@
+{
+  "version": 1,
+  "langs": [
+    "es",
+    "en"
+  ],
+  "questions": [
+    {
+      "key": "role",
+      "type": "single",
+      "title": {
+        "es": "¿Cuál es tu rol?",
+        "en": "What is your role?"
+      },
+      "options": [
+        {
+          "value": "founder",
+          "label": {
+            "es": "Founder o CEO",
+            "en": "Founder or CEO"
+          }
+        },
+        {
+          "value": "ops",
+          "label": {
+            "es": "Operaciones",
+            "en": "Operations"
+          }
+        },
+        {
+          "value": "sales",
+          "label": {
+            "es": "Ventas o growth",
+            "en": "Sales or growth"
+          }
+        },
+        {
+          "value": "marketing",
+          "label": {
+            "es": "Marketing",
+            "en": "Marketing"
+          }
+        },
+        {
+          "value": "tech",
+          "label": {
+            "es": "Tecnología o producto",
+            "en": "Technology or product"
+          }
+        },
+        {
+          "value": "agency_owner",
+          "label": {
+            "es": "Dueño o socio de agencia",
+            "en": "Agency owner or partner"
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "es": "Otro",
+            "en": "Other"
+          }
+        }
+      ]
+    },
+    {
+      "key": "company_type",
+      "type": "single",
+      "title": {
+        "es": "¿Qué tipo de empresa es?",
+        "en": "What kind of company is it?"
+      },
+      "options": [
+        {
+          "value": "b2b_services",
+          "label": {
+            "es": "Servicios B2B",
+            "en": "B2B services"
+          }
+        },
+        {
+          "value": "agency",
+          "label": {
+            "es": "Agencia",
+            "en": "Agency"
+          }
+        },
+        {
+          "value": "saas",
+          "label": {
+            "es": "SaaS o producto digital",
+            "en": "SaaS or digital product"
+          }
+        },
+        {
+          "value": "ecommerce",
+          "label": {
+            "es": "E-commerce o retail",
+            "en": "E-commerce or retail"
+          }
+        },
+        {
+          "value": "industrial",
+          "label": {
+            "es": "Industria, logística o manufactura",
+            "en": "Industrial, logistics or manufacturing"
+          }
+        },
+        {
+          "value": "professional",
+          "label": {
+            "es": "Salud, educación o servicios profesionales",
+            "en": "Health, education or professional services"
+          }
+        },
+        {
+          "value": "fintech_web3",
+          "label": {
+            "es": "Fintech o Web3",
+            "en": "Fintech or Web3"
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "es": "Otro",
+            "en": "Other"
+          }
+        }
+      ],
+      "show_if": {
+        "q": "role",
+        "op": "neq",
+        "value": "agency_owner"
+      },
+      "hidden_value": "agency"
+    },
+    {
+      "key": "size",
+      "type": "single",
+      "title": {
+        "es": "¿Cuántas personas trabajan en la empresa?",
+        "en": "How many people work at the company?"
+      },
+      "options": [
+        {
+          "value": "solo",
+          "label": {
+            "es": "Solo yo",
+            "en": "Just me"
+          }
+        },
+        {
+          "value": "s2_10",
+          "label": {
+            "es": "2 a 10",
+            "en": "2 to 10"
+          }
+        },
+        {
+          "value": "s11_50",
+          "label": {
+            "es": "11 a 50",
+            "en": "11 to 50"
+          }
+        },
+        {
+          "value": "s51_200",
+          "label": {
+            "es": "51 a 200",
+            "en": "51 to 200"
+          }
+        },
+        {
+          "value": "s201_1000",
+          "label": {
+            "es": "201 a 1.000",
+            "en": "201 to 1,000"
+          }
+        },
+        {
+          "value": "s1000p",
+          "label": {
+            "es": "Más de 1.000",
+            "en": "More than 1,000"
+          }
+        }
+      ]
+    },
+    {
+      "key": "revenue",
+      "type": "single",
+      "title": {
+        "es": "¿Cuánto factura la empresa al año?",
+        "en": "What is the annual revenue?"
+      },
+      "options": [
+        {
+          "value": "r_lt100k",
+          "label": {
+            "es": "Menos de USD 100k al año",
+            "en": "Less than USD 100k a year"
+          }
+        },
+        {
+          "value": "r100k_1m",
+          "label": {
+            "es": "USD 100k a 1M",
+            "en": "USD 100k to 1M"
+          }
+        },
+        {
+          "value": "r1_10m",
+          "label": {
+            "es": "USD 1M a 10M",
+            "en": "USD 1M to 10M"
+          }
+        },
+        {
+          "value": "r10_50m",
+          "label": {
+            "es": "USD 10M a 50M",
+            "en": "USD 10M to 50M"
+          }
+        },
+        {
+          "value": "r50mp",
+          "label": {
+            "es": "Más de USD 50M",
+            "en": "More than USD 50M"
+          }
+        },
+        {
+          "value": "undisclosed",
+          "label": {
+            "es": "Prefiero no decir",
+            "en": "I prefer not to say"
+          }
+        }
+      ]
+    },
+    {
+      "key": "country",
+      "type": "single",
+      "title": {
+        "es": "¿Dónde opera principalmente?",
+        "en": "Where does it mainly operate?"
+      },
+      "options": [
+        {
+          "value": "co",
+          "label": {
+            "es": "Colombia",
+            "en": "Colombia"
+          }
+        },
+        {
+          "value": "mx",
+          "label": {
+            "es": "México",
+            "en": "Mexico"
+          }
+        },
+        {
+          "value": "us",
+          "label": {
+            "es": "Estados Unidos",
+            "en": "United States"
+          }
+        },
+        {
+          "value": "es",
+          "label": {
+            "es": "España",
+            "en": "Spain"
+          }
+        },
+        {
+          "value": "ar",
+          "label": {
+            "es": "Argentina",
+            "en": "Argentina"
+          }
+        },
+        {
+          "value": "cl",
+          "label": {
+            "es": "Chile",
+            "en": "Chile"
+          }
+        },
+        {
+          "value": "pe",
+          "label": {
+            "es": "Perú",
+            "en": "Peru"
+          }
+        },
+        {
+          "value": "ec",
+          "label": {
+            "es": "Ecuador",
+            "en": "Ecuador"
+          }
+        },
+        {
+          "value": "other_latam",
+          "label": {
+            "es": "Otro país de Latinoamérica",
+            "en": "Another Latin American country"
+          }
+        },
+        {
+          "value": "other",
+          "label": {
+            "es": "Otro",
+            "en": "Other"
+          }
+        }
+      ]
+    },
+    {
+      "key": "pains",
+      "type": "multi",
+      "title": {
+        "es": "¿Qué quieres resolver primero?",
+        "en": "What do you want to solve first?"
+      },
+      "help": {
+        "es": "Elige hasta 3.",
+        "en": "Pick up to 3."
+      },
+      "min": 1,
+      "max": 3,
+      "options": [
+        {
+          "value": "ops_manual",
+          "label": {
+            "es": "Tareas repetitivas y operación manual",
+            "en": "Repetitive tasks and manual operations"
+          }
+        },
+        {
+          "value": "sales",
+          "label": {
+            "es": "Prospección y seguimiento comercial",
+            "en": "Prospecting and sales follow-up"
+          }
+        },
+        {
+          "value": "support",
+          "label": {
+            "es": "Atención al cliente y soporte",
+            "en": "Customer service and support"
+          }
+        },
+        {
+          "value": "ai_visibility",
+          "label": {
+            "es": "No aparecemos cuando preguntan a ChatGPT o Perplexity",
+            "en": "We do not show up when people ask ChatGPT or Perplexity"
+          }
+        },
+        {
+          "value": "agents",
+          "label": {
+            "es": "Tenemos o queremos agentes de AI con acceso a sistemas reales",
+            "en": "We have or want AI agents with access to real systems"
+          }
+        },
+        {
+          "value": "client_ops",
+          "label": {
+            "es": "Operación con clientes: proyectos, aprobaciones, entregables",
+            "en": "Client operations: projects, approvals, deliverables"
+          }
+        },
+        {
+          "value": "reporting",
+          "label": {
+            "es": "Información dispersa y reportes manuales",
+            "en": "Scattered information and manual reporting"
+          }
+        }
+      ]
+    },
+    {
+      "key": "ai_maturity",
+      "type": "single",
+      "title": {
+        "es": "¿Cómo usan AI hoy?",
+        "en": "How do you use AI today?"
+      },
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "es": "Todavía nada",
+            "en": "Not yet"
+          }
+        },
+        {
+          "value": "personal",
+          "label": {
+            "es": "Uso personal (ChatGPT y similares)",
+            "en": "Personal use (ChatGPT and similar)"
+          }
+        },
+        {
+          "value": "some_automation",
+          "label": {
+            "es": "Algunas automatizaciones",
+            "en": "Some automations"
+          }
+        },
+        {
+          "value": "production",
+          "label": {
+            "es": "Flujos de AI en producción",
+            "en": "AI workflows in production"
+          }
+        },
+        {
+          "value": "agents_live",
+          "label": {
+            "es": "Agentes con permisos en sistemas",
+            "en": "Agents with permissions in systems"
+          }
+        }
+      ]
+    },
+    {
+      "key": "repetitive_hours",
+      "type": "single",
+      "title": {
+        "es": "¿Cuántas horas a la semana se van en trabajo repetitivo?",
+        "en": "How many hours a week go into repetitive work?"
+      },
+      "help": {
+        "es": "Suma todo el equipo.",
+        "en": "Add up the whole team."
+      },
+      "options": [
+        {
+          "value": "h_lt10",
+          "label": {
+            "es": "Menos de 10 horas a la semana",
+            "en": "Less than 10 hours a week"
+          }
+        },
+        {
+          "value": "h10_40",
+          "label": {
+            "es": "10 a 40 horas",
+            "en": "10 to 40 hours"
+          }
+        },
+        {
+          "value": "h40_100",
+          "label": {
+            "es": "40 a 100 horas",
+            "en": "40 to 100 hours"
+          }
+        },
+        {
+          "value": "h100p",
+          "label": {
+            "es": "Más de 100 horas",
+            "en": "More than 100 hours"
+          }
+        }
+      ],
+      "show_if": {
+        "q": "pains",
+        "op": "has_any",
+        "values": [
+          "ops_manual",
+          "reporting",
+          "sales"
+        ]
+      }
+    },
+    {
+      "key": "support_volume",
+      "type": "single",
+      "title": {
+        "es": "¿Cuántas consultas de clientes reciben al mes?",
+        "en": "How many customer inquiries do you get a month?"
+      },
+      "options": [
+        {
+          "value": "v_lt100",
+          "label": {
+            "es": "Menos de 100 consultas al mes",
+            "en": "Less than 100 inquiries a month"
+          }
+        },
+        {
+          "value": "v100_1k",
+          "label": {
+            "es": "100 a 1.000",
+            "en": "100 to 1,000"
+          }
+        },
+        {
+          "value": "v1k_10k",
+          "label": {
+            "es": "1.000 a 10.000",
+            "en": "1,000 to 10,000"
+          }
+        },
+        {
+          "value": "v10kp",
+          "label": {
+            "es": "Más de 10.000",
+            "en": "More than 10,000"
+          }
+        }
+      ],
+      "show_if": {
+        "q": "pains",
+        "op": "has_any",
+        "values": [
+          "support"
+        ]
+      }
+    },
+    {
+      "key": "support_channels",
+      "type": "multi",
+      "title": {
+        "es": "¿Por dónde llegan esas consultas?",
+        "en": "Where do those inquiries come in?"
+      },
+      "help": {
+        "es": "Elige todos los que apliquen.",
+        "en": "Pick all that apply."
+      },
+      "min": 1,
+      "options": [
+        {
+          "value": "web_chat",
+          "label": {
+            "es": "Chat en la web",
+            "en": "Website chat"
+          }
+        },
+        {
+          "value": "whatsapp",
+          "label": {
+            "es": "WhatsApp",
+            "en": "WhatsApp"
+          }
+        },
+        {
+          "value": "email",
+          "label": {
+            "es": "Email",
+            "en": "Email"
+          }
+        },
+        {
+          "value": "social_dm",
+          "label": {
+            "es": "Mensajes en redes",
+            "en": "Social media DMs"
+          }
+        },
+        {
+          "value": "phone",
+          "label": {
+            "es": "Teléfono",
+            "en": "Phone"
+          }
+        }
+      ],
+      "show_if": {
+        "q": "pains",
+        "op": "has_any",
+        "values": [
+          "support"
+        ]
+      }
+    },
+    {
+      "key": "discovery",
+      "type": "multi",
+      "title": {
+        "es": "¿Cómo los encuentran sus clientes hoy?",
+        "en": "How do customers find you today?"
+      },
+      "help": {
+        "es": "Elige todos los que apliquen.",
+        "en": "Pick all that apply."
+      },
+      "min": 1,
+      "options": [
+        {
+          "value": "referrals",
+          "label": {
+            "es": "Referidos",
+            "en": "Referrals"
+          }
+        },
+        {
+          "value": "google",
+          "label": {
+            "es": "Google",
+            "en": "Google"
+          }
+        },
+        {
+          "value": "social",
+          "label": {
+            "es": "Redes",
+            "en": "Social media"
+          }
+        },
+        {
+          "value": "outbound",
+          "label": {
+            "es": "Ventas outbound",
+            "en": "Outbound sales"
+          }
+        },
+        {
+          "value": "events",
+          "label": {
+            "es": "Eventos",
+            "en": "Events"
+          }
+        },
+        {
+          "value": "ai_assistants",
+          "label": {
+            "es": "Asistentes de AI",
+            "en": "AI assistants"
+          }
+        }
+      ],
+      "show_if": {
+        "q": "pains",
+        "op": "has_any",
+        "values": [
+          "ai_visibility"
+        ]
+      }
+    },
+    {
+      "key": "agent_actions",
+      "type": "multi",
+      "title": {
+        "es": "¿Qué pueden hacer o harían sus agentes de AI?",
+        "en": "What can your AI agents do, or what would they do?"
+      },
+      "help": {
+        "es": "Elige todos los que apliquen.",
+        "en": "Pick all that apply."
+      },
+      "min": 1,
+      "options": [
+        {
+          "value": "message_customers",
+          "label": {
+            "es": "Enviar mensajes a clientes",
+            "en": "Send messages to customers"
+          }
+        },
+        {
+          "value": "edit_crm",
+          "label": {
+            "es": "Modificar registros o CRM",
+            "en": "Edit records or the CRM"
+          }
+        },
+        {
+          "value": "payments",
+          "label": {
+            "es": "Pagos o reembolsos",
+            "en": "Payments or refunds"
+          }
+        },
+        {
+          "value": "sensitive_data",
+          "label": {
+            "es": "Acceso a datos sensibles",
+            "en": "Access sensitive data"
+          }
+        },
+        {
+          "value": "prod_changes",
+          "label": {
+            "es": "Cambios en sistemas o infraestructura",
+            "en": "Change systems or infrastructure"
+          }
+        },
+        {
+          "value": "none_yet",
+          "label": {
+            "es": "Ninguna todavía",
+            "en": "None yet"
+          }
+        }
+      ],
+      "show_if": {
+        "any": [
+          {
+            "q": "pains",
+            "op": "has_any",
+            "values": [
+              "agents"
+            ]
+          },
+          {
+            "q": "ai_maturity",
+            "op": "in",
+            "values": [
+              "production",
+              "agents_live"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "key": "active_clients",
+      "type": "single",
+      "title": {
+        "es": "¿Con cuántos clientes activos trabajan?",
+        "en": "How many active clients do you work with?"
+      },
+      "options": [
+        {
+          "value": "c1_5",
+          "label": {
+            "es": "1 a 5",
+            "en": "1 to 5"
+          }
+        },
+        {
+          "value": "c6_20",
+          "label": {
+            "es": "6 a 20",
+            "en": "6 to 20"
+          }
+        },
+        {
+          "value": "c21_50",
+          "label": {
+            "es": "21 a 50",
+            "en": "21 to 50"
+          }
+        },
+        {
+          "value": "c50p",
+          "label": {
+            "es": "Más de 50",
+            "en": "More than 50"
+          }
+        }
+      ],
+      "show_if": {
+        "any": [
+          {
+            "q": "pains",
+            "op": "has_any",
+            "values": [
+              "client_ops"
+            ]
+          },
+          {
+            "q": "company_type",
+            "op": "eq",
+            "value": "agency"
+          }
+        ]
+      }
+    },
+    {
+      "key": "client_tools",
+      "type": "multi",
+      "title": {
+        "es": "¿Con qué operan hoy el trabajo con clientes?",
+        "en": "What do you run client work on today?"
+      },
+      "help": {
+        "es": "Elige todos los que apliquen.",
+        "en": "Pick all that apply."
+      },
+      "min": 1,
+      "options": [
+        {
+          "value": "notion",
+          "label": {
+            "es": "Notion",
+            "en": "Notion"
+          }
+        },
+        {
+          "value": "pm_tool",
+          "label": {
+            "es": "ClickUp, Asana o Monday",
+            "en": "ClickUp, Asana or Monday"
+          }
+        },
+        {
+          "value": "drive_whatsapp",
+          "label": {
+            "es": "Drive y WhatsApp",
+            "en": "Drive and WhatsApp"
+          }
+        },
+        {
+          "value": "crm",
+          "label": {
+            "es": "HubSpot u otro CRM",
+            "en": "HubSpot or another CRM"
+          }
+        },
+        {
+          "value": "own_tool",
+          "label": {
+            "es": "Herramienta propia",
+            "en": "An in-house tool"
+          }
+        },
+        {
+          "value": "none",
+          "label": {
+            "es": "Nada formal",
+            "en": "Nothing formal"
+          }
+        }
+      ],
+      "show_if": {
+        "any": [
+          {
+            "q": "pains",
+            "op": "has_any",
+            "values": [
+              "client_ops"
+            ]
+          },
+          {
+            "q": "company_type",
+            "op": "eq",
+            "value": "agency"
+          }
+        ]
+      }
+    },
+    {
+      "key": "timeline",
+      "type": "single",
+      "title": {
+        "es": "¿Para cuándo quieren resolverlo?",
+        "en": "When do you want to solve it?"
+      },
+      "options": [
+        {
+          "value": "exploring",
+          "label": {
+            "es": "Explorando",
+            "en": "Exploring"
+          }
+        },
+        {
+          "value": "quarter",
+          "label": {
+            "es": "Este trimestre",
+            "en": "This quarter"
+          }
+        },
+        {
+          "value": "now",
+          "label": {
+            "es": "Ya, este mes",
+            "en": "Now, this month"
+          }
+        }
+      ]
+    },
+    {
+      "key": "budget",
+      "type": "single",
+      "title": {
+        "es": "¿Qué presupuesto tienen para esto?",
+        "en": "What budget do you have for this?"
+      },
+      "options": [
+        {
+          "value": "b_undefined",
+          "label": {
+            "es": "No definido",
+            "en": "Not defined"
+          }
+        },
+        {
+          "value": "b_lt5k",
+          "label": {
+            "es": "Menos de USD 5k",
+            "en": "Less than USD 5k"
+          }
+        },
+        {
+          "value": "b5_25k",
+          "label": {
+            "es": "USD 5k a 25k",
+            "en": "USD 5k to 25k"
+          }
+        },
+        {
+          "value": "b25_100k",
+          "label": {
+            "es": "USD 25k a 100k",
+            "en": "USD 25k to 100k"
+          }
+        },
+        {
+          "value": "b100kp",
+          "label": {
+            "es": "Más de USD 100k",
+            "en": "More than USD 100k"
+          }
+        }
+      ]
+    },
+    {
+      "key": "decision",
+      "type": "single",
+      "title": {
+        "es": "¿Cómo se toma la decisión?",
+        "en": "How is the decision made?"
+      },
+      "options": [
+        {
+          "value": "decides",
+          "label": {
+            "es": "Yo decido",
+            "en": "I decide"
+          }
+        },
+        {
+          "value": "shared",
+          "label": {
+            "es": "Decido con otros",
+            "en": "I decide with others"
+          }
+        },
+        {
+          "value": "recommends",
+          "label": {
+            "es": "Recomiendo, otra persona decide",
+            "en": "I recommend, someone else decides"
+          }
+        }
+      ]
+    }
+  ],
+  "screens": {
+    "list": [
+      {
+        "key": "intro",
+        "after": null,
+        "body": {
+          "es": "Recursos de AI para operar tu empresa. 2 minutos. Al final te doy acceso a los que aplican a tu caso.",
+          "en": "AI resources to run your company. 2 minutes. At the end I give you access to the ones that fit your case."
+        },
+        "cta": {
+          "es": "Empezar",
+          "en": "Start"
+        }
+      },
+      {
+        "key": "solo_note",
+        "after": "size",
+        "body": {
+          "es": "Estos recursos están pensados para equipos y empresas. Puedes seguir igual.",
+          "en": "These resources are built for teams and companies. You can still continue."
+        },
+        "cta": {
+          "es": "Seguir",
+          "en": "Continue"
+        },
+        "show_if": {
+          "q": "size",
+          "op": "eq",
+          "value": "solo"
+        }
+      }
+    ],
+    "contact": {
+      "title": {
+        "es": "¿A dónde te envío el acceso?",
+        "en": "Where should I send your access?"
+      },
+      "body": {
+        "es": "Te envío un código de 6 dígitos para confirmar tu email.",
+        "en": "I will send you a 6 digit code to confirm your email."
+      },
+      "personal_email_note": {
+        "es": "Con un email personal también funciona, pero necesito el sitio web de tu empresa.",
+        "en": "A personal email works too, but I need your company website."
+      },
+      "cta": {
+        "es": "Enviar código",
+        "en": "Send code"
+      },
+      "fields": [
+        {
+          "key": "name",
+          "type": "text",
+          "label": {
+            "es": "Nombre",
+            "en": "Name"
+          },
+          "required": true
+        },
+        {
+          "key": "email",
+          "type": "email",
+          "label": {
+            "es": "Email de trabajo",
+            "en": "Work email"
+          },
+          "placeholder": {
+            "es": "tu@empresa.com",
+            "en": "you@company.com"
+          },
+          "required": true
+        },
+        {
+          "key": "company",
+          "type": "text",
+          "label": {
+            "es": "Empresa",
+            "en": "Company"
+          },
+          "required": true
+        },
+        {
+          "key": "website",
+          "type": "url",
+          "label": {
+            "es": "Sitio web",
+            "en": "Website"
+          },
+          "placeholder": {
+            "es": "empresa.com",
+            "en": "company.com"
+          },
+          "required": true,
+          "optional_if": {
+            "q": "size",
+            "op": "eq",
+            "value": "solo"
+          }
+        },
+        {
+          "key": "phone_whatsapp",
+          "type": "tel",
+          "label": {
+            "es": "WhatsApp (opcional)",
+            "en": "WhatsApp (optional)"
+          },
+          "required": false
+        },
+        {
+          "key": "consent_access",
+          "type": "checkbox",
+          "label": {
+            "es": "Acepto recibir el acceso y comunicaciones sobre estos recursos.",
+            "en": "I agree to receive access and communications about these resources."
+          },
+          "required": true
+        }
+      ]
+    },
+    "verify": {
+      "title": {
+        "es": "Revisa tu email",
+        "en": "Check your email"
+      },
+      "body": {
+        "es": "Escribe el código de 6 dígitos que te acabo de enviar.",
+        "en": "Type the 6 digit code I just sent you."
+      },
+      "resend": {
+        "es": "Enviar otro código",
+        "en": "Send another code"
+      },
+      "resend_after_seconds": 45,
+      "cta": {
+        "es": "Confirmar",
+        "en": "Confirm"
+      }
+    },
+    "result": {
+      "title": {
+        "es": "Listo, ya tienes acceso",
+        "en": "Done, you have access"
+      },
+      "body": {
+        "es": "Te llevo a tus recursos.",
+        "en": "Taking you to your resources."
+      },
+      "redirect": "/ai/recursos"
+    }
+  }
+}

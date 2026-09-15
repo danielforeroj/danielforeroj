@@ -1,4 +1,8 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/api/ai/:path*", "destination": "https://unboundoperators.app/api/ai/:path*" },
+    { "source": "/ai/recursos/:key", "destination": "/ai/recursos/_" }
+  ]
 }

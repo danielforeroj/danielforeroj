@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:mock": "vite --mode mock",
     "build": "vite-react-ssg build && node scripts/gen-sitemap.mjs",
     "preview": "vite preview",
     "seo:ping": "node scripts/indexnow.mjs"
