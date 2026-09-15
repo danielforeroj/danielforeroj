@@ -112,9 +112,9 @@ ${pages
 
 const llms = `# Daniel Forero
 
-> Daniel Forero is co-founder of Unbound Operators, a holding company and
-> operator collective that runs growth for companies building in AI, Web3,
-> quantum, and fintech, and ships its own AI products: On Duty and unbound geo.
+> Daniel Forero is co-founder of Unbound Operators, a holding company that runs
+> growth for companies building in AI, Web3, quantum, and fintech, and ships its
+> own AI products: On Duty and unbound geo.
 > He is co-founder and CEO of Selah, pre-execution governance for AI agents,
 > hosts the AI and frontier technology vertical of the Anotelo podcast, and is a
 > GTM mentor at Outlier Ventures. He occasionally angel invests.

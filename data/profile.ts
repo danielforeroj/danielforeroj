@@ -50,7 +50,7 @@ export const PROFILE = {
   now: {
     label: "Co-founder",
     org: "Unbound Operators",
-    note: "A holding company and operator collective. Not a fund, but we invest. Not an agency, but we operate.",
+    note: "A holding company. Not a fund, but we invest. Not an agency, but we operate.",
     url: "https://unboundoperators.com",
   },
 
@@ -129,7 +129,7 @@ export const PROFILE = {
     {
       role: "Co-founder",
       org: "Unbound Operators",
-      note: "Operator collective behind Unbound, Unbound Growth Partners, On Duty, and unbound geo.",
+      note: "The holding company behind Unbound, Unbound Growth Partners, On Duty, and unbound geo.",
       url: "https://unboundoperators.com",
       status: "Live",
     },
