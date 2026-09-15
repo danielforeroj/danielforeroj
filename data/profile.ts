@@ -33,7 +33,7 @@ export const PROFILE = {
   eyebrow: "Co-founder, Unbound Operators",
   lead: "Operate. Build. Back.",
   leadAccent: "At the frontier.",
-  sub: "Co-founder of Unbound Operators. We run growth for companies building in AI, Web3, quantum, and fintech, and we ship AI products of our own.",
+  sub: "Co-founder of Unbound Operators. We help businesses grow by implementing AI and AI workflows efficiently, and we ship AI products of our own.",
   tags: ["Father", "Husband", "Operator", "Builder", "AI nerd", "Web3 degen", "Gamer"],
   sectors: ["AI", "Web3", "Quantum", "Fintech"],
 
@@ -50,22 +50,22 @@ export const PROFILE = {
   now: {
     label: "Co-founder",
     org: "Unbound Operators",
-    note: "A holding company. Not a fund, but we invest. Not an agency, but we operate.",
+    note: "We help businesses grow by implementing AI and AI workflows efficiently. Not a fund, but we invest. Not an agency, but we operate.",
     url: "https://unboundoperators.com",
   },
 
   pillars: [
     {
-      verb: "Operate",
-      note: "Brands we run for clients: Unbound for companies at the frontier, Unbound Growth Partners for established businesses.",
+      verb: "Services",
+      note: "Service verticals that implement AI and run growth with clients, each with its own subverticals: Unbound for frontier tech, Unbound Growth Partners for established businesses.",
     },
     {
-      verb: "Build",
-      note: "Products we own and ship, mostly AI: governance for agents, context for business operations, visibility in AI search.",
+      verb: "Products",
+      note: "Product verticals we own and ship, each with its own subverticals: governance for agents, context for business operations, visibility in AI search.",
     },
     {
-      verb: "Back",
-      note: "A few companies we take a stake in and work inside of, like Mostaza.",
+      verb: "Invest",
+      note: "We still invest in companies we believe in and work inside of, like Mostaza.",
     },
   ] as Pillar[],
 
@@ -79,21 +79,21 @@ export const PROFILE = {
     },
     {
       name: "On Duty",
-      kind: "Unbound product",
+      kind: "Product vertical",
       note: "The AI brain for a business. It indexes what the company already knows and turns it into context for its AI operations.",
       status: "Live",
       url: "https://alwaysonduty.io",
     },
     {
       name: "unbound geo",
-      kind: "Unbound product",
+      kind: "Product vertical",
       note: "Are you in the answer? See whether AI answer engines name your brand when a buyer asks about your category.",
       status: "Launching",
       url: "https://unboundgeo.com",
     },
     {
       name: "Unbound platform",
-      kind: "Unbound product",
+      kind: "Product vertical",
       note: "The operating system our brands run their clients on: deliverables, approvals, spend, and results in one place, open to AI agents.",
       status: "Private",
     },
@@ -129,7 +129,7 @@ export const PROFILE = {
     {
       role: "Co-founder",
       org: "Unbound Operators",
-      note: "The holding company behind Unbound, Unbound Growth Partners, On Duty, and unbound geo.",
+      note: "Helps businesses grow by implementing AI and AI workflows, through service verticals, product verticals, and investment.",
       url: "https://unboundoperators.com",
       status: "Live",
     },
@@ -163,7 +163,7 @@ export const PROFILE = {
 
   who: [
     "Over the past decade I've supported founders through more than $600M in raises, moved millions in stablecoin flows across borders, and opened new revenue models for everyday users. My growth playbook drove mainstream traction for global brands, generated nine-figure TVL, and put emerging tech on the pop-culture stage with drops for Quentin Tarantino and Doja Cat.",
-    "Today that work runs through Unbound Operators, and the same team now builds AI products of its own. I spend most of my time on how AI actually runs inside a business: what agents are allowed to do, what context they work from, and whether the market can find you in an AI answer. I still angel invest now and then, hands-on, when a founder is a clear fit.",
+    "Today that work runs through Unbound Operators, which helps businesses grow by implementing AI and AI workflows efficiently, across service and product verticals. I spend most of my time on how AI actually runs inside a business: what agents are allowed to do, what context they work from, and whether the market can find you in an AI answer. I still angel invest now and then, hands-on, when a founder is a clear fit.",
   ],
 
   record: [

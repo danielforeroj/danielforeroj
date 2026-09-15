@@ -1,7 +1,7 @@
 import { Post, PostType } from "../types";
 
 // Copy-paste this template and update the values to add a new post.
-// Keep the excerpt concise (1–2 sentences) for SEO/AEO snippets.
+// Keep the excerpt concise (1 to 2 sentences) for SEO/AEO snippets.
 // Use ISO 8601 for the date to ensure consistent ordering.
 export const postTemplate: Post = {
   type: PostType.BLOG,
@@ -13,7 +13,7 @@ export const postTemplate: Post = {
 # Title in Title Case
 
 ## Key Takeaways
-- **Point one.** Make the takeaway scannable in 12–18 words.
+- **Point one.** Make the takeaway scannable in 12 to 18 words.
 - **Point two.** Front-load the value so answer engines can quote you.
 - **Point three.** Use short sentences and plain language.
 

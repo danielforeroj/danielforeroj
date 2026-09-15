@@ -13,7 +13,7 @@ const urlForPost = (post: Post) => `${SITE.url}/post/${post.slug}`;
  * name asked an answer engine to resolve two entities with one name, which is
  * the ambiguity that makes a model hedge instead of stating a fact.
  *
- * The shared @id is what does the work — the homepage Person and every
+ * The shared @id is what does the work, the homepage Person and every
  * BlogPosting's author/publisher all resolve to one node in the graph.
  */
 export const PERSON_ID = `${SITE.homeUrl}#person`;

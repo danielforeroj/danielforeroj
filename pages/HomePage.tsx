@@ -24,7 +24,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="console">
       <Seo
-        title={`${PROFILE.name} — ${PROFILE.eyebrow}`}
+        title={`${PROFILE.name} | ${PROFILE.eyebrow}`}
         description={SITE.description}
         path="/"
         jsonLd={[buildPersonJsonLd(), buildWebSiteJsonLd()]}
@@ -112,7 +112,7 @@ const HomePage: React.FC = () => {
           <div className="c-ops">
             {PROFILE.operate.map((o) => (
               <a key={o.name} className="c-op" href={o.url} target="_blank" rel="noopener noreferrer">
-                <span className="c-op__role">We operate</span>
+                <span className="c-op__role">Service vertical</span>
                 <span className="c-op__org">
                   {o.name}
                   <small>{o.note}</small>
@@ -127,7 +127,7 @@ const HomePage: React.FC = () => {
         <section className="c-section" aria-labelledby="platforms-title">
           <div className="c-section__head">
             <h2 id="platforms-title" className="c-section__title">What we're launching</h2>
-            <p className="c-kicker">Products, partners, and media</p>
+            <p className="c-kicker">Product verticals, partners, and media</p>
           </div>
 
           <div className="c-umbrella c-umbrella--3">

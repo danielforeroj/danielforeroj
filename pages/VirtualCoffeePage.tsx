@@ -20,7 +20,7 @@ const VirtualCoffeePage: React.FC = () => {
         another origin, so everything a visitor comes here to use is invisible
         to a crawler, which sees about ten words of body text wrapped in nav and
         footer. Google reads that as a page with no content and files it under
-        Soft 404 — the reason Search Console flagged the site on 2026-08-07.
+        Soft 404, the reason Search Console flagged the site on 2026-08-07.
         Writing filler to pad the page would be writing for the crawler rather
         than the visitor, so the page stays as it is and stops asking to be
         indexed. gen-sitemap.mjs reads this meta, so sitemap.xml and llms.txt

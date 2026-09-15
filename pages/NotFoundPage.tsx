@@ -17,7 +17,7 @@ type NotFoundPageProps = {
 /**
  * The catch-all. Registered in routes.tsx with getStaticPaths returning /404 so
  * the generator emits dist/404.html, which is the file Vercel serves for an
- * unmatched path — without it the host falls back to its own generic page, and
+ * unmatched path, without it the host falls back to its own generic page, and
  * a visitor who mistypes a URL lands somewhere that looks like a different site.
  *
  * noindex, so gen-sitemap.mjs drops it twice over: once on the /404 route name

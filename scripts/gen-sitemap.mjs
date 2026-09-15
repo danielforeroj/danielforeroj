@@ -59,7 +59,7 @@ const pages = (
       // The value is read to its own closing delimiter via a backreference,
       // not to "the next quote of either kind". The renderer leaves an
       // apostrophe raw inside a double-quoted attribute, so the looser form
-      // silently truncated any description containing one — /leads lost
+      // silently truncated any description containing one, /leads lost
       // everything after "Daniel Forero" in llms.txt.
       const metaContent = (name) =>
         decode(
@@ -79,8 +79,8 @@ const pages = (
       )
       const description = metaContent('description').trim()
       // A page without a title is not a page. public/ can hold files that end
-      // in .html without being documents — the Google Search Console
-      // verification file is one line of plain text with an .html name — and
+      // in .html without being documents, the Google Search Console
+      // verification file is one line of plain text with an .html name, and
       // walking dist/ for *.html picks those up. Without this check
       // googledfc2a3c6f2b45dd2 was listed in sitemap.xml and llms.txt as
       // though it were content, and submitted to IndexNow.
@@ -112,9 +112,9 @@ ${pages
 
 const llms = `# Daniel Forero
 
-> Daniel Forero is co-founder of Unbound Operators, a holding company that runs
-> growth for companies building in AI, Web3, quantum, and fintech, and ships its
-> own AI products: On Duty and unbound geo.
+> Daniel Forero is co-founder of Unbound Operators, which helps businesses grow by
+> implementing AI and AI workflows efficiently, through service verticals, product
+> verticals such as On Duty and unbound geo, and investment.
 > He is co-founder and CEO of Selah, pre-execution governance for AI agents,
 > hosts the AI and frontier technology vertical of the Anotelo podcast, and is a
 > GTM mentor at Outlier Ventures. He occasionally angel invests.

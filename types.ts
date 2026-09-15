@@ -21,8 +21,8 @@ export interface Post {
   /**
    * Search-surface description, 120-158 characters. Optional: when absent the
    * excerpt is used. It exists because the excerpt was doing two incompatible
-   * jobs — a standfirst wants 200+ characters, a meta description gets
-   * truncated past ~158 — and one string cannot be good at both.
+   * jobs, a standfirst wants 200+ characters, a meta description gets
+   * truncated past ~158, and one string cannot be good at both.
    */
   metaDescription?: string;
   content_md: string;

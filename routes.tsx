@@ -42,7 +42,7 @@ export const routes: RouteRecord[] = [
       { path: 'work-w-me', element: <WorkWithMePage /> },
       // Catch-all. The generator skips any path containing "*", so the wildcard
       // alone would prerender nothing; getStaticPaths names /404 explicitly,
-      // which renders this element to dist/404.html — the file Vercel serves
+      // which renders this element to dist/404.html, the file Vercel serves
       // for an unmatched path. It also keeps the same component on screen for
       // client-side navigation to a dead link.
       {
