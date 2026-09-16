@@ -182,6 +182,8 @@ export const PROFILE = {
     { name: "X", url: "https://www.x.com/danielforeroj/" },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/danielforeroj/" },
     { name: "Instagram", url: "https://www.instagram.com/danielforeroj/" },
+    { name: "TikTok", url: "https://www.tiktok.com/@danielforeroj" },
+    { name: "YouTube", url: "https://www.youtube.com/@danielforeroj" },
     { name: "Telegram", url: "https://t.me/danielforeroj/" },
   ],
 

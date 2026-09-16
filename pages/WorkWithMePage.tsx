@@ -1,21 +1,28 @@
 import React from 'react';
+import Button from '../components/Button';
+import { PROFILE } from '../data/profile';
 import { SITE } from '../data/siteConfig';
 import Seo from '../lib/SeoHead';
+
+// The subject line arrives filled in, so a reply thread starts with something
+// to sort on rather than "Hi".
+const MAILTO = `mailto:${PROFILE.email}?subject=${encodeURIComponent('Work with me')}`;
 
 const WorkWithMePage: React.FC = () => {
   return (
     <section className="page">
       {/*
-        Description is the page's standfirst, named. "Schedule time" on its own
-        does not say with whom, which is the one fact a search result needs.
+        This page used to embed a scheduler. It now asks for an email instead,
+        so the first contact carries context rather than a calendar slot with no
+        agenda behind it.
 
-        noindex, for the same reason as /virtual-coffee: the page is a booking
-        embed, the scheduler lives in a cross-origin iframe, and a crawler sees
-        roughly ten words of body text. See VirtualCoffeePage for the full note.
+        Still noindex. The page is a short contact page reached from the site's
+        own primary action, and a thin page asking to be a search result is the
+        soft 404 pattern Search Console flagged this site for in 2026.
       */}
       <Seo
         title={`Work with me | ${SITE.name}`}
-        description="Schedule time with Daniel Forero to pressure-test positioning, GTM, partnerships, narrative, or the operating plan behind growth."
+        description="Write to Daniel Forero about AI operations, growth, positioning, partnerships, or the operating plan behind a company at the frontier."
         path="/work-w-me"
         noIndex
       />
@@ -23,17 +30,24 @@ const WorkWithMePage: React.FC = () => {
         <p className="section-kicker">Advisory and execution</p>
         <h1 className="page-title">Work with me</h1>
         <p className="article-excerpt">
-          Schedule time to pressure-test positioning, GTM, partnerships, narrative, or the operating plan behind growth.
+          Write to me. I read every email myself, and I answer the ones with enough in them to answer.
         </p>
       </header>
 
-      <div className="embed-card">
-        <iframe
-          title="Work with Daniel Forero"
-          src="https://unboundoperators.app/book/danielforeroj/intro-call"
-          loading="lazy"
-          referrerPolicy="strict-origin-when-cross-origin"
-        />
+      <div className="contact-card">
+        <p className="section-kicker">What helps</p>
+        <ul>
+          <li>What the company does, and where it operates.</li>
+          <li>What is actually stuck: growth, AI operations, positioning, partnerships, fundraising.</li>
+          <li>What you have already tried.</li>
+          <li>The timeline you are working against.</li>
+        </ul>
+      </div>
+
+      <div className="button-row">
+        <Button href={MAILTO} as="a" variant="cta1">
+          {PROFILE.email}
+        </Button>
       </div>
     </section>
   );

@@ -1088,6 +1088,26 @@ body::after {
   font-size: 1.05em;
 }
 
+/* The short contact block on /work-w-me: what to put in the email. */
+.contact-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 28px;
+  max-width: 640px;
+}
+
+.contact-card ul {
+  margin: 12px 0 0;
+  padding-left: 1.15rem;
+  list-style: disc;
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+}
+
+.contact-card li::marker { color: var(--gold); }
+
 .empty-state {
   border: 1px dashed var(--line);
   border-radius: 16px;

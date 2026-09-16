@@ -9,7 +9,9 @@ const links = [
   ...(SECTIONS.blog ? [{ to: "/blog", label: "Writing" }] : []),
   ...(SECTIONS.research ? [{ to: "/research", label: "Research" }] : []),
   ...(SECTIONS.downloads ? [{ to: "/leads", label: "Downloads" }] : []),
-  { to: "/virtual-coffee", label: "Coffee" },
+  // Virtual Coffee is deliberately not in the nav. The route still works and
+  // still books, it is just handed out directly rather than offered to everyone
+  // who lands on the site.
   { to: "/work-w-me", label: "Work with me" },
 ];
 
