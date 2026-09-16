@@ -1,8 +1,30 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  }
+    // Vite compiles with esbuild and never reads this file, so it drifted: it carried
+    // only a baseUrl and a paths alias to a src/ folder this repo does not have. tsc
+    // then ran with its own defaults (ES5 lib, no jsx) and reported hundreds of errors
+    // that were not real, which is the same as having no typecheck at all.
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "types": ["vite/client", "node"],
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    // Type checking only. The build is Vite's job.
+    "noEmit": true
+  },
+  "include": ["*.ts", "*.tsx", "components", "data", "lib", "pages", "themes"],
+  "exclude": ["node_modules", "dist", "scripts"]
 }

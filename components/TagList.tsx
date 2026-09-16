@@ -1,5 +1,3 @@
-import React from "react";
-
 type Props = {
   items: string[];
   align?: "left" | "center";

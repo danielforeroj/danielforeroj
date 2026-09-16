@@ -135,11 +135,15 @@ export function persistThemeAndAccent(theme: ThemeMode, accent: string) {
     localStorage.setItem("df_accent", accent);
   } catch {}
 }
+// Both readers run during prerendering too, where there is no localStorage. The old form,
+// `typeof localStorage !== "undefined" && getItem(...)`, is `false` there, and `false ?? x`
+// is false, not x: each returned false instead of the default. Reading the storage only
+// when it exists, and defaulting on null, keeps the return a real theme and a real colour.
 export function readTheme(): ThemeMode {
-  const v = (typeof localStorage !== "undefined" && localStorage.getItem("df_theme")) as ThemeMode | null;
+  const v = typeof localStorage !== "undefined" ? (localStorage.getItem("df_theme") as ThemeMode | null) : null;
   return v ?? "light";
 }
 export function readAccent(): string {
-  const v = typeof localStorage !== "undefined" && localStorage.getItem("df_accent");
+  const v = typeof localStorage !== "undefined" ? localStorage.getItem("df_accent") : null;
   return v ?? defaultPalette[0];
 }
