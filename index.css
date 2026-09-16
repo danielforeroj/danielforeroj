@@ -1062,6 +1062,32 @@ body::after {
   margin: 2rem 0;
 }
 
+/* The Tailwind CDN preflight strips list markers, so a numbered list read as a
+   bullet list with no numbers. */
+.markdown-content ul { list-style: disc; }
+.markdown-content ol { list-style: decimal; }
+
+.markdown-content a {
+  color: var(--gold-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--gold-dark);
+}
+
+.markdown-content a:hover { text-decoration-color: var(--gold-light); }
+
+.markdown-content blockquote {
+  margin: 0 0 1.2rem;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  border-left: 2px solid var(--gold-dark);
+}
+
+.markdown-content blockquote p {
+  margin: 0.4rem 0;
+  color: var(--cream);
+  font-size: 1.05em;
+}
+
 .empty-state {
   border: 1px dashed var(--line);
   border-radius: 16px;

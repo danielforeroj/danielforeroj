@@ -13,10 +13,20 @@ const formatInlineMarkdown = (text: string) => {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 
-  return escaped
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  return (
+    escaped
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+      // Links. Without this a post citing a source rendered the raw
+      // [text](url), so posts avoided links altogether and cited nothing.
+      // Only http and https survive: the escape pass above already neutralised
+      // angle brackets, and anything else (javascript:, data:) stays as text.
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)"']+)\)/g, (_m, label: string, href: string) => {
+        const safeHref = href.replace(/"/g, '&quot;');
+        return `<a href="${safeHref}" target="_blank" rel="noopener noreferrer nofollow">${label}</a>`;
+      })
+  );
 };
 
 const OAICITE_PATTERN = /:contentReference\s*\[\s*oaicite\s*:\s*\d+\s*\]\s*\{\s*index\s*=\s*\d+\s*\}/gi;
@@ -92,12 +102,22 @@ const normalizePostMarkdown = (markdown: string, title: string) => {
 const markdownToHtml = (markdown: string) => {
   const lines = markdown.split(/\r?\n/);
   let html = '';
-  let inList = false;
+  // The open block, if any: a bullet list, a numbered list, or a quote. One
+  // variable rather than three flags, so a block can never close as the wrong tag.
+  let open: 'ul' | 'ol' | 'blockquote' | null = null;
 
-  const closeList = () => {
-    if (inList) {
-      html += '</ul>';
-      inList = false;
+  const closeBlock = () => {
+    if (open) {
+      html += `</${open}>`;
+      open = null;
+    }
+  };
+
+  const openBlock = (tag: 'ul' | 'ol' | 'blockquote') => {
+    if (open !== tag) {
+      closeBlock();
+      html += `<${tag}>`;
+      open = tag;
     }
   };
 
@@ -105,12 +125,12 @@ const markdownToHtml = (markdown: string) => {
     const line = rawLine.trimEnd();
 
     if (!line.trim()) {
-      closeList();
+      closeBlock();
       return;
     }
 
     if (/^---+$/.test(line)) {
-      closeList();
+      closeBlock();
       html += '<hr />';
       return;
     }
@@ -118,26 +138,39 @@ const markdownToHtml = (markdown: string) => {
     const headingMatch = line.match(/^(#{1,6})\s+(.*)$/);
     if (headingMatch) {
       const level = headingMatch[1].length;
-      closeList();
+      closeBlock();
       html += `<h${level}>${formatInlineMarkdown(headingMatch[2])}</h${level}>`;
       return;
     }
 
-    const listMatch = line.match(/^[-*+]\s+(.*)$/);
-    if (listMatch) {
-      if (!inList) {
-        html += '<ul>';
-        inList = true;
-      }
-      html += `<li>${formatInlineMarkdown(listMatch[1])}</li>`;
+    const bulletMatch = line.match(/^[-*+]\s+(.*)$/);
+    if (bulletMatch) {
+      openBlock('ul');
+      html += `<li>${formatInlineMarkdown(bulletMatch[1])}</li>`;
       return;
     }
 
-    closeList();
+    // A numbered step rendered as a bullet before this, which threw away the
+    // order the author wrote it in.
+    const numberedMatch = line.match(/^\d+[.)]\s+(.*)$/);
+    if (numberedMatch) {
+      openBlock('ol');
+      html += `<li>${formatInlineMarkdown(numberedMatch[1])}</li>`;
+      return;
+    }
+
+    const quoteMatch = line.match(/^>\s?(.*)$/);
+    if (quoteMatch) {
+      openBlock('blockquote');
+      html += `<p>${formatInlineMarkdown(quoteMatch[1])}</p>`;
+      return;
+    }
+
+    closeBlock();
     html += `<p>${formatInlineMarkdown(line)}</p>`;
   });
 
-  closeList();
+  closeBlock();
   return html;
 };
 

@@ -1,6 +1,9 @@
 import { Post, PostType } from '../types';
+import { newPosts } from './posts';
 
-export const posts: Post[] = [
+// The two 2025 posts still live inline here. Everything written since is one
+// file per post under data/posts, which is why this file stopped growing.
+const legacyPosts: Post[] = [
   {
   type: PostType.BLOG,
   title: 'Fuck Web3 Jargon',
@@ -514,3 +517,9 @@ If you want help pressure testing your ICPs, designing the first onchain action,
   tags: ['web3', 'marketing', 'gtm', 'growth', 'latam', 'ai', 'seo', 'aeo', 'geo']
 }
 ];
+
+// Newest first. The blog index sorts again, the homepage takes the first three.
+export const posts: Post[] = [...newPosts, ...legacyPosts].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+);
+
