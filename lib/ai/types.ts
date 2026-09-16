@@ -36,6 +36,8 @@ export type FunnelScreen = {
   body: Localized;
   cta?: Localized;
   show_if?: Condition;
+  /** Short lines under the body, rendered as a list. */
+  points?: Localized[];
 };
 
 export type ContactField = {

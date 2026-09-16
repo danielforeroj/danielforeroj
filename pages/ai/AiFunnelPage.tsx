@@ -350,6 +350,13 @@ const AiFunnelPage: React.FC = () => {
             {current.key === config.screens.list[0]?.key ? <p className="aif-kicker">danielforeroj / ai</p> : null}
             {current.screen.title ? <h1 className="aif-title">{pick(current.screen.title, lang)}</h1> : null}
             <p className={current.screen.title ? 'aif-body' : 'aif-title aif-title--body'}>{pick(current.screen.body, lang)}</p>
+            {current.screen.points?.length ? (
+              <ul className="aif-points">
+                {current.screen.points.map((pt, i) => (
+                  <li key={i}>{pick(pt, lang)}</li>
+                ))}
+              </ul>
+            ) : null}
             <div className="aif-actions">
               <button type="button" className="aif-btn" onClick={() => advance()}>
                 {current.screen.cta ? pick(current.screen.cta, lang) : copy.next}

@@ -221,6 +221,34 @@
   color: var(--aif-paper);
 }
 
+/* The promise on the first screen: what you get, what it is for, where it comes from,
+   what it costs. A list, because those are four separate answers. */
+.aif-points {
+  margin: 4px 0 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.aif-points li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.aif-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+}
+
 /* ---------- actions ---------- */
 .aif-actions {
   display: flex;
