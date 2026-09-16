@@ -37,12 +37,16 @@ export type FunnelScreen = {
 };
 
 export type ContactField = {
-  key: 'name' | 'email' | 'company' | 'website' | 'phone_whatsapp' | 'consent_access';
-  type: 'text' | 'email' | 'url' | 'tel' | 'checkbox';
+  key: 'name' | 'email' | 'company' | 'business_link' | 'phone_whatsapp' | 'consent_access';
+  type: 'text' | 'email' | 'url' | 'link' | 'tel' | 'checkbox';
   label: Localized;
   placeholder?: Localized;
+  /** A line under the field, for what counts as an answer. */
+  help?: Localized;
   required: boolean;
   optional_if?: Condition;
+  /** A `link` field's way out: the business has nothing online yet. */
+  none_option?: Localized;
 };
 
 export type FunnelConfig = {
@@ -75,7 +79,10 @@ export type Contact = {
   name: string;
   email: string;
   company: string;
-  website: string;
+  /** A website, a social profile, a map listing, or an @handle. Empty with business_link_none. */
+  business_link: string;
+  /** The business has nothing online yet. An answer to business_link, not a blank. */
+  business_link_none: boolean;
   phone_whatsapp: string;
   consent_access: boolean;
 };

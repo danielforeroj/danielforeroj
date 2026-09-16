@@ -296,6 +296,40 @@
 .aif-field input[aria-invalid="true"],
 .aif-code[aria-invalid="true"] { border-color: #f08aa2; }
 
+/* The help line under a field, and the way out of the business link: a business with
+   nothing online yet answers here instead of leaving the field empty. */
+.aif-help {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.aif-none {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--aif-paper);
+  cursor: pointer;
+}
+
+.aif-none input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--gold);
+}
+
+.aif-field input:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .aif-field--check {
   grid-template-columns: auto 1fr;
   align-items: start;

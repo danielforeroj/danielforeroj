@@ -14,7 +14,8 @@ const EMPTY_CONTACT: Contact = {
   name: '',
   email: '',
   company: '',
-  website: '',
+  business_link: '',
+  business_link_none: false,
   phone_whatsapp: '',
   consent_access: false,
 };
@@ -175,7 +176,8 @@ const AiFunnelPage: React.FC = () => {
   const personal = looksPersonal(contact.email);
 
   const fieldRequired = (f: ContactField) => {
-    if (f.key === 'website' && personal) return true;
+    // A link field is answered either way: typed, or by saying there is nothing online.
+    if (f.type === 'link') return !contact.business_link_none;
     if (!f.required) return false;
     return !(f.optional_if && evaluate(f.optional_if, answers));
   };
@@ -195,6 +197,10 @@ const AiFunnelPage: React.FC = () => {
       }
       if (f.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s)) errs[f.key] = copy.invalidEmail;
       if (f.type === 'url' && !/^(https?:\/\/)?[^\s/]+\.[^\s]{2,}/i.test(s)) errs[f.key] = copy.invalidWebsite;
+      // A link is a URL or a bare @handle; the server decides which network it belongs to.
+      if (f.type === 'link' && !/^@[A-Za-z0-9._-]{1,99}$/.test(s) && !/^(https?:\/\/)?[^\s/]+\.[^\s]{2,}/i.test(s)) {
+        errs[f.key] = copy.invalidWebsite;
+      }
     }
     return errs;
   };
@@ -205,7 +211,13 @@ const AiFunnelPage: React.FC = () => {
       sessionId: sessionId(),
       lang,
       answers,
-      contact: { ...contact, email: contact.email.trim(), name: contact.name.trim(), company: contact.company.trim(), website: contact.website.trim() },
+      contact: {
+        ...contact,
+        email: contact.email.trim(),
+        name: contact.name.trim(),
+        company: contact.company.trim(),
+        business_link: contact.business_link_none ? '' : contact.business_link.trim(),
+      },
       hp,
       src: attr.src,
       utm: attr.utm,
@@ -359,6 +371,11 @@ const AiFunnelPage: React.FC = () => {
                   required={fieldRequired(f)}
                   value={contact[f.key]}
                   error={fieldErrors[f.key]}
+                  noneChecked={contact.business_link_none}
+                  onNone={(on) => {
+                    setContact((c) => ({ ...c, business_link_none: on, business_link: on ? '' : c.business_link }));
+                    setFieldErrors((e) => ({ ...e, business_link: undefined }));
+                  }}
                   onChange={(v) => {
                     setContact((c) => ({ ...c, [f.key]: v }));
                     if (fieldErrors[f.key]) setFieldErrors((e) => ({ ...e, [f.key]: undefined }));
@@ -513,6 +530,8 @@ function ContactInput({
   required,
   value,
   error,
+  noneChecked,
+  onNone,
   onChange,
 }: {
   field: ContactField;
@@ -520,6 +539,9 @@ function ContactInput({
   required: boolean;
   value: string | boolean;
   error?: string;
+  /** For a `link` field: whether the business said it has nothing online yet. */
+  noneChecked: boolean;
+  onNone: (on: boolean) => void;
   onChange: (v: string | boolean) => void;
 }) {
   const id = `aif-${field.key}`;
@@ -545,7 +567,7 @@ function ContactInput({
     );
   }
 
-  const autoComplete = { name: 'name', email: 'email', company: 'organization', website: 'url', phone_whatsapp: 'tel' }[
+  const autoComplete = { name: 'name', email: 'email', company: 'organization', business_link: 'url', phone_whatsapp: 'tel' }[
     field.key as Exclude<ContactField['key'], 'consent_access'>
   ];
 
@@ -557,15 +579,38 @@ function ContactInput({
       </label>
       <input
         {...common}
-        type={field.type === 'url' ? 'text' : field.type}
-        inputMode={field.type === 'url' ? 'url' : field.type === 'tel' ? 'tel' : field.type === 'email' ? 'email' : undefined}
+        type={field.type === 'url' || field.type === 'link' ? 'text' : field.type}
+        inputMode={
+          field.type === 'url' || field.type === 'link'
+            ? 'url'
+            : field.type === 'tel'
+              ? 'tel'
+              : field.type === 'email'
+                ? 'email'
+                : undefined
+        }
         autoComplete={autoComplete}
         autoCapitalize={field.type === 'text' ? 'words' : 'none'}
         spellCheck={false}
         placeholder={field.placeholder ? pick(field.placeholder, lang) : undefined}
         value={String(value)}
+        disabled={field.type === 'link' && noneChecked}
         onChange={(e) => onChange(e.target.value)}
       />
+      {field.help ? <p className="aif-help">{pick(field.help, lang)}</p> : null}
+      {/* The way out of a link field. A business with nothing online is answering, not
+          skipping, so this is a real choice next to the input rather than a blank. */}
+      {field.type === 'link' && field.none_option ? (
+        <label className="aif-none" htmlFor={`${id}-none`}>
+          <input
+            id={`${id}-none`}
+            type="checkbox"
+            checked={noneChecked}
+            onChange={(e) => onNone(e.target.checked)}
+          />
+          <span>{pick(field.none_option, lang)}</span>
+        </label>
+      ) : null}
       {error ? (
         <p id={errId} className="aif-error">
           {error}
