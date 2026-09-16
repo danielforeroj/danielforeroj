@@ -98,7 +98,11 @@ export function attribution(): Attribution {
     if (v) utm[k] = v.slice(0, 200);
   });
   const attr: Attribution = {
-    src: (p.get('src') || utm.source || '').slice(0, 60),
+    // `r` first, because that is what the links hand out now: the visitor sees this in
+    // their address bar, and `r=df` reads like any other parameter while `src=manual-daniel`
+    // announces that they are being tracked by name. `src` still works, so every link
+    // already posted keeps counting.
+    src: (p.get('r') || p.get('src') || utm.source || '').slice(0, 60),
     utm,
     referrer: (document.referrer || '').slice(0, 500),
   };
