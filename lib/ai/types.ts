@@ -20,6 +20,8 @@ export type FunnelQuestion = {
   type: 'single' | 'multi';
   title: Localized;
   help?: Localized;
+  /** What the visitor gets for answering this question. Rendered under the title. */
+  benefit?: Localized;
   options: FunnelOption[];
   min?: number;
   max?: number;
@@ -74,6 +76,9 @@ export type FunnelConfig = {
 };
 
 export type Answers = Record<string, string | string[]>;
+
+/** What the answers so far have earned: POST /api/ai/preview. */
+export type Earned = { count: number; titles: string[] };
 
 export type Contact = {
   name: string;

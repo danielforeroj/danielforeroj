@@ -8,7 +8,7 @@ import { buildSteps, isAnswered, looksPersonal, evaluate, type Step } from '../.
 import { attribution, detectLang, prefersReducedMotion, pushEvent, rememberLang, sessionId , useHtmlLang } from '../../lib/ai/context';
 import { copyFor } from '../../lib/ai/copy';
 import { CodeStep, pick } from '../../components/ai/CodeStep';
-import type { Answers, Contact, ContactField, FunnelConfig, FunnelQuestion, Lang } from '../../lib/ai/types';
+import type { Answers, Contact, ContactField, Earned, FunnelConfig, FunnelQuestion, Lang } from '../../lib/ai/types';
 
 const EMPTY_CONTACT: Contact = {
   name: '',
@@ -38,6 +38,9 @@ const AiFunnelPage: React.FC = () => {
   const [hp, setHp] = React.useState('');
   const [busy, setBusy] = React.useState(false);
   const [signedIn, setSignedIn] = React.useState(false);
+  // What the answers so far have earned. The server decides it; the flow only shows it,
+  // so the visitor watches the prize accumulate instead of waiting until the last screen.
+  const [earned, setEarned] = React.useState<Earned>({ count: 0, titles: [] });
   const panelRef = React.useRef<HTMLDivElement>(null);
 
   const copy = copyFor(lang);
@@ -170,6 +173,25 @@ const AiFunnelPage: React.FC = () => {
     setLang(next);
     rememberLang(next);
   };
+
+  // One request per pause in answering, not one per keystroke of the flow. A failure
+  // leaves the last known count on screen: this is decoration over the real thing.
+  React.useEffect(() => {
+    if (!config) return;
+    if (Object.keys(answers).length === 0) {
+      setEarned({ count: 0, titles: [] });
+      return;
+    }
+    let live = true;
+    const t = window.setTimeout(async () => {
+      const r = await aiApi.preview({ lang, answers });
+      if (live && r.ok) setEarned(r.data);
+    }, 300);
+    return () => {
+      live = false;
+      window.clearTimeout(t);
+    };
+  }, [config, lang, answers]);
 
   // ---------- contact ----------
 
@@ -309,9 +331,16 @@ const AiFunnelPage: React.FC = () => {
           ) : (
             <span />
           )}
-          <button type="button" className="aif-link" onClick={switchLang} lang={lang === 'es' ? 'en' : 'es'}>
-            {copy.langSwitch}
-          </button>
+          <span className="aif-bar__end">
+            {earned.count > 0 && current.kind !== 'result' ? (
+              <span className="aif-earned" aria-live="polite">
+                {copy.earned(earned.count)}
+              </span>
+            ) : null}
+            <button type="button" className="aif-link" onClick={switchLang} lang={lang === 'es' ? 'en' : 'es'}>
+              {copy.langSwitch}
+            </button>
+          </span>
         </div>
       </div>
 
@@ -360,6 +389,12 @@ const AiFunnelPage: React.FC = () => {
             }}
           >
             <h1 className="aif-title">{pick(config.screens.contact.title, lang)}</h1>
+            {earned.count > 0 ? (
+              <p className="aif-body">
+                {copy.earnedIntro(earned.count)}
+                {earned.titles.length > 0 ? ` ${earned.titles.join('. ')}.` : ''}
+              </p>
+            ) : null}
             <p className="aif-body">{pick(config.screens.contact.body, lang)}</p>
 
             <div className="aif-fields">
@@ -475,6 +510,7 @@ function QuestionStep({
       <h1 className="aif-title" id={titleId}>
         {pick(q.title, lang)}
       </h1>
+      {q.benefit ? <p className="aif-benefit">{pick(q.benefit, lang)}</p> : null}
       <p className="aif-meta">{q.help ? pick(q.help, lang) : multi ? copy.pickMultiHint(q.min ?? 1, q.max) : copy.pickHint}</p>
 
       <div className="aif-options" role={multi ? 'group' : 'radiogroup'} aria-labelledby={titleId}>

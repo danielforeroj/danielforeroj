@@ -19,6 +19,11 @@ const COPY = {
     pickMultiHint: (min: number, max?: number) =>
       max ? `Elige de ${min} a ${max}` : min > 1 ? `Elige al menos ${min}` : 'Elige una o más',
     keysHint: 'Enter para seguir, Esc para volver',
+    earned: (n: number) => (n === 1 ? '1 recurso desbloqueado' : `${n} recursos desbloqueados`),
+    earnedIntro: (n: number) =>
+      n === 1
+        ? 'Con lo que me contaste ya desbloqueaste 1 recurso.'
+        : `Con lo que me contaste ya desbloqueaste ${n} recursos.`,
     required: 'Este campo es obligatorio',
     invalidEmail: 'Revisa el email',
     invalidWebsite: 'Revisa el enlace, por ejemplo empresa.com o instagram.com/negocio',
@@ -72,6 +77,11 @@ const COPY = {
     pickMultiHint: (min: number, max?: number) =>
       max ? `Pick ${min} to ${max}` : min > 1 ? `Pick at least ${min}` : 'Pick one or more',
     keysHint: 'Enter to continue, Esc to go back',
+    earned: (n: number) => (n === 1 ? '1 resource unlocked' : `${n} resources unlocked`),
+    earnedIntro: (n: number) =>
+      n === 1
+        ? 'From what you told me, you have already unlocked 1 resource.'
+        : `From what you told me, you have already unlocked ${n} resources.`,
     required: 'This field is required',
     invalidEmail: 'Check the email',
     invalidWebsite: 'Check the link, for example company.com or instagram.com/business',

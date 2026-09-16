@@ -5,7 +5,7 @@
 // `vite --mode mock` (npm run dev:mock) swaps in an in-memory backend shaped
 // exactly like the spec, for building before the real API is deployed.
 
-import type { Answers, Contact, FunnelConfig, Lang, Me, ResourceView, Utm } from './types';
+import type { Answers, Contact, Earned, FunnelConfig, Lang, Me, ResourceView, Utm } from './types';
 
 export type ApiResult<T> =
   | { ok: true; data: T }
@@ -66,6 +66,9 @@ export const aiApi = {
 
   identify: (p: Attr & { sessionId: string; lang: Lang; answers: Answers; contact: Contact; hp: string }) =>
     call<{ ok: true }>('POST', '/identify', p),
+
+  /** How many resources the answers so far have earned. Never returns the rule behind it. */
+  preview: (p: { lang: Lang; answers: Answers }) => call<Earned>('POST', '/preview', p),
 
   verify: (p: { email: string; code: string; lang: Lang }) => call<{ ok: true }>('POST', '/verify', p),
 

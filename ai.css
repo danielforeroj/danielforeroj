@@ -59,7 +59,7 @@
   margin-bottom: 8px;
 }
 
-.aif-bar__end { display: inline-flex; gap: 18px; }
+.aif-bar__end { display: inline-flex; align-items: center; gap: 18px; }
 
 /* ---------- panel + step ---------- */
 .aif-panel {
@@ -201,6 +201,24 @@
 .aif-field input:focus-visible {
   outline: 2px solid var(--gold-light);
   outline-offset: 2px;
+}
+
+/* What the answers have earned so far, and why a question is being asked. The counter
+   sits in the top bar; the benefit line sits under the question title. */
+.aif-earned {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  white-space: nowrap;
+}
+
+.aif-benefit {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--aif-paper);
 }
 
 /* ---------- actions ---------- */

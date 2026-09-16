@@ -115,6 +115,14 @@ export async function mockApi<T>(method: string, path: string, body?: unknown): 
     return ok({ ok: true });
   }
   if (path === '/login') return ok({ ok: true });
+  // The real endpoint runs the grant rules; the mock only has to grow with the answers,
+  // which is what the counter in the flow is showing.
+  if (path === '/preview') {
+    const answers = (b.answers ?? {}) as Record<string, unknown>;
+    const pains = Array.isArray(answers.pains) ? answers.pains.length : 0;
+    const count = Math.min(6, Object.keys(answers).length > 0 ? 2 + pains : 0);
+    return ok({ count, titles: me().resources.slice(0, 2).map((r) => r.title) });
+  }
   if (path === '/verify') {
     if (b.code !== CODE)
       return {
