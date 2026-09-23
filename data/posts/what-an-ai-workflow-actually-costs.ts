@@ -80,6 +80,84 @@ A workflow with a known cost per task, a ceiling, an alert, and a routing table.
 
 That last sentence is the whole business case. Everything above it is plumbing.
 `,
+  es: {
+    title: 'Lo que realmente cuesta un flujo de trabajo con AI',
+    excerpt:
+      'El precio por token casi no te dice nada sobre lo que cuesta operar un flujo de trabajo. El costo está en los tokens que no planeaste: reintentos, razonamiento, contexto que vuelves a enviar y agentes hablando con agentes.',
+    metaDescription:
+      'El precio por token dice poco del costo de un flujo con AI. Dónde está el costo real, qué cambian el caché y los lotes, y cómo presupuestar por tarea.',
+    tags: ['ai', 'costos', 'economía-unitaria', 'agentes', 'operaciones', 'infraestructura'],
+    content_md: `
+# Lo que realmente cuesta un flujo de trabajo con AI
+
+## Puntos clave
+- **Presupuesta por tarea, no por token.** Nadie le vende a un cliente un millón de tokens.
+- **Los tokens caros son los que tú no escribiste.** Razonamiento, reintentos, contexto reenviado, agentes hablando con agentes.
+- **El caché y el procesamiento por lotes son las dos palancas más grandes, y ambas son estructurales.** Cambian cómo diseñas el flujo de trabajo, no solo un valor de configuración.
+- **Los precios bajan, y bajan de forma desigual.** Diseña para que cambiar de modelo sea una decisión de enrutamiento, no una reescritura.
+- **El flujo de trabajo más barato es el que no corre.** Filtrar antes de la inferencia le gana a optimizar la inferencia.
+
+---
+
+La pregunta que me hacen los fundadores siempre es la misma. Cuánto cuesta operar esto. La respuesta que esperan es un precio por millón de tokens. Ese número es real, y casi no te dice nada.
+
+Es como ponerle precio a un negocio de domicilios por litro de combustible. Correcto, e inútil para decidir si la ruta deja plata.
+
+## Dónde está realmente el costo
+
+Cuatro categorías, más o menos en orden de qué tan seguido sorprenden a la gente.
+
+**Tokens de razonamiento.** Los modelos que piensan antes de responder cobran ese pensamiento a tarifa de salida, y tú no puedes leerlo. La propia guía de OpenAI les dice a los desarrolladores que reserven alrededor de 25,000 tokens para razonamiento y salida al dimensionar una solicitud. ([OpenAI](https://developers.openai.com/api/docs/guides/reasoning)) Un prompt de 400 palabras puede generar una factura dominada por texto que nadie va a ver nunca.
+
+**Multiplicación por arquitectura.** Los agentes usan varias veces más tokens que un turno de chat, y los sistemas multiagente están más o menos un orden de magnitud por encima de eso. Anthropic calculó los multiplicadores en cerca de 4x para agentes y cerca de 15x para multiagente, y encontró que el uso de tokens por sí solo explicaba el 80 por ciento de la variación en desempeño de su sistema de investigación. ([Anthropic, junio de 2025](https://www.anthropic.com/engineering/multi-agent-research-system)) Léelo dos veces. La mayor parte de la ganancia en calidad que la gente le atribuye a una orquestación ingeniosa se compra con tokens.
+
+**Contexto reenviado.** Cada turno de una conversación larga reenvía el historial. Un hilo de soporte de veinte turnos no cuesta veinte unidades, cuesta algo más cercano a la suma de un prefijo que crece, a menos que uses caché.
+
+**Reintentos y modelos de respaldo.** Medido sobre tráfico de producción a través de un gateway, el 3.5 por ciento de las solicitudes se completó solo después de pasar a otro modelo de respaldo, pero esas solicitudes cargaron el 5.1 por ciento de los tokens y el 4.9 por ciento del costo. Las fallas se concentran en llamadas de agentes con contexto largo, que son las caras. ([Vercel, mayo de 2026](https://vercel.com/blog/ai-gateway-production-index))
+
+## Las dos palancas que importan
+
+**Caché.** Con los precios de Anthropic, escribir en el caché cuesta 1.25x la entrada base en el nivel de corta duración y 2x en el más largo, mientras que una lectura del caché cuesta 0.1x. Eso significa que sales ganando después de una sola lectura en el nivel corto, y después de dos en el largo. ([Anthropic](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)) OpenAI cobra la entrada en caché a una décima parte de la que no está en caché para sus modelos actuales, con un prefijo mínimo cacheable. ([OpenAI](https://developers.openai.com/api/docs/guides/prompt-caching))
+
+La consecuencia de diseño es lo que importa. El caché premia un prefijo estable. Si tu system prompt, tus definiciones de herramientas y el contexto de tu empresa van al principio y no cambian, pagas precio completo una vez. Si interpolas una marca de tiempo o el nombre de un cliente en la parte de arriba del prompt, invalidas todo lo que viene detrás y pagas precio completo en cada llamada. He visto a un equipo reducir el costo en una cuarta parte moviendo dos líneas de un prompt.
+
+**Procesamiento por lotes.** Cincuenta por ciento de descuento en los principales proveedores para el trabajo que puede esperar. Enriquecimiento, clasificación, resumir lo de ayer, calificar un backlog. Anthropic permite combinar el procesamiento por lotes con el caché. ([Anthropic](https://platform.claude.com/docs/en/build-with-claude/batch-processing))
+
+La mayoría de los flujos de trabajo que la gente construye en tiempo real no necesitan ser en tiempo real. Nadie necesita un lead calificado en 900 milisegundos. Alguien decidió que se sentía mejor.
+
+## Presupuesta por tarea
+
+Toma el flujo de trabajo, estima los tokens de una tarea completa incluyendo reintentos, multiplica por el precio y luego divide el costo mensual entre el número de tareas. Ese es el número que puedes poner en un caso de negocio, al lado de lo que cuesta la tarea cuando la hace una persona.
+
+Para el trabajo de ingeniería ya hay un punto de referencia público. Anthropic documenta el uso empresarial de Claude Code en alrededor de 13 dólares por desarrollador por día activo, y de 150 a 250 dólares por desarrollador al mes, con el 90 por ciento de los usuarios por debajo de 30 dólares por día activo. ([Anthropic](https://code.claude.com/docs/en/costs))
+
+Dos cosas sobre ese número. Es pequeño frente a un salario. Y es muy variable, por eso el control útil no es un precio más bajo, es un techo por tarea y una alerta cuando se mueve.
+
+## Tokens baratos no son lo mismo que respuestas baratas
+
+El instinto, cuando llega una factura, es pasar todo a un modelo más pequeño. A veces funciona. A veces el modelo más pequeño necesita tres intentos, un prompt más largo y un paso de corrección, y terminaste gastando más para obtener una respuesta peor, y más lento.
+
+El patrón que nos ha funcionado es aburrido y efectivo:
+
+1. **Filtra antes de la inferencia.** Primero reglas y código. La llamada más barata es la que no haces, y una proporción sorprendente de los elementos de cualquier cola se puede enrutar sin ningún modelo.
+2. **Enruta según la consecuencia.** Modelo pequeño para clasificación y extracción, modelo grande para la decisión de criterio, humano para la irreversible.
+3. **Guarda en caché lo estable, manda por lotes lo que puede esperar.**
+4. **Ponle tope al ciclo.** Cada agente recibe un número máximo de pasos y un presupuesto. Un agente sin techo va a gastarse feliz tu mes en una sola tarea terca.
+5. **Mide el costo por tarea exitosa**, no por llamada. Una llamada barata que falla no es barata.
+
+## Los precios se mueven, así que no te cases con un modelo
+
+Los precios de inferencia han bajado rápido y de forma desigual. El análisis de Epoch AI ubica la tasa de caída entre 9x y 900x por año según la tarea, y alrededor de 40x por año para un desempeño nivel GPT-4 en preguntas difíciles de ciencia. ([Epoch AI, marzo de 2025](https://epoch.ai/data-insights/llm-inference-price-trends)) Ese estudio ya está desactualizado, y justamente ese es el punto: cualquier número que cite aquí tiene fecha de vencimiento.
+
+Lo que se desprende de eso es arquitectónico. Mantén el modelo detrás de una interfaz. Mantén los prompts en datos, no regados por el código. Mantén una suite de evals que te pueda decir si un cambio de modelo es realmente una mejora, porque el modelo nuevo y barato que parece equivalente en el benchmark del proveedor puede no ser equivalente en tu trabajo.
+
+## Cómo se ve esto cuando está bien hecho
+
+Un flujo de trabajo con un costo conocido por tarea, un techo, una alerta y una tabla de enrutamiento. Un prefijo que se mantiene estable para que el caché se pague solo. Un proceso por lotes para todo lo que puede esperar hasta la noche. Un límite estricto de pasos por agente. Y un número que le puedes decir en voz alta a un cliente: esto nos cuesta X por caso, ellos pagaban Y, esta es la diferencia.
+
+Esa última frase es todo el caso de negocio. Todo lo que está arriba es plomería.
+`,
+  },
 };
 
 export default post;

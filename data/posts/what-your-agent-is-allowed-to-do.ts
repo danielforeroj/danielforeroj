@@ -102,6 +102,106 @@ Intelligence without control is not intelligence. It is exposure with a good use
 - **Can the model not check its own policy?** It can, and it is worth doing as a first filter. It should not be the last word. A system should not be the only judge of whether it is allowed to act.
 - **Where do we start?** Take the one action your agent performs that you would not want to explain to a customer. Put a rule in front of that.
 `,
+  es: {
+    title: 'Lo que tu agente tiene permitido hacer',
+    excerpt:
+      'Todo el mundo pregunta qué puede hacer su agente. Casi nadie ha dejado por escrito qué le está permitido hacer. La capacidad llegó primero, el permiso está llegando tarde, y el orden importa.',
+    metaDescription:
+      'Todos preguntan qué puede hacer un agente. Pocos han escrito qué le está permitido. Por qué el permiso se decide antes de ejecutar, no se revisa después.',
+    tags: ['ai', 'agentes', 'gobernanza', 'seguridad', 'selah', 'operaciones'],
+    content_md: `
+# Lo que tu agente tiene permitido hacer
+
+## Puntos clave
+- **Capacidad no es permiso.** El acceso a herramientas responde qué puede hacer un agente. Nada en la mayoría de los stacks responde qué le está permitido hacer.
+- **El riesgo es la acción, no el modelo.** Una frase equivocada da vergüenza. Un reembolso equivocado es dinero.
+- **Decidir después de los hechos no es gobernanza, es un log.** La decisión tiene que ocurrir antes de que se ejecute la llamada.
+- **El prompt injection convierte el propio razonamiento del agente en un input no confiable.** Las barreras de protección dentro del prompt son consejos, no control.
+- **Lo totalmente autónomo suele ser la meta equivocada.** La meta útil es autonomía dentro de límites declarados.
+
+---
+
+Este fue el año en que los agentes consiguieron manos. El tool calling se volvió estándar, el protocolo para conectar modelos con sistemas se consolidó rápido, y para diciembre el Model Context Protocol había sido donado a una fundación con miembros platino de todos los grandes proveedores de nube y de modelos, con cerca de 97 millones de descargas mensuales del SDK y alrededor de diez mil servidores activos detrás. ([Model Context Protocol, diciembre de 2025](https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/))
+
+Conectar un modelo a un sistema real pasó de ser un proyecto a ser cosa de una tarde.
+
+Lo que no llegó a la misma velocidad es la respuesta a una pregunta distinta. No a qué puede llegar este agente. Qué tiene permitido hacer con aquello a lo que llega.
+
+## Las dos preguntas no son la misma
+
+La capacidad es una propiedad técnica. El agente tiene un token, un endpoint y un esquema. Puede enviar el mensaje, actualizar el registro, emitir el crédito, cambiar el precio.
+
+El permiso es una propiedad del negocio. Bajo qué condiciones, en qué cuentas, hasta qué monto, a qué hora, con la autoridad de quién, con qué evidencia.
+
+Casi todos los stacks que audito tienen una respuesta excelente para la primera y ninguna respuesta para la segunda, o mejor dicho, una sola respuesta, enterrada en un prompt, redactada como una instrucción amable. Por favor no emitas reembolsos de más de cien dólares. Por favor confirma con un humano antes de contactar a un cliente.
+
+Eso no es un control. Es una petición hecha a un sistema que fue diseñado para dejarse persuadir.
+
+## Por qué el prompt es el lugar equivocado para la regla
+
+Dos razones, y la segunda es la que cierra la discusión.
+
+La primera es que una regla escrita en un prompt está sujeta al mismo proceso probabilístico que todo lo demás en el prompt. Normalmente funciona. Normalmente no es un control.
+
+La segunda es el prompt injection. Un agente que lee el correo de un cliente, una página web, un PDF o un ticket está leyendo texto que no escribió y en el que no puede confiar. Ese texto llega a la misma ventana de contexto que tus instrucciones. Si el propio razonamiento del agente puede ser manipulado por contenido que recuperó, entonces cualquier límite que viva dentro de ese razonamiento también puede ser manipulado.
+
+Este es el punto estructural que cambia cómo construyes. El plan del agente es un artefacto no confiable. Puedes usarlo, pero no puedes depender de él para hacer cumplir nada.
+
+Así que el cumplimiento tiene que estar fuera del agente, en el camino entre decidir y hacer, donde una política que tú escribiste evalúa una acción propuesta y devuelve un veredicto que el agente no puede discutir.
+
+## Antes, no después
+
+La mayor parte de lo que se vende como gobernanza de AI es observabilidad. Trazas, logs, dashboards, un registro de lo que hizo el agente y por qué. Ese trabajo es necesario y no lo estoy descartando. Pero un log te dice lo que pasó. No lo evita.
+
+Si un agente le hace un reembolso al cliente equivocado, una traza excelente del reembolso equivocado es un registro excelente de una pérdida.
+
+La decisión tiene que ocurrir antes de la ejecución. Un agente propone una acción, un motor de políticas la evalúa contra reglas que existen fuera del modelo y devuelve una de tres respuestas: permitir, retener, denegar. Permitir ejecuta. Denegar no, y dice por qué. Retener va a una persona, con el contexto necesario para decidir, y espera.
+
+Esa es la forma alrededor de la cual construimos Selah, y hay tres decisiones de diseño en ella que son las que sobreviven al contacto con producción.
+
+**Falla en cerrado.** Si el motor de decisiones no está disponible, la acción no ocurre. El comportamiento por defecto opuesto, permitir cuando el verificador está caído, significa que tu propiedad de seguridad desaparece justo cuando tu infraestructura no está sana, que es el momento en que más se necesita.
+
+**Es lo bastante rápido como para que no lo quiten.** Un control que agrega una latencia notoria a cada acción termina desactivado por el primer ingeniero con presión de entrega. El presupuesto es de milisegundos de un dígito, no de segundos, y esa restricción define todo el diseño.
+
+**Cada decisión queda registrada en un log que deja evidencia de cualquier manipulación.** No porque un auditor lo vaya a pedir, aunque lo va a pedir. Sino porque tanto un permitir como un denegar son afirmaciones sobre lo que decía tu política en un momento dado, y esas afirmaciones tienen que poder verificarse después.
+
+## Qué dejar por escrito, en concreto
+
+No necesitas un producto para empezar. Necesitas un documento, y la mayoría de los equipos nunca lo ha escrito.
+
+Para cada agente, y para cada herramienta a la que puede llegar:
+
+1. **Acciones.** Qué operaciones específicas. No "el CRM", sino las cuatro operaciones que puede realizar en el CRM.
+2. **Límites.** Montos, cantidades por hora, qué tipos de registro, qué segmentos de clientes, qué entornos.
+3. **Condiciones.** Qué tiene que ser cierto primero. Identidad verificada. Saldo confirmado. Contrato activo. Evidencia adjunta.
+4. **Escalamiento.** Qué va a una persona, quién es esa persona, qué tan rápido debe responder y qué pasa si no responde. Un tiempo límite sin definir es una decisión que nadie tomó.
+5. **Irreversibilidad.** Qué acciones no se pueden deshacer. Esas reciben el tratamiento más estricto, sin importar qué tan rutinarias parezcan.
+
+Escríbelo para el agente que ya tienes en producción. El ejercicio toma una tarde y suele ser incómodo, porque la respuesta honesta a varias filas es no sabemos, y ese es precisamente el hallazgo.
+
+## La objeción, respondida
+
+La objeción que escucho es que esto vuelve más lento al agente y le quita el sentido.
+
+Sí vuelve más lentas algunas acciones. A propósito. La alternativa no es un agente más rápido, es un incidente más rápido.
+
+Y vale la pena ser preciso sobre lo que cuesta la gobernanza. Leer, resumir, redactar, recuperar, analizar: nada de eso necesita un punto de control. El punto de control va en el pequeño conjunto de acciones que tocan dinero, clientes, credenciales, sistemas de producción o cualquier cosa que no puedas deshacer. En la mayoría de los flujos de trabajo eso es una minoría de las llamadas y la mayoría del riesgo.
+
+La gobernanza no hace que la AI sea menos útil. La mala gobernanza, la que revisa todo o nada, la vuelve inutilizable.
+
+## Hacia dónde va esto
+
+Los agentes serán más capaces. Los ecosistemas de herramientas se seguirán consolidando. La restricción interesante en los próximos años no es lo que un modelo puede hacer, es lo que una organización puede dejarle hacer de forma responsable, y quién puede demostrarlo.
+
+La inteligencia sin control no es inteligencia. Es exposición con una buena interfaz de usuario.
+
+## Preguntas frecuentes
+
+- **¿Esto no es lo que ya hace una API key?** Una API key dice quién está llamando. No dice si esta llamada en particular, en esta cuenta, por este monto, en este momento, está permitida.
+- **¿El modelo no puede revisar su propia política?** Puede, y vale la pena hacerlo como primer filtro. No debería tener la última palabra. Un sistema no debería ser el único juez de si tiene permitido actuar.
+- **¿Por dónde empezamos?** Toma la única acción que realiza tu agente y que no querrías tener que explicarle a un cliente. Ponle una regla por delante.
+`,
+  },
 };
 
 export default post;

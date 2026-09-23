@@ -1,6 +1,7 @@
 import React from 'react';
 import { SITE } from '../data/siteConfig';
 import Seo from '../lib/SeoHead';
+import { localePath, useLang, useUi } from '../lib/i18n';
 
 const socials = [
   { name: 'Instagram', url: 'https://www.instagram.com/danielforeroj/' },
@@ -9,6 +10,8 @@ const socials = [
 ];
 
 const VirtualCoffeePage: React.FC = () => {
+  const lang = useLang();
+  const t = useUi().coffee;
   return (
     <section className="page">
       {/*
@@ -32,16 +35,16 @@ const VirtualCoffeePage: React.FC = () => {
         we told it not to render.
       */}
       <Seo
-        title={`Virtual Coffee | ${SITE.name}`}
-        description="Book a virtual coffee with Daniel Forero: a focused conversation for ideas, intros, operator notes, or where AI and Web3 are headed next."
-        path="/virtual-coffee"
+        title={`${t.title} | ${SITE.name}`}
+        description={t.description}
+        path={localePath('/virtual-coffee', lang)}
         noIndex
       />
       <header className="page-header">
-        <p className="section-kicker">Conversation</p>
-        <h1 className="page-title">Virtual Coffee</h1>
+        <p className="section-kicker">{t.kicker}</p>
+        <h1 className="page-title">{t.title}</h1>
         <p className="article-excerpt">
-          A focused conversation for ideas, intros, operator notes, or where AI and Web3 are headed next.
+          {t.standfirst}
         </p>
       </header>
 
@@ -49,14 +52,14 @@ const VirtualCoffeePage: React.FC = () => {
         {socials.map((social) => (
           <a key={social.name} href={social.url} target="_blank" rel="noreferrer" className="social-link">
             <span>{social.name}</span>
-            <span aria-hidden="true">Open</span>
+            <span aria-hidden="true">{t.open}</span>
           </a>
         ))}
       </div>
 
       <div className="embed-card">
         <iframe
-          title="Agenda un virtual coffee con Daniel Forero"
+          title={t.iframeTitle}
           src="https://unboundoperators.app/book/danielforeroj/intro-call"
           loading="lazy"
           referrerPolicy="strict-origin-when-cross-origin"

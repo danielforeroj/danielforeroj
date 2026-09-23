@@ -1,10 +1,23 @@
-import { Post, PostType } from "../types";
-import { SITE } from "../data/siteConfig";
-import { PROFILE } from "../data/profile";
+import { Post, PostCopy } from "../types";
+import { SITE, SITE_DESCRIPTION } from "../data/siteConfig";
+import { PROFILES } from "../data/profile";
+import { LOCALE, localePath, type Lang } from "./i18n";
 
 type JsonLd = Record<string, unknown>;
 
-const urlForPost = (post: Post) => `${SITE.url}/post/${post.slug}`;
+/** The copy of a post in a language: the top-level fields are English, `es` is Spanish. */
+export const postCopy = (post: Post, lang: Lang): PostCopy =>
+  lang === "es"
+    ? post.es
+    : {
+        title: post.title,
+        excerpt: post.excerpt,
+        metaDescription: post.metaDescription,
+        content_md: post.content_md,
+        tags: post.tags,
+      };
+
+export const urlForPost = (post: Post, lang: Lang = "en") => `${SITE.url}${localePath(`/post/${post.slug}`, lang)}`;
 
 /**
  * The single Person node the whole site refers to. Author and publisher are the
@@ -40,46 +53,52 @@ export const buildBreadcrumbListJsonLd = (crumbs: Array<{ name: string; url: str
   })),
 });
 
-export const buildBlogPostingJsonLd = (post: Post): JsonLd => ({
+export const buildBlogPostingJsonLd = (post: Post, lang: Lang = "en", section = "Blog"): JsonLd => {
+  const copy = postCopy(post, lang);
+  return {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  headline: post.title,
-  description: post.metaDescription ?? post.excerpt,
+  headline: copy.title,
+  description: copy.metaDescription ?? copy.excerpt,
+  inLanguage: LOCALE[lang],
   datePublished: post.date,
   dateModified: post.date,
-  mainEntityOfPage: urlForPost(post),
-  url: urlForPost(post),
+  mainEntityOfPage: urlForPost(post, lang),
+  url: urlForPost(post, lang),
   image: SITE.defaultOgImage,
   author: personRef(),
   publisher: personRef(),
-  keywords: post.tags ?? [],
-  articleSection:
-    post.type === PostType.RESEARCH ? "Research" : post.type === PostType.LEAD_MAGNET ? "Downloads" : "Blog",
+  keywords: copy.tags ?? [],
+  articleSection: section,
   speakable: {
     "@type": "SpeakableSpecification",
     cssSelector: ["article h1", "article p"],
   },
-});
+  };
+};
 
 export const buildBlogCollectionJsonLd = (
   posts: Post[],
   sectionName: string,
   canonicalUrl: string,
+  lang: Lang = "en",
+  indexName = `${sectionName} index`,
 ): JsonLd => ({
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   name: `${sectionName} | ${SITE.name}`,
   url: canonicalUrl,
+  inLanguage: LOCALE[lang],
   mainEntity: {
     "@type": "ItemList",
-    name: `${sectionName} index`,
+    name: indexName,
     numberOfItems: posts.length,
     itemListElement: posts.map((post, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: urlForPost(post),
-      name: post.title,
-      description: post.excerpt,
+      url: urlForPost(post, lang),
+      name: postCopy(post, lang).title,
+      description: postCopy(post, lang).excerpt,
     })),
   },
 });
@@ -90,14 +109,16 @@ export const buildBlogCollectionJsonLd = (
  * set of self-owned profiles, which is what lets an answer engine resolve which
  * "Daniel Forero" a page is about.
  */
-export const buildPersonJsonLd = (): JsonLd => ({
+export const buildPersonJsonLd = (lang: Lang = "en"): JsonLd => {
+  const PROFILE = PROFILES[lang];
+  return {
   "@context": "https://schema.org",
   "@type": "Person",
   "@id": PERSON_ID,
   name: PROFILE.name,
   url: SITE.homeUrl,
   email: `mailto:${PROFILE.email}`,
-  description: SITE.description,
+  description: SITE_DESCRIPTION[lang],
   image: SITE.defaultOgImage,
   jobTitle: PROFILE.engagements[0]?.role,
   worksFor: {
@@ -107,7 +128,8 @@ export const buildPersonJsonLd = (): JsonLd => ({
   },
   knowsAbout: PROFILE.sectors,
   sameAs: PROFILE.socials.map((social) => social.url),
-});
+  };
+};
 
 /**
  * WebSite is a site-level entity, so it belongs on the homepage and nowhere
@@ -119,11 +141,14 @@ export const buildPersonJsonLd = (): JsonLd => ({
  * capability it does not have. The entity is worth keeping; the false claim is
  * not. If site search is ever built, add the potentialAction back then.
  */
-export const buildWebSiteJsonLd = (): JsonLd => ({
+export const buildWebSiteJsonLd = (lang: Lang = "en"): JsonLd => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${SITE.homeUrl}#website`,
   url: SITE.homeUrl,
   name: SITE.name,
+  // The one site, published in both languages.
+  inLanguage: [LOCALE.en, LOCALE.es],
+  description: SITE_DESCRIPTION[lang],
   publisher: { "@id": PERSON_ID },
 });

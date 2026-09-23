@@ -4,7 +4,8 @@ import Seo from '../../lib/SeoHead';
 import { useHeadSync } from '../../lib/ai/useHeadSync';
 import { SITE } from '../../data/siteConfig';
 import { aiApi } from '../../lib/ai/api';
-import { detectLang, pushEvent , useHtmlLang } from '../../lib/ai/context';
+import { pushEvent, useHtmlLang, useLegacyLangParam } from '../../lib/ai/context';
+import { localePath, useLang } from '../../lib/i18n';
 import { copyFor } from '../../lib/ai/copy';
 import { Blocks } from '../../components/ai/Blocks';
 import type { Lang, ResourceView } from '../../lib/ai/types';
@@ -17,7 +18,10 @@ type State = { kind: 'loading' } | { kind: 'ready'; resource: ResourceView } | {
 const AiResourcePage: React.FC = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const [lang, setLang] = React.useState<Lang>('es');
+  // The URL is the language of the page around the resource: /ai/recursos/:key
+  // is Spanish, /en/ai/recursos/:key English. The resource itself declares its own.
+  const lang = useLang();
+  useLegacyLangParam();
   const [state, setState] = React.useState<State>({ kind: 'loading' });
   const copy = copyFor(lang);
   useHtmlLang(state.kind === 'ready' ? state.resource.language : lang);
@@ -32,17 +36,15 @@ const AiResourcePage: React.FC = () => {
         setState({ kind: 'ready', resource: r.data });
         pushEvent({ event: 'ai_resource_open', resource_key: key, lang: l });
       } else if (r.status === 401) {
-        navigate(`/ai/recursos?lang=${l}`, { replace: true });
+        navigate(localePath('/ai/recursos', l), { replace: true });
       } else setState(r.status === 404 ? { kind: 'missing' } : { kind: 'error' });
     },
     [key, navigate],
   );
 
   React.useEffect(() => {
-    const l = detectLang();
-    setLang(l);
-    load(l);
-  }, [load]);
+    load(lang);
+  }, [load, lang]);
 
   // Reading time: counted only while the tab is visible, sent when it is hidden
   // or left. keepalive lets the request outlive the page.
@@ -76,13 +78,13 @@ const AiResourcePage: React.FC = () => {
       <Seo
         title={`${title} | ${SITE.name}`}
         description={copy.readerLoading}
-        path="/ai/recursos"
+        path={localePath('/ai/recursos', lang)}
         noIndex
         htmlLang={state.kind === 'ready' ? state.resource.language : lang}
       />
 
       <div className="aif-bar aif-bar--page">
-        <NavLink to={`/ai/recursos?lang=${lang}`} className="aif-link">
+        <NavLink to={localePath('/ai/recursos', lang)} className="aif-link">
           ← {copy.backToLibrary}
         </NavLink>
       </div>

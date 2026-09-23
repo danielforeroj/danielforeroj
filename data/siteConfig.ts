@@ -28,6 +28,12 @@ export const SITE = {
 
 export type SiteConfig = typeof SITE;
 
+/** SITE.description per language. The Spanish is a translation of the English, same claims. */
+export const SITE_DESCRIPTION = {
+  en: SITE.description,
+  es: "Daniel Forero es cofundador de Unbound Operators, que ayuda a las empresas a crecer implementando AI y flujos de trabajo con AI, y construye Selah, On Duty y unbound geo.",
+} as const;
+
 /**
  * Sections that exist in code but are not published yet.
  *

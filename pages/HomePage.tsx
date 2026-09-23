@@ -1,13 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { posts } from "../data/mockData";
-import { PROFILE } from "../data/profile";
-import { SITE } from "../data/siteConfig";
-import { buildPersonJsonLd, buildWebSiteJsonLd } from "../lib/seo";
+import { PROFILES } from "../data/profile";
+import { SITE_DESCRIPTION } from "../data/siteConfig";
+import { buildPersonJsonLd, buildWebSiteJsonLd, postCopy } from "../lib/seo";
+import { formatDate, localePath, useLang, useUi } from "../lib/i18n";
 import Seo from "../lib/SeoHead";
-
-const fmt = (iso: string) =>
-  new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 
 // Drop a photo at content/portrait.(jpg|png|webp) and it appears automatically.
 // Nothing breaks while the file is absent.
@@ -19,26 +17,30 @@ const portraitModule = import.meta.glob("../content/portrait.{jpg,jpeg,png,webp,
 const portrait: string | undefined = Object.values(portraitModule)[0];
 
 const HomePage: React.FC = () => {
-  const latest = (posts ?? []).slice(0, 3);
+  const lang = useLang();
+  const t = useUi().home;
+  const PROFILE = PROFILES[lang];
+  const status = (s: string) => t.status[s] ?? s;
+  const latest = (posts ?? []).slice(0, 3).map((p) => ({ ...p, ...postCopy(p, lang) }));
 
   return (
     <div className="console">
       <Seo
         title={`${PROFILE.name} | ${PROFILE.eyebrow}`}
-        description={SITE.description}
-        path="/"
-        jsonLd={[buildPersonJsonLd(), buildWebSiteJsonLd()]}
+        description={SITE_DESCRIPTION[lang]}
+        path={localePath("/", lang)}
+        jsonLd={[buildPersonJsonLd(lang), buildWebSiteJsonLd(lang)]}
       />
       <div className="console__wrap">
         {/* ---------- HERO: status rail + main console ---------- */}
-        <section className="c-shell" aria-label="Introduction">
-          <aside className="c-rail" aria-label="Status">
+        <section className="c-shell" aria-label={t.introAria}>
+          <aside className="c-rail" aria-label={t.statusAria}>
             {portrait ? (
               <div className="c-portrait">
-                <img src={portrait} alt={`${PROFILE.name}, co-founder of Unbound Operators`} />
+                <img src={portrait} alt={t.portraitAlt} />
               </div>
             ) : null}
-            <span className="c-live">Operating</span>
+            <span className="c-live">{t.live}</span>
             {PROFILE.rail.map((s) => (
               <dl key={s.label} className="c-stat">
                 <dt>{s.label}</dt>
@@ -68,7 +70,7 @@ const HomePage: React.FC = () => {
             </div>
 
             <div className="c-acts">
-              <NavLink to={PROFILE.actions.primary.to} className="c-btn">
+              <NavLink to={localePath(PROFILE.actions.primary.to, lang)} className="c-btn">
                 {PROFILE.actions.primary.label}
               </NavLink>
               <a
@@ -81,9 +83,9 @@ const HomePage: React.FC = () => {
               </a>
             </div>
 
-            <ul className="c-tags" aria-label="Also">
-              {PROFILE.tags.map((t) => (
-                <li key={t}>{t}</li>
+            <ul className="c-tags" aria-label={t.tagsAria}>
+              {PROFILE.tags.map((tag) => (
+                <li key={tag}>{tag}</li>
               ))}
             </ul>
           </div>
@@ -112,12 +114,12 @@ const HomePage: React.FC = () => {
           <div className="c-ops">
             {PROFILE.operate.map((o) => (
               <a key={o.name} className="c-op" href={o.url} target="_blank" rel="noopener noreferrer">
-                <span className="c-op__role">Service vertical</span>
+                <span className="c-op__role">{t.serviceVertical}</span>
                 <span className="c-op__org">
                   {o.name}
                   <small>{o.note}</small>
                 </span>
-                <span className="c-op__status" data-s="Live">Live</span>
+                <span className="c-op__status" data-s="Live">{status("Live")}</span>
               </a>
             ))}
           </div>
@@ -126,8 +128,8 @@ const HomePage: React.FC = () => {
         {/* ---------- PLATFORMS ---------- */}
         <section className="c-section" aria-labelledby="platforms-title">
           <div className="c-section__head">
-            <h2 id="platforms-title" className="c-section__title">What we're launching</h2>
-            <p className="c-kicker">Product verticals, partners, and media</p>
+            <h2 id="platforms-title" className="c-section__title">{t.launchingTitle}</h2>
+            <p className="c-kicker">{t.launchingKicker}</p>
           </div>
 
           <div className="c-umbrella c-umbrella--3">
@@ -136,11 +138,11 @@ const HomePage: React.FC = () => {
                 <>
                   <span className="c-venture__meta">
                     <span className="c-op__role">{v.kind}</span>
-                    <span className="c-op__status" data-s={v.status}>{v.status}</span>
+                    <span className="c-op__status" data-s={v.status}>{status(v.status)}</span>
                   </span>
                   <span className="c-venture__name">{v.name}</span>
                   <p>{v.note}</p>
-                  {v.url ? <span className="c-venture__go">Open ↗</span> : null}
+                  {v.url ? <span className="c-venture__go">{t.open} ↗</span> : null}
                 </>
               );
               return v.url ? (
@@ -157,8 +159,8 @@ const HomePage: React.FC = () => {
         {/* ---------- ROLES ---------- */}
         <section className="c-section" aria-labelledby="ops-title">
           <div className="c-section__head">
-            <h2 id="ops-title" className="c-section__title">Where I'm active</h2>
-            <p className="c-kicker">Roles right now</p>
+            <h2 id="ops-title" className="c-section__title">{t.activeTitle}</h2>
+            <p className="c-kicker">{t.activeKicker}</p>
           </div>
 
           <div className="c-ops">
@@ -170,7 +172,7 @@ const HomePage: React.FC = () => {
                     {e.org}
                     <small>{e.note}</small>
                   </span>
-                  <span className="c-op__status" data-s={e.status}>{e.status}</span>
+                  <span className="c-op__status" data-s={e.status}>{status(e.status)}</span>
                 </>
               );
               return e.url ? (
@@ -187,8 +189,8 @@ const HomePage: React.FC = () => {
         {/* ---------- WHO ---------- */}
         <section className="c-section" aria-labelledby="who-title">
           <div className="c-section__head">
-            <h2 id="who-title" className="c-section__title">Who's this guy</h2>
-            <p className="c-kicker">Background</p>
+            <h2 id="who-title" className="c-section__title">{t.whoTitle}</h2>
+            <p className="c-kicker">{t.whoKicker}</p>
           </div>
 
           <div className="c-who">
@@ -211,19 +213,19 @@ const HomePage: React.FC = () => {
         {latest.length ? (
           <section className="c-section" aria-labelledby="writing-title">
             <div className="c-section__head">
-              <h2 id="writing-title" className="c-section__title">Writing</h2>
-              <NavLink to="/blog" className="c-section__more">All writing →</NavLink>
+              <h2 id="writing-title" className="c-section__title">{t.writingTitle}</h2>
+              <NavLink to={localePath("/blog", lang)} className="c-section__more">{t.allWriting}</NavLink>
             </div>
 
             <div className="c-posts">
               {latest.map((p) => (
-                <NavLink key={p.slug} to={`/post/${p.slug}`} className="c-post">
-                  <span className="c-post__date">{fmt(p.date)}</span>
+                <NavLink key={p.slug} to={localePath(`/post/${p.slug}`, lang)} className="c-post">
+                  <span className="c-post__date">{formatDate(p.date, lang)}</span>
                   <span className="c-post__title">
                     {p.title}
                     <small>{p.excerpt}</small>
                   </span>
-                  <span className="c-post__go">Read ↗</span>
+                  <span className="c-post__go">{t.read}</span>
                 </NavLink>
               ))}
             </div>
@@ -231,9 +233,9 @@ const HomePage: React.FC = () => {
         ) : null}
 
         {/* ---------- CONTACT ---------- */}
-        <section className="c-contact" aria-label="Get in touch">
+        <section className="c-contact" aria-label={t.contactAria}>
           <div>
-            <p className="c-kicker">Get in touch</p>
+            <p className="c-kicker">{t.contactKicker}</p>
             <a href={`mailto:${PROFILE.email}`} className="c-contact__mail">{PROFILE.email}</a>
           </div>
           <ul className="c-socials">

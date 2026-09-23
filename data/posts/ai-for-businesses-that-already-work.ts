@@ -84,6 +84,88 @@ It is closed by picking one expensive, repetitive, well understood process, and 
 
 That is a much smaller promise than the one the market is making. It is also the one that survives contact with a real business.
 `,
+  es: {
+    title: 'AI para negocios que ya funcionan',
+    excerpt:
+      'Clínicas, concesionarios, agencias y restaurantes están adoptando AI más rápido de lo que sugieren los comentaristas, y sacándole menos de lo que esperaban. La brecha no es la tecnología.',
+    metaDescription:
+      'Concesionarios, clínicas y agencias adoptaron AI más rápido de lo esperado y lograron menos de lo prometido. Qué dicen los datos y dónde está el valor real.',
+    tags: ['ai', 'operaciones', 'pymes', 'latam', 'adopción', 'crecimiento'],
+    content_md: `
+# AI para negocios que ya funcionan
+
+## Puntos clave
+- **La adopción ya no es el problema.** En varias industrias, la mayoría de las empresas ya usa AI de alguna forma.
+- **Los resultados no están a la altura de las expectativas**, y la brecha está medida, no es anecdótica.
+- **Casi nadie mide el retorno.** Por eso la decepción es difusa y no específica.
+- **El valor aterriza en la parte aburrida del medio**, en el seguimiento, la administración y los reportes, no en la demo impresionante.
+- **En América Latina la restricción no es el entusiasmo.** Los presupuestos subieron. La integración no los siguió.
+
+---
+
+La mayor parte de lo que se escribe sobre AI trata de empresas que venden software. Yo paso buena parte de mi semana con empresas que venden carros, comidas, asesoría legal, tratamientos odontológicos y piezas industriales. Negocios que ya funcionan, que ganaban dinero antes de todo esto y para los que equivocarse tiene un costo real.
+
+Los datos sobre lo que está pasando dentro de ellos por fin son lo bastante buenos como para discutirlos.
+
+## La adopción ya llegó, y de forma desigual
+
+La encuesta empresarial del US Census Bureau situó el uso de AI entre el 17 y el 20 por ciento de las empresas durante el primer semestre de 2026, pero lo interesante es la división por tamaño: 37 por ciento entre las empresas de 250 o más empleados, menos del 20 por ciento entre las de 1 a 4. El uso subió en las empresas de más de 20 empleados y no cambió de forma significativa por debajo de eso. ([US Census Bureau, mayo de 2026](https://www.census.gov/library/stories/2026/05/ai-use-businesses.html))
+
+Luego mira las encuestas por sector y los números saltan. El ochenta y dos por ciento de los concesionarios de carros dice usar AI. ([Cox Automotive, agosto de 2026](https://www.coxautoinc.com/press-releases/new-cox-automotive-ai-in-auto-retail-tracker/)) El ochenta y uno por ciento de los médicos dice conocerla o usarla, frente al 38 por ciento en 2023, con un promedio de 2.3 casos de uso cada uno. ([Encuesta de la AMA, marzo de 2026](https://ascopost.com/news/march-2026/ama-survey-finds-rapid-growth-in-physician-ai-adoption/)) El cuarenta y ocho por ciento de los negocios de oficios de servicios para el hogar la usa activamente. ([Housecall Pro, junio de 2026](https://www.housecallpro.com/resources/ai-in-the-trades/)) En servicios profesionales, el uso en toda la organización casi se duplicó hasta el 40 por ciento en un año. ([Thomson Reuters, febrero de 2026](https://www.thomsonreuters.com/en-us/posts/technology/ai-in-professional-services-report-2026/))
+
+Los restaurantes son la excepción, con 26 por ciento, y la mayor parte de eso en marketing y no en operaciones. ([National Restaurant Association vía Restaurant Dive, febrero de 2026](https://www.restaurantdive.com/news/national-restaurant-assocation-operator-artificial-intelligence-adoption/812418/))
+
+Así que la historia no es que los negocios tradicionales se nieguen a adoptar. La mayoría ya hizo algo.
+
+## La brecha de expectativas es el verdadero hallazgo
+
+El número más útil que he leído este año viene de la encuesta a concesionarios. El sesenta y nueve por ciento de los concesionarios esperaba que la AI hiciera crecer las ventas. Entre los que la usan, solo el 22 por ciento obtuvo el crecimiento en ventas que esperaba. ([Cox Automotive, agosto de 2026](https://www.coxautoinc.com/press-releases/new-cox-automotive-ai-in-auto-retail-tracker/))
+
+Eso no es una falla de la tecnología. Es una falla de la promesa.
+
+Los datos de servicios profesionales dicen lo mismo desde el lado del cliente: el 91 por ciento de los profesionales dice que su organización se queda corta frente a lo que la AI podría entregar, solo el 6 por ciento de los proveedores cumple las expectativas de AI de sus clientes, el 78 por ciento de los clientes ya considera esencial la calidad habilitada por AI y el 32 por ciento reconsideraría la relación en el plazo de un año. ([Thomson Reuters, junio de 2026](https://www.thomsonreuters.com/en/press-releases/2026/june/ai-is-ready-but-firms-are-not-how-falling-behind-on-ai-implementation-is-costing-clients-and-talent))
+
+Y debajo de ambos, el número que explica la niebla: solo el 18 por ciento de las organizaciones de servicios profesionales hace seguimiento al retorno de sus herramientas de AI, sin cambios frente al año anterior. ([Thomson Reuters, febrero de 2026](https://www.thomsonreuters.com/en-us/posts/technology/ai-in-professional-services-report-2026/))
+
+Si no lo mides, no puedes decepcionarte con precisión. Solo puedes decepcionarte en general, que es peor, porque no te dice qué arreglar.
+
+## Dónde aterriza realmente el valor
+
+Mira para qué dicen esas mismas encuestas que la gente la usa, y el patrón es consistente entre industrias que no tienen nada más en común.
+
+Concesionarios: automatizar tareas rutinarias 40 por ciento, seguimiento a clientes 40 por ciento, contenido 38 por ciento. Oficios: comunicación con clientes 52 por ciento, estimaciones y cotizaciones 51 por ciento, planeación 43 por ciento, con más de uno de cada cuatro usuarios de AI ahorrando seis o más horas de trabajo administrativo a la semana. Agentes inmobiliarios: descripciones de inmuebles, publicaciones en redes y correos, con el 68 por ciento ahorrando al menos una hora a la semana. Pequeñas empresas en general: marketing, servicio al cliente, contabilidad. ([Intuit QuickBooks, mayo de 2026](https://www.firmofthefuture.com/artificial-intelligence/ai-impact-report-2026/))
+
+Nada de eso es la demo que le mostraron a nadie. Todo eso es el medio del negocio: el seguimiento que no se hace, la cotización que se demora dos días, el reporte que alguien arma a mano el viernes.
+
+Esa es la propuesta honesta para este tipo de trabajo, y es con la que abrimos en Unbound Growth Partners. No una transformación. Una cola específica de trabajo repetitivo, eliminada, con las horas contadas antes y después.
+
+## América Latina, en concreto
+
+El panorama regional no es de falta de interés.
+
+En Colombia, el 61 por ciento de los líderes encuestados dice que la AI es una prioridad estratégica y el 71.9 por ciento aumentó su presupuesto de AI en el último año, mientras que solo el 37.7 por ciento la ha integrado de forma significativa en la operación diaria. La distribución de madurez es brutal en su honestidad: 58 por ciento explorando, 35 por ciento construyendo, 0.2 por ciento liderando. Las principales barreras son la ciberseguridad, la infraestructura, el talento y la calidad de los datos, en ese orden. ([Endeavor Colombia AI Pulse vía Colombia One, agosto de 2026](https://colombiaone.com/2026/08/31/ai-adoption-colombia/))
+
+A nivel regional, un análisis del World Economic Forum encontró que solo el 23 por ciento de las organizaciones latinoamericanas genera algún valor económico con AI, el 6 por ciento captura un valor significativo y el 59 por ciento de las pequeñas y medianas empresas no reporta ningún impacto. ([WEF con McKinsey, febrero de 2026](https://es-us.noticias.yahoo.com/6-empresas-captura-valor-alto-162416363.html))
+
+Los presupuestos subieron. La integración no. Cualquiera que haya hecho trabajo de implementación aquí sabe por qué, y rara vez es el modelo: los datos viven en WhatsApp, el proceso vive en la cabeza de una persona y el sistema de registro es una hoja de cálculo que esa persona mantiene.
+
+## Cómo llevamos realmente estos proyectos
+
+1. **Escoge una cola.** Leads entrantes sin seguimiento. Cotizaciones que se demoran dos días. Reportes de cierre de mes. Una, no cinco.
+2. **Cuéntala antes.** Volumen, horas, conversión, tiempo de respuesta. Si nadie puede producir esos números, producirlos es el primer entregable, y por lo general eso solo ya vale los honorarios.
+3. **Automatiza el medio, no los extremos.** El primer contacto y la decisión final siguen siendo humanos en la mayoría de estos negocios. La búsqueda de información, la redacción, el enrutamiento y el registro que hay en medio son donde están las horas.
+4. **Pon a una persona en las excepciones desde el primer día.** Cada uno de estos negocios tiene un caso en el que equivocarse cuesta un cliente o una licencia. Envía esos casos a un humano a propósito, no por accidente.
+5. **Reporta los mismos números cada mes.** Los del paso dos. Esta es la disciplina que separa un proyecto que se renueva de uno que se detiene sin hacer ruido.
+
+## Lo que les digo a los dueños escépticos
+
+No estás atrasado. La mayoría de tus competidores compró algo, lo usó para textos de marketing y nunca lo midió. La brecha entre tener AI y sacarle valor hoy es enorme, y no se cierra con mejores modelos.
+
+Se cierra escogiendo un proceso costoso, repetitivo y bien entendido, y haciendo el trabajo poco glamuroso de volverlo más barato, con los números para demostrarlo.
+
+Esa es una promesa mucho más pequeña que la que está haciendo el mercado. También es la que sobrevive al contacto con un negocio real.
+`,
+  },
 };
 
 export default post;

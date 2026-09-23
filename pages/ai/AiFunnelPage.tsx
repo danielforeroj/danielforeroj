@@ -1,11 +1,12 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Seo from '../../lib/SeoHead';
 import { useHeadSync } from '../../lib/ai/useHeadSync';
 import { SITE } from '../../data/siteConfig';
 import { aiApi, errorMessage } from '../../lib/ai/api';
 import { buildSteps, isAnswered, looksPersonal, evaluate, type Step } from '../../lib/ai/funnel';
-import { attribution, detectLang, prefersReducedMotion, pushEvent, rememberLang, sessionId , useHtmlLang } from '../../lib/ai/context';
+import { attribution, prefersReducedMotion, pushEvent, sessionId, useLegacyLangParam } from '../../lib/ai/context';
+import { altHref, localePath, useLang } from '../../lib/i18n';
 import { copyFor } from '../../lib/ai/copy';
 import { CodeStep, pick } from '../../components/ai/CodeStep';
 import type { Answers, Contact, ContactField, Earned, FunnelConfig, FunnelQuestion, Lang } from '../../lib/ai/types';
@@ -25,7 +26,12 @@ const isTypingTarget = (el: EventTarget | null) =>
 
 const AiFunnelPage: React.FC = () => {
   const navigate = useNavigate();
-  const [lang, setLang] = React.useState<Lang>('es');
+  // The URL is the language: /ai is Spanish, /en/ai English. Switching is a
+  // navigation between the two, and because both routes render this component
+  // in the same place, the answers given so far survive it.
+  const lang = useLang();
+  const location = useLocation();
+  useLegacyLangParam();
   const [config, setConfig] = React.useState<FunnelConfig | null>(null);
   const [loadError, setLoadError] = React.useState(false);
   const [raw, setRaw] = React.useState<Answers>({});
@@ -44,7 +50,6 @@ const AiFunnelPage: React.FC = () => {
   const panelRef = React.useRef<HTMLDivElement>(null);
 
   const copy = copyFor(lang);
-  useHtmlLang(lang);
 
   const load = React.useCallback(async () => {
     setLoadError(false);
@@ -54,11 +59,11 @@ const AiFunnelPage: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    const l = detectLang();
-    setLang(l);
     attribution();
     load();
-    aiApi.me(l).then((r) => setSignedIn(r.ok));
+    aiApi.me(lang).then((r) => setSignedIn(r.ok));
+    // Once per visit to the funnel, not once per language.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [load]);
 
   const { steps, answers } = React.useMemo(
@@ -168,11 +173,7 @@ const AiFunnelPage: React.FC = () => {
     return () => window.removeEventListener('keydown', onKey);
   });
 
-  const switchLang = () => {
-    const next: Lang = lang === 'es' ? 'en' : 'es';
-    setLang(next);
-    rememberLang(next);
-  };
+  const switchHref = altHref(location.pathname, location.search, location.hash);
 
   // One request per pause in answering, not one per keystroke of the flow. A failure
   // leaves the last known count on screen: this is decoration over the real thing.
@@ -282,7 +283,7 @@ const AiFunnelPage: React.FC = () => {
   if (!config || !current) {
     return (
       <section className="aif" aria-busy={!loadError}>
-        <Seo title={`${copy.seoTitle} | ${SITE.name}`} description={copy.seoBody} path="/ai" htmlLang={lang} />
+        <Seo title={`${copy.seoTitle} | ${SITE.name}`} description={copy.seoBody} path={localePath('/ai', lang)} />
         <div className="aif-panel">
           <p className="aif-kicker">danielforeroj / ai</p>
           {/* The first paint and what a crawler reads: the flow itself only
@@ -310,7 +311,7 @@ const AiFunnelPage: React.FC = () => {
 
   return (
     <section className="aif">
-      <Seo title={`${copy.seoTitle} | ${SITE.name}`} description={copy.seoBody} path="/ai" htmlLang={lang} />
+      <Seo title={`${copy.seoTitle} | ${SITE.name}`} description={copy.seoBody} path={localePath('/ai', lang)} />
 
       <div className="aif-top">
         <div
@@ -337,9 +338,9 @@ const AiFunnelPage: React.FC = () => {
                 {copy.earned(earned.count)}
               </span>
             ) : null}
-            <button type="button" className="aif-link" onClick={switchLang} lang={lang === 'es' ? 'en' : 'es'}>
+            <Link to={switchHref} replace className="aif-link" lang={lang === 'es' ? 'en' : 'es'} hrefLang={lang === 'es' ? 'en' : 'es'}>
               {copy.langSwitch}
-            </button>
+            </Link>
           </span>
         </div>
       </div>
@@ -365,7 +366,7 @@ const AiFunnelPage: React.FC = () => {
             </div>
             {signedIn && index === 0 ? (
               <p className="aif-meta">
-                <NavLink to="/ai/recursos" className="aif-link">
+                <NavLink to={localePath('/ai/recursos', lang)} className="aif-link">
                   {copy.backToLibrary} →
                 </NavLink>
               </p>
@@ -473,7 +474,11 @@ const AiFunnelPage: React.FC = () => {
             onVerified={() => {
               pushEvent({ event: 'ai_funnel_verified', lang });
               goTo('result');
-              window.setTimeout(() => navigate(`${config.screens.result.redirect}?lang=${lang}`), prefersReducedMotion() ? 400 : 1200);
+              // The redirect the API names is the Spanish, unprefixed path; the
+              // library is opened in the language the visitor was reading.
+              const redirect = config.screens.result.redirect;
+              const target = redirect.startsWith('/') ? localePath(redirect.split('?')[0], lang) : redirect;
+              window.setTimeout(() => navigate(target), prefersReducedMotion() ? 400 : 1200);
             }}
           />
         ) : null}

@@ -2,36 +2,23 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { posts as allPosts } from '../data/mockData';
 import { PostType } from '../types';
-import { buildBlogCollectionJsonLd, buildBreadcrumbListJsonLd } from '../lib/seo';
+import { buildBlogCollectionJsonLd, buildBreadcrumbListJsonLd, postCopy } from '../lib/seo';
 import { SITE } from '../data/siteConfig';
+import { formatDate, localePath, useLang, useUi } from '../lib/i18n';
 import Seo from '../lib/SeoHead';
 
 interface PostListPageProps {
   type: PostType;
-  title: string;
 }
 
-// On-page standfirsts. Rendered under the h1; not used as meta.
-const descriptions: Record<string, string> = {
-  Blog: 'Narrative, operating notes, and field-tested GTM thinking for AI and Web3 teams.',
-  Research: 'Frameworks, experiments, and market notes for teams building in emerging categories.',
-  Downloads: 'Templates, checklists, and practical artifacts built to move work forward.',
-};
+// Section titles, standfirsts and search-surface descriptions live in
+// lib/i18n.ts under `list`, keyed by post type, in both languages.
 
-// Search-surface descriptions, 120-158 characters. Each is the standfirst above
-// plus one clause naming the author and the sectors, both of which the page and
-// data/profile.ts already state. The strings these replaced ran 61-63
-// characters, which reads as a stub to a crawler and gives an answer engine
-// almost nothing to quote.
-const metaDescriptions: Record<string, string> = {
-  Blog: 'Narrative, operating notes, and field-tested GTM thinking for AI and Web3 teams. Every blog post by Daniel Forero, newest first.',
-  Research:
-    'Frameworks, experiments, and market notes for teams building in emerging categories. Daniel Forero on AI, Web3, quantum, and fintech.',
-  Downloads:
-    "Templates, checklists, and practical artifacts built to move work forward. Downloads from Daniel Forero's operator and GTM library.",
-};
+const PostListPage: React.FC<PostListPageProps> = ({ type }) => {
+  const lang = useLang();
+  const t = useUi();
+  const title = t.list.titles[type];
 
-const PostListPage: React.FC<PostListPageProps> = ({ type, title }) => {
   const filteredPosts = React.useMemo(
     () =>
       allPosts
@@ -40,54 +27,55 @@ const PostListPage: React.FC<PostListPageProps> = ({ type, title }) => {
     [type],
   );
 
-  const sectionPath =
+  const sectionBase =
     type === PostType.RESEARCH ? '/research' : type === PostType.LEAD_MAGNET ? '/leads' : '/blog';
+  const sectionPath = localePath(sectionBase, lang);
   const canonicalUrl = `${SITE.url}${sectionPath}`;
-  const tags = filteredPosts.flatMap((post) => post.tags ?? []);
-  const metaDescription = metaDescriptions[title] ?? metaDescriptions.Blog;
+  const tags = filteredPosts.flatMap((post) => postCopy(post, lang).tags ?? []);
 
   return (
     <div className="page">
       <Seo
         title={`${title} | ${SITE.name}`}
-        description={metaDescription}
+        description={t.list.meta[type]}
         path={sectionPath}
         keywords={[...new Set(tags)]}
         jsonLd={[
-          buildBlogCollectionJsonLd(filteredPosts, title, canonicalUrl),
+          buildBlogCollectionJsonLd(filteredPosts, title, canonicalUrl, lang, t.list.collectionIndex(title)),
           buildBreadcrumbListJsonLd([
-            { name: 'Home', url: SITE.homeUrl },
+            { name: t.crumbs.home, url: `${SITE.url}${localePath('/', lang)}` },
             { name: title, url: canonicalUrl },
           ]),
         ]}
       />
       <header className="page-header">
-        <p className="section-kicker">Library</p>
+        <p className="section-kicker">{t.list.kicker}</p>
         <h1 className="page-title">{title}</h1>
-        <p className="article-excerpt">{descriptions[title] ?? descriptions.Blog}</p>
+        <p className="article-excerpt">{t.list.standfirst[type]}</p>
       </header>
 
       {filteredPosts.length > 0 ? (
         <div className="post-grid">
-          {filteredPosts.map(post => (
-            <NavLink to={`/post/${post.slug}`} key={post.slug} className="post-card">
-              <div className="post-card__meta">
-                {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-              </div>
-              <h2>{post.title}</h2>
-              <p>{post.excerpt}</p>
-              <div className="post-card__tags">
-                {post.type === PostType.LEAD_MAGNET ? <span className="chip">Download</span> : null}
-                {post.tags?.slice(0, 4).map(tag => (
-                  <span key={tag} className="chip">{tag}</span>
-                ))}
-              </div>
-              <span className="post-card__arrow" aria-hidden="true">Read</span>
-            </NavLink>
-          ))}
+          {filteredPosts.map(post => {
+            const copy = postCopy(post, lang);
+            return (
+              <NavLink to={localePath(`/post/${post.slug}`, lang)} key={post.slug} className="post-card">
+                <div className="post-card__meta">{formatDate(post.date, lang)}</div>
+                <h2>{copy.title}</h2>
+                <p>{copy.excerpt}</p>
+                <div className="post-card__tags">
+                  {post.type === PostType.LEAD_MAGNET ? <span className="chip">{t.list.download}</span> : null}
+                  {copy.tags?.slice(0, 4).map(tag => (
+                    <span key={tag} className="chip">{tag}</span>
+                  ))}
+                </div>
+                <span className="post-card__arrow" aria-hidden="true">{t.list.read}</span>
+              </NavLink>
+            );
+          })}
         </div>
       ) : (
-        <p className="empty-state">No posts found in this category.</p>
+        <p className="empty-state">{t.list.empty}</p>
       )}
     </div>
   );

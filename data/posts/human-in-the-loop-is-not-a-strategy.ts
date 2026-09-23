@@ -93,6 +93,97 @@ Human in the loop is not a strategy unless you can name who, what they review, h
 
 And if the honest answer is that nobody can review this at the volume it runs, then the correct response is not to add an approval screen. It is to write the policy that decides the routine cases without a person, so the person is only spending attention where it changes the outcome.
 `,
+  es: {
+    title: 'Human in the loop no es una estrategia',
+    excerpt:
+      'Poner a un humano en el loop es la respuesta que da todo ejecutivo y que casi nadie diseña. Las tasas de aprobación medidas dicen lo que de verdad pasa: la gente hace clic en sí.',
+    metaDescription:
+      'Poner a un humano en el loop es la respuesta que nadie diseña. Qué dicen los datos sobre aprobar sin revisar y cómo diseñar supervisión que sí detecte fallas.',
+    tags: ['ai', 'agentes', 'gobernanza', 'supervisión-humana', 'cumplimiento', 'operaciones'],
+    content_md: `
+# Human in the loop no es una estrategia
+
+## Puntos clave
+- **Aprobar no es revisar.** Las tasas de aprobación medidas están por encima del 90 por ciento, y la atención decae dentro de una misma sesión.
+- **Una persona que lo aprueba todo quedó convertida en un escudo contra la responsabilidad.**
+- **La supervisión solo funciona cuando es poco frecuente, contextual y con rendición de cuentas.** El volumen es el enemigo.
+- **Los reguladores están a punto de exigirla en Europa**, lo que va a producir una ola de supervisión que existe en el papel.
+- **Diseña la escalación, no la casilla de verificación.** Quién, qué tan rápido, con qué contexto y qué pasa cuando no está disponible.
+
+---
+
+Toda conversación sobre el riesgo de la AI termina con la misma frase. Vamos a mantener a un humano en el loop.
+
+Suena a un control. La mayoría de las veces es una frase que permite terminar una reunión.
+
+He hecho las preguntas de seguimiento en suficientes salas como para saber cómo va. ¿Qué humano? ¿Revisando exactamente qué? ¿Con qué información enfrente? ¿Cuántas de estas por día? ¿Cuál es su tiempo de respuesta? ¿Qué pasa a las dos de la mañana? ¿Qué pasa cuando está de vacaciones? ¿Qué pasa cuando no está de acuerdo con el agente?
+
+Las respuestas se acaban rápido, normalmente en la segunda pregunta.
+
+## La versión medida de lo que de verdad pasa
+
+Esto ya no es cuestión de opinión. Hay datos, y son incómodos.
+
+Anthropic publicó cifras de uso de su agente de programación que muestran que los desarrolladores aprueban alrededor del 93 por ciento de las solicitudes de permiso. ([Anthropic, marzo de 2026](https://anthropic.com/engineering/claude-code-auto-mode))
+
+Noventa y tres por ciento. Son usuarios técnicos, revisando acciones en su propio entorno, en un sistema que eligieron, con el contexto justo enfrente. Ese es el mejor escenario para la revisión humana y ya está cerca de ser una formalidad.
+
+La atención también decae dentro de una misma sesión. El trabajo de Anthropic para medir la autonomía de los agentes encontró que los usuarios nuevos activan la aprobación automática total en alrededor del 20 por ciento de las sesiones, mientras que los usuarios con experiencia lo hacen en más del 40 por ciento, y que cerca del 0.8 por ciento de las acciones de los agentes son irreversibles. ([Anthropic, febrero de 2026](https://www.anthropic.com/research/measuring-agent-autonomy))
+
+De ahí salen dos cosas. Primero, las personas más cercanas al sistema confían más en él con el tiempo, lo cual es racional y también es el mecanismo por el que la supervisión desaparece sin hacer ruido. Segundo, una pequeña fracción de las acciones no se puede deshacer, que es justo donde la revisión vale algo y justo donde es menos probable que se aplique, porque esas acciones se ven como todas las demás en la cola.
+
+Voy a nombrar la salvedad obvia: un proveedor de modelos tiene un interés comercial en la conclusión de que la aprobación humana es puro teatro. Tenlo en cuenta al leerlo. Pero la dirección coincide con lo que ya sabe cualquiera que haya visto una cola de aprobaciones.
+
+## Supervisión obligatoria no significa supervisión real
+
+Si quieres evidencia de que un requisito legal no es un control, mira lo que pasó con la ley de la ciudad de Nueva York sobre algoritmos de contratación.
+
+Unos investigadores revisaron 391 empleadores sujetos a ella. Dieciocho habían publicado el informe de auditoría exigido. Trece habían publicado el aviso de transparencia exigido. Eso es 4.6 por ciento y 3.3 por ciento, con la aplicación de la ley ya vigente. ([FAccT 2024](https://arxiv.org/abs/2406.01399))
+
+La ley existía. La supervisión no.
+
+Ahora piensa en lo que está a punto de pasar en Europa. Las obligaciones de alto riesgo del AI Act, incluido el artículo 14 sobre supervisión humana, aplican desde el 2 de agosto de 2026. El texto exige que los sistemas se diseñen de forma que puedan ser supervisados eficazmente por personas físicas, y exige que esas personas tengan la competencia, la formación y la autoridad para intervenir. ([EU AI Act, artículo 14](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32024R1689))
+
+Competencia, formación y autoridad. Lee eso frente a una tasa de aprobación del 93 por ciento y puedes predecir los próximos dos años: una gran cantidad de supervisión documentada que no supervisa nada, y una cantidad menor de trabajo de diseño real por parte de equipos que se lo tomaron en serio.
+
+El mismo patrón está llegando a Estados Unidos por otra vía. Colorado derogó y volvió a promulgar su ley de AI en mayo de 2026, con obligaciones que empiezan en enero de 2027 y el derecho de un consumidor a solicitar una revisión humana significativa y la reconsideración de una decisión trascendental. ([Colorado SB 26-189](https://leg.colorado.gov/bills/sb26-189)) Significativa está cargando con mucho peso en esa frase, y eso se va a litigar.
+
+## Por qué el volumen destruye la supervisión
+
+El mecanismo es simple y no tiene que ver con gente perezosa.
+
+Si un revisor ve cincuenta solicitudes por hora y 49 están bien, la estrategia racional es aprobar rápido. El costo de examinarlo todo es real e inmediato. El costo de que se te escape algo es poco frecuente y diferido. Cualquier sistema que produzca solicitudes de aprobación de alto volumen y baja varianza va a entrenar a sus revisores para aprobar en automático, y entre mejor sea el agente, más rápido pasa eso.
+
+Lo que lleva a la regla de diseño contraintuitiva: **menos aprobaciones producen mejor supervisión.**
+
+Si quieres que una decisión humana signifique algo, tiene que ser lo bastante poco frecuente como para merecer atención, y tiene que llegar con suficiente contexto como para que pensar sea posible.
+
+## Cómo diseñarla para que no sea teatro
+
+1. **Filtra por consecuencia, no por categoría.** No revises cada mensaje. Revisa cada reembolso por encima de un umbral, cada cambio de credenciales, cada eliminación, cada primer contacto con un cliente regulado. La mayoría de las acciones nunca debería llegar a una persona.
+2. **Haz que la retención sea un estado real.** Permitir, retener, denegar. Una retención tiene un responsable, un plazo y un valor por defecto. Si nadie responde dentro de la ventana, la acción no se ejecuta. Un timeout que aprueba en silencio no es supervisión, es un retraso.
+3. **Dale al revisor la evidencia, no la solicitud.** Qué propone el agente, por qué, qué leyó, qué dejó por fuera, de qué no está seguro y qué pasa si se equivoca. Si la pantalla solo muestra una acción y dos botones, construiste una lotería.
+4. **Nombra a la persona, no al equipo.** Las colas que son de todos no son de nadie. Asigna, con un suplente, con horario.
+5. **Mide a los revisores.** Tasa de aprobación, tiempo invertido y qué tan seguido la revisión cambió el resultado. Si una cola corre al 99 por ciento de aprobación, o el filtro está mal configurado o la revisión no está ocurriendo. Ambas cosas son hallazgos.
+6. **Deja que digan que no sin fricción.** Si rechazar implica escribir una justificación y defenderla en una reunión, le pusiste al rechazo un precio que lo saca del mercado.
+
+## Human in the loop frente a human on the loop
+
+Son distintos y la diferencia importa cuando escribes una política.
+
+**In the loop** significa que la acción espera a una persona. Es lo correcto para acciones irreversibles, de alto valor y bajo volumen. Cuesta latencia y consume atención, así que gástala a propósito.
+
+**On the loop** significa que la acción sigue adelante y una persona monitorea, toma muestras y puede detener el sistema. Es lo correcto para acciones reversibles y de alto volumen donde esperar rompería el flujo de trabajo. Requiere algo que la gente rara vez construye: un botón de parada real, que alguien esté autorizado a presionar, sin una reunión.
+
+La mayoría de las organizaciones dice hacer lo primero y opera lo segundo. La brecha entre lo que se dice y lo que se opera es donde ocurre el incidente.
+
+## Lo que voy a seguir repitiendo
+
+Human in the loop no es una estrategia a menos que puedas decir quién, qué revisa, qué tan rápido responde y qué pasa cuando no está disponible. Mientras esas cuatro respuestas no existan, la frase no es una salvaguarda, es una asignación de culpa que todavía no ha ocurrido.
+
+Y si la respuesta honesta es que nadie puede revisar esto al volumen al que corre, entonces la respuesta correcta no es agregar una pantalla de aprobación. Es escribir la política que decide los casos rutinarios sin una persona, para que la persona solo gaste atención donde cambia el resultado.
+`,
+  },
 };
 
 export default post;

@@ -193,6 +193,47 @@ body::after {
   border-color: var(--gold);
 }
 
+/* The nav stays on the right, where it was before the language switch joined it. */
+.site-nav {
+  margin-left: auto;
+}
+
+.site-header__end {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+/* EN / ES. Same type as the nav, the current language reads as selected. */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+}
+
+.lang-switch__item {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  padding: 8px 9px;
+  line-height: 1;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+a.lang-switch__item:hover,
+a.lang-switch__item:focus-visible {
+  color: var(--ivory);
+}
+
+.lang-switch__item--active {
+  color: var(--ivory);
+  background: rgba(233, 222, 205, 0.08);
+}
+
 .menu-button {
   display: none;
   border: 1px solid var(--line);

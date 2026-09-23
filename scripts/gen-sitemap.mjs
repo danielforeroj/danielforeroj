@@ -91,20 +91,48 @@ const pages = (
 ).filter(Boolean)
 
 // Homepage first, then alphabetical, so the file is stable across builds.
+// Both languages are listed; the Spanish pages sort under /es, the English
+// funnel under /en.
 pages.sort((a, b) =>
   a.route === '/' ? -1 : b.route === '/' ? 1 : a.route.localeCompare(b.route),
 )
 
 const lastmod = new Date().toISOString().slice(0, 10)
 
+// Every page exists in English and Spanish (lib/i18n.ts). The unprefixed URL is
+// the page's native language: English for the site, Spanish for /ai. The twin
+// lives under /es or /en. Each <url> names both, plus x-default, the unprefixed
+// one, the same set lib/SeoHead writes into the page's own <head>.
+const PREFIX = /^\/(en|es)(?=\/|$)/
+const isAi = (base) => base === '/ai' || base.startsWith('/ai/')
+const nativeLang = (base) => (isAi(base) ? 'es' : 'en')
+const basePath = (route) => route.replace(PREFIX, '') || '/'
+const localePath = (base, lang) =>
+  lang === nativeLang(base) ? base : `/${lang}${base === '/' ? '' : base}`
+const built = new Set(pages.map((p) => p.route))
+const alternates = (route) => {
+  const base = basePath(route)
+  const links = ['en', 'es']
+    .map((l) => [l, localePath(base, l)])
+    .filter(([, r]) => built.has(r))
+  if (links.length < 2) return ''
+  return (
+    links
+      .map(([l, r]) => `<xhtml:link rel="alternate" hreflang="${l}" href="${ORIGIN}${r}"/>`)
+      .join('') +
+    `<xhtml:link rel="alternate" hreflang="x-default" href="${ORIGIN}${localePath(base, nativeLang(base))}"/>`
+  )
+}
+const isHome = (route) => route === '/' || route === '/es'
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${pages
   .map(
     (p) =>
-      `  <url><loc>${ORIGIN}${p.route === '/' ? '/' : p.route}</loc><lastmod>${lastmod}</lastmod><changefreq>${
-        p.route === '/' ? 'weekly' : 'monthly'
-      }</changefreq><priority>${p.route === '/' ? '1.0' : '0.7'}</priority></url>`,
+      `  <url><loc>${ORIGIN}${p.route === '/' ? '/' : p.route}</loc>${alternates(p.route)}<lastmod>${lastmod}</lastmod><changefreq>${
+        isHome(p.route) ? 'weekly' : 'monthly'
+      }</changefreq><priority>${isHome(p.route) ? '1.0' : '0.7'}</priority></url>`,
   )
   .join('\n')}
 </urlset>
@@ -119,7 +147,9 @@ const llms = `# Daniel Forero
 > hosts the AI and frontier technology vertical of the Anotelo podcast, and is a
 > GTM mentor at Outlier Ventures. He occasionally angel invests.
 
-This file lists every page on danielforeroj.com with a short description.
+This file lists every page on danielforeroj.com with a short description. Every
+page is published in English and Spanish: the Spanish versions of the site live
+under /es, the English version of the /ai guide under /en/ai.
 
 ## Pages
 

@@ -1,10 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import Seo from '../../lib/SeoHead';
 import { useHeadSync } from '../../lib/ai/useHeadSync';
 import { SITE } from '../../data/siteConfig';
 import { aiApi, errorMessage } from '../../lib/ai/api';
-import { detectLang, rememberLang , useHtmlLang } from '../../lib/ai/context';
+import { useLegacyLangParam } from '../../lib/ai/context';
+import { altHref, localePath, useLang } from '../../lib/i18n';
 import { copyFor, resourceTypeLabel } from '../../lib/ai/copy';
 import { CodeStep } from '../../components/ai/CodeStep';
 import type { Lang, Me, Offer } from '../../lib/ai/types';
@@ -17,10 +18,12 @@ type View =
   | { kind: 'error' };
 
 const AiLibraryPage: React.FC = () => {
-  const [lang, setLang] = React.useState<Lang>('es');
+  // The URL is the language: /ai/recursos is Spanish, /en/ai/recursos English.
+  const lang = useLang();
+  const location = useLocation();
+  useLegacyLangParam();
   const [view, setView] = React.useState<View>({ kind: 'loading' });
   const copy = copyFor(lang);
-  useHtmlLang(lang);
 
   // The page language is always sent, so offers and resource cards come back in
   // the language the visitor is reading, not the one stored on the lead.
@@ -31,30 +34,33 @@ const AiLibraryPage: React.FC = () => {
     else setView(r.status === 401 ? { kind: 'login' } : { kind: 'error' });
   }, []);
 
+  // On a language switch the library already on screen stays while the offers
+  // and cards are fetched again in the new language.
+  const shown = React.useRef(false);
   React.useEffect(() => {
-    const l = detectLang();
-    setLang(l);
-    load(l);
-  }, [load]);
-
-  const switchLang = () => {
-    const next: Lang = lang === 'es' ? 'en' : 'es';
-    setLang(next);
-    rememberLang(next);
-    if (view.kind === 'library') load(next, true);
-  };
+    load(lang, shown.current);
+  }, [load, lang]);
+  React.useEffect(() => {
+    if (view.kind === 'library') shown.current = true;
+  }, [view.kind]);
 
   useHeadSync(`${copy.libraryKicker} | ${SITE.name}`, copy.loginBody);
   return (
     <section className="aif aif--page">
-      <Seo title={`${copy.libraryKicker} | ${SITE.name}`} description={copy.loginBody} path="/ai/recursos" noIndex htmlLang={lang} />
+      <Seo title={`${copy.libraryKicker} | ${SITE.name}`} description={copy.loginBody} path={localePath('/ai/recursos', lang)} noIndex />
 
       <div className="aif-bar aif-bar--page">
         <span className="aif-kicker">{copy.libraryKicker}</span>
         <span className="aif-bar__end">
-          <button type="button" className="aif-link" onClick={switchLang} lang={lang === 'es' ? 'en' : 'es'}>
+          <Link
+            to={altHref(location.pathname, location.search, location.hash)}
+            replace
+            className="aif-link"
+            lang={lang === 'es' ? 'en' : 'es'}
+            hrefLang={lang === 'es' ? 'en' : 'es'}
+          >
             {copy.langSwitch}
-          </button>
+          </Link>
           {view.kind === 'library' ? (
             <button
               type="button"
@@ -168,7 +174,7 @@ function LoginForm({ lang, onSent }: { lang: Lang; onSent: (email: string) => vo
         </div>
         <p className="aif-meta">
           {copy.noAccessYet}{' '}
-          <NavLink to={`/ai?lang=${lang}`} className="aif-link">
+          <NavLink to={localePath('/ai', lang)} className="aif-link">
             {copy.startFunnel} →
           </NavLink>
         </p>
@@ -214,7 +220,7 @@ function Library({ me, lang }: { me: Me; lang: Lang }) {
         <ul className="aif-resources">
           {me.resources.map((r) => (
             <li key={r.key}>
-              <NavLink to={`/ai/recursos/${encodeURIComponent(r.key)}?lang=${lang}`} className="aif-resource">
+              <NavLink to={localePath(`/ai/recursos/${encodeURIComponent(r.key)}`, lang)} className="aif-resource">
                 <span className="aif-resource__type">{resourceTypeLabel(r.type, lang)}</span>
                 <span className="aif-resource__title">
                   {r.title}

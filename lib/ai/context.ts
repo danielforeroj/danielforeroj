@@ -4,6 +4,8 @@
 // missing or throw, and the flow has to work anyway.
 
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { basePath, langOfPath, localePath } from '../i18n';
 import type { Lang, Utm } from './types';
 
 const isBrowser = typeof window !== 'undefined';
@@ -32,23 +34,25 @@ export function writeStore(key: string, value: string, kind: 'session' | 'local'
   }
 }
 
-const LANG_KEY = 'dfj_ai_lang';
-
-/** `?lang=es|en`, then a language chosen earlier in this visit, then navigator.language, default es. */
-export function detectLang(): Lang {
-  if (!isBrowser) return 'es';
-  const q = new URLSearchParams(window.location.search).get('lang');
-  if (q === 'es' || q === 'en') {
-    writeStore(LANG_KEY, q);
-    return q;
-  }
-  const saved = readStore(LANG_KEY);
-  if (saved === 'es' || saved === 'en') return saved;
-  return (navigator.language || '').toLowerCase().startsWith('en') ? 'en' : 'es';
-}
-
-export function rememberLang(lang: Lang) {
-  writeStore(LANG_KEY, lang);
+/**
+ * Links posted before the funnel had an English URL carry ?lang=en or ?lang=es.
+ * The language is the URL now (/ai is Spanish, /en/ai English), so such a link
+ * is moved to the URL it means, with every other parameter (r, utm_*) kept.
+ * A ?lang= that already matches the page is left alone.
+ */
+export function useLegacyLangParam() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const wanted = params.get('lang');
+    if ((wanted !== 'es' && wanted !== 'en') || wanted === langOfPath(location.pathname)) return;
+    params.delete('lang');
+    const query = params.toString();
+    navigate(`${localePath(basePath(location.pathname), wanted)}${query ? `?${query}` : ''}${location.hash}`, {
+      replace: true,
+    });
+  }, [location, navigate]);
 }
 
 const SESSION_KEY = 'dfj_ai_session';
@@ -123,21 +127,14 @@ export function pushEvent(e: DataLayerEvent) {
   w.dataLayer.push(e);
 }
 
-/** The rest of the site is written in English, so that is what lang returns to. */
-const SITE_LANG = 'en';
-
 /**
- * Keeps <html lang> on the language being read. The Head element sets it in the
- * prerendered HTML but never updates it on the client, so a visitor switching to
- * English kept lang="es" and a screen reader kept the Spanish voice. Leaving the
- * funnel restores the site's own language.
+ * Keeps <html lang> on the language being read. Layout already sets it from the
+ * URL on every navigation; this is for the reader, where a resource can be in a
+ * different language from the page around it.
  */
 export function useHtmlLang(lang: Lang) {
   React.useEffect(() => {
     document.documentElement.lang = lang;
-    return () => {
-      document.documentElement.lang = SITE_LANG;
-    };
   }, [lang]);
 }
 

@@ -3,6 +3,7 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/api/ai/:path*", "destination": "https://unboundoperators.app/api/ai/:path*" },
-    { "source": "/ai/recursos/:key", "destination": "/ai/recursos/_" }
+    { "source": "/ai/recursos/:key", "destination": "/ai/recursos/_" },
+    { "source": "/en/ai/recursos/:key", "destination": "/en/ai/recursos/_" }
   ]
 }

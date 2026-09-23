@@ -3,7 +3,8 @@ import { useParams, NavLink } from 'react-router-dom';
 import { posts } from '../data/mockData';
 import Button from '../components/Button';
 import { SITE } from '../data/siteConfig';
-import { buildBlogPostingJsonLd, buildBreadcrumbListJsonLd } from '../lib/seo';
+import { buildBlogPostingJsonLd, buildBreadcrumbListJsonLd, postCopy } from '../lib/seo';
+import { formatDate, localePath, useLang, useUi } from '../lib/i18n';
 import Seo from '../lib/SeoHead';
 import NotFoundPage from './NotFoundPage';
 
@@ -176,57 +177,62 @@ const markdownToHtml = (markdown: string) => {
 
 const PostDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const lang = useLang();
+  const t = useUi();
   const post = posts.find(p => p.slug === slug);
+  const copy = post ? postCopy(post, lang) : null;
 
   const htmlContent = React.useMemo(() => {
-    if (!post) return '';
-    return markdownToHtml(normalizePostMarkdown(post.content_md, post.title));
-  }, [post]);
+    if (!copy) return '';
+    return markdownToHtml(normalizePostMarkdown(copy.content_md, copy.title));
+  }, [copy]);
 
-  if (!post) {
+  if (!post || !copy) {
     return (
       <NotFoundPage
-        title={`Post not found | ${SITE.name}`}
-        kicker="Missing"
-        heading="Post not found"
-        body="The post you are looking for does not exist."
-        path="/post"
+        title={`${t.post.notFoundTitle} | ${SITE.name}`}
+        kicker={t.post.notFoundKicker}
+        heading={t.post.notFoundTitle}
+        body={t.post.notFoundBody}
+        path={localePath('/post', lang)}
       />
     );
   }
 
-  const canonicalUrl = `${SITE.url}/post/${post.slug}`;
+  const postPath = localePath(`/post/${post.slug}`, lang);
+  const canonicalUrl = `${SITE.url}${postPath}`;
+  const blogTitle = t.list.titles[post.type];
 
   return (
     <article className="article">
       <Seo
-        title={`${post.title} | ${SITE.name}`}
+        title={`${copy.title} | ${SITE.name}`}
         // metaDescription is the length-constrained twin of the excerpt. The
         // excerpt still renders below, unchanged; only the head-level string
         // changes, because that is the one with a 158-character ceiling.
-        description={post.metaDescription ?? post.excerpt}
-        path={`/post/${post.slug}`}
+        description={copy.metaDescription ?? copy.excerpt}
+        path={postPath}
         ogType="article"
-        keywords={post.tags}
+        keywords={copy.tags}
         jsonLd={[
-          buildBlogPostingJsonLd(post),
+          buildBlogPostingJsonLd(post, lang, blogTitle),
           buildBreadcrumbListJsonLd([
-            { name: 'Home', url: SITE.homeUrl },
-            { name: 'Blog', url: `${SITE.url}/blog` },
-            { name: post.title, url: canonicalUrl },
+            { name: t.crumbs.home, url: `${SITE.url}${localePath('/', lang)}` },
+            { name: t.crumbs.blog, url: `${SITE.url}${localePath('/blog', lang)}` },
+            { name: copy.title, url: canonicalUrl },
           ]),
         ]}
       />
       <header className="article-header">
-        <NavLink to="/blog" className="chip">Back to library</NavLink>
-        <h1 className="article-title">{post.title}</h1>
-        <p className="article-excerpt">{post.excerpt}</p>
+        <NavLink to={localePath('/blog', lang)} className="chip">{t.post.back}</NavLink>
+        <h1 className="article-title">{copy.title}</h1>
+        <p className="article-excerpt">{copy.excerpt}</p>
         <p className="article-date">
-          Published {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          {t.post.published} {formatDate(post.date, lang, 'long')}
         </p>
-        {post.tags?.length ? (
+        {copy.tags?.length ? (
           <div className="chips" style={{ marginTop: 18 }}>
-            {post.tags.slice(0, 6).map((tag) => (
+            {copy.tags.slice(0, 6).map((tag) => (
               <span key={tag} className="chip">{tag}</span>
             ))}
           </div>
@@ -238,7 +244,7 @@ const PostDetailPage: React.FC = () => {
       {post.lead_magnet?.file && (
         <div className="button-row" style={{ marginTop: 48 }}>
           <Button href={post.lead_magnet.file} as="a" variant="cta1" icon="Download" download>
-            {post.lead_magnet.cta || 'Download'}
+            {post.lead_magnet.cta || t.post.download}
           </Button>
         </div>
       )}

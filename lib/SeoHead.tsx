@@ -1,6 +1,7 @@
 import React from 'react';
 import { Head } from 'vite-react-ssg';
 import { SITE } from '../data/siteConfig';
+import { LANGS, LOCALE, OG_LOCALE, basePath, langOfPath, localePath, nativeLang } from './i18n';
 
 type JsonLd = Record<string, unknown>;
 
@@ -8,14 +9,17 @@ type SeoProps = {
   /** Full <title> text, already including any site-name suffix. */
   title: string;
   description: string;
-  /** Route path beginning with "/". Drives canonical and og:url. */
+  /**
+   * Route path beginning with "/", as it appears in this language ("/es/blog",
+   * "/en/ai"). Drives canonical, og:url, <html lang> and the hreflang pair.
+   */
   path: string;
   ogType?: 'website' | 'article';
   ogImage?: string;
   keywords?: string[];
   noIndex?: boolean;
   jsonLd?: JsonLd[];
-  /** Overrides <html lang> for a page whose content is not in the site's default language. */
+  /** Overrides <html lang>, which otherwise follows the language of `path`. */
   htmlLang?: string;
 };
 
@@ -46,6 +50,14 @@ export const Seo: React.FC<SeoProps> = ({
   const url = `${SITE.url}${path}`;
   const image = ogImage ?? SITE.defaultOgImage;
 
+  // Every page exists in both languages, so every page names both, plus the
+  // unprefixed URL as x-default: it is the one that existed first. The pair is
+  // reciprocal because both pages compute it from the same base path.
+  const lang = langOfPath(path);
+  const base = basePath(path);
+  const alternates = LANGS.map((l) => ({ hreflang: LOCALE[l].slice(0, 2), href: `${SITE.url}${localePath(base, l)}` }));
+  const xDefault = `${SITE.url}${localePath(base, nativeLang(base))}`;
+
   // Head writes the title into the prerendered HTML, but on a client-side
   // navigation the new page's Head mounts while the old one unmounts and the
   // document keeps the previous title: every route change left the tab, and the
@@ -62,10 +74,14 @@ export const Seo: React.FC<SeoProps> = ({
 
   return (
     <Head>
-      {htmlLang ? <html lang={htmlLang} /> : null}
+      <html lang={htmlLang ?? lang} />
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
+      {alternates.map((a) => (
+        <link key={a.hreflang} rel="alternate" hrefLang={a.hreflang} href={a.href} />
+      ))}
+      <link rel="alternate" hrefLang="x-default" href={xDefault} />
       {keywords && keywords.length > 0 && (
         <meta name="keywords" content={keywords.filter(Boolean).join(', ')} />
       )}
@@ -77,6 +93,10 @@ export const Seo: React.FC<SeoProps> = ({
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={url} />
+      <meta property="og:locale" content={OG_LOCALE[lang]} />
+      {LANGS.filter((l) => l !== lang).map((l) => (
+        <meta key={l} property="og:locale:alternate" content={OG_LOCALE[l]} />
+      ))}
       <meta property="og:image" content={image} />
 
       {/* Twitter */}

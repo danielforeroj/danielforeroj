@@ -93,6 +93,97 @@ Usually the answer is no. The information existed. It was in four systems, under
 - **Do we need it if we only use ChatGPT internally?** More, not less. A general assistant with no grounded context is exactly the configuration that invents confidently.
 - **How long does it take?** The indexing is fast. The identity work takes as long as your worst system, and that is the honest estimate to give your board.
 `,
+  es: {
+    title: 'Tu AI no conoce tu empresa',
+    excerpt:
+      'El cuello de botella no es el modelo. Es el contexto. La mayoría de las empresas le hacen a un asistente general una pregunta que solo sus propios sistemas pueden responder, y luego culpan al modelo por adivinar.',
+    metaDescription:
+      'El cuello de botella no es el modelo, es el contexto. Por qué tu empresa necesita una capa de contexto, qué se rompe sin ella y en qué orden construirla.',
+    tags: ['ai', 'contexto', 'datos', 'agentes', 'operaciones', 'empresas'],
+    content_md: `
+# Tu AI no conoce tu empresa
+
+## Puntos clave
+- **Un asistente general conoce el mundo. No conoce a tu cliente.** Esa brecha no es un problema del modelo, es un problema de contexto.
+- **Un mal contexto no produce silencio, produce respuestas seguras.** El modo de falla es una frase plausible, no un mensaje de error.
+- **La recuperación no es una sola cosa.** La búsqueda por palabras clave todavía le gana a los embeddings en corpus empresariales reales, y las configuraciones ganadoras usan ambas.
+- **La resolución de identidad es el núcleo poco glamoroso.** Un mismo cliente en cuatro sistemas que no coinciden entre sí es el problema real.
+- **Primero construye la capa de contexto, después los agentes.** Los agentes heredan todo lo que la capa de contexto tenga mal, y actúan con base en eso.
+
+---
+
+Cada semana alguien me muestra un asistente que responde preguntas sobre su negocio. Entonces le pregunto algo que solo su negocio puede responder. Cuánto nos debe este cliente, qué le prometimos en octubre, por qué esta cuenta dejó de comprar.
+
+Ahí termina la demo, o peor, no termina. Responde de todas formas.
+
+Esa es la parte que la mayoría no ve. Cuando a un modelo le falta contexto, no se detiene. Produce una respuesta fluida, estructuralmente correcta y completamente inventada. El grounding es lo que cambia ese comportamiento, y el grounding es trabajo que tú haces, no una opción que activas.
+
+## La evidencia es aburrida y consistente
+
+Salesforce encuestó a líderes de datos a finales de 2025 y encontró que el 26 por ciento de los datos de una organización se considera poco confiable, y que el 70 por ciento de los encuestados cree que sus insights más valiosos están en datos a los que no pueden acceder. ([Salesforce, noviembre de 2025](https://www.salesforce.com/news/stories/data-analytics-trends-2026/))
+
+La encuesta 2026 de Informatica a 600 líderes de datos lo dijo de forma más directa: el 57 por ciento señaló la confiabilidad de los datos como la principal barrera para llevar la AI de piloto a producción, y cerca de la mitad la señaló como el principal obstáculo específicamente para la AI agéntica. El sesenta y nueve por ciento ya tiene AI generativa en producción. El setenta y seis por ciento dice que la gobernanza va por detrás de cómo los empleados ya la usan. ([Informatica, enero de 2026](https://www.informatica.com/about-us/news/news-releases/2026/01/20260127-new-global-cdo-report-reveals-data-governance-and-ai-literacy-as-key-accelerators-in-ai-adoption.html))
+
+Lee esas dos juntas. La producción ya no es la parte difícil. La confianza sí.
+
+Y no es solo ansiedad de las grandes empresas. Investigadores de Stanford probaron herramientas de investigación jurídica construidas sobre recuperación, con un conjunto de consultas preregistrado, y aun así midieron tasas de alucinación del 17 y el 33 por ciento según el producto. ([Stanford RegLab](https://reglab.stanford.edu/publications/hallucination-free-assessing-the-reliability-of-leading-ai-legal-research-tools/)) Son productos que se venden precisamente por estar anclados en fuentes. El grounding reduce la invención. No la elimina.
+
+## Qué es realmente una capa de contexto
+
+No es un chatbot. No es una base de datos vectorial. No es un dashboard con una caja de texto encima.
+
+Una capa de contexto es lo que lee los sistemas que una empresa ya opera, los resuelve en un solo registro por sujeto, guarda lo que importa junto con su origen, y entrega eso como contexto a lo que sea que esté a punto de responder o actuar.
+
+Tres propiedades la hacen real:
+
+1. **Indexa lo que ya existe.** Sin migración. Si la solución exige que el cliente primero reorganice su negocio, el proyecto muere en el segundo mes.
+2. **Separa lo observado de lo inferido.** Lo que dijo un cliente no es lo mismo que lo que un modelo concluyó sobre él. Una conclusión sin evidencia detrás debe rechazarse en el momento en que se crea, no detectarse después.
+3. **Entrega contexto acotado y citado.** El bloque que va al modelo dice qué contiene y qué dejó por fuera. Esa es la parte que nadie más en la categoría quiere responder, y es la parte que hace que el resultado sea auditable.
+
+Construimos On Duty exactamente con esa forma, y la restricción de diseño que más importó fue el agnosticismo. Una empresa no va a tener una sola AI. Va a tener el asistente por el que su equipo ya paga, el que viene integrado en una herramienta que compró, algo que conectó un desarrollador y lo que sea que adopte el próximo año. Cada uno conoce una porción distinta y ninguno conoce al cliente. La capa de contexto está por debajo de todos.
+
+## La identidad es el problema real
+
+Esta es la prueba que uso. Toma un cliente que le escribió a soporte por WhatsApp, pagó una factura, aparece en el CRM con un nombre de empresa ligeramente distinto y tiene un contrato en una carpeta compartida. Pídele al sistema que te hable de ese cliente.
+
+Si te devuelve cuatro personas distintas, no tienes un problema de contexto, tienes un problema de identidad, y cada funcionalidad de AI que construyas encima lo va a heredar.
+
+La investigación sobre resolución de entidades es honesta sobre la dificultad: en benchmarks que van de cientos de registros a cinco millones, ningún algoritmo de matching gana en todos los casos, la precisión y el recall necesitan mecanismos separados, y un solo falso positivo puede fusionar en silencio dos empresas sin relación en una sola entidad por clausura transitiva. ([arXiv, julio de 2026](https://arxiv.org/abs/2607.26298))
+
+Esa última falla es la peligrosa. Una coincidencia que no se detecta parece un dato faltante. Una coincidencia equivocada parece una respuesta.
+
+## La recuperación no está resuelta, y no es una sola técnica
+
+La industria pasó dos años asumiendo que los embeddings eran la respuesta. Luego la gente midió en corpus reales.
+
+Un benchmark construido sobre cerca de medio millón de documentos en formatos reales, Slack, Gmail, Drive, tickets, código, encontró que la búsqueda simple por palabras clave alcanzaba 68.8 por ciento de acierto frente a 51.4 por ciento de la búsqueda vectorial densa, y que la búsqueda vectorial caía a 32.8 por ciento en preguntas semánticas. ([EnterpriseRAG-Bench, mayo de 2026](https://arxiv.org/abs/2605.05253))
+
+La búsqueda por palabras clave no está de moda. Es muy buena con nombres, números de factura, códigos de producto y siglas, que es la mayor parte de lo que cualquiera le pregunta en realidad a un sistema de negocio.
+
+Más contexto tampoco es automáticamente mejor. El equipo de ingeniería de Anthropic describe el context rot, en el que el recall se degrada a medida que se llena la ventana de contexto, y recomienda pasar identificadores y recuperar justo a tiempo en lugar de meterlo todo. ([Anthropic, septiembre de 2025](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents))
+
+## El orden que funciona
+
+- **Primero, el inventario.** Haz la lista de los sistemas donde realmente vive la verdad sobre tus clientes. Normalmente son más de los que el cliente cree e incluyen por lo menos una hoja de cálculo que nadie admite tener.
+- **Segundo, resolver la identidad.** Un registro por cliente, con los conflictos a la vista en lugar de promediados.
+- **Después, responder.** Una caja de preguntas sobre un registro resuelto, con citas, antes de que cualquier cosa escriba en un sistema.
+- **Después, actuar.** Y cuando algo esté a punto de actuar sobre un cliente, primero corre una decisión. Ese es otro post, y la razón por la que existe Selah.
+
+La mayoría de los equipos lo hace al revés. Compran el agente, luego descubren que el agente necesita contexto, luego descubren que el contexto necesita identidad, luego descubren que la identidad necesita el trabajo de datos que nadie financió.
+
+## El resumen incómodo
+
+Si un modelo se equivoca sobre tu negocio, la pregunta honesta no es qué modelo estás usando. Es si algo en tu stack le podría haber dado la respuesta correcta.
+
+Normalmente la respuesta es no. La información existía. Estaba en cuatro sistemas, escrita de tres formas distintas, sin nadie responsable de conciliarlas. El modelo no alucinó tu empresa. Describió la versión de tu empresa que describen tus sistemas.
+
+## Preguntas frecuentes
+
+- **¿Esto no es solo RAG?** La recuperación es un mecanismo dentro de ella. Una capa de contexto también se encarga de la identidad, la procedencia y lo que se rechaza, cosa que la recuperación sola no hace.
+- **¿La necesitamos si solo usamos ChatGPT internamente?** Más, no menos. Un asistente general sin contexto anclado es exactamente la configuración que inventa con total seguridad.
+- **¿Cuánto tiempo toma?** La indexación es rápida. El trabajo de identidad toma lo que tome tu peor sistema, y esa es la estimación honesta que debes darle a tu junta directiva.
+`,
+  },
 };
 
 export default post;

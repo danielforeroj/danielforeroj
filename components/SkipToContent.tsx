@@ -1,7 +1,9 @@
 
 import React from 'react';
+import { useUi } from '../lib/i18n';
 
 const SkipToContent: React.FC = () => {
+  const t = useUi();
   return (
     <a 
       href="#main-content" 
@@ -11,7 +13,7 @@ const SkipToContent: React.FC = () => {
         color: 'var(--md-sys-color-on-primary)'
       }}
     >
-      Skip to main content
+      {t.skipToContent}
     </a>
   );
 };

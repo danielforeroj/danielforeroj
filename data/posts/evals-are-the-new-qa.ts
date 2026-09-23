@@ -93,6 +93,97 @@ Evals are not a research luxury and they are not a compliance checkbox. They are
 
 Build the small ugly suite from your own failures. Distrust the judge. Ignore two point differences. Then ship.
 `,
+  es: {
+    title: 'Los evals son el nuevo QA',
+    excerpt:
+      'Nadie lanza software a ojo, y aun así la mayoría de los equipos lanza funcionalidades de AI con base en un demo que funcionó una vez. Esto es lo que de verdad implica medir un sistema de AI, y dónde la propia medición te miente.',
+    metaDescription:
+      'Casi todos lanzan AI con un demo que funcionó una vez. Qué pide una suite de evals, por qué el juez LLM no es fiable y cómo separar una mejora real del ruido.',
+    tags: ['ai', 'evals', 'calidad', 'agentes', 'ingeniería', 'operaciones'],
+    content_md: `
+# Los evals son el nuevo QA
+
+## Puntos clave
+- **Un demo es una sola muestra.** Si no puedes decir con qué frecuencia acierta el sistema, no sabes si funciona.
+- **Empieza con 20 a 50 tareas tomadas de fallas reales.** No sintéticas, y no del camino feliz.
+- **Un modelo que juzga a otro modelo es un instrumento de medición con un sesgo conocido.** Calíbralo contra humanos o no confíes en él.
+- **Las diferencias pequeñas en un benchmark son ruido.** La infraestructura por sí sola puede mover un puntaje varios puntos.
+- **Optimizar para el eval es un modo de falla, no un éxito.** Los sistemas aprenden a ganarle a la métrica.
+
+---
+
+En todo proyecto de AI hay un momento en que alguien dice que funciona. Lo que quiere decir es que funcionó, una vez, frente a él, con un input que escogió.
+
+Eso no es una afirmación sobre el sistema. Es una afirmación sobre una muestra.
+
+Los equipos de software resolvieron esto hace décadas, y luego abandonaron la disciplina en silencio cuando el output dejó de ser determinístico. Nunca lanzarías una integración de pagos porque movió el dinero correctamente una vez. Y sin embargo, la misma organización pone un agente de AI frente a sus clientes porque tuvo un buen martes.
+
+Los evals son la forma en que vuelve la disciplina. No como un ejercicio de investigación, sino como lo que te dice si lanzar o no.
+
+## Empieza con las fallas, no con un benchmark
+
+El punto de partida útil es pequeño y poco glamuroso: 20 a 50 tareas sacadas de fallas reales. La guía de Anthropic sobre esto es la versión publicada más práctica, y además hace la distinción que importa: entre los evals de regresión, que deberían estar en el 100 por ciento o cerca, y existen para atrapar lo que rompiste, y los evals de capacidad, que deberían empezar bajos porque miden lo que el sistema todavía no puede hacer. ([Anthropic, enero de 2026](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents))
+
+La misma guía dice algo que los equipos se resisten a aceptar: califica el resultado, no el camino. Es tentador puntuar si el agente usó las herramientas que esperabas en el orden que imaginaste. Eso mide tu imaginación. Lo que importa es si el reembolso fue correcto, si el resumen fue fiel, si el registro se actualizó con el valor correcto.
+
+En nuestro propio trabajo, el set de evals se construye con las transcripciones que nadie quiere leer. La respuesta de soporte que citó una política que no existe. El negocio marcado como cerrado contra la empresa equivocada porque dos registros tienen el mismo nombre. Esos se vuelven casos de prueba permanentes, y la suite solo crece.
+
+## El juez no es neutral
+
+El atajo estándar es poner a un modelo fuerte a calificar el output de otro modelo. Es rápido, es barato, y es un instrumento de medición con defectos documentados.
+
+Las cifras publicadas este año son peores de lo que la mayoría de los equipos supone:
+
+- Las preferencias por pares se invierten en ejecuciones repetidas el 13,6 por ciento de las veces en promedio. En el 28 por ciento de las preguntas la tasa de inversión supera el 20 por ciento, y una pregunta llegó al 56 por ciento. Recuperar un veredicto estable con 95 por ciento de confianza requirió 11 ensayos repetidos. ([arXiv, abril de 2026](https://arxiv.org/abs/2606.13685))
+- Reformular un prompt sin cambiar su significado invierte el resultado mayoritario una cuarta parte de las veces, en el mismo estudio.
+- El sesgo de estilo domina. Los tamaños del efecto medidos para el estilo van de 0,10 a 0,76, muy por encima del sesgo de posición, de 0,04 o menos, y la preferencia por la verbosidad es específica de cada modelo y no universal. ([arXiv, abril de 2026](https://arxiv.org/abs/2604.23178))
+- El sesgo de autopreferencia no desaparece a medida que los modelos se vuelven más fuertes. En 20 modelos, no tiene correlación o tiene correlación negativa con la capacidad. ([arXiv, abril de 2026](https://arxiv.org/abs/2604.22891))
+
+Nada de esto significa que no uses un juez. Significa que trates al juez como un componente que necesita su propia validación. La métrica que hay que seguir es el acuerdo con un experto humano sobre un set etiquetado: para empezar, unos 20 o más ejemplos diversos y con etiquetas balanceadas. Si tu juez y tu mejor humano no están de acuerdo, el juez está equivocado hasta que se demuestre lo contrario.
+
+## La mayoría de las diferencias de puntaje son ruido
+
+Este es el hallazgo que les mando a los fundadores que están escogiendo un modelo con base en un ranking.
+
+Anthropic midió el efecto de la infraestructura por sí sola en Terminal-Bench 2.0 y encontró que movía los resultados 6 puntos porcentuales, de forma estadísticamente significativa, con tasas de error de infraestructura que bajaron de 5,8 por ciento a 0,5 por ciento una vez que al entorno se le dieron más recursos. Su conclusión es una regla que vale la pena adoptar: trata las diferencias de menos de unos 3 puntos como ruido. ([Anthropic, febrero de 2026](https://www.anthropic.com/engineering/infrastructure-noise))
+
+Así que cuando un proveedor te dice que su modelo es dos puntos mejor, no te está diciendo nada. Y cuando tu propio eval mejora dos puntos después de un cambio en el prompt, tampoco aprendiste nada. Córrelo otra vez.
+
+## Los sistemas optimizan la métrica, incluida la tuya
+
+La investigación más incómoda del año es sobre reward hacking. En un análisis de 2.385 trazas de agentes en 15 benchmarks, apareció evidencia de reward hacking en el 67 por ciento de las trazas en un benchmark y en el 66,7 por ciento de las tareas en otro, con una inflación medida del puntaje de entre 0,45 y 1,00. ([arXiv, julio de 2026](https://arxiv.org/abs/2607.22368))
+
+Un trabajo relacionado sobre un benchmark muy usado encontró problemas con soluciones no previstas, y un caso en el que el sistema reconoció que estaba siendo evaluado. ([Anthropic, marzo de 2026](https://www.anthropic.com/engineering/eval-awareness-browsecomp))
+
+Llévalo a tu empresa. Si tu eval premia cerrar el ticket, vas a obtener tickets cerrados. Si premia una respuesta dicha con seguridad, vas a obtener seguridad. La métrica no es una descripción de la calidad, es un incentivo, y algo al otro lado está optimizando en su contra.
+
+## La validez se compone, y mal
+
+Hay un resultado más discreto que merece más atención de la que recibió. La validez a lo largo de un pipeline de evaluación se multiplica. Si la construcción de las tareas es 70 por ciento válida, y la calificación es 70 por ciento válida, y la agregación es 70 por ciento válida, la validez total es de más o menos 34 por ciento. El mismo paper encontró que alrededor del 82 por ciento de los papers de evaluación agéntica revisados usaban medidas de confiabilidad entre evaluadores que no correspondían, o no usaban ninguna. ([arXiv, agosto de 2026](https://arxiv.org/abs/2608.00794))
+
+La lectura práctica: una cadena larga de pasos de medición plausibles puede producir un número que casi no significa nada, y aun así será un número, en una presentación, con decimales.
+
+## Lo que corremos, en concreto
+
+- **Una suite de regresión** construida con cada falla de producción que hemos visto, que esperamos cerca del 100 por ciento y que corremos con cada cambio de prompt, modelo o herramienta.
+- **Un set de capacidades** para lo que estamos tratando de hacer posible después, que esperamos ver en rojo por un tiempo. Verde en todas partes significa que la vara está muy baja.
+- **Calificación humana sobre una muestra**, cada semana, en el camino de mayores consecuencias. No hay sustituto y no es costoso a este tamaño.
+- **Evaluación en línea sobre tráfico real**, por muestreo, porque la distribución en producción nunca es la distribución de tu set de pruebas. Las plataformas de nube ahora ofrecen esto como una funcionalidad y no como algo que tienes que construir. ([Microsoft Foundry](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/continuous-evaluation-agents))
+- **Una regla sobre cambios de modelo.** Un modelo nuevo no es una mejora hasta que la suite lo diga. Esto nos ha salvado dos veces de cambios que se veían mejores y no lo eran.
+
+## Esto se volvió una conversación de estándares en 2026
+
+Ya no es solo una práctica de ingeniería. NIST publicó AI 800-2, prácticas para evaluaciones automatizadas de benchmarks de modelos de lenguaje, para comentario público en enero, con el plazo cerrando a finales de marzo. ([NIST, enero de 2026](https://www.nist.gov/news-events/news/2026/01/towards-best-practices-automated-benchmark-evaluations)) Una red de diez gobiernos publicó prácticas clave para medir las capacidades de la AI unas semanas después. ([NIST, febrero de 2026](https://www.nist.gov/news-events/news/2026/02/international-network-advanced-ai-measurement-evaluation-and-science))
+
+Si le vendes AI a compradores regulados, ese es tu futuro cercano. La pregunta no es si mediste. Es si tu medición sobrevive al escrutinio de otra persona.
+
+## El veredicto
+
+Los evals no son un lujo de investigación y no son una casilla de cumplimiento. Son lo único que se interpone entre un sistema que funciona y un sistema que parece funcionar, y la brecha entre esos dos es donde falló cada proyecto de AI que he visto fallar.
+
+Construye la suite pequeña y fea a partir de tus propias fallas. Desconfía del juez. Ignora las diferencias de dos puntos. Después, lanza.
+`,
+  },
 };
 
 export default post;

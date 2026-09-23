@@ -17,6 +17,8 @@ import quantumSupplyChain from './quantum-is-a-supply-chain-problem';
 import humanInTheLoop from './human-in-the-loop-is-not-a-strategy';
 import businessesThatWork from './ai-for-businesses-that-already-work';
 import agentsThisYear from './what-we-got-wrong-about-agents';
+import gtmPlaybook from './gtm-playbook-web3';
+import web3Jargon from './fuck-web3-jargon';
 
 export const newPosts: Post[] = [
   agentsThisYear,
@@ -29,4 +31,6 @@ export const newPosts: Post[] = [
   answerVisibility,
   contextLayer,
   agentAllowedToDo,
+  web3Jargon,
+  gtmPlaybook,
 ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
