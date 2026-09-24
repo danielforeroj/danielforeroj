@@ -2,8 +2,39 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/api/ai/:path*", "destination": "https://unboundoperators.app/api/ai/:path*" },
-    { "source": "/ai/recursos/:key", "destination": "/ai/recursos/_" },
-    { "source": "/en/ai/recursos/:key", "destination": "/en/ai/recursos/_" }
+    {
+      "source": "/api/ai/:path*",
+      "destination": "https://unboundoperators.app/api/ai/:path*"
+    },
+    {
+      "source": "/ai/recursos/:key",
+      "destination": "/ai/recursos/_"
+    },
+    {
+      "source": "/en/ai/recursos/:key",
+      "destination": "/en/ai/recursos/_"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/grow",
+      "destination": "/en/grow",
+      "permanent": true
+    },
+    {
+      "source": "/en/crecer",
+      "destination": "/en/grow",
+      "permanent": true
+    },
+    {
+      "source": "/es/crecer",
+      "destination": "/crecer",
+      "permanent": true
+    },
+    {
+      "source": "/es/geo",
+      "destination": "/geo",
+      "permanent": true
+    }
   ]
 }

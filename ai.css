@@ -548,3 +548,47 @@
   .aif-option,
   .aif-btn { transition: none; }
 }
+
+/* ---------- entry pages: /crecer, /geo, /work-w-me ----------
+   The same field look for the two inputs the funnel never needed. */
+.aif-field textarea,
+.aif-field select {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  font: 400 17px/1.4 var(--font-body);
+  color: var(--aif-paper);
+  background: rgba(255, 249, 239, 0.04);
+  border: 1px solid var(--aif-line);
+  border-radius: 2px;
+}
+.aif-field textarea { resize: vertical; }
+.aif-field select option { color: #0B0709; }
+.aif-field textarea::placeholder { color: var(--muted-2); }
+.aif-field textarea[aria-invalid="true"],
+.aif-field select[aria-invalid="true"] { border-color: #f08aa2; }
+.aif-field textarea:focus-visible,
+.aif-field select:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.aif-field label .aif-meta { text-transform: none; letter-spacing: 0; }
+
+/* The readout at the end of the growth diagnostic. */
+.aif-readout { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 14px; counter-reset: rd; }
+.aif-readout li {
+  counter-increment: rd;
+  position: relative;
+  padding: 14px 16px 14px 48px;
+  font-size: 16px;
+  line-height: 1.55;
+  border: 1px solid var(--aif-line);
+  background: rgba(255, 249, 239, 0.03);
+}
+.aif-readout li::before {
+  content: counter(rd);
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--gold);
+}
+.aif-sep { height: 1px; background: var(--aif-line); margin: 12px 0; border: 0; }

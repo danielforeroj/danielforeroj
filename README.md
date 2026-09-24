@@ -25,6 +25,8 @@ and the logic lives in `lib/i18n.ts`.
 | AI guide | `/en/ai` | `/ai` |
 | AI library | `/en/ai/recursos` | `/ai/recursos` |
 | AI resource | `/en/ai/recursos/:key` | `/ai/recursos/:key` |
+| Growth diagnostic | `/en/grow` | `/crecer` |
+| Free GEO scan | `/en/geo` | `/geo` |
 
 Every URL that existed before keeps working and keeps its language: the site was
 written in English, so its translation lives under `/es`; the `/ai` guide was
@@ -32,6 +34,32 @@ written in Spanish, so its translation lives under `/en`. The unprefixed URL is
 also the `x-default` hreflang. Tracking links such as `/ai?r=ig` are untouched,
 and the language switcher carries the query string across, so the attribution
 survives a switch. Old `?lang=en` links on the guide are redirected to `/en/ai`.
+
+`/crecer` is the one page whose translation has its own slug (`/en/grow`);
+`TRANSLATED_SLUG` in `lib/i18n.ts` (mirrored in `scripts/gen-sitemap.mjs`)
+holds that exception. The Spanish-first pages are listed in `ES_FIRST` in both.
+
+## Entry points for the social feeds
+
+Each content pillar of the personal-brand feeds links to one page, always with
+the attribution parameter (`?r=ig`, `?r=tk`, `?r=ig-<piece id>`...), read by
+`attribution()` in `lib/ai/context.ts` exactly as the AI guide reads it:
+
+| Pillar | Page | What it records |
+| --- | --- | --- |
+| P2 tech, AI, data | `/ai` | the AI guide funnel, `/api/ai/*` (unchanged) |
+| P3 marketing, brand, comms | `/geo` | the lead, then sends the visitor to the free scan at unboundgeo.com/intro |
+| P1 + P4 growth, sales, partnerships | `/crecer` | six answers, the lead, and the three-point readout it showed |
+| P5 founders, and the English feeds | `/work-w-me` | the lead, stage and message |
+
+`/geo`, `/crecer` and `/work-w-me` post to unboundoperators.app `/api/contact`
+with `site: "danielforeroj"` (`lib/lead.ts`). The AI guide's `/api/ai/identify`
+cannot take them: it validates answers against the guide's own questionnaire and
+emails a library access code. `/api/contact` stores the submission, creates or
+reuses the contact and the lead relation (source `danielforeroj`), pings Telegram
+and emails the site's recipients. It has no attribution field, so the page, `r`,
+language, utm and referrer travel as a tagged header at the top of the message:
+`[danielforeroj.com/crecer] diagnostico de crecimiento`, then `r: ig-123`.
 
 What handles what:
 

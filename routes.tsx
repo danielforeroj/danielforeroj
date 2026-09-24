@@ -5,6 +5,8 @@ import PostListPage from './pages/PostListPage';
 import PostDetailPage from './pages/PostDetailPage';
 import VirtualCoffeePage from './pages/VirtualCoffeePage';
 import WorkWithMePage from './pages/WorkWithMePage';
+import GrowPage from './pages/GrowPage';
+import GeoPage from './pages/GeoPage';
 import AiFunnelPage from './pages/ai/AiFunnelPage';
 import AiLibraryPage from './pages/ai/AiLibraryPage';
 import AiResourcePage, { RESOURCE_SHELL_KEY } from './pages/ai/AiResourcePage';
@@ -48,6 +50,19 @@ const sitePages = (lang: Lang): Child[] => {
   ];
 };
 
+/**
+ * The entry pages for the social feeds' other pillars (2026-09-24), written in
+ * Spanish first: the growth diagnostic at /crecer (English /en/grow) and the
+ * free GEO scan at /geo (English /en/geo). /ai and /work-w-me are the other two.
+ */
+const entryPages = (lang: Lang): Child[] => {
+  const p = (base: string) => localePath(base, lang).slice(1);
+  return [
+    { path: p('/crecer'), element: <GrowPage /> },
+    { path: p('/geo'), element: <GeoPage /> },
+  ];
+};
+
 /** The AI funnel, in Spanish at /ai or in English under /en/ai. */
 const aiPages = (lang: Lang): Child[] => {
   const p = (base: string) => localePath(base, lang).slice(1);
@@ -73,6 +88,8 @@ export const routes: RouteRecord[] = [
     children: [
       ...sitePages('en'),
       ...sitePages('es'),
+      ...entryPages('es'),
+      ...entryPages('en'),
       ...(SECTIONS.ai ? [...aiPages('es'), ...aiPages('en')] : []),
       // Catch-all. The generator skips any path containing "*", so the wildcard
       // alone would prerender nothing; getStaticPaths names /404 explicitly,

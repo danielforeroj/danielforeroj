@@ -1,33 +1,27 @@
 import React from 'react';
-import { PROFILE } from '../data/profile';
-import { SITE } from '../data/siteConfig';
 import Seo from '../lib/SeoHead';
+import { SITE } from '../data/siteConfig';
 import { localePath, useLang, useUi } from '../lib/i18n';
 import { attribution } from '../lib/ai/context';
-import { BOOKING_URL, sendLead } from '../lib/lead';
+import { geoScanUrl, sendLead } from '../lib/lead';
 import { LeadFields, validateFields, type LeadField } from '../components/LeadFields';
 
-// The entry point for founders (pillar P5, and the English feeds): the
-// LinkedIn line, the credential, and a short form that records the lead the
-// same way /crecer and /geo do (lib/lead.ts), with ?r= attribution. The email
-// stays as the alternative for anyone who would rather write.
-//
-// Indexed since 2026-09-24. It was noindex while it was a single mailto
-// button, the thin-page pattern Search Console flagged; it now carries the
-// offer, the proof and a form, and it is a destination the feeds link to.
+// The free GEO scan: the entry point for the marketing, brand and comms pieces
+// (pillar P3). /geo in Spanish, /en/geo in English. The scan itself runs on
+// unboundgeo.com, which cannot be embedded with attribution and does not read
+// ?r=, so this page records the lead first and then sends the visitor to the
+// scan with the attribution as utm_*.
 
-const mailto = (subject: string) => `mailto:${PROFILE.email}?subject=${encodeURIComponent(subject)}`;
-
-const WorkWithMePage: React.FC = () => {
+const GeoPage: React.FC = () => {
   const lang = useLang();
-  const t = useUi().work;
+  const t = useUi().geo;
   const l = useUi().lead;
   const [values, setValues] = React.useState<Record<string, string>>({});
   const [errors, setErrors] = React.useState<Record<string, string | undefined>>({});
   const [formError, setFormError] = React.useState('');
   const [hp, setHp] = React.useState('');
   const [busy, setBusy] = React.useState(false);
-  const [sent, setSent] = React.useState(false);
+  const [sent, setSent] = React.useState('');
 
   React.useEffect(() => {
     attribution();
@@ -37,9 +31,7 @@ const WorkWithMePage: React.FC = () => {
     { key: 'name', label: l.name, required: true, autoComplete: 'name' },
     { key: 'email', label: l.email, type: 'email', required: true, autoComplete: 'email' },
     { key: 'company', label: l.company, required: true, autoComplete: 'organization' },
-    { key: 'website', label: l.website, type: 'url', autoComplete: 'url' },
-    { key: 'stage', label: t.stageLabel, type: 'select', required: true, options: t.stages },
-    { key: 'message', label: t.messageLabel, type: 'textarea', required: true, placeholder: t.messagePlaceholder },
+    { key: 'website', label: l.website, type: 'url', autoComplete: 'url', placeholder: lang === 'es' ? 'empresa.com' : 'company.com' },
   ];
 
   const submit = async (e: React.FormEvent) => {
@@ -48,61 +40,62 @@ const WorkWithMePage: React.FC = () => {
     setErrors(errs);
     setFormError('');
     if (Object.keys(errs).length) {
-      document.getElementById(`wwm-${Object.keys(errs)[0]}`)?.focus();
+      document.getElementById(`geo-${Object.keys(errs)[0]}`)?.focus();
       return;
     }
     setBusy(true);
-    const stage = t.stages.find(([v]) => v === values.stage);
+    const target = geoScanUrl(attribution().src);
     const r = await sendLead({
-      page: 'work',
-      path: localePath('/work-w-me', lang),
+      page: 'geo',
+      path: localePath('/geo', lang),
       lang,
       name: values.name ?? '',
       email: values.email ?? '',
       company: values.company,
       website: values.website,
-      lines: [`Etapa: ${stage ? stage[1] : values.stage} [stage=${values.stage}]`, '', (values.message ?? '').trim()],
+      lines: ['Pidió el escaneo GEO gratis y salió hacia:', target],
       hp,
     });
     setBusy(false);
-    if (r.ok) setSent(true);
-    else setFormError(r.status === 429 ? l.errorRateLimit : l.errorGeneric);
+    if (!r.ok) {
+      setFormError(r.status === 429 ? l.errorRateLimit : l.errorGeneric);
+      return;
+    }
+    setSent(target);
+    window.setTimeout(() => window.location.assign(target), 900);
   };
 
   return (
     <section className="aif">
-      <Seo title={`${t.title} | ${SITE.name}`} description={t.description} path={localePath('/work-w-me', lang)} />
+      <Seo title={`${t.seoTitle} | ${SITE.name}`} description={t.description} path={localePath('/geo', lang)} />
       <div className="aif-panel">
         <div className="aif-step">
           <p className="aif-kicker">{t.kicker}</p>
-          <h1 className="aif-title">{t.phrase}</h1>
-          <p className="aif-body">{t.credential}</p>
-
-          <p className="aif-kicker">{t.helpsKicker}</p>
+          <h1 className="aif-title">{t.introTitle}</h1>
+          <p className="aif-body">{t.introBody}</p>
           <ul className="aif-points">
-            {t.helps.map((line) => (
-              <li key={line}>{line}</li>
+            {t.points.map((pt) => (
+              <li key={pt}>{pt}</li>
             ))}
           </ul>
 
           <hr className="aif-sep" />
 
           {sent ? (
-            <div role="status" className="aif-step">
+            <div role="status">
               <h2 className="aif-title">{t.sentTitle}</h2>
-              <p className="aif-body">{t.sentBody}</p>
-              <div className="aif-actions">
-                <a className="aif-btn" href={BOOKING_URL} target="_blank" rel="noopener">
-                  {t.book}
+              <p className="aif-meta">
+                <a className="aif-link" href={sent}>
+                  {t.manual} →
                 </a>
-              </div>
+              </p>
             </div>
           ) : (
             <form noValidate onSubmit={submit} className="aif-step">
               <h2 className="aif-title aif-title--body">{t.formTitle}</h2>
-              <p className="aif-meta">{t.standfirst}</p>
+              <p className="aif-meta">{t.formBody}</p>
               <LeadFields
-                idPrefix="wwm"
+                idPrefix="geo"
                 fields={fields}
                 values={values}
                 errors={errors}
@@ -123,12 +116,6 @@ const WorkWithMePage: React.FC = () => {
                 <button type="submit" className="aif-btn" disabled={busy}>
                   {t.submit}
                 </button>
-                <span className="aif-meta">
-                  {t.orEmail}{' '}
-                  <a className="aif-link" href={mailto(t.mailSubject)}>
-                    {PROFILE.email}
-                  </a>
-                </span>
               </div>
             </form>
           )}
@@ -138,4 +125,4 @@ const WorkWithMePage: React.FC = () => {
   );
 };
 
-export default WorkWithMePage;
+export default GeoPage;

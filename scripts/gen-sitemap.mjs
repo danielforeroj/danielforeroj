@@ -104,11 +104,21 @@ const lastmod = new Date().toISOString().slice(0, 10)
 // lives under /es or /en. Each <url> names both, plus x-default, the unprefixed
 // one, the same set lib/SeoHead writes into the page's own <head>.
 const PREFIX = /^\/(en|es)(?=\/|$)/
-const isAi = (base) => base === '/ai' || base.startsWith('/ai/')
-const nativeLang = (base) => (isAi(base) ? 'es' : 'en')
-const basePath = (route) => route.replace(PREFIX, '') || '/'
-const localePath = (base, lang) =>
-  lang === nativeLang(base) ? base : `/${lang}${base === '/' ? '' : base}`
+// Mirrors lib/i18n.ts: the Spanish-first pages and the one translated slug.
+const ES_FIRST = ['/ai', '/crecer', '/geo']
+const isEsFirst = (base) => ES_FIRST.some((b) => base === b || base.startsWith(`${b}/`))
+const TRANSLATED_SLUG = { '/crecer': { en: '/grow' } }
+const FROM_TRANSLATED_SLUG = { '/grow': '/crecer' }
+const nativeLang = (base) => (isEsFirst(base) ? 'es' : 'en')
+const basePath = (route) => {
+  const stripped = route.replace(PREFIX, '') || '/'
+  return stripped !== route ? FROM_TRANSLATED_SLUG[stripped] ?? stripped : stripped
+}
+const localePath = (base, lang) => {
+  if (lang === nativeLang(base)) return base
+  const slug = TRANSLATED_SLUG[base]?.[lang] ?? base
+  return `/${lang}${slug === '/' ? '' : slug}`
+}
 const built = new Set(pages.map((p) => p.route))
 const alternates = (route) => {
   const base = basePath(route)
@@ -149,7 +159,9 @@ const llms = `# Daniel Forero
 
 This file lists every page on danielforeroj.com with a short description. Every
 page is published in English and Spanish: the Spanish versions of the site live
-under /es, the English version of the /ai guide under /en/ai.
+under /es; the /ai guide, the /geo scan and the /crecer growth diagnostic were
+written in Spanish, and their English versions live at /en/ai, /en/geo and
+/en/grow.
 
 ## Pages
 
