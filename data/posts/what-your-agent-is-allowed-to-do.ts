@@ -9,7 +9,7 @@ const post: Post = {
     'Everyone is asking what their agent can do. Almost nobody has written down what it may do. Capability arrived first, permission is arriving late, and the order matters.',
   metaDescription:
     'Everyone asks what an agent can do. Few have written down what it may do. Why permission has to be decided before execution, not reviewed afterwards.',
-  tags: ['ai', 'agents', 'governance', 'security', 'selah', 'operations'],
+  tags: ['ai', 'agents', 'governance', 'security', 'operations'],
   content_md: `
 # What Your Agent Is Allowed To Do
 
@@ -58,7 +58,7 @@ If an agent refunds the wrong customer, an excellent trace of the wrong refund i
 
 The decision has to happen before execution. An agent proposes an action, a policy engine evaluates it against rules that exist outside the model, and returns one of three answers: permit, hold, deny. Permit executes. Deny does not, and says why. Hold goes to a person, with the context needed to decide, and it waits.
 
-That is the shape we built Selah around, and three design choices in it are the ones that survive contact with production.
+That is the shape that works, and three design choices in it are the ones that survive contact with production.
 
 **It is fail closed.** If the decision engine is unavailable, the action does not happen. The opposite default, allow when the checker is down, means your safety property disappears exactly when your infrastructure is unhealthy, which is the moment it is most needed.
 
@@ -108,7 +108,7 @@ Intelligence without control is not intelligence. It is exposure with a good use
       'Todo el mundo pregunta qué puede hacer su agente. Casi nadie ha dejado por escrito qué le está permitido hacer. La capacidad llegó primero, el permiso está llegando tarde, y el orden importa.',
     metaDescription:
       'Todos preguntan qué puede hacer un agente. Pocos han escrito qué le está permitido. Por qué el permiso se decide antes de ejecutar, no se revisa después.',
-    tags: ['ai', 'agentes', 'gobernanza', 'seguridad', 'selah', 'operaciones'],
+    tags: ['ai', 'agentes', 'gobernanza', 'seguridad', 'operaciones'],
     content_md: `
 # Lo que tu agente tiene permitido hacer
 
@@ -157,7 +157,7 @@ Si un agente le hace un reembolso al cliente equivocado, una traza excelente del
 
 La decisión tiene que ocurrir antes de la ejecución. Un agente propone una acción, un motor de políticas la evalúa contra reglas que existen fuera del modelo y devuelve una de tres respuestas: permitir, retener, denegar. Permitir ejecuta. Denegar no, y dice por qué. Retener va a una persona, con el contexto necesario para decidir, y espera.
 
-Esa es la forma alrededor de la cual construimos Selah, y hay tres decisiones de diseño en ella que son las que sobreviven al contacto con producción.
+Esa es la forma que funciona, y hay tres decisiones de diseño en ella que son las que sobreviven al contacto con producción.
 
 **Falla en cerrado.** Si el motor de decisiones no está disponible, la acción no ocurre. El comportamiento por defecto opuesto, permitir cuando el verificador está caído, significa que tu propiedad de seguridad desaparece justo cuando tu infraestructura no está sana, que es el momento en que más se necesita.
 

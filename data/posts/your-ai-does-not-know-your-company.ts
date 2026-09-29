@@ -50,7 +50,7 @@ Three properties make it real:
 2. **It separates observed from inferred.** What a customer said is not the same as what a model concluded about them. A conclusion with no evidence behind it should be refused at the moment it is created, not caught later.
 3. **It serves bounded, cited context.** The block that goes to the model says what it contains and what it left out. That is the part nobody else in the category wants to answer, and it is the part that makes the output auditable.
 
-We built On Duty around exactly that shape, and the design constraint that mattered most was agnosticism. A business will not have one AI. It will have the assistant its team already pays for, the one embedded in a tool it bought, something a developer wired up, and whatever it adopts next year. Each of those knows a different slice and none of them knows the customer. The context layer sits underneath all of them.
+Build around exactly that shape, and the design constraint that matters most is agnosticism. A business will not have one AI. It will have the assistant its team already pays for, the one embedded in a tool it bought, something a developer wired up, and whatever it adopts next year. Each of those knows a different slice and none of them knows the customer. The context layer sits underneath all of them.
 
 ## Identity is the real problem
 
@@ -77,7 +77,7 @@ More context is also not automatically better. Anthropic's engineering team desc
 - **Inventory first.** List the systems where customer truth actually lives. It is usually more than the client thinks and includes at least one spreadsheet nobody admits to.
 - **Resolve identity second.** One record per customer, with the conflicts surfaced rather than averaged away.
 - **Then answering.** A question box over a resolved record, with citations, before anything writes to a system.
-- **Then action.** And when something is about to act on a customer, a decision runs first. That is a different post, and the reason Selah exists.
+- **Then action.** And when something is about to act on a customer, a decision runs first. That is a different post.
 
 Most teams run this backwards. They buy the agent, then discover the agent needs context, then discover the context needs identity, then discover identity needs the data work nobody funded.
 
@@ -140,7 +140,7 @@ Tres propiedades la hacen real:
 2. **Separa lo observado de lo inferido.** Lo que dijo un cliente no es lo mismo que lo que un modelo concluyó sobre él. Una conclusión sin evidencia detrás debe rechazarse en el momento en que se crea, no detectarse después.
 3. **Entrega contexto acotado y citado.** El bloque que va al modelo dice qué contiene y qué dejó por fuera. Esa es la parte que nadie más en la categoría quiere responder, y es la parte que hace que el resultado sea auditable.
 
-Construimos On Duty exactamente con esa forma, y la restricción de diseño que más importó fue el agnosticismo. Una empresa no va a tener una sola AI. Va a tener el asistente por el que su equipo ya paga, el que viene integrado en una herramienta que compró, algo que conectó un desarrollador y lo que sea que adopte el próximo año. Cada uno conoce una porción distinta y ninguno conoce al cliente. La capa de contexto está por debajo de todos.
+Hay que construir exactamente con esa forma, y la restricción de diseño que más importa es el agnosticismo. Una empresa no va a tener una sola AI. Va a tener el asistente por el que su equipo ya paga, el que viene integrado en una herramienta que compró, algo que conectó un desarrollador y lo que sea que adopte el próximo año. Cada uno conoce una porción distinta y ninguno conoce al cliente. La capa de contexto está por debajo de todos.
 
 ## La identidad es el problema real
 
@@ -167,7 +167,7 @@ Más contexto tampoco es automáticamente mejor. El equipo de ingeniería de Ant
 - **Primero, el inventario.** Haz la lista de los sistemas donde realmente vive la verdad sobre tus clientes. Normalmente son más de los que el cliente cree e incluyen por lo menos una hoja de cálculo que nadie admite tener.
 - **Segundo, resolver la identidad.** Un registro por cliente, con los conflictos a la vista en lugar de promediados.
 - **Después, responder.** Una caja de preguntas sobre un registro resuelto, con citas, antes de que cualquier cosa escriba en un sistema.
-- **Después, actuar.** Y cuando algo esté a punto de actuar sobre un cliente, primero corre una decisión. Ese es otro post, y la razón por la que existe Selah.
+- **Después, actuar.** Y cuando algo esté a punto de actuar sobre un cliente, primero corre una decisión. Ese es otro post.
 
 La mayoría de los equipos lo hace al revés. Compran el agente, luego descubren que el agente necesita contexto, luego descubren que el contexto necesita identidad, luego descubren que la identidad necesita el trabajo de datos que nadie financió.
 

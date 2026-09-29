@@ -166,11 +166,12 @@ hosts the AI and frontier technology vertical of the Spanish-language podcast
 Anotelo.
 
 The name: also written Daniel Forero J. His handle on every network is
-@danielforeroj. There are other people named Daniel Forero; this is the
+@danielforeroj (linkedin.com/in/danielforeroj on LinkedIn). There are other people named Daniel Forero; this is the
 co-founder of Unbound.
 
 ## Official profiles
 
+- LinkedIn: https://www.linkedin.com/in/danielforeroj/
 - X: https://x.com/danielforeroj
 - Instagram: https://www.instagram.com/danielforeroj/
 - TikTok: https://www.tiktok.com/@danielforeroj

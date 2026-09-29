@@ -41,7 +41,7 @@ export const PROFILE = {
   // Left status rail
   rail: [
     { label: "Co-founder", value: "Unbound Operators" },
-    { label: "Building", value: "Selah · On Duty · unbound geo" },
+    { label: "Building", value: "Infrastructure for growth" },
     { label: "Hosting", value: "AI & frontier tech on Anotelo" },
     { label: "Sectors", value: "AI / Web3 / Quantum / Fintech" },
     { label: "Supported raises", value: "$600M+" },
@@ -62,7 +62,7 @@ export const PROFILE = {
     },
     {
       verb: "Products",
-      note: "Product verticals we own and ship, each with its own subverticals: governance for agents, context for business operations, visibility in AI search.",
+      note: "Product verticals we own and ship. Unbound builds infrastructure for growth, from visibility in AI search to the platform our clients run on.",
     },
     {
       verb: "Invest",
@@ -72,18 +72,11 @@ export const PROFILE = {
 
   platforms: [
     {
-      name: "Selah",
-      kind: "Co-founder & CEO",
-      note: "Pre-execution governance for AI agents. It decides what any agent may do and say before it acts, not after.",
+      name: "Unbound",
+      kind: "Infrastructure for growth",
+      note: "Unbound builds infrastructure for growth. More at unboundoperators.com",
       status: "Live",
-      url: "https://selahcore.com",
-    },
-    {
-      name: "On Duty",
-      kind: "Product vertical",
-      note: "The AI brain for a business. It indexes what the company already knows and turns it into context for its AI operations.",
-      status: "Live",
-      url: "https://alwaysonduty.io",
+      url: "https://unboundoperators.com",
     },
     {
       name: "unbound geo",
@@ -132,13 +125,6 @@ export const PROFILE = {
       org: "Unbound Operators",
       note: "Helps businesses grow by implementing AI and AI workflows, through service verticals, product verticals, and investment.",
       url: "https://unboundoperators.com",
-      status: "Live",
-    },
-    {
-      role: "Co-founder & CEO",
-      org: "Selah",
-      note: "Governance for AI agents and agentic operations.",
-      url: "https://selahcore.com",
       status: "Live",
     },
     {
@@ -209,7 +195,7 @@ export const PROFILE_ES: Profile = {
 
   rail: [
     { label: "Cofundador", value: "Unbound Operators" },
-    { label: "Construyendo", value: "Selah · On Duty · unbound geo" },
+    { label: "Construyendo", value: "Infraestructura para crecer" },
     { label: "Presentando", value: "AI y tecnología de frontera en Anotelo" },
     { label: "Sectores", value: "AI / Web3 / Cuántica / Fintech" },
     { label: "Rondas apoyadas", value: "$600M+" },
@@ -229,7 +215,7 @@ export const PROFILE_ES: Profile = {
     },
     {
       verb: "Productos",
-      note: "Verticales de producto propias que lanzamos, cada una con sus propias subverticales: gobernanza para agentes, contexto para las operaciones del negocio, visibilidad en la búsqueda con AI.",
+      note: "Verticales de producto propias que lanzamos. Unbound construye infraestructura para crecer, desde la visibilidad en la búsqueda con AI hasta la plataforma con la que operan nuestros clientes.",
     },
     {
       verb: "Inversión",
@@ -240,32 +226,27 @@ export const PROFILE_ES: Profile = {
   platforms: [
     {
       ...PROFILE.platforms[0],
-      kind: "Cofundador y CEO",
-      note: "Gobernanza previa a la ejecución para agentes de AI. Decide qué puede hacer y decir cualquier agente antes de que actúe, no después.",
+      kind: "Infraestructura para crecer",
+      note: "Unbound construye infraestructura para crecer. Más en unboundoperators.com",
     },
     {
       ...PROFILE.platforms[1],
       kind: "Vertical de producto",
-      note: "El cerebro de AI de una empresa. Indexa lo que la empresa ya sabe y lo convierte en contexto para sus operaciones con AI.",
-    },
-    {
-      ...PROFILE.platforms[2],
-      kind: "Vertical de producto",
       note: "¿Apareces en la respuesta? Mira si los motores de respuesta con AI nombran tu marca cuando un comprador pregunta por tu categoría.",
     },
     {
-      ...PROFILE.platforms[3],
+      ...PROFILE.platforms[2],
       name: "Plataforma Unbound",
       kind: "Vertical de producto",
       note: "El sistema operativo con el que nuestras marcas atienden a sus clientes: entregables, aprobaciones, gasto y resultados en un solo lugar, abierto a agentes de AI.",
     },
     {
-      ...PROFILE.platforms[4],
+      ...PROFILE.platforms[3],
       kind: "Cliente y socio minoritario",
       note: "Dólares digitales para Colombia. Recarga con pesos y paga donde sea con una Mastercard gratis.",
     },
     {
-      ...PROFILE.platforms[5],
+      ...PROFILE.platforms[4],
       kind: "Presentador",
       note: "Un podcast en español. Presento su vertical de AI y tecnología de frontera.",
     },
@@ -290,21 +271,16 @@ export const PROFILE_ES: Profile = {
     },
     {
       ...PROFILE.engagements[1],
-      role: "Cofundador y CEO",
-      note: "Gobernanza para agentes de AI y operaciones agénticas.",
-    },
-    {
-      ...PROFILE.engagements[2],
       role: "Presentador",
       note: "La vertical de AI y tecnología de frontera de un podcast en español.",
     },
     {
-      ...PROFILE.engagements[3],
+      ...PROFILE.engagements[2],
       role: "Mentor de GTM",
       note: "Go-to-market, posicionamiento y narrativa para founders dentro de la aceleradora.",
     },
     {
-      ...PROFILE.engagements[4],
+      ...PROFILE.engagements[3],
       role: "Seguridad poscuántica",
       org: "Gobiernos",
       note: "Ciberseguridad para tecnologías poscuánticas, en proyectos bajo NDA.",

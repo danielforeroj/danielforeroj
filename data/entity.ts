@@ -29,12 +29,13 @@ export const ALTERNATE_NAMES = ["Daniel Forero J", "danielforeroj", "@danielfore
  * should trust them. This is the Person's sameAs, kept apart from the social
  * links on the homepage so it only ever lists confirmed identities.
  *
- * LinkedIn is deliberately missing: the main profile's URL is not confirmed
- * yet (linkedin.com/in/danielforeroj is not it, per Daniel, 2026-09-29). Add it
- * here, first in the list, once it is, and to the "Official profiles" list
- * in scripts/gen-sitemap.mjs (llms.txt), which cannot import this file.
+ * linkedin.com/in/danielforeroj is his main LinkedIn (Daniel, 2026-09-29:
+ * "danielforeroj everywhere"). When a profile is added here, add it to the
+ * "Official profiles" list in scripts/gen-sitemap.mjs (llms.txt) too, which
+ * cannot import this file.
  */
 export const ENTITY_PROFILES: { name: string; url: string }[] = [
+  { name: "LinkedIn", url: "https://www.linkedin.com/in/danielforeroj/" },
   { name: "X", url: "https://x.com/danielforeroj" },
   { name: "Instagram", url: "https://www.instagram.com/danielforeroj/" },
   { name: "TikTok", url: "https://www.tiktok.com/@danielforeroj" },

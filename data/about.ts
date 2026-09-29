@@ -77,7 +77,7 @@ const EN: AboutCopy = {
     },
     {
       q: "Which Daniel Forero is this?",
-      a: "The co-founder of Unbound. He is @danielforeroj on Instagram, TikTok, YouTube and X, and his official site is danielforeroj.com.",
+      a: "The co-founder of Unbound. He is danielforeroj on LinkedIn, Instagram, TikTok, YouTube and X, and his official site is danielforeroj.com.",
     },
     {
       q: "How can I contact Daniel Forero?",
@@ -141,7 +141,7 @@ const ES: AboutCopy = {
     },
     {
       q: "¿Cuál Daniel Forero es este?",
-      a: "El cofundador de Unbound. Es @danielforeroj en Instagram, TikTok, YouTube y X, y su sitio oficial es danielforeroj.com.",
+      a: "El cofundador de Unbound. Es danielforeroj en LinkedIn, Instagram, TikTok, YouTube y X, y su sitio oficial es danielforeroj.com.",
     },
     {
       q: "¿Cómo contacto a Daniel Forero?",
