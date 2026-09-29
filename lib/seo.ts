@@ -1,6 +1,7 @@
 import { Post, PostCopy } from "../types";
 import { SITE, SITE_DESCRIPTION } from "../data/siteConfig";
 import { PROFILES } from "../data/profile";
+import { ALTERNATE_NAMES, COMPANY, DESCRIPTOR, KNOWS_ABOUT, PORTRAIT_URL, SAME_AS } from "../data/entity";
 import { LOCALE, localePath, type Lang } from "./i18n";
 
 type JsonLd = Record<string, unknown>;
@@ -38,7 +39,7 @@ const personRef = (): JsonLd => ({
   url: SITE.homeUrl,
   image: {
     "@type": "ImageObject",
-    url: SITE.logo,
+    url: PORTRAIT_URL,
   },
 });
 
@@ -104,32 +105,75 @@ export const buildBlogCollectionJsonLd = (
 });
 
 /**
- * Person entity for the homepage. Every field is read from data/profile.ts, so
- * the schema cannot state anything the page does not already say. sameAs is the
- * set of self-owned profiles, which is what lets an answer engine resolve which
- * "Daniel Forero" a page is about.
+ * The Person node: who Daniel Forero is. Rendered in full on the homepage and
+ * the about page; every other page refers to it by PERSON_ID. The facts come
+ * from data/entity.ts, the one place that states them, so the schema, the
+ * about page, the meta descriptions and llms.txt cannot drift apart.
+ *
+ * sameAs is ENTITY_PROFILES, not the homepage social links: it lists only the
+ * profiles confirmed as Daniel's main ones, because a sameAs pointing at the
+ * wrong account tells an engine two people are one.
  */
 export const buildPersonJsonLd = (lang: Lang = "en"): JsonLd => {
   const PROFILE = PROFILES[lang];
   return {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": PERSON_ID,
-  name: PROFILE.name,
-  url: SITE.homeUrl,
-  email: `mailto:${PROFILE.email}`,
-  description: SITE_DESCRIPTION[lang],
-  image: SITE.defaultOgImage,
-  jobTitle: PROFILE.engagements[0]?.role,
-  worksFor: {
-    "@type": "Organization",
-    name: PROFILE.now.org,
-    url: PROFILE.now.url,
-  },
-  knowsAbout: PROFILE.sectors,
-  sameAs: PROFILE.socials.map((social) => social.url),
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": PERSON_ID,
+    name: PROFILE.name,
+    alternateName: ALTERNATE_NAMES,
+    givenName: "Daniel",
+    familyName: "Forero",
+    url: SITE.homeUrl,
+    mainEntityOfPage: `${SITE.url}${localePath("/about", lang)}`,
+    email: `mailto:${PROFILE.email}`,
+    description: DESCRIPTOR[lang],
+    image: {
+      "@type": "ImageObject",
+      url: PORTRAIT_URL,
+      width: 900,
+      height: 900,
+    },
+    jobTitle: lang === "es" ? "Cofundador de Unbound" : "Co-founder of Unbound",
+    worksFor: COMPANY,
+    nationality: { "@type": "Country", name: "Colombia" },
+    knowsLanguage: ["es", "en"],
+    knowsAbout: KNOWS_ABOUT[lang],
+    sameAs: SAME_AS,
   };
 };
+
+/**
+ * The about page is a ProfilePage whose mainEntity is the Person. The full
+ * Person is embedded (not only referenced) so a crawler that reads this one
+ * page gets every fact without following the @id.
+ */
+export const buildProfilePageJsonLd = (lang: Lang, url: string, name: string, description: string): JsonLd => {
+  const { ["@context"]: _ctx, ...person } = buildPersonJsonLd(lang);
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${url}#profilepage`,
+    url,
+    name,
+    description,
+    inLanguage: LOCALE[lang],
+    isPartOf: { "@id": `${SITE.homeUrl}#website` },
+    about: { "@id": PERSON_ID },
+    mainEntity: person,
+  };
+};
+
+export const buildFaqJsonLd = (faq: Array<{ q: string; a: string }>, lang: Lang): JsonLd => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: LOCALE[lang],
+  mainEntity: faq.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+});
 
 /**
  * WebSite is a site-level entity, so it belongs on the homepage and nowhere

@@ -12,8 +12,11 @@ export const SITE = {
    * so the site never emits two spellings of the same page.
    */
   homeUrl: "https://danielforeroj.com/",
+  // The descriptor Daniel owns (positioning, 2026-09-24): meta description of
+  // the homepage, Person.description, WebSite.description. 120-158 characters.
+  // Pre-launch products are never named here.
   description:
-    "Daniel Forero is co-founder of Unbound Operators, which helps businesses grow by implementing AI and AI workflows, and builds Selah, On Duty, and unbound geo.",
+    "Daniel Forero, co-founder of Unbound, helps traditional and tech companies grow with AI, marketing and comms, BD and connections, advisory and capital.",
   defaultOgImage: "https://danielforeroj.com/og.jpg",
   // Must be a URL that actually resolves. This pointed at /favicon.ico, which
   // 404s, public/ holds only og.jpg and robots.txt, and a 404 logo is worse
@@ -31,7 +34,7 @@ export type SiteConfig = typeof SITE;
 /** SITE.description per language. The Spanish is a translation of the English, same claims. */
 export const SITE_DESCRIPTION = {
   en: SITE.description,
-  es: "Daniel Forero es cofundador de Unbound Operators, que ayuda a las empresas a crecer implementando AI y flujos de trabajo con AI, y construye Selah, On Duty y unbound geo.",
+  es: "Daniel Forero, cofundador de Unbound, ayuda a empresas tradicionales y tech a crecer con IA, marketing y comunicaciones, BD y conexiones, asesoría y capital.",
 } as const;
 
 /**

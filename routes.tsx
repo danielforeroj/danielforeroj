@@ -5,6 +5,7 @@ import PostListPage from './pages/PostListPage';
 import PostDetailPage from './pages/PostDetailPage';
 import VirtualCoffeePage from './pages/VirtualCoffeePage';
 import WorkWithMePage from './pages/WorkWithMePage';
+import AboutPage from './pages/AboutPage';
 import GrowPage from './pages/GrowPage';
 import GeoPage from './pages/GeoPage';
 import AiFunnelPage from './pages/ai/AiFunnelPage';
@@ -47,6 +48,8 @@ const sitePages = (lang: Lang): Child[] => {
     },
     { path: p('/virtual-coffee'), element: <VirtualCoffeePage /> },
     { path: p('/work-w-me'), element: <WorkWithMePage /> },
+    // The entity home: who Daniel Forero is. /about and /es/sobre-mi.
+    { path: p('/about'), element: <AboutPage /> },
   ];
 };
 

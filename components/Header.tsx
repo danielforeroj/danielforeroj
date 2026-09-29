@@ -8,6 +8,7 @@ import { altHref, localePath, otherLang, useLang, useUi } from "../lib/i18n";
 // and localized at render time, so /blog becomes /es/blog on a Spanish page.
 const LINKS = [
   { to: "/", key: "index" as const },
+  { to: "/about", key: "about" as const },
   ...(SECTIONS.blog ? [{ to: "/blog", key: "writing" as const }] : []),
   ...(SECTIONS.research ? [{ to: "/research", key: "research" as const }] : []),
   ...(SECTIONS.downloads ? [{ to: "/leads", key: "downloads" as const }] : []),

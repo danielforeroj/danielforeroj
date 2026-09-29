@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { posts } from "../data/mockData";
 import { PROFILES } from "../data/profile";
 import { SITE_DESCRIPTION } from "../data/siteConfig";
+import { HOME_TITLE } from "../data/entity";
 import { buildPersonJsonLd, buildWebSiteJsonLd, postCopy } from "../lib/seo";
 import { formatDate, localePath, useLang, useUi } from "../lib/i18n";
 import Seo from "../lib/SeoHead";
@@ -26,7 +27,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="console">
       <Seo
-        title={`${PROFILE.name} | ${PROFILE.eyebrow}`}
+        title={HOME_TITLE[lang]}
         description={SITE_DESCRIPTION[lang]}
         path={localePath("/", lang)}
         jsonLd={[buildPersonJsonLd(lang), buildWebSiteJsonLd(lang)]}

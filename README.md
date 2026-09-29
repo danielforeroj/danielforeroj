@@ -17,6 +17,7 @@ and the logic lives in `lib/i18n.ts`.
 | Page | English | Spanish |
 | --- | --- | --- |
 | Home | `/` | `/es` |
+| About (entity home) | `/about` | `/es/sobre-mi` |
 | Blog index | `/blog` | `/es/blog` |
 | Post | `/post/:slug` | `/es/post/:slug` |
 | Work with me | `/work-w-me` | `/es/work-w-me` |
@@ -35,9 +36,23 @@ also the `x-default` hreflang. Tracking links such as `/ai?r=ig` are untouched,
 and the language switcher carries the query string across, so the attribution
 survives a switch. Old `?lang=en` links on the guide are redirected to `/en/ai`.
 
-`/crecer` is the one page whose translation has its own slug (`/en/grow`);
+`/crecer` and `/about` are the pages whose translation has its own slug
+(`/en/grow`, `/es/sobre-mi`);
 `TRANSLATED_SLUG` in `lib/i18n.ts` (mirrored in `scripts/gen-sitemap.mjs`)
-holds that exception. The Spanish-first pages are listed in `ES_FIRST` in both.
+holds those exceptions. The Spanish-first pages are listed in `ES_FIRST` in both.
+
+## Who Daniel Forero is (entity)
+
+Several people are named Daniel Forero, so the site states who this one is the
+same way everywhere. `data/entity.ts` is the single source: the descriptor
+(homepage meta description and Person.description), the homepage titles, the
+alternate names, `ENTITY_PROFILES` (the Person's `sameAs`, only confirmed main
+profiles, kept apart from the homepage social links) and the company node,
+whose `@id`s match the Organization nodes unboundoperators.com and
+withunbound.com publish. The Person JSON-LD is on `/` and `/es`; the about page
+carries it inside a `ProfilePage`, with `FAQPage` and `BreadcrumbList`. The
+portrait is served at a stable URL, `public/daniel-forero.jpg`. llms.txt repeats
+the profile list by hand (`scripts/gen-sitemap.mjs`), so change both together.
 
 ## Entry points for the social feeds
 

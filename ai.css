@@ -592,3 +592,28 @@
   color: var(--gold);
 }
 .aif-sep { height: 1px; background: var(--aif-line); margin: 12px 0; border: 0; }
+
+/* ---------- about (/about, /es/sobre-mi) ---------- */
+.about { padding-bottom: 72px; }
+.about__portrait { width: 132px; }
+.about__lede { color: var(--aif-paper); }
+.about__section { display: grid; gap: 12px; margin-top: 14px; }
+.about__h2 {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.about__h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--aif-paper);
+}
+.about__qa { display: grid; gap: 6px; }
+.about__a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.about__a:hover { color: var(--gold-light); }

@@ -14,7 +14,7 @@ type SeoProps = {
    * "/en/ai"). Drives canonical, og:url, <html lang> and the hreflang pair.
    */
   path: string;
-  ogType?: 'website' | 'article';
+  ogType?: 'website' | 'article' | 'profile';
   ogImage?: string;
   keywords?: string[];
   noIndex?: boolean;

@@ -34,8 +34,11 @@ const isEsFirst = (base: string) => ES_FIRST.some((b) => base === b || base.star
 // A page whose translation has its own slug instead of the same slug under a
 // prefix. /crecer reads as nothing to an English speaker, so its twin is
 // /en/grow. Keys are the unprefixed (native) path.
+// The about page is the other way round: English at /about, Spanish at
+// /es/sobre-mi, because "sobre mi" is what a Spanish speaker searches for.
 const TRANSLATED_SLUG: Record<string, Partial<Record<Lang, string>>> = {
   '/crecer': { en: '/grow' },
+  '/about': { es: '/sobre-mi' },
 };
 const FROM_TRANSLATED_SLUG: Record<string, string> = Object.fromEntries(
   Object.entries(TRANSLATED_SLUG).flatMap(([base, slugs]) => Object.values(slugs).map((slug) => [slug, base])),
@@ -113,7 +116,7 @@ const UI = {
     openMenu: 'Open main menu',
     menu: 'Menu',
     close: 'Close',
-    nav: { index: 'Index', writing: 'Writing', research: 'Research', downloads: 'Downloads', work: 'Work with me' },
+    nav: { index: 'Index', about: 'About', writing: 'Writing', research: 'Research', downloads: 'Downloads', work: 'Work with me' },
     langSwitchLabel: 'Language',
     langSwitchTo: 'Leer en español',
     footerLine: 'Operate · Build · Back',
@@ -303,7 +306,7 @@ const UI = {
     openMenu: 'Abrir el menú principal',
     menu: 'Menú',
     close: 'Cerrar',
-    nav: { index: 'Inicio', writing: 'Escritos', research: 'Investigación', downloads: 'Descargas', work: 'Trabaja conmigo' },
+    nav: { index: 'Inicio', about: 'Sobre mí', writing: 'Escritos', research: 'Investigación', downloads: 'Descargas', work: 'Trabaja conmigo' },
     langSwitchLabel: 'Idioma',
     langSwitchTo: 'Read in English',
     footerLine: 'Operar · Construir · Invertir',

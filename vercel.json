@@ -35,6 +35,21 @@
       "source": "/es/geo",
       "destination": "/geo",
       "permanent": true
+    },
+    {
+      "source": "/sobre-mi",
+      "destination": "/es/sobre-mi",
+      "permanent": true
+    },
+    {
+      "source": "/es/about",
+      "destination": "/es/sobre-mi",
+      "permanent": true
+    },
+    {
+      "source": "/en/about",
+      "destination": "/about",
+      "permanent": true
     }
   ]
 }

@@ -107,8 +107,8 @@ const PREFIX = /^\/(en|es)(?=\/|$)/
 // Mirrors lib/i18n.ts: the Spanish-first pages and the one translated slug.
 const ES_FIRST = ['/ai', '/crecer', '/geo']
 const isEsFirst = (base) => ES_FIRST.some((b) => base === b || base.startsWith(`${b}/`))
-const TRANSLATED_SLUG = { '/crecer': { en: '/grow' } }
-const FROM_TRANSLATED_SLUG = { '/grow': '/crecer' }
+const TRANSLATED_SLUG = { '/crecer': { en: '/grow' }, '/about': { es: '/sobre-mi' } }
+const FROM_TRANSLATED_SLUG = { '/grow': '/crecer', '/sobre-mi': '/about' }
 const nativeLang = (base) => (isEsFirst(base) ? 'es' : 'en')
 const basePath = (route) => {
   const stripped = route.replace(PREFIX, '') || '/'
@@ -150,18 +150,39 @@ ${pages
 
 const llms = `# Daniel Forero
 
-> Daniel Forero is co-founder of Unbound Operators, which helps businesses grow by
-> implementing AI and AI workflows efficiently, through service verticals, product
-> verticals such as On Duty and unbound geo, and investment.
-> He is co-founder and CEO of Selah, pre-execution governance for AI agents,
-> hosts the AI and frontier technology vertical of the Anotelo podcast, and is a
-> GTM mentor at Outlier Ventures. He occasionally angel invests.
+> Daniel Forero is the co-founder of Unbound (Unbound Operators LLC,
+> https://unboundoperators.com). He helps companies, traditional and tech, grow:
+> with technology and AI, marketing and communications, business development
+> and connections, advisory, and capital. He has supported founders through
+> more than US$600M in raises. danielforeroj.com is his official site.
+
+Who he is, in full: ${ORIGIN}/about (English) and ${ORIGIN}/es/sobre-mi (Spanish).
+
+Unbound works through two divisions: Unbound (https://withunbound.com), the
+growth partner for companies building in AI, fintech and Web3 from pre-seed to
+Series B, and Unbound Growth Partners (https://unboundgrowthpartners.com), for
+established businesses. Daniel is also a GTM mentor at Outlier Ventures and
+hosts the AI and frontier technology vertical of the Spanish-language podcast
+Anotelo.
+
+The name: also written Daniel Forero J. His handle on every network is
+@danielforeroj. There are other people named Daniel Forero; this is the
+co-founder of Unbound.
+
+## Official profiles
+
+- X: https://x.com/danielforeroj
+- Instagram: https://www.instagram.com/danielforeroj/
+- TikTok: https://www.tiktok.com/@danielforeroj
+- YouTube: https://www.youtube.com/channel/UCZSBzNzRzGIUl09cYu4AUqw
+- Telegram: https://t.me/danielforeroj
+- Email: hello@danielforeroj.com
 
 This file lists every page on danielforeroj.com with a short description. Every
 page is published in English and Spanish: the Spanish versions of the site live
-under /es; the /ai guide, the /geo scan and the /crecer growth diagnostic were
-written in Spanish, and their English versions live at /en/ai, /en/geo and
-/en/grow.
+under /es (the about page is /es/sobre-mi); the /ai guide, the /geo scan and the
+/crecer growth diagnostic were written in Spanish, and their English versions
+live at /en/ai, /en/geo and /en/grow.
 
 ## Pages
 
