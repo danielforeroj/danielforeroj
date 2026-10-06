@@ -60,13 +60,13 @@ export const SECTIONS = {
 } as const;
 
 /**
- * The weekly capacity line on /links (studio change v6, approved 2026-10-05):
- * "Esta semana tenemos N cupos". It only renders when weeklySpots is a real
- * number that Daniel or the team gave. null hides the line: a made-up scarcity
- * number is worse than none. Set it together with
- * C:\agents\studio\config\marca.json > cta_por_pilar.escasez.cupo_semana, so the
- * page and the reels say the same number.
+ * Linea de cupo semanal en /links: APAGADA PARA SIEMPRE.
+ * Daniel, 2026-10-05, textual, cuando se le pregunto el cupo semanal: "las que
+ * sean necesarias, cero problema con eso". No hay tope de diagnosticos ni
+ * escaneos por semana, asi que "esta semana tenemos N cupos" seria falso. El
+ * tipo es null a proposito, para que nadie le ponga un numero. Lo mismo queda
+ * en C:\agents\studio\config\marca.json > cta_por_pilar.escasez.
  */
-export const CAPACITY: { weeklySpots: number | null } = {
+export const CAPACITY: { weeklySpots: null } = {
   weeklySpots: null,
 };
