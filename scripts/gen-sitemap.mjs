@@ -105,7 +105,7 @@ const lastmod = new Date().toISOString().slice(0, 10)
 // one, the same set lib/SeoHead writes into the page's own <head>.
 const PREFIX = /^\/(en|es)(?=\/|$)/
 // Mirrors lib/i18n.ts: the Spanish-first pages and the one translated slug.
-const ES_FIRST = ['/ai', '/crecer', '/geo']
+const ES_FIRST = ['/ai', '/crecer', '/geo', '/links']
 const isEsFirst = (base) => ES_FIRST.some((b) => base === b || base.startsWith(`${b}/`))
 const TRANSLATED_SLUG = { '/crecer': { en: '/grow' }, '/about': { es: '/sobre-mi' } }
 const FROM_TRANSLATED_SLUG = { '/grow': '/crecer', '/sobre-mi': '/about' }

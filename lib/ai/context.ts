@@ -119,7 +119,8 @@ type DataLayerEvent =
   | { event: 'ai_funnel_identify'; lang: Lang }
   | { event: 'ai_funnel_verified'; lang: Lang }
   | { event: 'ai_resource_open'; resource_key: string; lang: Lang }
-  | { event: 'lead_submit'; page: 'crecer' | 'geo' | 'work'; lang: Lang };
+  | { event: 'lead_submit'; page: 'crecer' | 'geo' | 'work'; lang: Lang }
+  | { event: 'links_click'; entry: string; r: string; lang: Lang };
 
 export function pushEvent(e: DataLayerEvent) {
   if (!isBrowser) return;

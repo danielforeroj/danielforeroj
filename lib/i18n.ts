@@ -28,7 +28,7 @@ export const OG_LOCALE: Record<Lang, string> = { en: 'en_US', es: 'es_LA' };
 // Pages written in Spanish first: the AI funnel and the two entry points built
 // for the Spanish social feeds (2026-09-24), the growth diagnostic and the GEO
 // scan. Their unprefixed URL is Spanish and their translation lives under /en.
-const ES_FIRST = ['/ai', '/crecer', '/geo'];
+const ES_FIRST = ['/ai', '/crecer', '/geo', '/links'];
 const isEsFirst = (base: string) => ES_FIRST.some((b) => base === b || base.startsWith(`${b}/`));
 
 // A page whose translation has its own slug instead of the same slug under a
@@ -297,6 +297,21 @@ const UI = {
       sentTitle: 'Done. Taking you to the scan.',
       manual: 'If it does not open, go here',
     },
+    links: {
+      title: 'Links',
+      description: 'Where to start with Daniel Forero: the free AI guide, the free GEO scan, the growth diagnostic, and working together.',
+      kicker: 'danielforeroj / links',
+      heading: 'Daniel Forero',
+      standfirst: 'Co-founder of Unbound. Pick the one that fits where you are.',
+      entries: {
+        guia: { title: 'Free AI guide for your business', body: 'A short quiz, then the guide and the library tailored to your company.', cta: 'Take the quiz' },
+        geo: { title: 'Free GEO scan', body: 'Five buyer questions asked to AI: does it recommend you or your competitor? Report in under ten minutes.', cta: 'Run the scan' },
+        crecer: { title: 'Free growth diagnostic', body: 'Six questions, three concrete points to grow your company.', cta: 'Start the diagnostic' },
+        trabajar: { title: 'Work with me', body: 'Between pre-seed and Series B with a real product and no traction? Tell me about the company.', cta: 'Write to me' },
+      },
+      book: 'Or book a call directly',
+      capacity: 'This week we have {n} spots for diagnostics and scans.',
+    },
   },
 
   es: {
@@ -481,6 +496,21 @@ const UI = {
       submit: 'Ir al escaneo gratis',
       sentTitle: 'Listo. Te llevo al escaneo.',
       manual: 'Si no se abre, entra aquí',
+    },
+    links: {
+      title: 'Enlaces',
+      description: 'Por dónde empezar con Daniel Forero: la guía gratis de IA, el escaneo GEO gratis, el diagnóstico de crecimiento y trabajar juntos.',
+      kicker: 'danielforeroj / enlaces',
+      heading: 'Daniel Forero',
+      standfirst: 'Cofundador de Unbound. Elige el que va con el momento de tu empresa.',
+      entries: {
+        guia: { title: 'Guía gratis de IA para tu negocio', body: 'Un quiz corto y recibes la guía y la biblioteca a la medida de tu empresa.', cta: 'Hacer el quiz' },
+        geo: { title: 'Escaneo GEO gratis', body: 'Cinco preguntas de compradores a la IA: te recomienda a ti o a tu competencia? Informe en menos de 10 minutos.', cta: 'Hacer el escaneo' },
+        crecer: { title: 'Diagnóstico gratis de crecimiento', body: 'Seis preguntas y tres puntos concretos para crecer tu empresa.', cta: 'Empezar el diagnóstico' },
+        trabajar: { title: 'Trabaja conmigo', body: 'Estás entre pre-seed y Serie B, con producto y sin tracción? Cuéntame de la empresa.', cta: 'Escríbeme' },
+      },
+      book: 'O agenda una llamada directo',
+      capacity: 'Esta semana tenemos {n} cupos para diagnósticos y escaneos.',
     },
   },
 };

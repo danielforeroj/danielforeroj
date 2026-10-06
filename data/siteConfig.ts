@@ -58,3 +58,15 @@ export const SECTIONS = {
    */
   ai: true,
 } as const;
+
+/**
+ * The weekly capacity line on /links (studio change v6, approved 2026-10-05):
+ * "Esta semana tenemos N cupos". It only renders when weeklySpots is a real
+ * number that Daniel or the team gave. null hides the line: a made-up scarcity
+ * number is worse than none. Set it together with
+ * C:\agents\studio\config\marca.json > cta_por_pilar.escasez.cupo_semana, so the
+ * page and the reels say the same number.
+ */
+export const CAPACITY: { weeklySpots: number | null } = {
+  weeklySpots: null,
+};

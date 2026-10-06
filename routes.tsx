@@ -8,6 +8,7 @@ import WorkWithMePage from './pages/WorkWithMePage';
 import AboutPage from './pages/AboutPage';
 import GrowPage from './pages/GrowPage';
 import GeoPage from './pages/GeoPage';
+import LinksPage from './pages/LinksPage';
 import AiFunnelPage from './pages/ai/AiFunnelPage';
 import AiLibraryPage from './pages/ai/AiLibraryPage';
 import AiResourcePage, { RESOURCE_SHELL_KEY } from './pages/ai/AiResourcePage';
@@ -63,6 +64,8 @@ const entryPages = (lang: Lang): Child[] => {
   return [
     { path: p('/crecer'), element: <GrowPage /> },
     { path: p('/geo'), element: <GeoPage /> },
+    // The bio link hub (2026-10-05): /links and /en/links. See pages/LinksPage.tsx.
+    { path: p('/links'), element: <LinksPage /> },
   ];
 };
 

@@ -28,6 +28,7 @@ and the logic lives in `lib/i18n.ts`.
 | AI resource | `/en/ai/recursos/:key` | `/ai/recursos/:key` |
 | Growth diagnostic | `/en/grow` | `/crecer` |
 | Free GEO scan | `/en/geo` | `/geo` |
+| Bio link hub (noindex) | `/en/links` | `/links` |
 
 Every URL that existed before keeps working and keeps its language: the site was
 written in English, so its translation lives under `/es`; the `/ai` guide was
@@ -66,6 +67,12 @@ the attribution parameter (`?r=ig`, `?r=tk`, `?r=ig-<piece id>`...), read by
 | P3 marketing, brand, comms | `/geo` | the lead, then sends the visitor to the free scan at unboundgeo.com/intro |
 | P1 + P4 growth, sales, partnerships | `/crecer` | six answers, the lead, and the three-point readout it showed |
 | P5 founders, and the English feeds | `/work-w-me` | the lead, stage and message |
+
+`/links` is the Instagram and TikTok bio link (2026-10-05): the four entries above
+plus the intro-call booking link. The bio URL is `/links?r=ig` (or `?r=tk`); the page
+hands each entry `r=<r>-bio` (`ig-bio`), so a bio lead is told apart from a caption
+lead (`ig-<piece>`), and pushes `links_click` to the dataLayer. The weekly capacity
+line renders only when `CAPACITY.weeklySpots` in `data/siteConfig.ts` is a real number.
 
 `/geo`, `/crecer` and `/work-w-me` post to unboundoperators.app `/api/contact`
 with `site: "danielforeroj"` (`lib/lead.ts`). The AI guide's `/api/ai/identify`
