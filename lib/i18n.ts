@@ -247,6 +247,23 @@ const UI = {
       errorRateLimit: 'Too many attempts in a row. Wait a few minutes and try again.',
     },
 
+    // The email gate of a report at /d/<slug> (pages/ReportPage.tsx). The
+    // report itself stays in the language it was written in.
+    report: {
+      kicker: 'danielforeroj / report',
+      byline: 'A report by Daniel Forero',
+      gateTitle: 'Enter your email to read it',
+      gateBody: 'One step, asked once on this browser. No code to confirm and no newsletter.',
+      submit: 'Read the report',
+      loading: 'Loading the report.',
+      loadError: 'The report did not load. Refresh the page to try again.',
+      readingAs: 'Reading as {email}.',
+      change: 'Use another email',
+      inLanguage: 'The report is in Spanish.',
+      frameTitle: 'Report',
+      notFoundTitle: 'This report is not available',
+    },
+
     grow: {
       title: 'Growth diagnostic',
       seoTitle: 'Free growth diagnostic for your company',
@@ -444,6 +461,21 @@ const UI = {
       invalidEmail: 'Revisa el email',
       errorGeneric: 'Algo no salió bien. Inténtalo de nuevo en un momento.',
       errorRateLimit: 'Demasiados intentos seguidos. Espera unos minutos y vuelve a intentarlo.',
+    },
+
+    report: {
+      kicker: 'danielforeroj / informe',
+      byline: 'Un informe de Daniel Forero',
+      gateTitle: 'Escribe tu email para leerlo',
+      gateBody: 'Un solo paso, y solo una vez en este navegador. Sin códigos de confirmación y sin boletines.',
+      submit: 'Leer el informe',
+      loading: 'Cargando el informe.',
+      loadError: 'El informe no cargó. Recarga la página para intentarlo de nuevo.',
+      readingAs: 'Leyendo como {email}.',
+      change: 'Usar otro email',
+      inLanguage: 'El informe está en inglés.',
+      frameTitle: 'Informe',
+      notFoundTitle: 'Este informe no está disponible',
     },
 
     grow: {

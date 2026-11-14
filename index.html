@@ -8,6 +8,9 @@
   <script>
     (function () {
       window.dataLayer = window.dataLayer || []
+      // Gated reports (/d/<slug>, /es/d/<slug>) carry no third-party analytics:
+      // their visits are recorded first-party (lib/reportTrack.ts).
+      if (/^\/(es\/)?d\//.test(window.location.pathname)) return
       window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' })
       function loadGtm() {
         var s = document.createElement('script')

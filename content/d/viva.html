@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viva visibility report</title>
+<style>
+:root{--bg:#fcfcfb;--ink:#0b0b0b;--muted:#52514e;--line:#e4e3df;--soft:#f3f2ef;--s1:#2a78d6;--s2:#eb6834;--neutral:#a9a8a2;--heat:42,120,214}
+@media (prefers-color-scheme:dark){:root{--bg:#1a1a19;--ink:#f0efec;--muted:#c3c2b7;--line:#383835;--soft:#242422;--s1:#3987e5;--s2:#d95926;--neutral:#6d6c66;--heat:57,135,229}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:980px;margin:0 auto;padding:40px 16px 72px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px}h2{font-size:22px;margin:48px 0 10px;padding-top:20px;border-top:1px solid var(--line)}h3{font-size:16px;margin:26px 0 8px}
+.meta,.note,.sub{color:var(--muted)}.meta{font-size:14px;margin:0 0 22px}.note{font-size:13px}.sub{font-size:12px}
+.lead{font-size:18px;background:var(--soft);border-left:4px solid var(--s1);padding:14px 16px;border-radius:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.card{border:1px solid var(--line);border-radius:8px;padding:12px 14px}.card b{display:block;font-size:26px}.card span{color:var(--muted);font-size:13px}
+.tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--soft);font-weight:600}
+td.n,th.n{text-align:right;white-space:nowrap}tr.us td{background:rgba(var(--heat),.12);font-weight:600}
+td.heat{background:rgba(var(--heat),calc(var(--a)*.75));text-align:center}td.heat span{background:var(--bg);padding:1px 5px;border-radius:4px;font-size:12px}
+.chart{margin:10px 0 4px}.chart svg{width:100%;height:auto;font-size:13px}
+.lbl{fill:var(--ink)}.lbl.hi{font-weight:700}.val{fill:var(--muted);font-size:12px}
+.bar{fill:var(--neutral)}.bar-hi{fill:var(--s1)}.s1{fill:var(--s1)}.s2{fill:var(--s2)}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--muted);margin-bottom:4px}.k{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}.k.s1{background:var(--s1)}.k.s2{background:var(--s2)}
+dl{margin:0}dt{font-weight:600;margin-top:16px}dd{margin:4px 0 0}
+details{border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:10px 0}summary{cursor:pointer;font-weight:600}
+a{color:var(--s1)}
+footer{margin-top:56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:14px}
+</style></head><body><main>
+
+<h1>Viva (execviva.com): AI and search visibility</h1>
+<p class="meta">US market, English. AI answers measured November 13, 2026; Google AI Overviews November 14, 2026. Compared with Athena (athena.com), BELAY (belaysolutions.com) and Prialto (prialto.com).</p>
+
+<p class="lead">When a US buyer asks ChatGPT which virtual executive assistant service to hire, ChatGPT names Viva in <b>3 of 219 answers</b> and BELAY in <b>180</b>. Gemini does better for Viva (27 of 224), and Google's AI Overviews name Viva in 1 of 20 category searches. The engines already read execviva.com (it is cited as a source in 49 AI answers), but they do not recommend the brand. Two causes stand out: "Viva" is read as Microsoft Viva or a European bank, and the comparison and "best of" pages the engines quote list competitors, not Viva.</p>
+
+<div class="grid">
+<div class="card"><b>3 / 219</b><span>ChatGPT buyer answers that name Viva</span></div>
+<div class="card"><b>27 / 224</b><span>Gemini buyer answers that name Viva</span></div>
+<div class="card"><b>1 / 20</b><span>Google AI Overviews (category searches) that name Viva</span></div>
+<div class="card"><b>531</b><span>sites linking to a competitor but not to Viva</span></div>
+</div>
+
+<h2>1. ChatGPT and Gemini (GEO)</h2>
+<p>We asked ChatGPT and Gemini 24 questions a buyer would ask about virtual executive assistant services, each one 10 times on each engine, plus one question asking what Viva is. That is 500 answers. Below, a company counts as named when it appears anywhere in an answer.</p>
+
+<h3>Who gets named: answers naming each company, both engines (of 443)</h3>
+<figure class="chart"><svg viewBox="0 0 640 428" role="img" aria-label="Answers naming each company"><g><title>BELAY: 357</title>
+      <rect x="0" y="6" width="640" height="26" fill="transparent"/>
+      <text x="180" y="23" text-anchor="end" class="lbl">BELAY</text>
+      <rect x="190" y="11" width="306.2" height="16" rx="4" class="bar"/>
+      <text x="502.23024830699774" y="23" class="val">357</text></g><g><title>Prialto: 343</title>
+      <rect x="0" y="32" width="640" height="26" fill="transparent"/>
+      <text x="180" y="49" text-anchor="end" class="lbl">Prialto</text>
+      <rect x="190" y="37" width="294.2" height="16" rx="4" class="bar"/>
+      <text x="490.2212189616253" y="49" class="val">343</text></g><g><title>Boldly: 297</title>
+      <rect x="0" y="58" width="640" height="26" fill="transparent"/>
+      <text x="180" y="75" text-anchor="end" class="lbl">Boldly</text>
+      <rect x="190" y="63" width="254.8" height="16" rx="4" class="bar"/>
+      <text x="450.76297968397296" y="75" class="val">297</text></g><g><title>Athena: 260</title>
+      <rect x="0" y="84" width="640" height="26" fill="transparent"/>
+      <text x="180" y="101" text-anchor="end" class="lbl">Athena</text>
+      <rect x="190" y="89" width="223.0" height="16" rx="4" class="bar"/>
+      <text x="419.02483069977427" y="101" class="val">260</text></g><g><title>Time Etc: 222</title>
+      <rect x="0" y="110" width="640" height="26" fill="transparent"/>
+      <text x="180" y="127" text-anchor="end" class="lbl">Time Etc</text>
+      <rect x="190" y="115" width="190.4" height="16" rx="4" class="bar"/>
+      <text x="386.4288939051919" y="127" class="val">222</text></g><g><title>Double: 158</title>
+      <rect x="0" y="136" width="640" height="26" fill="transparent"/>
+      <text x="180" y="153" text-anchor="end" class="lbl">Double</text>
+      <rect x="190" y="141" width="135.5" height="16" rx="4" class="bar"/>
+      <text x="331.53047404063204" y="153" class="val">158</text></g><g><title>Wing Assistant: 133</title>
+      <rect x="0" y="162" width="640" height="26" fill="transparent"/>
+      <text x="180" y="179" text-anchor="end" class="lbl">Wing Assistant</text>
+      <rect x="190" y="167" width="114.1" height="16" rx="4" class="bar"/>
+      <text x="310.08577878103836" y="179" class="val">133</text></g><g><title>Zirtual: 128</title>
+      <rect x="0" y="188" width="640" height="26" fill="transparent"/>
+      <text x="180" y="205" text-anchor="end" class="lbl">Zirtual</text>
+      <rect x="190" y="193" width="109.8" height="16" rx="4" class="bar"/>
+      <text x="305.7968397291196" y="205" class="val">128</text></g><g><title>Fancy Hands: 51</title>
+      <rect x="0" y="214" width="640" height="26" fill="transparent"/>
+      <text x="180" y="231" text-anchor="end" class="lbl">Fancy Hands</text>
+      <rect x="190" y="219" width="43.7" height="16" rx="4" class="bar"/>
+      <text x="239.7471783295711" y="231" class="val">51</text></g><g><title>MyOutDesk: 39</title>
+      <rect x="0" y="240" width="640" height="26" fill="transparent"/>
+      <text x="180" y="257" text-anchor="end" class="lbl">MyOutDesk</text>
+      <rect x="190" y="245" width="33.5" height="16" rx="4" class="bar"/>
+      <text x="229.45372460496614" y="257" class="val">39</text></g><g><title>Base: 35</title>
+      <rect x="0" y="266" width="640" height="26" fill="transparent"/>
+      <text x="180" y="283" text-anchor="end" class="lbl">Base</text>
+      <rect x="190" y="271" width="30.0" height="16" rx="4" class="bar"/>
+      <text x="226.02257336343115" y="283" class="val">35</text></g><g><title>ProAssisting: 32</title>
+      <rect x="0" y="292" width="640" height="26" fill="transparent"/>
+      <text x="180" y="309" text-anchor="end" class="lbl">ProAssisting</text>
+      <rect x="190" y="297" width="27.4" height="16" rx="4" class="bar"/>
+      <text x="223.4492099322799" y="309" class="val">32</text></g><g><title>Wishup: 32</title>
+      <rect x="0" y="318" width="640" height="26" fill="transparent"/>
+      <text x="180" y="335" text-anchor="end" class="lbl">Wishup</text>
+      <rect x="190" y="323" width="27.4" height="16" rx="4" class="bar"/>
+      <text x="223.4492099322799" y="335" class="val">32</text></g><g><title>Viva: 30</title>
+      <rect x="0" y="344" width="640" height="26" fill="transparent"/>
+      <text x="180" y="361" text-anchor="end" class="lbl hi">Viva</text>
+      <rect x="190" y="349" width="25.7" height="16" rx="4" class="bar-hi"/>
+      <text x="221.73363431151242" y="361" class="val">30</text></g><g><title>Magic: 22</title>
+      <rect x="0" y="370" width="640" height="26" fill="transparent"/>
+      <text x="180" y="387" text-anchor="end" class="lbl">Magic</text>
+      <rect x="190" y="375" width="18.9" height="16" rx="4" class="bar"/>
+      <text x="214.87133182844244" y="387" class="val">22</text></g><g><title>Oceans: 13</title>
+      <rect x="0" y="396" width="640" height="26" fill="transparent"/>
+      <text x="180" y="413" text-anchor="end" class="lbl">Oceans</text>
+      <rect x="190" y="401" width="11.2" height="16" rx="4" class="bar"/>
+      <text x="207.1512415349887" y="413" class="val">13</text></g></svg></figure>
+<p class="note">443 is the number of answers to the 24 buyer questions that named at least one business. "Wing Assistant" was also named 42 more times as just "Wing", counted separately here because the detector does not merge them. Base is basehq.com, Double is doublehq.com, Magic is getmagic.com.</p>
+
+<h3>By engine</h3>
+<figure class="chart"><div class="legend"><span><i class="k s1"></i>ChatGPT (of 219)</span><span><i class="k s2"></i>Gemini (of 224)</span></div><svg viewBox="0 0 640 210" role="img"><g><title>BELAY: ChatGPT (of 219) 180 of 219, Gemini (of 224) 177 of 224</title>
+      <rect x="0" y="6" width="640" height="40" fill="transparent"/>
+      <text x="140" y="29" text-anchor="end" class="lbl">BELAY</text>
+      <rect x="150" y="10" width="430.0" height="14" rx="4" class="s1"/>
+      <text x="586" y="21" class="val">180</text>
+      <rect x="150" y="26" width="422.8" height="14" rx="4" class="s2"/>
+      <text x="578.8333333333333" y="37" class="val">177</text></g><g><title>Prialto: ChatGPT (of 219) 177 of 219, Gemini (of 224) 166 of 224</title>
+      <rect x="0" y="46" width="640" height="40" fill="transparent"/>
+      <text x="140" y="69" text-anchor="end" class="lbl">Prialto</text>
+      <rect x="150" y="50" width="422.8" height="14" rx="4" class="s1"/>
+      <text x="578.8333333333333" y="61" class="val">177</text>
+      <rect x="150" y="66" width="396.6" height="14" rx="4" class="s2"/>
+      <text x="552.5555555555557" y="77" class="val">166</text></g><g><title>Athena: ChatGPT (of 219) 158 of 219, Gemini (of 224) 102 of 224</title>
+      <rect x="0" y="86" width="640" height="40" fill="transparent"/>
+      <text x="140" y="109" text-anchor="end" class="lbl">Athena</text>
+      <rect x="150" y="90" width="377.4" height="14" rx="4" class="s1"/>
+      <text x="533.4444444444445" y="101" class="val">158</text>
+      <rect x="150" y="106" width="243.7" height="14" rx="4" class="s2"/>
+      <text x="399.66666666666663" y="117" class="val">102</text></g><g><title>Boldly: ChatGPT (of 219) 149 of 219, Gemini (of 224) 148 of 224</title>
+      <rect x="0" y="126" width="640" height="40" fill="transparent"/>
+      <text x="140" y="149" text-anchor="end" class="lbl">Boldly</text>
+      <rect x="150" y="130" width="355.9" height="14" rx="4" class="s1"/>
+      <text x="511.9444444444444" y="141" class="val">149</text>
+      <rect x="150" y="146" width="353.6" height="14" rx="4" class="s2"/>
+      <text x="509.55555555555554" y="157" class="val">148</text></g><g><title>Viva: ChatGPT (of 219) 3 of 219, Gemini (of 224) 27 of 224</title>
+      <rect x="0" y="166" width="640" height="40" fill="transparent"/>
+      <text x="140" y="189" text-anchor="end" class="lbl hi">Viva</text>
+      <rect x="150" y="170" width="7.2" height="14" rx="4" class="s1"/>
+      <text x="163.16666666666666" y="181" class="val">3</text>
+      <rect x="150" y="186" width="64.5" height="14" rx="4" class="s2"/>
+      <text x="220.5" y="197" class="val">27</text></g></svg></figure>
+
+<h3>Question by question</h3>
+<p class="note">Each cell is answers naming that company out of the answers collected for that question. Darker means named more often. Hover a cell for the count.</p>
+<div class="tablewrap"><table class="heatmap"><thead>
+<tr><th rowspan="2">Question</th><th colspan="5" class="n" style="text-align:center">ChatGPT</th><th colspan="5" class="n" style="text-align:center">Gemini</th></tr>
+<tr><th class="n">Viva</th><th class="n">BELAY</th><th class="n">Prialto</th><th class="n">Athena</th><th class="n">Boldly</th><th class="n">Viva</th><th class="n">BELAY</th><th class="n">Prialto</th><th class="n">Athena</th><th class="n">Boldly</th></tr>
+</thead><tbody><tr><td>What are the best virtual executive assistant services right now?<div class="sub">Shortlist</div></td><td class="n heat" style="--a:0.10" title="1 of 10 answers"><span>1/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td><td class="n heat" style="--a:0.00" title="0 of 9 answers"><span>0/9</span></td><td class="n heat" style="--a:1.00" title="9 of 9 answers"><span>9/9</span></td><td class="n heat" style="--a:1.00" title="9 of 9 answers"><span>9/9</span></td><td class="n heat" style="--a:0.33" title="3 of 9 answers"><span>3/9</span></td><td class="n heat" style="--a:0.78" title="7 of 9 answers"><span>7/9</span></td></tr><tr><td>Who are the top virtual executive assistant services for a startup?<div class="sub">Shortlist</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td></tr><tr><td>Which virtual executive assistant services are best in the United States?<div class="sub">Shortlist</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.20" title="2 of 10 answers"><span>2/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td></tr><tr><td>Which virtual executive assistant services are most popular right now?<div class="sub">Shortlist</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.30" title="3 of 10 answers"><span>3/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td></tr><tr><td>Which virtual executive assistant services are worth paying for?<div class="sub">Shortlist</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.70" title="7 of 10 answers"><span>7/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.60" title="6 of 10 answers"><span>6/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td></tr><tr><td>Which virtual executive assistant services do small teams usually pick?<div class="sub">Shortlist</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.70" title="7 of 10 answers"><span>7/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.10" title="1 of 10 answers"><span>1/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td></tr><tr><td>Which virtual executive assistant services do large companies usually pick?<div class="sub">Shortlist</div></td><td class="n heat" style="--a:0.10" title="1 of 10 answers"><span>1/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td><td class="n heat" style="--a:0.30" title="3 of 10 answers"><span>3/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.20" title="2 of 10 answers"><span>2/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td></tr><tr><td>How do the leading virtual executive assistant services compare?<div class="sub">Comparison</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.10" title="1 of 10 answers"><span>1/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td></tr><tr><td>Which virtual executive assistant services do people recommend most, and why?<div class="sub">Comparison</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.50" title="5 of 10 answers"><span>5/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td></tr><tr><td>What are the main alternatives among virtual executive assistant services?<div class="sub">Comparison</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td></tr><tr><td>Which virtual executive assistant services have the best reviews?<div class="sub">Comparison</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.10" title="1 of 10 answers"><span>1/10</span></td><td class="n heat" style="--a:0.50" title="5 of 10 answers"><span>5/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td></tr><tr><td>Which virtual executive assistant services are easiest to get started with?<div class="sub">Comparison</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.30" title="3 of 10 answers"><span>3/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:0.30" title="3 of 10 answers"><span>3/10</span></td><td class="n heat" style="--a:0.00" title="0 of 9 answers"><span>0/9</span></td><td class="n heat" style="--a:0.44" title="4 of 9 answers"><span>4/9</span></td><td class="n heat" style="--a:0.44" title="4 of 9 answers"><span>4/9</span></td><td class="n heat" style="--a:0.11" title="1 of 9 answers"><span>1/9</span></td><td class="n heat" style="--a:0.22" title="2 of 9 answers"><span>2/9</span></td></tr><tr><td>Which virtual executive assistant services hold up best as a team grows?<div class="sub">Comparison</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.40" title="4 of 10 answers"><span>4/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.70" title="7 of 10 answers"><span>7/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td></tr><tr><td>Which virtual executive assistant services are treated as the industry standard?<div class="sub">Comparison</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td><td class="n heat" style="--a:0.20" title="2 of 10 answers"><span>2/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td></tr><tr><td>Which virtual executive assistant services are used most in the United States?<div class="sub">Local</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.20" title="2 of 10 answers"><span>2/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td></tr><tr><td>Are there virtual executive assistant services based in the United States?<div class="sub">Local</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.10" title="1 of 10 answers"><span>1/10</span></td><td class="n heat" style="--a:0.10" title="1 of 10 answers"><span>1/10</span></td><td class="n heat" style="--a:0.80" title="8 of 10 answers"><span>8/10</span></td><td class="n heat" style="--a:0.30" title="3 of 10 answers"><span>3/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.30" title="3 of 10 answers"><span>3/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td></tr><tr><td>Which virtual executive assistant services support customers in the United States?<div class="sub">Local</div></td><td class="n heat" style="--a:0.10" title="1 of 10 answers"><span>1/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.70" title="7 of 10 answers"><span>7/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.70" title="7 of 10 answers"><span>7/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td></tr><tr><td>I need help choosing virtual executive assistant services. What should I look for?<div class="sub">Buying problem</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.20" title="2 of 10 answers"><span>2/10</span></td><td class="n heat" style="--a:0.10" title="1 of 10 answers"><span>1/10</span></td><td class="n heat" style="--a:0.50" title="5 of 10 answers"><span>5/10</span></td><td class="n heat" style="--a:0.30" title="3 of 10 answers"><span>3/10</span></td><td class="n heat" style="--a:0.40" title="4 of 10 answers"><span>4/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td></tr><tr><td>How much do virtual executive assistant services usually cost?<div class="sub">Buying problem</div></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:0.10" title="1 of 10 answers"><span>1/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.70" title="7 of 10 answers"><span>7/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.90" title="9 of 10 answers"><span>9/10</span></td><td class="n heat" style="--a:0.50" title="5 of 10 answers"><span>5/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td></tr><tr><td>What should I ask before buying virtual executive assistant services?<div class="sub">Buying problem</div></td><td class="n heat" style="--a:0.00" title="0 of 7 answers"><span>0/7</span></td><td class="n heat" style="--a:0.00" title="0 of 7 answers"><span>0/7</span></td><td class="n heat" style="--a:0.29" title="2 of 7 answers"><span>2/7</span></td><td class="n heat" style="--a:0.00" title="0 of 7 answers"><span>0/7</span></td><td class="n heat" style="--a:0.00" title="0 of 7 answers"><span>0/7</span></td><td class="n heat" style="--a:0.20" title="2 of 10 answers"><span>2/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:1.00" title="10 of 10 answers"><span>10/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td><td class="n heat" style="--a:0.00" title="0 of 10 answers"><span>0/10</span></td></tr><tr><td>What goes wrong when picking virtual executive assistant services?<div class="sub">Buying problem</div></td><td class="n heat" style="--a:0.00" title="0 of 5 answers"><span>0/5</span></td><td class="n heat" style="--a:0.00" title="0 of 5 answers"><span>0/5</span></td><td class="n heat" style="--a:0.20" title="1 of 5 answers"><span>1/5</span></td><td class="n heat" style="--a:0.00" title="0 of 5 answers"><span>0/5</span></td><td class="n heat" style="--a:0.00" title="0 of 5 answers"><span>0/5</span></td><td class="n heat" style="--a:0.00" title="0 of 4 answers"><span>0/4</span></td><td class="n heat" style="--a:0.00" title="0 of 4 answers"><span>0/4</span></td><td class="n heat" style="--a:0.00" title="0 of 4 answers"><span>0/4</span></td><td class="n heat" style="--a:0.00" title="0 of 4 answers"><span>0/4</span></td><td class="n heat" style="--a:0.00" title="0 of 4 answers"><span>0/4</span></td></tr><tr><td>What do people complain about most with virtual executive assistant services?<div class="sub">Buying problem</div></td><td class="n heat" style="--a:0.00" title="0 of 3 answers"><span>0/3</span></td><td class="n heat" style="--a:0.67" title="2 of 3 answers"><span>2/3</span></td><td class="n heat" style="--a:0.67" title="2 of 3 answers"><span>2/3</span></td><td class="n heat" style="--a:0.67" title="2 of 3 answers"><span>2/3</span></td><td class="n heat" style="--a:0.00" title="0 of 3 answers"><span>0/3</span></td><td class="n heat" style="--a:0.00" title="0 of 8 answers"><span>0/8</span></td><td class="n heat" style="--a:0.25" title="2 of 8 answers"><span>2/8</span></td><td class="n heat" style="--a:0.00" title="0 of 8 answers"><span>0/8</span></td><td class="n heat" style="--a:0.13" title="1 of 8 answers"><span>1/8</span></td><td class="n heat" style="--a:0.00" title="0 of 8 answers"><span>0/8</span></td></tr><tr><td>What are the common mistakes when switching virtual executive assistant services?<div class="sub">Buying problem</div></td><td class="n heat" style="--a:0.00" title="0 of 9 answers"><span>0/9</span></td><td class="n heat" style="--a:0.00" title="0 of 9 answers"><span>0/9</span></td><td class="n heat" style="--a:0.00" title="0 of 9 answers"><span>0/9</span></td><td class="n heat" style="--a:0.00" title="0 of 9 answers"><span>0/9</span></td><td class="n heat" style="--a:0.00" title="0 of 9 answers"><span>0/9</span></td><td class="n heat" style="--a:0.00" title="0 of 6 answers"><span>0/6</span></td><td class="n heat" style="--a:0.00" title="0 of 6 answers"><span>0/6</span></td><td class="n heat" style="--a:0.17" title="1 of 6 answers"><span>1/6</span></td><td class="n heat" style="--a:0.00" title="0 of 6 answers"><span>0/6</span></td><td class="n heat" style="--a:0.00" title="0 of 6 answers"><span>0/6</span></td></tr><tr><td>How long does it take to get value out of virtual executive assistant services?<div class="sub">Buying problem</div></td><td class="n heat" style="--a:0.00" title="0 of 5 answers"><span>0/5</span></td><td class="n heat" style="--a:0.00" title="0 of 5 answers"><span>0/5</span></td><td class="n heat" style="--a:0.00" title="0 of 5 answers"><span>0/5</span></td><td class="n heat" style="--a:0.00" title="0 of 5 answers"><span>0/5</span></td><td class="n heat" style="--a:0.00" title="0 of 5 answers"><span>0/5</span></td><td class="n heat" style="--a:0.13" title="1 of 8 answers"><span>1/8</span></td><td class="n heat" style="--a:0.00" title="0 of 8 answers"><span>0/8</span></td><td class="n heat" style="--a:0.50" title="4 of 8 answers"><span>4/8</span></td><td class="n heat" style="--a:0.00" title="0 of 8 answers"><span>0/8</span></td><td class="n heat" style="--a:0.00" title="0 of 8 answers"><span>0/8</span></td></tr></tbody></table></div>
+<p class="note">Questions about problems ("what goes wrong", "what should I ask") often get general advice with no company names, which is why those rows have fewer answers counted.</p>
+
+<h3>What the engines say when asked "What is Viva and what do they do?"</h3>
+<ul>
+<li><b>ChatGPT</b> says the name is used by several companies, usually lists Microsoft Viva first, and asks which one is meant.</li>
+<li><b>Gemini</b> typically lists Microsoft Viva (an employee experience platform) and Viva.com (a European payments company) first. The executive assistant service appears third, sometimes described correctly ("a remote executive assistant service, often found via execviva.com") and sometimes as "Viva Talent".</li>
+</ul>
+
+<h3>Which sites the engines use as sources: answers citing each domain (of 463)</h3>
+<figure class="chart"><svg viewBox="0 0 640 506" role="img" aria-label="Answers citing each domain"><g><title>boldly.com: 217</title>
+      <rect x="0" y="6" width="640" height="26" fill="transparent"/>
+      <text x="180" y="23" text-anchor="end" class="lbl">boldly.com</text>
+      <rect x="190" y="11" width="380.0" height="16" rx="4" class="bar"/>
+      <text x="576" y="23" class="val">217</text></g><g><title>basehq.com: 206</title>
+      <rect x="0" y="32" width="640" height="26" fill="transparent"/>
+      <text x="180" y="49" text-anchor="end" class="lbl">basehq.com</text>
+      <rect x="190" y="37" width="360.7" height="16" rx="4" class="bar"/>
+      <text x="556.7373271889401" y="49" class="val">206</text></g><g><title>prialto.com: 195</title>
+      <rect x="0" y="58" width="640" height="26" fill="transparent"/>
+      <text x="180" y="75" text-anchor="end" class="lbl">prialto.com</text>
+      <rect x="190" y="63" width="341.5" height="16" rx="4" class="bar"/>
+      <text x="537.4746543778801" y="75" class="val">195</text></g><g><title>belaysolutions.com: 176</title>
+      <rect x="0" y="84" width="640" height="26" fill="transparent"/>
+      <text x="180" y="101" text-anchor="end" class="lbl">belaysolutions.com</text>
+      <rect x="190" y="89" width="308.2" height="16" rx="4" class="bar"/>
+      <text x="504.2027649769585" y="101" class="val">176</text></g><g><title>timeetc.com: 161</title>
+      <rect x="0" y="110" width="640" height="26" fill="transparent"/>
+      <text x="180" y="127" text-anchor="end" class="lbl">timeetc.com</text>
+      <rect x="190" y="115" width="281.9" height="16" rx="4" class="bar"/>
+      <text x="477.93548387096774" y="127" class="val">161</text></g><g><title>virtustant.com: 158</title>
+      <rect x="0" y="136" width="640" height="26" fill="transparent"/>
+      <text x="180" y="153" text-anchor="end" class="lbl">virtustant.com</text>
+      <rect x="190" y="141" width="276.7" height="16" rx="4" class="bar"/>
+      <text x="472.68202764976957" y="153" class="val">158</text></g><g><title>stellarstaff.com: 157</title>
+      <rect x="0" y="162" width="640" height="26" fill="transparent"/>
+      <text x="180" y="179" text-anchor="end" class="lbl">stellarstaff.com</text>
+      <rect x="190" y="167" width="274.9" height="16" rx="4" class="bar"/>
+      <text x="470.93087557603684" y="179" class="val">157</text></g><g><title>proassisting.com: 140</title>
+      <rect x="0" y="188" width="640" height="26" fill="transparent"/>
+      <text x="180" y="205" text-anchor="end" class="lbl">proassisting.com</text>
+      <rect x="190" y="193" width="245.2" height="16" rx="4" class="bar"/>
+      <text x="441.1612903225806" y="205" class="val">140</text></g><g><title>wingassistant.com: 106</title>
+      <rect x="0" y="214" width="640" height="26" fill="transparent"/>
+      <text x="180" y="231" text-anchor="end" class="lbl">wingassistant.com</text>
+      <rect x="190" y="219" width="185.6" height="16" rx="4" class="bar"/>
+      <text x="381.6221198156682" y="231" class="val">106</text></g><g><title>athena.com: 96</title>
+      <rect x="0" y="240" width="640" height="26" fill="transparent"/>
+      <text x="180" y="257" text-anchor="end" class="lbl">athena.com</text>
+      <rect x="190" y="245" width="168.1" height="16" rx="4" class="bar"/>
+      <text x="364.110599078341" y="257" class="val">96</text></g><g><title>forbes.com: 73</title>
+      <rect x="0" y="266" width="640" height="26" fill="transparent"/>
+      <text x="180" y="283" text-anchor="end" class="lbl">forbes.com</text>
+      <rect x="190" y="271" width="127.8" height="16" rx="4" class="bar"/>
+      <text x="323.8341013824885" y="283" class="val">73</text></g><g><title>weareworking.com: 71</title>
+      <rect x="0" y="292" width="640" height="26" fill="transparent"/>
+      <text x="180" y="309" text-anchor="end" class="lbl">weareworking.com</text>
+      <rect x="190" y="297" width="124.3" height="16" rx="4" class="bar"/>
+      <text x="320.33179723502303" y="309" class="val">71</text></g><g><title>zirtual.com: 68</title>
+      <rect x="0" y="318" width="640" height="26" fill="transparent"/>
+      <text x="180" y="335" text-anchor="end" class="lbl">zirtual.com</text>
+      <rect x="190" y="323" width="119.1" height="16" rx="4" class="bar"/>
+      <text x="315.0783410138249" y="335" class="val">68</text></g><g><title>remotecoworker.com: 63</title>
+      <rect x="0" y="344" width="640" height="26" fill="transparent"/>
+      <text x="180" y="361" text-anchor="end" class="lbl">remotecoworker.com</text>
+      <rect x="190" y="349" width="110.3" height="16" rx="4" class="bar"/>
+      <text x="306.3225806451613" y="361" class="val">63</text></g><g><title>arc.dev: 58</title>
+      <rect x="0" y="370" width="640" height="26" fill="transparent"/>
+      <text x="180" y="387" text-anchor="end" class="lbl">arc.dev</text>
+      <rect x="190" y="375" width="101.6" height="16" rx="4" class="bar"/>
+      <text x="297.5668202764977" y="387" class="val">58</text></g><g><title>doublehq.com: 54</title>
+      <rect x="0" y="396" width="640" height="26" fill="transparent"/>
+      <text x="180" y="413" text-anchor="end" class="lbl">doublehq.com</text>
+      <rect x="190" y="401" width="94.6" height="16" rx="4" class="bar"/>
+      <text x="290.5622119815668" y="413" class="val">54</text></g><g><title>vamasters.com: 53</title>
+      <rect x="0" y="422" width="640" height="26" fill="transparent"/>
+      <text x="180" y="439" text-anchor="end" class="lbl">vamasters.com</text>
+      <rect x="190" y="427" width="92.8" height="16" rx="4" class="bar"/>
+      <text x="288.8110599078341" y="439" class="val">53</text></g><g><title>reddit.com: 52</title>
+      <rect x="0" y="448" width="640" height="26" fill="transparent"/>
+      <text x="180" y="465" text-anchor="end" class="lbl">reddit.com</text>
+      <rect x="190" y="453" width="91.1" height="16" rx="4" class="bar"/>
+      <text x="287.0599078341014" y="465" class="val">52</text></g><g><title>execviva.com: 49</title>
+      <rect x="0" y="474" width="640" height="26" fill="transparent"/>
+      <text x="180" y="491" text-anchor="end" class="lbl hi">execviva.com</text>
+      <rect x="190" y="479" width="85.8" height="16" rx="4" class="bar-hi"/>
+      <text x="281.80645161290323" y="491" class="val">49</text></g></svg></figure>
+<p class="note">Counted over all 463 answers that came back with content. execviva.com is cited in 49, mostly for its articles on executive assistant roles, not as a recommendation.</p>
+
+<h2>2. Google AI Overviews (AEO)</h2>
+<p>We searched 36 terms on Google (US, desktop): category terms, competitor terms and Viva's own brand terms, and recorded whether Google showed an AI Overview, which sites it cites as sources, and which services it names in its text.</p>
+<div class="grid">
+<div class="card"><b>27 / 36</b><span>searches showing an AI Overview</span></div>
+<div class="card"><b>20 / 29</b><span>category and competitor searches with an AI Overview</span></div>
+<div class="card"><b>1 / 20</b><span>of those naming Viva ("best virtual executive assistant")</span></div>
+<div class="card"><b>7 / 7</b><span>Viva brand searches with an AI Overview naming Viva</span></div>
+</div>
+<h3>Services named in AI Overviews, category and competitor searches (of 20)</h3>
+<figure class="chart"><svg viewBox="0 0 640 246" role="img" aria-label="Services named in AI Overviews"><g><title>Prialto: 8</title>
+      <rect x="0" y="6" width="640" height="26" fill="transparent"/>
+      <text x="180" y="23" text-anchor="end" class="lbl">Prialto</text>
+      <rect x="190" y="11" width="152.0" height="16" rx="4" class="bar"/>
+      <text x="348" y="23" class="val">8</text></g><g><title>Boldly: 7</title>
+      <rect x="0" y="32" width="640" height="26" fill="transparent"/>
+      <text x="180" y="49" text-anchor="end" class="lbl">Boldly</text>
+      <rect x="190" y="37" width="133.0" height="16" rx="4" class="bar"/>
+      <text x="329" y="49" class="val">7</text></g><g><title>BELAY: 5</title>
+      <rect x="0" y="58" width="640" height="26" fill="transparent"/>
+      <text x="180" y="75" text-anchor="end" class="lbl">BELAY</text>
+      <rect x="190" y="63" width="95.0" height="16" rx="4" class="bar"/>
+      <text x="291" y="75" class="val">5</text></g><g><title>Athena: 5</title>
+      <rect x="0" y="84" width="640" height="26" fill="transparent"/>
+      <text x="180" y="101" text-anchor="end" class="lbl">Athena</text>
+      <rect x="190" y="89" width="95.0" height="16" rx="4" class="bar"/>
+      <text x="291" y="101" class="val">5</text></g><g><title>Upwork: 4</title>
+      <rect x="0" y="110" width="640" height="26" fill="transparent"/>
+      <text x="180" y="127" text-anchor="end" class="lbl">Upwork</text>
+      <rect x="190" y="115" width="76.0" height="16" rx="4" class="bar"/>
+      <text x="272" y="127" class="val">4</text></g><g><title>Time Etc: 2</title>
+      <rect x="0" y="136" width="640" height="26" fill="transparent"/>
+      <text x="180" y="153" text-anchor="end" class="lbl">Time Etc</text>
+      <rect x="190" y="141" width="38.0" height="16" rx="4" class="bar"/>
+      <text x="234" y="153" class="val">2</text></g><g><title>Double: 1</title>
+      <rect x="0" y="162" width="640" height="26" fill="transparent"/>
+      <text x="180" y="179" text-anchor="end" class="lbl">Double</text>
+      <rect x="190" y="167" width="19.0" height="16" rx="4" class="bar"/>
+      <text x="215" y="179" class="val">1</text></g><g><title>Viva: 1</title>
+      <rect x="0" y="188" width="640" height="26" fill="transparent"/>
+      <text x="180" y="205" text-anchor="end" class="lbl hi">Viva</text>
+      <rect x="190" y="193" width="19.0" height="16" rx="4" class="bar-hi"/>
+      <text x="215" y="205" class="val">1</text></g><g><title>Assist World: 1</title>
+      <rect x="0" y="214" width="640" height="26" fill="transparent"/>
+      <text x="180" y="231" text-anchor="end" class="lbl">Assist World</text>
+      <rect x="190" y="219" width="19.0" height="16" rx="4" class="bar"/>
+      <text x="215" y="231" class="val">1</text></g></svg></figure>
+<details><summary>All 36 searches</summary><div class="tablewrap"><table><thead><tr><th>Search</th><th>AI Overview</th><th>Services named in it</th><th>Cites execviva.com</th></tr></thead><tbody><tr><td>virtual executive assistant</td><td>No</td><td></td><td></td></tr><tr><td>executive assistant service</td><td>No</td><td></td><td></td></tr><tr><td>remote executive assistant</td><td>No</td><td></td><td></td></tr><tr><td>hire executive assistant</td><td>Yes</td><td>Double</td><td></td></tr><tr><td>dedicated executive assistant</td><td>No</td><td></td><td></td></tr><tr><td>virtual executive assistant services</td><td>Yes</td><td>BELAY, Prialto, Boldly</td><td></td></tr><tr><td>virtual executive assistant cost</td><td>Yes</td><td>Upwork</td><td></td></tr><tr><td>executive assistant agency</td><td>Yes</td><td>Prialto, Boldly</td><td></td></tr><tr><td>outsourced executive assistant</td><td>Yes</td><td>Prialto, Upwork</td><td></td></tr><tr><td>executive assistant for ceo</td><td>No</td><td></td><td></td></tr><tr><td>virtual assistant for executives</td><td>Yes</td><td>Boldly, Upwork</td><td></td></tr><tr><td>best virtual executive assistant</td><td>Yes</td><td>Prialto, Boldly, Viva, Upwork</td><td>Yes</td></tr><tr><td>belay alternatives</td><td>Yes</td><td>BELAY, Prialto, Boldly, Time Etc, Assist World</td><td></td></tr><tr><td>athena alternatives</td><td>Yes</td><td>Prialto, Athena, Boldly</td><td></td></tr><tr><td>athena executive assistant</td><td>Yes</td><td>Athena</td><td></td></tr><tr><td>belay virtual assistant</td><td>Yes</td><td>BELAY</td><td></td></tr><tr><td>prialto</td><td>Yes</td><td>Prialto</td><td></td></tr><tr><td>belay vs athena</td><td>Yes</td><td>BELAY, Athena</td><td></td></tr><tr><td>virtual executive assistant company</td><td>Yes</td><td>BELAY, Prialto, Athena, Boldly, Time Etc</td><td></td></tr><tr><td>part time executive assistant</td><td>No</td><td></td><td></td></tr><tr><td>executive assistant as a service</td><td>Yes</td><td>Athena</td><td></td></tr><tr><td>latam executive assistant</td><td>No</td><td></td><td></td></tr><tr><td>nearshore executive assistant</td><td>Yes</td><td>none of the tracked services</td><td></td></tr><tr><td>remote assistant for ceo</td><td>No</td><td></td><td></td></tr><tr><td>personal assistant for executives</td><td>Yes</td><td>none of the tracked services</td><td></td></tr><tr><td>executive assistant staffing agency</td><td>No</td><td></td><td></td></tr><tr><td>virtual chief of staff</td><td>Yes</td><td>none of the tracked services</td><td></td></tr><tr><td>fractional executive assistant</td><td>Yes</td><td>none of the tracked services</td><td></td></tr><tr><td>ai executive assistant</td><td>Yes</td><td>none of the tracked services</td><td></td></tr><tr><td>execviva</td><td>Yes</td><td>BELAY, Athena, Viva</td><td>Yes</td></tr><tr><td>viva executive assistant</td><td>Yes</td><td>Viva</td><td>Yes</td></tr><tr><td>viva executive assistants</td><td>Yes</td><td>Viva</td><td></td></tr><tr><td>execviva reviews</td><td>Yes</td><td>BELAY, Boldly, Viva</td><td>Yes</td></tr><tr><td>execviva pricing</td><td>Yes</td><td>Boldly, Viva</td><td>Yes</td></tr><tr><td>viva vs belay</td><td>Yes</td><td>BELAY, Viva</td><td>Yes</td></tr><tr><td>viva vs athena</td><td>Yes</td><td>Athena, Viva</td><td>Yes</td></tr></tbody></table></div></details>
+<h3>Questions Google suggests ("People also ask")</h3>
+<p>Shown in 28 of the 36 searches. Most frequent:</p>
+<ul><li>Is being a VA a good side hustle? <span class="note">(7 searches)</span></li><li>What are the top 5 virtual assistants? <span class="note">(7 searches)</span></li><li>What is an executive virtual assistant job description? <span class="note">(3 searches)</span></li><li>What does a personal executive assistant do? <span class="note">(3 searches)</span></li><li>Who is the highest paid VA? <span class="note">(3 searches)</span></li><li>What is the one mistake an executive assistant must never make? <span class="note">(3 searches)</span></li><li>How can you get a job as a virtual assistant? <span class="note">(3 searches)</span></li><li>Are executive assistant and virtual assistant the same? <span class="note">(3 searches)</span></li><li>Where to find clients for VA? <span class="note">(3 searches)</span></li><li>Is it legal to hire a virtual assistant? <span class="note">(2 searches)</span></li></ul>
+<p class="note">Many of these are job-seeker questions ("Is being a VA a good side hustle?"), which tells you Google reads several of these terms as job searches as well as buyer searches.</p>
+
+<h2>3. Google search (SEO)</h2>
+<h3>Estimated monthly organic visits from Google (US)</h3>
+<figure class="chart"><svg viewBox="0 0 640 116" role="img" aria-label="Estimated monthly organic visits"><g><title>belaysolutions.com: 7,797</title>
+      <rect x="0" y="6" width="640" height="26" fill="transparent"/>
+      <text x="180" y="23" text-anchor="end" class="lbl">belaysolutions.com</text>
+      <rect x="190" y="11" width="380.0" height="16" rx="4" class="bar"/>
+      <text x="576" y="23" class="val">7,797</text></g><g><title>athena.com: 2,742</title>
+      <rect x="0" y="32" width="640" height="26" fill="transparent"/>
+      <text x="180" y="49" text-anchor="end" class="lbl">athena.com</text>
+      <rect x="190" y="37" width="133.6" height="16" rx="4" class="bar"/>
+      <text x="329.6360138514813" y="49" class="val">2,742</text></g><g><title>prialto.com: 1,981</title>
+      <rect x="0" y="58" width="640" height="26" fill="transparent"/>
+      <text x="180" y="75" text-anchor="end" class="lbl">prialto.com</text>
+      <rect x="190" y="63" width="96.5" height="16" rx="4" class="bar"/>
+      <text x="292.54739002180327" y="75" class="val">1,981</text></g><g><title>execviva.com: 1,039</title>
+      <rect x="0" y="84" width="640" height="26" fill="transparent"/>
+      <text x="180" y="101" text-anchor="end" class="lbl hi">execviva.com</text>
+      <rect x="190" y="89" width="50.6" height="16" rx="4" class="bar-hi"/>
+      <text x="246.6374246505066" y="101" class="val">1,039</text></g></svg></figure>
+<p class="note">A model estimate, not measured traffic. How it is calculated is explained in section 6.</p>
+<h3>Keywords each domain ranks for in Google's top 100 (US)</h3>
+<figure class="chart"><svg viewBox="0 0 640 116" role="img" aria-label="Ranking keywords"><g><title>belaysolutions.com: 1,397</title>
+      <rect x="0" y="6" width="640" height="26" fill="transparent"/>
+      <text x="180" y="23" text-anchor="end" class="lbl">belaysolutions.com</text>
+      <rect x="190" y="11" width="222.9" height="16" rx="4" class="bar"/>
+      <text x="418.8631402183039" y="23" class="val">1,397</text></g><g><title>athena.com: 1,448</title>
+      <rect x="0" y="32" width="640" height="26" fill="transparent"/>
+      <text x="180" y="49" text-anchor="end" class="lbl">athena.com</text>
+      <rect x="190" y="37" width="231.0" height="16" rx="4" class="bar"/>
+      <text x="426.99916036943745" y="49" class="val">1,448</text></g><g><title>prialto.com: 2,382</title>
+      <rect x="0" y="58" width="640" height="26" fill="transparent"/>
+      <text x="180" y="75" text-anchor="end" class="lbl">prialto.com</text>
+      <rect x="190" y="63" width="380.0" height="16" rx="4" class="bar"/>
+      <text x="576" y="75" class="val">2,382</text></g><g><title>execviva.com: 976</title>
+      <rect x="0" y="84" width="640" height="26" fill="transparent"/>
+      <text x="180" y="101" text-anchor="end" class="lbl hi">execviva.com</text>
+      <rect x="190" y="89" width="155.7" height="16" rx="4" class="bar-hi"/>
+      <text x="351.70109151973134" y="101" class="val">976</text></g></svg></figure>
+
+<h3>Live Google check, 36 terms (November 13)</h3>
+<div class="tablewrap"><table><thead><tr><th>Search term</th><th class="n">Viva position</th><th>Top results</th></tr></thead><tbody><tr class="us"><td>executive assistant service</td><td class="n">1</td><td>execviva.com, basehq.com, worxbee.com</td></tr><tr class="us"><td>hire executive assistant</td><td class="n">1</td><td>execviva.com, bhsg.com, insightglobal.com</td></tr><tr class="us"><td>executive assistant as a service</td><td class="n">1</td><td>execviva.com, reddit.com, getmagic.com</td></tr><tr class="us"><td>execviva</td><td class="n">1</td><td>execviva.com</td></tr><tr class="us"><td>execviva pricing</td><td class="n">1</td><td>execviva.com</td></tr><tr class="us"><td>execviva reviews</td><td class="n">2</td><td>glassdoor.com, execviva.com, reddit.com</td></tr><tr class="us"><td>virtual executive assistant company</td><td class="n">3</td><td>hirewithnear.com, donnapro.com, execviva.com</td></tr><tr class="us"><td>personal assistant for executives</td><td class="n">3</td><td>csuiteassistants.com, indeed.com, execviva.com</td></tr><tr class="us"><td>viva executive assistant</td><td class="n">3</td><td>youtube.com, virtualwizards.io, execviva.com</td></tr><tr class="us"><td>viva executive assistants</td><td class="n">3</td><td>youtube.com, virtualwizards.io, execviva.com</td></tr><tr><td>virtual executive assistant services</td><td class="n">4</td><td>shesagiven.com, indeed.com, ziprecruiter.com</td></tr><tr><td>remote assistant for ceo</td><td class="n">4</td><td>indeed.com, remoterocketship.com</td></tr><tr><td>fractional executive assistant</td><td class="n">8</td><td>20four7va.com, linkedin.com, boldly.com</td></tr><tr><td>outsourced executive assistant</td><td class="n">9</td><td>basehq.com, getcallers.com, prialto.com</td></tr><tr><td>virtual executive assistant</td><td class="n">not in top 10</td><td>shesagiven.com, indeed.com, ziprecruiter.com</td></tr><tr><td>remote executive assistant</td><td class="n">not in top 10</td><td>indeed.com, linkedin.com, boldly.com</td></tr><tr><td>dedicated executive assistant</td><td class="n">not in top 10</td><td>staffingattiffanies.com, ihire.com, indeed.com</td></tr><tr><td>virtual executive assistant cost</td><td class="n">not in top 10</td><td>apploye.com, portiva.com, myoutdesk.com</td></tr><tr><td>executive assistant agency</td><td class="n">not in top 10</td><td>csuiteassistants.com, hirepointusa.com, steelerecruiting.com</td></tr><tr><td>executive assistant for ceo</td><td class="n">not in top 10</td><td>indeed.com, reddit.com</td></tr><tr><td>virtual assistant for executives</td><td class="n">not in top 10</td><td>saner.ai, reddit.com, upwork.com</td></tr><tr><td>best virtual executive assistant</td><td class="n">not in top 10</td><td>connecteam.com, titan.email, reddit.com</td></tr><tr><td>belay alternatives</td><td class="n">not in top 10</td><td>vintti.com, mountainproject.com, gohirevirtual.com</td></tr><tr><td>athena alternatives</td><td class="n">not in top 10</td><td>apitracker.io, assistantly.com, reddit.com</td></tr><tr><td>athena executive assistant</td><td class="n">not in top 10</td><td>facebook.com, athena.com</td></tr><tr><td>belay virtual assistant</td><td class="n">not in top 10</td><td>linkedin.com, instagram.com, glassdoor.com</td></tr><tr><td>prialto</td><td class="n">not in top 10</td><td>prialto.com, x.com</td></tr><tr><td>belay vs athena</td><td class="n">not in top 10</td><td>getcallers.com, reddit.com, blog.belaysolutions.com</td></tr><tr><td>part time executive assistant</td><td class="n">not in top 10</td><td>ziprecruiter.com, indeed.com</td></tr><tr><td>latam executive assistant</td><td class="n">not in top 10</td><td>jobs.workable.com, remoterocketship.com</td></tr><tr><td>nearshore executive assistant</td><td class="n">not in top 10</td><td>csuiteassistants.com, ar.linkedin.com, apply.workable.com</td></tr><tr><td>executive assistant staffing agency</td><td class="n">not in top 10</td><td>tangentwest.com, lambentservices.com, yelp.com</td></tr><tr><td>virtual chief of staff</td><td class="n">not in top 10</td><td>facebook.com, ziprecruiter.com</td></tr><tr><td>ai executive assistant</td><td class="n">not in top 10</td><td>lindy.ai, zapier.com, quora.com</td></tr><tr><td>viva vs belay</td><td class="n">not in top 10</td><td>supertopo.com, youtube.com, dailypress.com</td></tr><tr><td>viva vs athena</td><td class="n">not in top 10</td><td>athena.com, linkedin.com, hireoverseas.com</td></tr></tbody></table></div>
+
+<h3>Where execviva.com gets its search traffic today</h3>
+<div class="tablewrap"><table><thead><tr><th>Keyword</th><th class="n">Position</th><th class="n">Monthly searches</th><th class="n">Est. visits</th><th>Page</th></tr></thead><tbody><tr><td>virtual executive assistant</td><td class="n">2</td><td class="n">880</td><td class="n">99</td><td>/</td></tr><tr><td>data entry virtual assistant</td><td class="n">5</td><td class="n">1,300</td><td class="n">82</td><td>/resources/data-entry-virtual-assistant/</td></tr><tr><td>what is an executive assistant</td><td class="n">5</td><td class="n">3,600</td><td class="n">55</td><td>/executive-administrator-vs-executive-assistant-key-differences/</td></tr><tr><td>viva careers</td><td class="n">2</td><td class="n">260</td><td class="n">41</td><td>/</td></tr><tr><td>executive decision def</td><td class="n">4</td><td class="n">1,600</td><td class="n">38</td><td>/executive-decision-making-guide/</td></tr><tr><td>viva company</td><td class="n">2</td><td class="n">320</td><td class="n">36</td><td>/</td></tr><tr><td>what is an executive administrator</td><td class="n">1</td><td class="n">210</td><td class="n">35</td><td>/executive-administrator-vs-executive-assistant-key-differences/</td></tr><tr><td>virtual executive assistant jobs</td><td class="n">3</td><td class="n">590</td><td class="n">35</td><td>/</td></tr><tr><td>another name for executive assistant</td><td class="n">1</td><td class="n">140</td><td class="n">24</td><td>/executive-assistant-titles-explained/</td></tr><tr><td>executive assistant services</td><td class="n">3</td><td class="n">720</td><td class="n">21</td><td>/</td></tr><tr><td>virtual executive assistant service</td><td class="n">1</td><td class="n">170</td><td class="n">15</td><td>/</td></tr><tr><td>viva executive assistant</td><td class="n">1</td><td class="n">70</td><td class="n">15</td><td>/</td></tr><tr><td>assistants company</td><td class="n">1</td><td class="n">90</td><td class="n">13</td><td>/</td></tr><tr><td>business development kpis</td><td class="n">1</td><td class="n">50</td><td class="n">12</td><td>/executive-hub/business-development-kpis/</td></tr><tr><td>executive decision-making</td><td class="n">2</td><td class="n">390</td><td class="n">12</td><td>/executive-decision-making-guide/</td></tr></tbody></table></div>
+<p class="note">From DataForSEO's ranking database, which refreshes on its own schedule and can differ from the live check above. It lists "virtual executive assistant" at position 2, while the live check found execviva.com outside the top 10 for that term, so that position is moving. Terms such as "viva careers" and "viva company" are searches for other companies named Viva.</p>
+
+<h3>Demand in the category: keyword ideas</h3>
+<div class="tablewrap"><table><thead><tr><th>Keyword</th><th class="n">Monthly searches (US)</th><th class="n">Cost per click (USD)</th><th class="n">Ad competition (0 to 1)</th></tr></thead><tbody><tr><td>executive assistant</td><td class="n">14,800</td><td class="n">27.65</td><td class="n">0.12</td></tr><tr><td>executive assistant remote</td><td class="n">2,400</td><td class="n">11.48</td><td class="n">0.25</td></tr><tr><td>what does an executive assistant do</td><td class="n">1,300</td><td class="n">10.28</td><td class="n">0.05</td></tr><tr><td>personal executive assistant</td><td class="n">1,000</td><td class="n">14.59</td><td class="n">0.2</td></tr><tr><td>athena executive assistant</td><td class="n">720</td><td class="n">23.82</td><td class="n">0.62</td></tr><tr><td>executive assistant services</td><td class="n">720</td><td class="n">91.57</td><td class="n">0.14</td></tr><tr><td>executive assistant vs administrative assistant</td><td class="n">590</td><td class="n">0.37</td><td class="n">0.02</td></tr><tr><td>executive assistant nyc</td><td class="n">590</td><td class="n">16.98</td><td class="n">0.12</td></tr><tr><td>executive assistant for hire</td><td class="n">390</td><td class="n">98.1</td><td class="n">0.33</td></tr><tr><td>executive assistant to ceo</td><td class="n">390</td><td class="n">4.76</td><td class="n">0.1</td></tr><tr><td>part time executive assistant</td><td class="n">320</td><td class="n">11.62</td><td class="n">0.25</td></tr><tr><td>real estate executive assistant</td><td class="n">170</td><td class="n">8.33</td><td class="n">0.07</td></tr></tbody></table></div>
+<p class="note">Filtered from 1,000 keyword ideas to the ones a buyer of the service would type. High cost per click ("executive assistant for hire" at 98 USD, "executive assistant services" at 92 USD) marks the terms advertisers pay most for, which usually means buying intent.</p>
+
+<h3>Site audit: 487 pages crawled</h3>
+<figure class="chart"><svg viewBox="0 0 640 402" role="img" aria-label="Pages flagged per check"><g><title>Duplicate title tag: 284</title>
+      <rect x="0" y="6" width="640" height="26" fill="transparent"/>
+      <text x="250" y="23" text-anchor="end" class="lbl">Duplicate title tag</text>
+      <rect x="260" y="11" width="180.8" height="16" rx="4" class="bar"/>
+      <text x="446.7802874743327" y="23" class="val">284</text></g><g><title>Render-blocking resources: 284</title>
+      <rect x="0" y="32" width="640" height="26" fill="transparent"/>
+      <text x="250" y="49" text-anchor="end" class="lbl">Render-blocking resources</text>
+      <rect x="260" y="37" width="180.8" height="16" rx="4" class="bar"/>
+      <text x="446.7802874743327" y="49" class="val">284</text></g><g><title>Missing character encoding meta tag: 284</title>
+      <rect x="0" y="58" width="640" height="26" fill="transparent"/>
+      <text x="250" y="75" text-anchor="end" class="lbl">Missing character encoding meta tag</text>
+      <rect x="260" y="63" width="180.8" height="16" rx="4" class="bar"/>
+      <text x="446.7802874743327" y="75" class="val">284</text></g><g><title>Image without title attribute: 284</title>
+      <rect x="0" y="84" width="640" height="26" fill="transparent"/>
+      <text x="250" y="101" text-anchor="end" class="lbl">Image without title attribute</text>
+      <rect x="260" y="89" width="180.8" height="16" rx="4" class="bar"/>
+      <text x="446.7802874743327" y="101" class="val">284</text></g><g><title>Low text-to-code ratio: 275</title>
+      <rect x="0" y="110" width="640" height="26" fill="transparent"/>
+      <text x="250" y="127" text-anchor="end" class="lbl">Low text-to-code ratio</text>
+      <rect x="260" y="115" width="175.1" height="16" rx="4" class="bar"/>
+      <text x="441.0513347022587" y="127" class="val">275</text></g><g><title>Image without alt text: 235</title>
+      <rect x="0" y="136" width="640" height="26" fill="transparent"/>
+      <text x="250" y="153" text-anchor="end" class="lbl">Image without alt text</text>
+      <rect x="260" y="141" width="149.6" height="16" rx="4" class="bar"/>
+      <text x="415.5893223819302" y="153" class="val">235</text></g><g><title>URL is a redirect: 33</title>
+      <rect x="0" y="162" width="640" height="26" fill="transparent"/>
+      <text x="250" y="179" text-anchor="end" class="lbl">URL is a redirect</text>
+      <rect x="260" y="167" width="21.0" height="16" rx="4" class="bar"/>
+      <text x="287.006160164271" y="179" class="val">33</text></g><g><title>Links pointing to redirects: 33</title>
+      <rect x="0" y="188" width="640" height="26" fill="transparent"/>
+      <text x="250" y="205" text-anchor="end" class="lbl">Links pointing to redirects</text>
+      <rect x="260" y="193" width="21.0" height="16" rx="4" class="bar"/>
+      <text x="287.006160164271" y="205" class="val">33</text></g><g><title>Page uses frames/iframes: 27</title>
+      <rect x="0" y="214" width="640" height="26" fill="transparent"/>
+      <text x="250" y="231" text-anchor="end" class="lbl">Page uses frames/iframes</text>
+      <rect x="260" y="219" width="17.2" height="16" rx="4" class="bar"/>
+      <text x="283.1868583162218" y="231" class="val">27</text></g><g><title>Links from HTTPS to HTTP: 8</title>
+      <rect x="0" y="240" width="640" height="26" fill="transparent"/>
+      <text x="250" y="257" text-anchor="end" class="lbl">Links from HTTPS to HTTP</text>
+      <rect x="260" y="245" width="5.1" height="16" rx="4" class="bar"/>
+      <text x="271.0924024640657" y="257" class="val">8</text></g><g><title>Title too long: 5</title>
+      <rect x="0" y="266" width="640" height="26" fill="transparent"/>
+      <text x="250" y="283" text-anchor="end" class="lbl">Title too long</text>
+      <rect x="260" y="271" width="3.2" height="16" rx="4" class="bar"/>
+      <text x="269.18275154004107" y="283" class="val">5</text></g><g><title>No H1 heading: 4</title>
+      <rect x="0" y="292" width="640" height="26" fill="transparent"/>
+      <text x="250" y="309" text-anchor="end" class="lbl">No H1 heading</text>
+      <rect x="260" y="297" width="3.0" height="16" rx="4" class="bar"/>
+      <text x="269" y="309" class="val">4</text></g><g><title>Title too short: 2</title>
+      <rect x="0" y="318" width="640" height="26" fill="transparent"/>
+      <text x="250" y="335" text-anchor="end" class="lbl">Title too short</text>
+      <rect x="260" y="323" width="3.0" height="16" rx="4" class="bar"/>
+      <text x="269" y="335" class="val">2</text></g><g><title>No meta description: 2</title>
+      <rect x="0" y="344" width="640" height="26" fill="transparent"/>
+      <text x="250" y="361" text-anchor="end" class="lbl">No meta description</text>
+      <rect x="260" y="349" width="3.0" height="16" rx="4" class="bar"/>
+      <text x="269" y="361" class="val">2</text></g><g><title>Broken page (4xx): 1</title>
+      <rect x="0" y="370" width="640" height="26" fill="transparent"/>
+      <text x="250" y="387" text-anchor="end" class="lbl">Broken page (4xx)</text>
+      <rect x="260" y="375" width="3.0" height="16" rx="4" class="bar"/>
+      <text x="269" y="387" class="val">1</text></g></svg></figure>
+<div class="tablewrap"><table><thead><tr><th>Check</th><th class="n">Pages</th><th>What it means</th></tr></thead><tbody><tr><td>Duplicate title tag</td><td class="n">284</td><td>The page shares its title with another page. Search engines use the title to tell pages apart, so duplicates compete with each other.</td></tr><tr><td>Render-blocking resources</td><td class="n">284</td><td>Scripts or styles that must load before the page can show, which slows the first paint.</td></tr><tr><td>Missing character encoding meta tag</td><td class="n">284</td><td>The HTML does not declare its encoding in a meta tag. Usually harmless when the server sends it in headers; worth confirming.</td></tr><tr><td>Image without title attribute</td><td class="n">284</td><td>Low priority. Alt text matters more (below).</td></tr><tr><td>Low text-to-code ratio</td><td class="n">275</td><td>Little visible text relative to the HTML. Thin pages give search and AI engines less to quote.</td></tr><tr><td>Image without alt text</td><td class="n">235</td><td>Images with no description. Hurts accessibility and image search, and gives crawlers less context.</td></tr><tr><td>URL is a redirect</td><td class="n">33</td><td>Pages that answer with a redirect instead of content.</td></tr><tr><td>Links pointing to redirects</td><td class="n">33</td><td>Internal links that go through a redirect instead of to the final URL. Fix the link, keep the redirect.</td></tr><tr><td>Page uses frames/iframes</td><td class="n">27</td><td>Embedded frames, usually forms or video. Content inside a frame is not credited to the page.</td></tr><tr><td>Links from HTTPS to HTTP</td><td class="n">8</td><td>Secure pages linking to insecure URLs.</td></tr><tr><td>Title too long</td><td class="n">5</td><td>Truncated in search results.</td></tr><tr><td>No H1 heading</td><td class="n">4</td><td>The page has no main heading.</td></tr><tr><td>Title too short</td><td class="n">2</td><td></td></tr><tr><td>No meta description</td><td class="n">2</td><td>Search engines write their own snippet.</td></tr><tr><td>Broken page (4xx)</td><td class="n">1</td><td>A page that returns an error.</td></tr></tbody></table></div>
+
+<h2>4. Backlinks</h2>
+<h3>Referring domains</h3>
+<figure class="chart"><svg viewBox="0 0 640 116" role="img" aria-label="Referring domains"><g><title>belaysolutions.com: 3,582</title>
+      <rect x="0" y="6" width="640" height="26" fill="transparent"/>
+      <text x="180" y="23" text-anchor="end" class="lbl">belaysolutions.com</text>
+      <rect x="190" y="11" width="380.0" height="16" rx="4" class="bar"/>
+      <text x="576" y="23" class="val">3,582</text></g><g><title>prialto.com: 2,100</title>
+      <rect x="0" y="32" width="640" height="26" fill="transparent"/>
+      <text x="180" y="49" text-anchor="end" class="lbl">prialto.com</text>
+      <rect x="190" y="37" width="222.8" height="16" rx="4" class="bar"/>
+      <text x="418.78056951423787" y="49" class="val">2,100</text></g><g><title>athena.com: 881</title>
+      <rect x="0" y="58" width="640" height="26" fill="transparent"/>
+      <text x="180" y="75" text-anchor="end" class="lbl">athena.com</text>
+      <rect x="190" y="63" width="93.5" height="16" rx="4" class="bar"/>
+      <text x="289.4617532104969" y="75" class="val">881</text></g><g><title>execviva.com: 860</title>
+      <rect x="0" y="84" width="640" height="26" fill="transparent"/>
+      <text x="180" y="101" text-anchor="end" class="lbl hi">execviva.com</text>
+      <rect x="190" y="89" width="91.2" height="16" rx="4" class="bar-hi"/>
+      <text x="287.23394751535454" y="101" class="val">860</text></g></svg></figure>
+<div class="tablewrap"><table><thead><tr><th>Domain</th><th class="n">Referring domains</th><th class="n">Referring main domains</th><th class="n">Backlinks</th><th class="n">Domain rank (0 to 1000)</th><th class="n">Spam score (0 to 100)</th></tr></thead><tbody><tr><td>belaysolutions.com</td><td class="n">3,582</td><td class="n">3,136</td><td class="n">21,306</td><td class="n">318</td><td class="n">7</td></tr><tr><td>prialto.com</td><td class="n">2,100</td><td class="n">1,978</td><td class="n">7,969</td><td class="n">283</td><td class="n">17</td></tr><tr><td>athena.com</td><td class="n">881</td><td class="n">842</td><td class="n">2,927</td><td class="n">247</td><td class="n">17</td></tr><tr class="us"><td>execviva.com</td><td class="n">860</td><td class="n">726</td><td class="n">2,158</td><td class="n">256</td><td class="n">12</td></tr></tbody></table></div>
+<h3>Link gap: 531 sites link to a competitor and not to Viva</h3>
+<p>The ones worth pursuing, sorted by how many of the three competitors they link to, then by rank. We reviewed the 100 highest-ranked sites in the gap and removed 82 with a rank of 0 or that exist to sell links (link directories and backlink shops): a link from those would not help and could hurt.</p>
+<div class="tablewrap"><table><thead><tr><th>Site</th><th>Links to</th><th class="n">Rank</th></tr></thead><tbody><tr><td>virtualassistantza.com</td><td>Athena, BELAY, Prialto</td><td class="n">84</td></tr><tr><td>ceoexecutiveassistant.com</td><td>Athena, BELAY, Prialto</td><td class="n">51</td></tr><tr><td>bestvirtualassistantservices.com</td><td>Athena, BELAY, Prialto</td><td class="n">51</td></tr><tr><td>herworkcircle.com</td><td>Athena, BELAY, Prialto</td><td class="n">30</td></tr><tr><td>personatalent.com</td><td>Athena, BELAY, Prialto</td><td class="n">23</td></tr><tr><td>remoteleverage.com</td><td>Athena, BELAY, Prialto</td><td class="n">12</td></tr><tr><td>shouldiuse.io</td><td>Athena, BELAY, Prialto</td><td class="n">9</td></tr><tr><td>catchagent.ai</td><td>Athena, BELAY, Prialto</td><td class="n">6</td></tr><tr><td>beehiiv.com</td><td>Athena, BELAY</td><td class="n">156</td></tr><tr><td>archersdelegationpartners.com</td><td>Athena, BELAY</td><td class="n">70</td></tr><tr><td>elodiebarathe.com</td><td>Athena, Prialto</td><td class="n">56</td></tr><tr><td>estimable.co</td><td>Athena, BELAY</td><td class="n">51</td></tr><tr><td>sacra.com</td><td>Athena, Prialto</td><td class="n">42</td></tr><tr><td>getro.com</td><td>Athena, BELAY</td><td class="n">37</td></tr><tr><td>podsized.io</td><td>Athena, BELAY</td><td class="n">14</td></tr><tr><td>lathire.com</td><td>Athena, Prialto</td><td class="n">12</td></tr><tr><td>privatechief.com</td><td>Athena, BELAY</td><td class="n">7</td></tr><tr><td>pocketcasts.com</td><td>Athena, BELAY</td><td class="n">7</td></tr></tbody></table></div>
+
+<h2>5. AI mention index</h2>
+<p>A second, independent view: DataForSEO's database of AI answers it has already collected, counting how often each domain appears.</p>
+<h3>Mentions in ChatGPT answers</h3>
+<figure class="chart"><svg viewBox="0 0 640 116" role="img" aria-label="ChatGPT mentions"><g><title>execviva.com: 31</title>
+      <rect x="0" y="6" width="640" height="26" fill="transparent"/>
+      <text x="180" y="23" text-anchor="end" class="lbl hi">execviva.com</text>
+      <rect x="190" y="11" width="203.1" height="16" rx="4" class="bar-hi"/>
+      <text x="399.1034482758621" y="23" class="val">31</text></g><g><title>athena.com: 58</title>
+      <rect x="0" y="32" width="640" height="26" fill="transparent"/>
+      <text x="180" y="49" text-anchor="end" class="lbl">athena.com</text>
+      <rect x="190" y="37" width="380.0" height="16" rx="4" class="bar"/>
+      <text x="576" y="49" class="val">58</text></g><g><title>belaysolutions.com: 45</title>
+      <rect x="0" y="58" width="640" height="26" fill="transparent"/>
+      <text x="180" y="75" text-anchor="end" class="lbl">belaysolutions.com</text>
+      <rect x="190" y="63" width="294.8" height="16" rx="4" class="bar"/>
+      <text x="490.82758620689657" y="75" class="val">45</text></g><g><title>prialto.com: 43</title>
+      <rect x="0" y="84" width="640" height="26" fill="transparent"/>
+      <text x="180" y="101" text-anchor="end" class="lbl">prialto.com</text>
+      <rect x="190" y="89" width="281.7" height="16" rx="4" class="bar"/>
+      <text x="477.7241379310345" y="101" class="val">43</text></g></svg></figure>
+<h3>Mentions in Google AI Overviews</h3>
+<figure class="chart"><svg viewBox="0 0 640 116" role="img" aria-label="Google AI mentions"><g><title>execviva.com: 497</title>
+      <rect x="0" y="6" width="640" height="26" fill="transparent"/>
+      <text x="180" y="23" text-anchor="end" class="lbl hi">execviva.com</text>
+      <rect x="190" y="11" width="262.7" height="16" rx="4" class="bar-hi"/>
+      <text x="458.67037552155773" y="23" class="val">497</text></g><g><title>athena.com: 171</title>
+      <rect x="0" y="32" width="640" height="26" fill="transparent"/>
+      <text x="180" y="49" text-anchor="end" class="lbl">athena.com</text>
+      <rect x="190" y="37" width="90.4" height="16" rx="4" class="bar"/>
+      <text x="286.375521557719" y="49" class="val">171</text></g><g><title>belaysolutions.com: 350</title>
+      <rect x="0" y="58" width="640" height="26" fill="transparent"/>
+      <text x="180" y="75" text-anchor="end" class="lbl">belaysolutions.com</text>
+      <rect x="190" y="63" width="185.0" height="16" rx="4" class="bar"/>
+      <text x="380.97913769123784" y="75" class="val">350</text></g><g><title>prialto.com: 719</title>
+      <rect x="0" y="84" width="640" height="26" fill="transparent"/>
+      <text x="180" y="101" text-anchor="end" class="lbl">prialto.com</text>
+      <rect x="190" y="89" width="380.0" height="16" rx="4" class="bar"/>
+      <text x="576" y="101" class="val">719</text></g></svg></figure>
+<div class="tablewrap"><table><thead><tr><th>Domain</th><th class="n">ChatGPT mentions</th><th class="n">ChatGPT AI search volume</th><th class="n">Google AI mentions</th><th class="n">Google AI search volume</th></tr></thead><tbody><tr class="us"><td>execviva.com</td><td class="n">31</td><td class="n">316</td><td class="n">497</td><td class="n">60,220</td></tr><tr><td>athena.com</td><td class="n">58</td><td class="n">5,274</td><td class="n">171</td><td class="n">33,450</td></tr><tr><td>belaysolutions.com</td><td class="n">45</td><td class="n">1,463</td><td class="n">350</td><td class="n">606,110</td></tr><tr><td>prialto.com</td><td class="n">43</td><td class="n">677</td><td class="n">719</td><td class="n">194,160</td></tr></tbody></table></div>
+
+<h2>6. How every number in this report was produced</h2>
+<dl>
+<dt>Engines and how they were asked</dt>
+<dd>ChatGPT and Gemini were queried through DataForSEO's LLM Scraper, which runs the question in each product's consumer interface and returns what a person would see, including the sources shown. ChatGPT was run with web search forced on. Location United States, language English. Claude, Perplexity, Microsoft Copilot and Google AI Mode were not measured.</dd>
+<dt>The questions</dt>
+<dd>25 questions built from the buyer phrase "virtual executive assistant services": 7 shortlist questions ("best", "top for a startup"), 7 comparison questions, 3 location questions, 7 buying-problem questions (cost, what to ask, what goes wrong) and 1 question asking what Viva is. The full list is in the question-by-question table in section 1. Questions never contain Viva's name, except the last one.</dd>
+<dt>Why each question was asked 10 times</dt>
+<dd>AI answers are not stable. The same question asked twice, minutes apart, returns a different set of companies: in our own measurements two identical runs share only about 36% of the brands they name. One answer is an anecdote; ten answers per question per engine give a rate.</dd>
+<dt>What "named" means</dt>
+<dd>A company counts as named in an answer when its name or its domain appears in the text, found by exact text matching on the stored answer, not by asking a model to judge. Because "Viva" is an ordinary word and the name of other companies, mentions of Viva are flagged when the surrounding text does not confirm it is the executive assistant company (its domain or category words nearby). All 30 detections are counted above; on ChatGPT 2 of the 3 are confirmed by context, on Gemini 14 of 27.</dd>
+<dt>What 443, 219 and 224 are</dt>
+<dd>500 answers were collected. 37 named no business at all (mostly general advice) and 20 answered the "What is Viva" question. The remaining 443 answers to buyer questions that named at least one business are the base: 219 on ChatGPT and 224 on Gemini.</dd>
+<dt>Sources cited</dt>
+<dd>The links each engine displayed as sources with its answer, counted once per answer per domain, over the 463 answers that came back with content.</dd>
+<dt>Google AI Overviews</dt>
+<dd>Google US desktop results via DataForSEO's SERP API, with Google's asynchronously loaded AI Overviews requested, on November 14. For each search we recorded whether an AI Overview appeared, the sites it cites, and which services it names in its text (exact text matching against the services listed in the chart). AI Overviews change from one search to the next: two runs minutes apart returned an overview on 26 and on 27 of the 36 terms. Treat this section as one sample, not a fixed property of each term.</dd>
+<dt>Estimated monthly organic visits</dt>
+<dd>DataForSEO's Estimated Traffic Volume. For every keyword where the domain appears in Google's organic results, it multiplies the keyword's monthly search volume by the expected click-through rate of the domain's position, and adds them up. The expected click-through rate depends on the position, the search intent (informational or commercial) and what else is on the page: an AI Overview, ads or a map pack take clicks away from organic results. Search volume is Google's, refined with clickstream data where available. DataForSEO made this model the default on November 1, 2026. It is an estimate built the same way for every domain, which makes it good for comparing Viva with its competitors and not a substitute for Viva's own analytics or Google Search Console, which measure real visits.
+<br><span class="note">Sources: <a href="https://dataforseo.com/help-center/how-is-etv-calculated">How ETV is calculated</a>, <a href="https://dataforseo.com/update/new-etv-calculation-in-dataforseo-labs-api">New ETV calculation</a>.</span></dd>
+<dt>Keywords a domain ranks for</dt>
+<dd>The number of keywords in DataForSEO's US Google database for which the domain appears anywhere in the top 100 organic results.</dd>
+<dt>Live Google check</dt>
+<dd>36 terms chosen by us (category, competitor and brand terms), searched on Google US desktop on November 13, first page (top 10 organic results). Position is Viva's rank among organic results; "not in top 10" means it was not on the first page.</dd>
+<dt>Where execviva.com gets its traffic</dt>
+<dd>DataForSEO's ranking database for the domain, sorted by estimated visits per keyword (search volume times expected click-through rate, as above).</dd>
+<dt>Keyword ideas, search volume, cost per click, competition</dt>
+<dd>DataForSEO Labs keyword ideas seeded with category terms. Monthly searches are Google's average for the US. Cost per click is what advertisers pay on average in Google Ads. Competition (0 to 1) is how crowded the paid results are, not how hard the organic ranking is.</dd>
+<dt>Site audit</dt>
+<dd>DataForSEO's On-Page crawler started at execviva.com and followed internal links, finding 487 pages. Each check counts the pages where an issue was found. The audit flags issues; it does not rank them by business impact, which is why the table explains each one.</dd>
+<dt>Backlinks, referring domains and rank</dt>
+<dd>From DataForSEO's backlink index. Backlinks are individual links; referring domains are the distinct websites they come from (subdomains counted separately); referring main domains merge subdomains. Domain rank (0 to 1000) is DataForSEO's PageRank-style score: it applies Google's original PageRank formula to its own link graph, where a link from a page that is itself well linked counts more, and a domain's rank is the normalized sum of its pages' ranks. Spam score (0 to 100) estimates how much of the link profile comes from spammy sources.
+<br><span class="note">Source: <a href="https://dataforseo.com/help-center/what_is_rank_in_backlinks_api">What is Rank in Backlinks API</a>.</span></dd>
+<dt>Link gap</dt>
+<dd>DataForSEO's domain intersection: websites in the backlink index that link to at least one of athena.com, belaysolutions.com or prialto.com and do not link to execviva.com. The total (531) counts all of them; the table keeps only sites with a rank above 0 that are not link directories or backlink shops.</dd>
+<dt>AI mention index and AI search volume</dt>
+<dd>DataForSEO's LLM Mentions database: AI answers DataForSEO collects on its own schedule (ChatGPT, US English only; and Google AI Overviews). "Mentions" is how many answers in that database mention the domain. "AI search volume" estimates how often the underlying questions are asked: for Google it is derived from Google search volume; for ChatGPT it uses DataForSEO's own model based on Google's "People also ask" data. DataForSEO does not publish how its answers are collected or refreshed, so use this index as a second opinion next to our own measurement in section 1, which we control end to end.
+<br><span class="note">Source: <a href="https://dataforseo.com/help-center/how-the-ai-search-volume-metric-works-in-llm-mentions">How AI search volume works</a>.</span></dd>
+<dt>Why numbers differ between sections</dt>
+<dd>Each section measures a different thing on a different date with a different method: live answers we collected (section 1), a live Google sample (section 2), DataForSEO's databases (sections 3 to 5). They agree on the direction: competitors are named and linked far more than Viva.</dd>
+</dl>
+
+<h2>7. What we would do first</h2>
+<ol>
+<li><b>Disambiguate the name.</b> Use "Viva Executive Assistants" or "ExecViva" consistently on the site, in structured data (Organization schema with the domain, founding, category) and on every profile, so "Viva" stops resolving to Microsoft Viva.</li>
+<li><b>Get onto the pages the engines quote.</b> The answers lean on comparison and "best virtual assistant companies" pages, Reddit threads and Forbes lists. Start with the link gap sites and the sources in section 1.</li>
+<li><b>Own the comparison searches.</b> "belay alternatives", "athena alternatives", "viva vs belay" and "viva vs athena" have no Viva page on Google's first page. Pages that answer those questions honestly are what both Google and AI engines quote.</li>
+<li><b>Answer the buying questions.</b> Cost, what to ask before hiring, and what goes wrong are asked often and answered with no company named. Clear, specific pages on those questions are an opening.</li>
+<li><b>Fix the audit basics.</b> Duplicate titles, missing alt text and links through redirects are cheap to fix and help every crawler.</li>
+</ol>
+
+<footer>Daniel Forero. Measured with unbound geo and DataForSEO. All AI answers, Google results and provider responses behind this report are stored and can be shown verbatim on request.</footer>
+</main></body></html>

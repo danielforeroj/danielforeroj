@@ -9,6 +9,7 @@ import AboutPage from './pages/AboutPage';
 import GrowPage from './pages/GrowPage';
 import GeoPage from './pages/GeoPage';
 import LinksPage from './pages/LinksPage';
+import ReportPage from './pages/ReportPage';
 import AiFunnelPage from './pages/ai/AiFunnelPage';
 import AiLibraryPage from './pages/ai/AiLibraryPage';
 import AiResourcePage, { RESOURCE_SHELL_KEY } from './pages/ai/AiResourcePage';
@@ -16,6 +17,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import { PostType } from './types';
 import { posts } from './data/mockData';
 import { SECTIONS } from './data/siteConfig';
+import { REPORTS } from './data/reports';
 import { localePath, type Lang } from './lib/i18n';
 
 // Every route below is prerendered to real HTML at build time. The dynamic
@@ -51,6 +53,13 @@ const sitePages = (lang: Lang): Child[] => {
     { path: p('/work-w-me'), element: <WorkWithMePage /> },
     // The entity home: who Daniel Forero is. /about and /es/sobre-mi.
     { path: p('/about'), element: <AboutPage /> },
+    // Gated reports (2026-11-14): /d/<slug> and /es/d/<slug>, one per entry in
+    // data/reports.ts. noindex, email gate, report loaded after it. See pages/ReportPage.tsx.
+    {
+      path: p('/d/:slug'),
+      element: <ReportPage />,
+      getStaticPaths: () => REPORTS.map((r) => localePath(`/d/${r.slug}`, lang)),
+    },
   ];
 };
 

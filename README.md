@@ -29,6 +29,7 @@ and the logic lives in `lib/i18n.ts`.
 | Growth diagnostic | `/en/grow` | `/crecer` |
 | Free GEO scan | `/en/geo` | `/geo` |
 | Bio link hub (noindex) | `/en/links` | `/links` |
+| Gated report (noindex) | `/d/:slug` | `/es/d/:slug` |
 
 Every URL that existed before keeps working and keeps its language: the site was
 written in English, so its translation lives under `/es`; the `/ai` guide was
@@ -119,3 +120,33 @@ typecheck.
 `metaDescription` is optional and should stay under 158 characters in each
 language; without it the excerpt is used. Post bodies are Markdown-like:
 headings, lists, quotes, emphasis and `http(s)` links.
+
+## Gated reports (/d/:slug)
+
+A report Daniel shares by link (2026-11-14, first one: `/d/viva`). One self-contained
+HTML file per report in `content/d/<slug>.html` (inline CSS and SVG, no scripts, no
+external requests), listed in `data/reports.ts`. The page is English at `/d/<slug>` and
+has a Spanish interface at `/es/d/<slug>`; the report itself stays in its own language.
+noindex (meta robots, and `X-Robots-Tag` in `vercel.json`), left out of the sitemap,
+and GTM is not loaded on these paths.
+
+- **Gate.** Email required, name optional, no code. The reader is recorded through
+  `lib/lead.ts` (`/api/contact`, site `danielforeroj`, header
+  `[danielforeroj.com/d/<slug>] report gate`), so they appear in the app's inbound
+  triage like any other form. The browser remembers the reader (`dfj_reader` in
+  localStorage) and does not ask again, on that report or another.
+- **Rendering.** The file is a separate lazily loaded chunk, fetched only after the
+  gate, never in the prerendered HTML. It is drawn in a sandboxed `iframe srcdoc` (no
+  scripts) at the height of its content, with the site's IBM Plex fonts injected, so
+  its CSS and the site's never touch.
+- **Visits.** `lib/reportTrack.ts` posts to the Unbound app,
+  `unboundoperators.app/d/<trackSlug>/external-track`: the gated email, open time,
+  visible seconds, scroll marks (25, 50, 75, 100), the referring host and the `?r=` tag.
+  They land on the app document whose email link is the report's `trackSlug`: read
+  them in the app under Documents (the document "Viva report at
+  danielforeroj.com/d/viva (reader visits)") or with the MCP tools
+  `get_document_analytics`, `list_document_visitors`, `get_document_visit`.
+
+New version of a report: replace `content/d/<slug>.html`, commit, push (Vercel builds
+`main`). New report: the file, one entry in `data/reports.ts`, and a `trackSlug` from an
+app HTML document plus an email-mode link (`create_html_document`, `create_document_link`).
