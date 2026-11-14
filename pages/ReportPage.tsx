@@ -24,8 +24,9 @@ import NotFoundPage from './NotFoundPage';
 // only after the gate (data/reports.ts). It is drawn in a sandboxed iframe
 // (srcdoc, no scripts allowed) so its CSS and the site's never touch, at the
 // height of its content, so the page scrolls as one page and the report's own
-// wide tables keep scrolling inside their own containers. The report follows the
-// reader's light or dark preference through its own prefers-color-scheme.
+// wide tables keep scrolling inside their own containers. The frame carries
+// color-scheme: dark (ai.css .rpt-frame), so the report's own prefers-color-scheme
+// resolves to dark like the rest of the site, whatever the reader's OS says.
 //
 // Visits (visible time, scroll depth, referrer, ?r=) go to the Unbound app
 // (lib/reportTrack.ts). noindex here and X-Robots-Tag in vercel.json.

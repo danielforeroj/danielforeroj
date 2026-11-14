@@ -630,4 +630,5 @@
 .rpt-who .aif-link { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; }
 .rpt-body { margin: 0 -16px; }
 .rpt-status { padding: 24px 16px 56px; text-align: center; }
-.rpt-frame { display: block; width: 100%; max-width: 100%; border: 0; background: var(--aif-void); }
+/* color-scheme dark: the site is dark only, so the report's prefers-color-scheme resolves to dark inside the frame (Daniel 2026-11-14: his personal brand). */
+.rpt-frame { display: block; width: 100%; max-width: 100%; border: 0; background: var(--aif-void); color-scheme: dark; }
