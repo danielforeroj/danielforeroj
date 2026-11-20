@@ -113,7 +113,7 @@ export const REPORTS: Report[] = [
         {
           key: 'video',
           kind: 'video',
-          youtubeId: '',
+          youtubeId: 'Q4g8WxEjeMQ',
           documentId: '2c20e238-1c74-4e62-81cc-9ea02af7e4fa',
           title: { en: 'The video', es: 'El video' },
           body: {
