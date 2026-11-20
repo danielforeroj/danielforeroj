@@ -633,6 +633,11 @@
 /* color-scheme dark: the site is dark only, so the report's prefers-color-scheme resolves to dark inside the frame (Daniel 2026-11-14: his personal brand). */
 .rpt-frame { display: block; width: 100%; max-width: 100%; border: 0; background: var(--aif-void); color-scheme: dark; }
 
+/* One column for every /d/ page (2026-11-20): the header, the hub, the deck and the video take
+   the width of the report's own text column (its main is 980px with 16px padding), so on a
+   desktop every left and right edge lines up with the content. */
+.rpt .aif-panel { width: min(948px, 100%); }
+
 /* Report room (2026-11-20): the hub at /d/<slug> and its pieces at /d/<slug>/<key>. */
 .rpt-back { display: inline-block; margin-bottom: 10px; text-decoration: none; }
 .rpt-hub { margin-top: 22px; }
@@ -641,7 +646,7 @@
 /* The deck: the frame keeps the slides' 16:9, edge to edge on a phone. */
 .deck { padding: 0 0 40px; }
 @media (min-width: 720px) { .deck { padding: 0 16px 40px; } }
-.deck-stage { position: relative; width: min(100%, calc((100svh - 150px) * 16 / 9)); aspect-ratio: 16 / 9; margin: 0 auto; background: #1b1f33; }
+.deck-stage { position: relative; width: min(100%, 948px, calc((100svh - 150px) * 16 / 9)); aspect-ratio: 16 / 9; margin: 0 auto; background: #1b1f33; }
 .deck-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
 .deck-bar { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 12px 0 4px; flex-wrap: wrap; }
 .deck-btn {
@@ -663,6 +668,6 @@
 
 /* The video: 16:9, edge to edge on a phone. */
 .vid { padding: 0 0 40px; }
-.vid-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; }
+.vid-stage { position: relative; width: 100%; max-width: 948px; margin: 0 auto; aspect-ratio: 16 / 9; background: #000; }
 .vid-stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 @media (min-width: 720px) { .vid { padding: 0 16px 40px; } }

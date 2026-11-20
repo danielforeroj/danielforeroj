@@ -133,8 +133,10 @@ and GTM is not loaded on these paths.
 - **Gate.** Email required, name optional, no code. The reader is recorded through
   `lib/lead.ts` (`/api/contact`, site `danielforeroj`, header
   `[danielforeroj.com/d/<slug>] report gate`), so they appear in the app's inbound
-  triage like any other form. The browser remembers the reader (`dfj_reader` in
-  localStorage) and does not ask again, on that report or another.
+  triage like any other form. The browser remembers the reader for 96 hours from the
+  moment they gave the email (`dfj_reader` in localStorage and in a first-party cookie,
+  for in-app browsers that drop storage), on every browser they use, and does not ask
+  again in that time, on that report or another.
 - **Rendering.** The file is a separate lazily loaded chunk, fetched only after the
   gate, never in the prerendered HTML. It is drawn in a sandboxed `iframe srcdoc` (no
   scripts) at the height of its content, with the site's IBM Plex fonts injected, so
@@ -145,7 +147,7 @@ and GTM is not loaded on these paths.
   `content/d/<file>.html`, slides are `.slide` sections, drawn in an `allow-scripts`
   frame that is not same-origin, with a bridge that reports the slide on screen) and a
   video (`kind: 'video'`, an unlisted YouTube id, embedded from youtube-nocookie.com
-  through the IFrame API). A video with an empty `youtubeId` is left out of the hub.
+  through the IFrame API). A video with an empty `youtubeId` keeps its button; its page says the video is on its way.
   `/d/viva` is the first: report, deck (`content/d/viva-deck.html`, 30 slides), video.
   Every page is a visit in the app's data room (room link `room.slug`): the hub on the
   room link, each piece on its document (`documentId`). The deck reports a page per

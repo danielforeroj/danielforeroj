@@ -21,8 +21,9 @@ import NotFoundPage from './NotFoundPage';
 // /api/contact, site danielforeroj, header "[danielforeroj.com/d/<slug>] report
 // gate"), with notify none (2026-11-20): the gate pings no one, because the app's
 // tracker tells Daniel, by DM only, when someone opens the page. The browser
-// remembers the reader in localStorage (dfj_reader), so a returning reader, on
-// this report or another one, is not asked again.
+// remembers the reader for 96 hours (dfj_reader in localStorage and a cookie, see
+// READER_TTL_MS), so a returning reader, on this report or another one, is not
+// asked again in that time.
 //
 // The report file is not in the prerendered HTML: it is a separate chunk loaded
 // only after the gate (data/reports.ts). It is drawn in a sandboxed iframe
@@ -43,17 +44,60 @@ import NotFoundPage from './NotFoundPage';
 
 const READER_KEY = 'dfj_reader';
 
-type Reader = { email: string; name: string };
+// A reader who passed the gate is let back in without the form for 96 hours (Daniel,
+// 2026-11-20), on every browser they used, with no limit on how many. The key is kept twice:
+// in localStorage, and in a first-party cookie for the browsers that clear or block storage
+// (in-app browsers, some private modes). Whichever is still there and in time lets them in.
+// The 96 hours run from the moment they gave the email, never extended by a return visit.
+const READER_TTL_MS = 96 * 60 * 60 * 1000;
 
-function savedReader(): Reader | null {
-  const raw = readStore(READER_KEY, 'local');
+type Reader = { email: string; name: string };
+type SavedReader = Reader & { at: string };
+
+function parseReader(raw: string | null): SavedReader | null {
   if (!raw) return null;
   try {
-    const r = JSON.parse(raw) as Partial<Reader>;
-    return typeof r.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.email) ? { email: r.email, name: typeof r.name === 'string' ? r.name : '' } : null;
+    const r = JSON.parse(raw) as Partial<SavedReader>;
+    if (typeof r.email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.email)) return null;
+    const at = typeof r.at === 'string' ? Date.parse(r.at) : NaN;
+    if (!Number.isFinite(at) || Date.now() - at > READER_TTL_MS || at - Date.now() > 60_000) return null;
+    return { email: r.email, name: typeof r.name === 'string' ? r.name : '', at: r.at as string };
   } catch {
     return null;
   }
+}
+
+function readCookie(): string | null {
+  try {
+    const m = document.cookie.match(new RegExp(`(?:^|; )${READER_KEY}=([^;]*)`));
+    return m ? decodeURIComponent(m[1]) : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeCookie(value: string | null, maxAgeSeconds: number) {
+  try {
+    const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+    document.cookie = `${READER_KEY}=${value === null ? '' : encodeURIComponent(value)}; Max-Age=${maxAgeSeconds}; Path=/; SameSite=Lax${secure}`;
+  } catch {
+    /* cookies unavailable */
+  }
+}
+
+function savedReader(): Reader | null {
+  const r = parseReader(readStore(READER_KEY, 'local')) ?? parseReader(readCookie());
+  if (!r) {
+    forgetReader();
+    return null;
+  }
+  return { email: r.email, name: r.name };
+}
+
+function rememberReader(r: Reader) {
+  const value = JSON.stringify({ ...r, at: new Date().toISOString() });
+  writeStore(READER_KEY, value, 'local');
+  writeCookie(value, READER_TTL_MS / 1000);
 }
 
 function forgetReader() {
@@ -62,6 +106,7 @@ function forgetReader() {
   } catch {
     /* storage unavailable */
   }
+  writeCookie(null, 0);
 }
 
 // The site's own fonts (the same Google Fonts link as index.html), made available
@@ -266,7 +311,7 @@ const ReportPage: React.FC = () => {
     });
     // The reader gets in whatever the endpoint answered: the visit itself carries the
     // email to the app, so a failed capture is still recorded there.
-    writeStore(READER_KEY, JSON.stringify({ ...next, at: new Date().toISOString() }), 'local');
+    rememberReader(next);
     setBusy(false);
     setReader(next);
   };
@@ -354,7 +399,13 @@ const ReportPage: React.FC = () => {
 
       {showReport && item?.kind === 'video' ? (
         <div className="rpt-body">
-          <VideoView youtubeId={item.youtubeId} title={item.title[lang]} visit={visit} t={t.video} />
+          {item.youtubeId ? (
+            <VideoView youtubeId={item.youtubeId} title={item.title[lang]} visit={visit} t={t.video} />
+          ) : (
+            <p className="aif-meta rpt-status" role="status">
+              {t.video.soon}
+            </p>
+          )}
         </div>
       ) : null}
 

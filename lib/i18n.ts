@@ -276,7 +276,10 @@ const UI = {
         rotate: 'On a phone, turn it sideways and use full screen to read the slides larger.',
         frameTitle: 'Presentation',
       },
-      video: { loadError: 'The video did not load. Refresh the page to try again.' },
+      video: {
+        loadError: 'The video did not load. Refresh the page to try again.',
+        soon: 'The video will be here shortly. The link stays the same, so come back to this page.',
+      },
     },
 
     grow: {
@@ -504,7 +507,10 @@ const UI = {
         rotate: 'En el celular, gíralo de lado y usa pantalla completa para leer los slides más grandes.',
         frameTitle: 'Presentación',
       },
-      video: { loadError: 'El video no cargó. Recarga la página para intentarlo de nuevo.' },
+      video: {
+        loadError: 'El video no cargó. Recarga la página para intentarlo de nuevo.',
+        soon: 'El video estará aquí muy pronto. El link es el mismo, así que vuelve a esta página.',
+      },
     },
 
     grow: {

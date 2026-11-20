@@ -130,9 +130,9 @@ export function loadReportHtml(file: string): Promise<string> | null {
   return load ? load() : null;
 }
 
-/** The pieces of a room that can be shown: a video without its id yet is left out. */
-export const roomItems = (r: Report | undefined): RoomItem[] =>
-  (r?.room?.items ?? []).filter((i) => i.kind !== 'video' || i.youtubeId);
+/** The pieces of a room. A video without its id yet still has its button and page, which
+ * says it is on its way (Daniel, 2026-11-20: the button first, the link later). */
+export const roomItems = (r: Report | undefined): RoomItem[] => r?.room?.items ?? [];
 
 export const roomItem = (r: Report | undefined, key: string | undefined): RoomItem | undefined =>
   roomItems(r).find((i) => i.key === key);
