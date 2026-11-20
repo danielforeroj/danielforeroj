@@ -205,7 +205,8 @@ const ReportPage: React.FC = () => {
   const isHub = Boolean(report?.room) && !item;
   // The file this page draws: a deck, or the report itself (a report with no room, or the
   // room's report piece). The hub and the video draw none.
-  const file = item?.kind === 'deck' ? item.file : report && (!report.room || item?.kind === 'report') ? report.slug : null;
+  const file =
+    item?.kind === 'deck' ? item.file : item?.kind === 'report' ? (item.file ?? report?.slug ?? null) : report && !report.room ? report.slug : null;
   const lang = useLang();
   const ui = useUi();
   const t = ui.report;

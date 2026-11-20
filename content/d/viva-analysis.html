@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viva competitive analysis</title>
+<style>
+:root{--bg:#0B0709;--panel:#140c11;--soft:#25131c;--line:rgba(244,234,220,0.13);--ink:#fff9ef;--cream:#f4eadc;--muted:#c5b5ad;--muted2:#917d78;--s1:#c9a15b;--s2:#b13a58;--neutral:#5e4d4b;--accent:#c9a15b;--heat:201,161,91;--display:"IBM Plex Sans Condensed","Arial Narrow","Roboto Condensed",system-ui,sans-serif;--body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:light){:root{--bg:#fff9ef;--panel:#fbf1e2;--soft:#f4eadc;--line:rgba(11,7,9,0.13);--ink:#0B0709;--cream:#25131c;--muted:#5c4a46;--muted2:#7a6662;--s1:#b07a2e;--s2:#b13a58;--neutral:#cdbdb5;--accent:#7b2639;--heat:176,122,46}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);overflow-wrap:anywhere}
+main{max-width:980px;margin:0 auto;padding:36px 16px 72px}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.005em;color:var(--ink)}h1{font-size:34px;line-height:1.15;margin:0 0 8px}h2{font-size:26px;margin:52px 0 10px;padding-top:22px;border-top:1px solid var(--line)}h3{font-size:19px;margin:28px 0 8px;color:var(--cream)}
+.meta,.note,.sub{color:var(--muted)}.meta{font-size:14px;margin:0 0 22px}.note{font-size:13px}.sub{font-size:12px}
+.lead{font-size:18px;background:var(--panel);border-left:4px solid var(--accent);padding:14px 16px;border-radius:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.card{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--panel)}.card b{display:block;font-size:26px;line-height:1.2;font-family:var(--mono);font-weight:600;color:var(--s1)}.card span{color:var(--muted);font-size:13px}.card em{display:block;font-style:normal;font-family:var(--mono);font-size:11px;color:var(--muted2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.08em}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}.tablewrap table{min-width:560px}th,td{overflow-wrap:normal;word-break:normal}.multiples .tablewrap table{min-width:300px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--soft);font-weight:600;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em}td.n{font-family:var(--mono)}
+td.n,th.n{text-align:right;white-space:nowrap}tr.us td{background:rgba(var(--heat),.12)}
+td.heat{background:rgba(var(--heat),calc(var(--a)*.75));text-align:center}td.heat span{background:var(--bg);font-family:var(--mono);padding:1px 5px;border-radius:4px;font-size:12px}
+.chart{margin:10px 0 4px}.chart svg{width:100%;height:auto;font-size:13px;display:block;font-family:var(--body)}
+.multiples{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}.chart.small figcaption{font-size:14px;font-weight:600}
+.lbl{fill:var(--ink)}.lbl.hi{font-weight:700}.val{fill:var(--muted);font-size:12px;font-family:var(--mono)}.axis{stroke:var(--line)}
+.bar{fill:var(--neutral)}.bar-hi{fill:var(--s1)}.s1{fill:var(--s1)}.s2{fill:var(--s2)}
+.hb-row{display:grid;grid-template-columns:minmax(96px,32%) 1fr;gap:10px;align-items:center;padding:3px 0}.hb-row.two{padding:6px 0}.hb-l{text-align:right;font-size:14px;line-height:1.25;overflow-wrap:normal;word-break:normal}.hb-l.hi{font-weight:700;color:var(--s1)}.hb-pair{display:grid;gap:4px}.hb-t{display:flex;align-items:center;gap:6px;min-width:0}.hb-t i{display:block;height:14px;border-radius:4px;flex:none}.hb-t i.bar{background:var(--neutral)}.hb-t i.bar-hi,.hb-t i.s1{background:var(--s1)}.hb-t i.s2{background:var(--s2)}.hb-t b{font:500 12px var(--mono);color:var(--muted);white-space:nowrap}@media (max-width:420px){.hb-row{grid-template-columns:40% 1fr;gap:8px}.hb-l{font-size:12.5px}}.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;font-family:var(--mono);color:var(--muted);margin-bottom:4px}.k{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}.k.s1{background:var(--s1)}.k.s2{background:var(--s2)}
+dl{margin:0}dt{font-weight:600;margin-top:16px}dd{margin:4px 0 0}
+details{border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:12px 0}summary{cursor:pointer;font-weight:600}
+.callout{border:1px solid var(--line);border-left:4px solid var(--s2);border-radius:6px;padding:10px 14px;margin:14px 0;background:var(--panel)}
+a{color:var(--s1)}.meta{font-family:var(--mono);font-size:12.5px}footer{margin-top:56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:14px}
+ol{padding-left:22px}ol li{margin:4px 0}
+</style></head><body><main>
+
+<h1>Viva and six direct competitors: audience, content, ads, search and AI answers</h1>
+<p class="meta">A competitive analysis by Daniel Forero, collected November 19, 2026. US market, English. Viva compared with Athena, BELAY, Boldly, Magic, Persona and Prialto. Public data only.</p>
+
+<p class="lead">Viva has more owned audience than most of its competitors and some of the best proof in the category: clients like Notion, coverage in Fortune and Forbes, a real mission and 240+ EAs. In the week measured it published nothing on any channel, it runs no Google or Meta ads, and ChatGPT names it in 3 or 4 of 25 buyer answers. The data also shows that ad spend does not buy AI visibility. Magic spends an estimated 246K USD a month on Google and is named in none of the 25 answers, while Boldly spends nothing and is named in all 25. What moves AI answers is volume and third-party proof, and those are the assets Viva already has and is not using.</p>
+
+<div class="grid">
+<div class="card"><em>Audience</em><b>~100K</b><span>LinkedIn followers across the company page (79K), Fineas Tatar (14K) and Adnan Khan (7.5K). 4th largest company page of the seven</span></div>
+<div class="card"><em>Content</em><b>0</b><span>posts by Viva in the last 7 days, on every channel. Magic published 21, BELAY 20</span></div>
+<div class="card"><em>Ads</em><b>0 / 0 / 76</b><span>Viva's ads live on Google and Meta, and its LinkedIn ads in the last 12 months. BELAY has 61 live on Google and 165 on Meta</span></div>
+<div class="card"><em>AI answers</em><b>3 to 4 / 25</b><span>ChatGPT answers to buyer questions that name Viva. Athena, Boldly and Prialto are named in 25</span></div>
+</div>
+
+<h2>1. Size</h2>
+<p>Employees associated with each company's LinkedIn page. These counts include the assistants who work through each company, which is why the models with large offshore talent pools (Athena, Persona) come out so high.</p>
+<div class="tablewrap"><table><thead><tr><th>Company</th><th>Site</th><th class="n">LinkedIn members</th><th>Declared range</th></tr></thead><tbody>
+<tr><td>Athena</td><td>athena.com</td><td class="n">4,611</td><td>1,001 to 5,000</td></tr>
+<tr><td>Persona</td><td>personatalent.com</td><td class="n">3,953</td><td>501 to 1,000</td></tr>
+<tr><td>Magic</td><td>getmagic.com</td><td class="n">1,854</td><td>201 to 500</td></tr>
+<tr><td>BELAY</td><td>belaysolutions.com</td><td class="n">1,137</td><td>201 to 500</td></tr>
+<tr><td>Prialto</td><td>prialto.com</td><td class="n">835</td><td>201 to 500</td></tr>
+<tr class="us"><td>Viva</td><td>execviva.com</td><td class="n">347</td><td>201 to 500 (240+ people stated)</td></tr>
+<tr><td>Boldly</td><td>boldly.com</td><td class="n">146</td><td>51 to 200</td></tr>
+</tbody></table></div>
+
+<h2>2. Social channels</h2>
+<p>Only the accounts each company links from its own website were used. "Not linked" means the site does not publish one. No usernames were guessed.</p>
+
+<h3>2.1 Followers by channel</h3>
+<div class="tablewrap"><table><thead><tr><th>Company</th><th class="n">LinkedIn</th><th class="n">Instagram</th><th class="n">X</th><th>YouTube</th><th>TikTok</th></tr></thead><tbody>
+<tr><td>Persona</td><td class="n">926K</td><td class="n">5,181</td><td class="n">311</td><td>Not linked</td><td>Not linked</td></tr>
+<tr><td>Athena</td><td class="n">216K</td><td class="n">15K</td><td class="n">4,021</td><td>Site link returns 404</td><td>54.5K (recruiting)</td></tr>
+<tr><td>Magic</td><td class="n">101K</td><td class="n">10K</td><td class="n">8,171</td><td>Not linked</td><td>Not linked</td></tr>
+<tr class="us"><td>Viva</td><td class="n">79K</td><td class="n">6,491</td><td class="n">25</td><td>375, 56 videos (the site links to a handle that returns 404)</td><td>Not linked</td></tr>
+<tr><td>BELAY</td><td class="n">41K</td><td class="n">11K</td><td class="n">Not linked</td><td>1,320, 320 videos</td><td>Not linked</td></tr>
+<tr><td>Boldly</td><td class="n">36K</td><td class="n">4,128</td><td class="n">Not linked</td><td>320, 245 videos</td><td>Not linked</td></tr>
+<tr><td>Prialto</td><td class="n">13K</td><td class="n">Not linked</td><td class="n">1,221</td><td>Not linked</td><td>Not linked</td></tr>
+</tbody></table></div>
+
+<h3>2.2 Posts in the last 7 days</h3>
+<p>Every linked channel combined, as of November 19, 2026.</p>
+<figure class="chart hb" role="img" aria-label="Posts in the last 7 days by company">
+<div class="hb-row"><span class="hb-l">Magic</span><span class="hb-t"><i class="bar" style="width:calc(100% * .82)"></i><b>21</b></span></div>
+<div class="hb-row"><span class="hb-l">BELAY</span><span class="hb-t"><i class="bar" style="width:calc(95.2% * .82)"></i><b>20</b></span></div>
+<div class="hb-row"><span class="hb-l">Persona</span><span class="hb-t"><i class="bar" style="width:calc(57.1% * .82)"></i><b>12</b></span></div>
+<div class="hb-row"><span class="hb-l">Boldly</span><span class="hb-t"><i class="bar" style="width:calc(47.6% * .82)"></i><b>10</b></span></div>
+<div class="hb-row"><span class="hb-l">Athena</span><span class="hb-t"><i class="bar" style="width:calc(9.5% * .82)"></i><b>2</b></span></div>
+<div class="hb-row"><span class="hb-l">Prialto</span><span class="hb-t"><i class="bar" style="width:calc(4.8% * .82)"></i><b>1</b></span></div>
+<div class="hb-row"><span class="hb-l hi">Viva</span><span class="hb-t"><i class="bar-hi" style="width:0"></i><b>0</b></span></div>
+</figure>
+<div class="tablewrap"><table><thead><tr><th>Company</th><th class="n">LinkedIn</th><th class="n">Instagram</th><th>X</th><th>YouTube</th><th>TikTok</th></tr></thead><tbody>
+<tr><td>Magic</td><td class="n">9</td><td class="n">6</td><td>6</td><td>Not linked</td><td>Not linked</td></tr>
+<tr><td>BELAY</td><td class="n">11</td><td class="n">9</td><td>Not linked</td><td>0 (last one 2 weeks ago)</td><td>Not linked</td></tr>
+<tr><td>Persona</td><td class="n">5</td><td class="n">3</td><td>4</td><td>Not linked</td><td>Not linked</td></tr>
+<tr><td>Boldly</td><td class="n">5</td><td class="n">5</td><td>Not linked</td><td>0 (last one 2 months ago)</td><td>Not linked</td></tr>
+<tr><td>Athena</td><td class="n">2</td><td class="n">0</td><td>0</td><td>Link returns 404</td><td>0 (last one around October 2026)</td></tr>
+<tr><td>Prialto</td><td class="n">1</td><td class="n">Not linked</td><td>0 (last one February 2023)</td><td>Not linked</td><td>Not linked</td></tr>
+<tr class="us"><td>Viva</td><td class="n">0</td><td class="n">0</td><td>0 (last one June 2023)</td><td>0 (last one a year ago)</td><td>Not linked</td></tr>
+</tbody></table></div>
+<p class="note">Viva's company page on LinkedIn last posted in February 2026, and its Instagram in December 2025.</p>
+
+<h3>2.3 LinkedIn cadence and engagement over 90 days</h3>
+<div class="tablewrap"><table><thead><tr><th>Company</th><th>Posts in 90 days</th><th class="n">Avg. likes per post</th><th>Topics</th></tr></thead><tbody>
+<tr><td>Athena</td><td>50+ (about 4 a week)</td><td class="n">74.1</td><td>Employer brand and culture, recruiting</td></tr>
+<tr><td>Boldly</td><td>50+ (almost daily)</td><td class="n">14.7</td><td>EA stories, flexible work</td></tr>
+<tr><td>Persona</td><td>50+ (almost daily)</td><td class="n">7.2</td><td>Openings and global talent brand</td></tr>
+<tr><td>BELAY</td><td>50+ (almost daily)</td><td class="n">6.8</td><td>Promotion and education for owners and financial advisors, podcast clips</td></tr>
+<tr><td>Prialto</td><td>24 (weekly)</td><td class="n">2.1</td><td>Promotion and thought leadership</td></tr>
+<tr><td>Magic</td><td>10+ in one week</td><td class="n">n/a</td><td>"Hire a virtual EA" offers and referrals</td></tr>
+<tr class="us"><td>Viva</td><td>0</td><td class="n">n/a</td><td>The last 7 (December 2025 to February 2026) were interview-style posts</td></tr>
+</tbody></table></div>
+
+<h3>2.4 The founders</h3>
+<div class="tablewrap"><table><thead><tr><th>Founder</th><th class="n">Followers</th><th>Activity</th></tr></thead><tbody>
+<tr><td>Fineas Tatar</td><td class="n">14,115</td><td>8 posts from February to November 2026, 6 of them job openings. 26 to 155 reactions; the best one (155) was the new logo</td></tr>
+<tr><td>Adnan Khan</td><td class="n">7,503</td><td>7 posts from August to November 2026. The best one (92 reactions) was a story about choosing a vendor</td></tr>
+</tbody></table></div>
+<p>The founders' best posts were stories, not announcements. Viva's Instagram is employer brand in Spanish, aimed at recruiting EAs, and does not speak to buyers. Its YouTube channel holds client testimonials from Notion, Gridwise, Placemakr and Luminai that have not been reused anywhere else.</p>
+
+<h2>3. Press, podcasts and borrowed audiences</h2>
+<h3>3.1 Viva's press</h3>
+<p>AP, Fortune (June 22, 2026), Fast Company, Forbes, Inc., the Zapier blog (two pieces) and European Business Magazine. Adnan writes for Unite.ai and Fineas for the Turing blog. It is strong coverage, but it arrives one piece at a time, without a program that keeps it coming.</p>
+
+<h3>3.2 BELAY and Ramsey</h3>
+<p>Ramsey is not a BELAY sub-brand. BELAY sponsors Ramsey Solutions' EntreLeadership podcast and uses that audience.</p>
+<dl>
+<dt>Since when</dt><dd>BELAY's landing page says it has served over 574 "friends of EntreLeadership" across 48 states since 2018.</dd>
+<dt>How it works</dt><dd>A host read on the show with a short URL and a text code, a co-branded landing page with quotes from Dave Ramsey, a free consultation and a free resource. BELAY repeats the formula with Maxwell Leadership (77 clients since 2022, by its own count).</dd>
+<dt>In the ads</dt><dd>BELAY runs Meta ads built on the partnership, with a Ramsey Solutions guest and a "Listen Now" call to action.</dd>
+<dt>Reach</dt><dd>Ramsey's media kit claims 20M+ weekly listeners across its network.</dd>
+</dl>
+
+<h3>3.3 Owned shows, books and sub-brands</h3>
+<div class="tablewrap"><table><thead><tr><th>Company</th><th>Show, book, creator or sub-brand</th></tr></thead><tbody>
+<tr><td>BELAY</td><td>One Next Step podcast (129+ episodes). The book "Rise Up and Lead Well", also offered as a gated download. Sub-brands for assistants and for financial services (bookkeeping, payroll, tax, fractional CFO)</td></tr>
+<tr><td>Athena</td><td>No show. The founder appears as a guest (a16z, This Week in Startups, Modern Wisdom). Creator referral pages with 1,500 USD off</td></tr>
+<tr><td>Magic</td><td>A discount for a creator's audience and a referral offer</td></tr>
+<tr><td>Prialto</td><td>Podcast guest spots and an annual report</td></tr>
+<tr><td>Boldly</td><td>Blog and 245 YouTube videos</td></tr>
+<tr><td>Persona</td><td>Blog and content hub</td></tr>
+<tr class="us"><td>Viva</td><td>No show, creator partnership, book or sub-brand. Recruiting Coordinators are sold under the same brand</td></tr>
+</tbody></table></div>
+
+<h2>4. Advertising</h2>
+<p>Ads counted in the Meta Ad Library, the Google Ads Transparency Center and the LinkedIn Ad Library, searched by each company's verified page or advertiser, worldwide, all ads. Google spend is a SpyFu estimate for October 2026.</p>
+<div class="tablewrap"><table><thead><tr><th>Company</th><th class="n">Meta, active</th><th class="n">Google, live today</th><th>LinkedIn</th><th class="n">Est. Google spend / month</th></tr></thead><tbody>
+<tr><td>BELAY</td><td class="n">165</td><td class="n">61</td><td>5 (financial services line)</td><td class="n">~336,600 USD</td></tr>
+<tr><td>Magic</td><td class="n">9</td><td class="n">14</td><td>61, most of them sell a managed customer support team, not EAs</td><td class="n">~246,000 USD</td></tr>
+<tr><td>Athena</td><td class="n">22</td><td class="n">11</td><td>32, executive delegation; one recruits in Latin America</td><td class="n">~60,700 USD</td></tr>
+<tr><td>Prialto</td><td class="n">0</td><td class="n">1</td><td>0</td><td class="n">~1,300 USD</td></tr>
+<tr class="us"><td>Viva</td><td class="n">0</td><td class="n">0 (none in the last 30 days)</td><td>76 in the last 12 months</td><td class="n">~334 USD</td></tr>
+<tr><td>Boldly</td><td class="n">0</td><td class="n">0</td><td>0</td><td class="n">0</td></tr>
+<tr><td>Persona</td><td class="n">0</td><td class="n">0</td><td>0 (the "Persona" ads in the library belong to a different company)</td><td class="n">0</td></tr>
+</tbody></table></div>
+<p class="note">Meta does not publish spend for commercial advertisers, so Meta spend is not estimated here.</p>
+
+<h3>4.1 What the ads are for</h3>
+<p>Each ad classified by its copy and call to action: recruiting, lead magnet (a free resource in exchange for contact details) or direct client funnel (a call or an offer).</p>
+<div class="tablewrap"><table><thead><tr><th>Company and channel</th><th class="n">Ads</th><th class="n">Recruiting</th><th class="n">Lead magnet</th><th class="n">Client funnel</th></tr></thead><tbody>
+<tr><td>BELAY, Meta</td><td class="n">165</td><td class="n">4</td><td class="n">44</td><td class="n">117</td></tr>
+<tr><td>Athena, Meta</td><td class="n">22</td><td class="n">0</td><td class="n">0</td><td class="n">22</td></tr>
+<tr><td>Magic, Meta</td><td class="n">9</td><td class="n">0</td><td class="n">0</td><td class="n">9</td></tr>
+<tr class="us"><td>Viva, LinkedIn</td><td class="n">76</td><td class="n">0</td><td class="n">72</td><td class="n">4</td></tr>
+<tr><td>Athena, LinkedIn</td><td class="n">32</td><td class="n">0 to 1</td><td class="n">0</td><td class="n">30</td></tr>
+<tr><td>BELAY, LinkedIn</td><td class="n">5</td><td class="n">1</td><td class="n">0</td><td class="n">2</td></tr>
+</tbody></table></div>
+<p>Almost every Google ad live today sells the service directly. BELAY's Meta ads cover three product lines (assistants, finance and tax, marketing); about 56% lead with a pain point and send to a landing page, about 25% offer a free resource and about 16% go straight to an offer or a call. Athena's are almost all "book a free call", with founder video. Viva's 76 LinkedIn ads are all free resources: meeting templates, a plan for the first 30 days with a new EA, a scorecard, a calculator for the cost of an in-house EA and a one-page business case. They are good assets, and today none of them leads to a measured next step.</p>
+
+<h3>4.2 Hooks that repeat</h3>
+<dl>
+<dt>Athena</dt><dd>"Built for founders and execs already maxed out on admin." "The $200K EA, now $3K a month." "Why an Executive Assistant beats AI's ROI." "Every AI stack needs a human in it."</dd>
+<dt>BELAY</dt><dd>"You're overwhelmed because you're over-involved." "Growth gets harder when you're the one doing everything." "Offshore or U.S.-based? You decide."</dd>
+<dt>Magic</dt><dd>"If you have more than 5 employees, you're already managing too much yourself."</dd>
+</dl>
+
+<h2>5. Google search</h2>
+<p>Very few people search Google for a 100K USD executive assistant service. Demand is created elsewhere, and Google captures it when buyers search a brand they already know.</p>
+<h3>5.1 Monthly US searches by intent</h3>
+<figure class="chart hb" role="img" aria-label="Monthly US searches by intent">
+<div class="hb-row"><span class="hb-l">Competitor names</span><span class="hb-t"><i class="bar" style="width:calc(100% * .82)"></i><b>46,740</b></span></div>
+<div class="hb-row"><span class="hb-l">Job seekers</span><span class="hb-t"><i class="bar" style="width:calc(75.5% * .82)"></i><b>35,290</b></span></div>
+<div class="hb-row"><span class="hb-l">Cheap virtual assistants</span><span class="hb-t"><i class="bar" style="width:calc(44.3% * .82)"></i><b>20,690</b></span></div>
+<div class="hb-row"><span class="hb-l">Learn</span><span class="hb-t"><i class="bar" style="width:calc(14.8% * .82)"></i><b>6,920</b></span></div>
+<div class="hb-row"><span class="hb-l">Compare</span><span class="hb-t"><i class="bar" style="width:calc(9.2% * .82)"></i><b>4,310</b></span></div>
+<div class="hb-row"><span class="hb-l hi">EA service buyers</span><span class="hb-t"><i class="bar-hi" style="width:calc(6.4% * .82)"></i><b>~3,000</b></span></div>
+<div class="hb-row"><span class="hb-l">Viva's name</span><span class="hb-t"><i class="bar" style="width:calc(0.7% * .82)"></i><b>330</b></span></div>
+</figure>
+<div class="tablewrap"><table><thead><tr><th>Group</th><th>Examples (monthly searches, CPC in USD)</th></tr></thead><tbody>
+<tr><td>Competitor names</td><td>belay 27,100, boldly 8,100, time etc 3,600, belay solutions 2,900, prialto 720</td></tr>
+<tr><td>Job seekers</td><td>executive assistant jobs 22,200, remote EA jobs 8,100, EA salary 4,400</td></tr>
+<tr><td>Cheap virtual assistants</td><td>virtual assistant services 6,600, virtual assistant company 3,600, hire virtual assistant 1,900</td></tr>
+<tr class="us"><td>EA service buyers</td><td>virtual executive assistant 880 (CPC 63), executive assistant services 720 (CPC 51), hire executive assistant 390 (CPC 98), EA for CEO 390, outsourced EA 50 (CPC 155). Volume-weighted average CPC about 50 USD, range 5 to 177</td></tr>
+<tr><td>Learn</td><td>what is an executive assistant 4,400</td></tr>
+<tr><td>Compare</td><td>virtual assistant companies 3,600, belay reviews 140</td></tr>
+<tr><td>Viva's name</td><td>viva talent 170, viva executive assistant(s) 100, execviva 20</td></tr>
+</tbody></table></div>
+
+<h3>5.2 Viva's organic traffic</h3>
+<p>Viva ranks for 976 terms and earns about 1,040 estimated visits a month. It ranks well for buyer terms, but those terms carry little traffic: "virtual executive assistant" in position 2 (about 99 visits), "executive assistant services" in position 3 (about 21), "virtual executive assistant service" in position 1 (about 15). A large share of the rest comes from the wrong intent: "data entry virtual assistant", "what is an executive assistant", definitions, Viva careers and EA jobs, and searches for an unrelated company with a similar name.</p>
+
+<h3>5.3 What Viva has paid for on Google</h3>
+<p>"executive assistant" (11,300 searches a month, almost all job seekers), "recruiter near me", "work from home job", "virtual assistant job(s)", "recruitment agency", "belay solutions", "hire virtual assistant" and "virtual executive assistant". Recruiting campaigns and buyer campaigns have been mixed together.</p>
+
+<h3>5.4 One company, four names</h3>
+<p>Viva Talent (LinkedIn, Instagram, YouTube, the March 2026 logo), "Viva, Executive Assistants" (X), Exec Viva Inc. (Google and LinkedIn ads) and execviva.com. "Viva" also collides with Microsoft Viva and other companies in search results and ad libraries.</p>
+
+<h2>6. AI answers</h2>
+<p>The same five buyer questions for every company, asked to ChatGPT five times each, US, English. The questions ran through the DataForSEO API in clean sessions, not from a personal account, so no IP address, history or memory could shape the answers.</p>
+<ol>
+<li>What are the best executive assistant services for busy executives in the US?</li>
+<li>Which companies are best for hiring a dedicated remote executive assistant for a C-level executive?</li>
+<li>What are the top executive assistant services for tech startups and scale-ups?</li>
+<li>I'm a CEO drowning in email and meetings. Which service can give me a dedicated executive assistant?</li>
+<li>Which remote executive assistant companies are the best alternatives to hiring an in-house EA?</li>
+</ol>
+<div class="multiples">
+<figure class="chart small hb" role="img" aria-label="ChatGPT answers naming each company, out of 25"><figcaption>Named by ChatGPT, of 25 answers</figcaption>
+<div class="hb-row"><span class="hb-l">Athena</span><span class="hb-t"><i class="bar" style="width:calc(100% * .62)"></i><b>25</b></span></div>
+<div class="hb-row"><span class="hb-l">Boldly</span><span class="hb-t"><i class="bar" style="width:calc(100% * .62)"></i><b>25</b></span></div>
+<div class="hb-row"><span class="hb-l">Prialto</span><span class="hb-t"><i class="bar" style="width:calc(100% * .62)"></i><b>25</b></span></div>
+<div class="hb-row"><span class="hb-l">BELAY</span><span class="hb-t"><i class="bar" style="width:calc(98% * .62)"></i><b>24 to 25</b></span></div>
+<div class="hb-row"><span class="hb-l">Persona</span><span class="hb-t"><i class="bar" style="width:calc(18% * .62)"></i><b>4 to 5</b></span></div>
+<div class="hb-row"><span class="hb-l hi">Viva</span><span class="hb-t"><i class="bar-hi" style="width:calc(14% * .62)"></i><b>3 to 4</b></span></div>
+<div class="hb-row"><span class="hb-l">Magic</span><span class="hb-t"><i class="bar" style="width:0"></i><b>0</b></span></div>
+</figure>
+<figure class="chart small hb" role="img" aria-label="Estimated Google ad spend per month"><figcaption>Est. Google ad spend per month, USD</figcaption>
+<div class="hb-row"><span class="hb-l">Athena</span><span class="hb-t"><i class="s2" style="width:calc(18% * .62)"></i><b>60.7K</b></span></div>
+<div class="hb-row"><span class="hb-l">Boldly</span><span class="hb-t"><i class="s2" style="width:0"></i><b>0</b></span></div>
+<div class="hb-row"><span class="hb-l">Prialto</span><span class="hb-t"><i class="s2" style="width:calc(0.4% * .62)"></i><b>1.3K</b></span></div>
+<div class="hb-row"><span class="hb-l">BELAY</span><span class="hb-t"><i class="s2" style="width:calc(100% * .62)"></i><b>336.6K</b></span></div>
+<div class="hb-row"><span class="hb-l">Persona</span><span class="hb-t"><i class="s2" style="width:0"></i><b>0</b></span></div>
+<div class="hb-row"><span class="hb-l hi">Viva</span><span class="hb-t"><i class="s2" style="width:calc(0.1% * .62)"></i><b>0.3K</b></span></div>
+<div class="hb-row"><span class="hb-l">Magic</span><span class="hb-t"><i class="s2" style="width:calc(73% * .62)"></i><b>246K</b></span></div>
+</figure>
+</div>
+<p>Other companies ChatGPT named: Double (14 to 16 answers), Time Etc (14 to 17), Wing (7 to 10) and Zirtual (4 to 11). The sources it cited most were prialto.com (38 citations), basehq.com (33), boldly.com (30), belaysolutions.com (29) and athena.com (20). execviva.com is not in the top 10.</p>
+<p class="note">The earlier, larger measurement on this site points the same way: ChatGPT named Viva in 3 of 219 buyer answers and BELAY in 180. execviva.com was cited in 49 answers but almost never recommended.</p>
+
+<h2>7. What it adds up to</h2>
+<div class="callout">Ad spend does not buy AI visibility. Magic spends about 246K USD a month on Google and is named in 0 of 25 answers. Boldly spends nothing and is named in 25 of 25, with daily content, 245 videos and its own site cited as a source. Prialto, at about 1.3K USD a month, is the most cited source of all.</div>
+<div class="tablewrap"><table><thead><tr><th>Company</th><th>Where it wins</th><th>Where it is weak</th></tr></thead><tbody>
+<tr><td>BELAY</td><td>Daily volume, the largest ad budget, borrowed audiences (Ramsey, Maxwell), its own podcast and book</td><td>Low engagement, spread across three product lines</td></tr>
+<tr><td>Athena</td><td>Scale and LinkedIn engagement, direct-response ads with founder video, creator referrals</td><td>Instagram and X quiet, social tilted to recruiting</td></tr>
+<tr><td>Boldly</td><td>Daily content and video with no ad spend, present in AI answers</td><td>Small audiences, no ads</td></tr>
+<tr><td>Prialto</td><td>SEO, the source ChatGPT cites most</td><td>Social channels almost inactive</td></tr>
+<tr><td>Magic</td><td>Spend and social volume</td><td>Invisible in AI answers</td></tr>
+<tr><td>Persona</td><td>LinkedIn followers</td><td>Mostly employer brand, no client-facing ads</td></tr>
+<tr class="us"><td>Viva</td><td>Clients like Notion, major press, a real mission, Latin American talent, about 100K LinkedIn followers across the company and founders, strong free resources in its LinkedIn ads</td><td>No posts in 7 days on any channel, nearly invisible in AI answers, a brand split across four names, broken links, Google campaigns mixing recruiting and buyers, no borrowed audience</td></tr>
+</tbody></table></div>
+<p>Viva does not need to outspend BELAY or Magic. Its gap is volume and third-party proof: posting to the audience it already has, turning its clients, press, EAs and mission into content others cite, and getting into the lists and review sites AI assistants already read. That is the starting point of the 90-day plan in the R2 deck.</p>
+
+<h2>Method</h2>
+<dl>
+<dt>Size (1)</dt><dd>Each company's LinkedIn "About" page, read November 19, 2026.</dd>
+<dt>Social (2)</dt><dd>Only accounts linked from each company's website. Follower counts read on each platform. Posts in the last 7 days: LinkedIn by relative date on the loaded posts; Instagram by the date encoded in each post, excluding old pinned posts; X by each post's date; YouTube long videos only, because Shorts do not show a date in the grid; TikTok by the date encoded in each video ID. 90-day LinkedIn cadence and average likes from a LinkedIn post data provider.</dd>
+<dt>Press and podcasts (3)</dt><dd>Public web sources, each company's landing pages and published media kits. Partner client counts are the companies' own claims.</dd>
+<dt>Ads (4)</dt><dd>Facebook pages taken from each website's footer, with the page ID confirmed on Facebook. Meta Ad Library, Google Ads Transparency Center and LinkedIn Ad Library, worldwide, all ads, with LinkedIn advertisers confirmed by logo and "paid for by". Google "live today" uses the Transparency Center's Today filter applied in the interface and checked on screen, US. Each ad classified by its copy and call to action. Google spend: SpyFu domain estimates for October 2026, which cover the whole domain and tend to run high.</dd>
+<dt>Search (5)</dt><dd>DataForSEO Google Ads search volume and CPC, US. Viva's rankings and estimated visits from DataForSEO Labs. Paid keywords from SpyFu.</dd>
+<dt>AI answers (6)</dt><dd>ChatGPT through the DataForSEO API, clean sessions, US, English, the five questions above, five runs each, one report per company. A company counts as named when its name appears in the answer. DataForSEO is the data provider behind many SEO platforms.</dd>
+</dl>
+
+<footer>Daniel Forero. Public data collected November 19, 2026.</footer>
+</main></body></html>

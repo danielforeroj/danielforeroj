@@ -29,7 +29,7 @@ export type RoomItem = {
   cta: { en: string; es: string };
   documentId: string;
 } & (
-  | { kind: 'report' } // content/d/<slug>.html, the report itself
+  | { kind: 'report'; file?: string } // content/d/<file ?? slug>.html, a written report
   | { kind: 'deck'; file: string; slides: number } // content/d/<file>.html, slides in .slide sections
   | { kind: 'video'; youtubeId: string } // an unlisted YouTube video, embedded
 );
@@ -69,8 +69,8 @@ export const REPORTS: Report[] = [
     room: {
       slug: 'k4CKoUxYMNaf',
       intro: {
-        en: 'Three pieces, in the order I would read them. Start wherever you like.',
-        es: 'Tres piezas, en el orden en que yo las leería. Empieza por donde quieras.',
+        en: 'Four pieces, in the order I would read them. Start wherever you like.',
+        es: 'Cuatro piezas, en el orden en que yo las leería. Empieza por donde quieras.',
       },
       items: [
         {
@@ -83,6 +83,19 @@ export const REPORTS: Report[] = [
             es: 'Cómo ChatGPT, Gemini y Google presentan a Viva ante compradores en EE. UU., y qué hacer primero.',
           },
           cta: { en: 'Read the report', es: 'Leer el informe' },
+        },
+        {
+          // The full analysis the deck was built from (2026-11-20, written with viva-mktg).
+          key: 'analysis',
+          kind: 'report',
+          file: 'viva-analysis',
+          documentId: 'f98d2b35-abf9-4b8c-a982-beb0b976c563',
+          title: { en: 'The full analysis', es: 'El análisis completo' },
+          body: {
+            en: 'The competitive analysis behind the presentation: the market, the competitors and the plan, in depth.',
+            es: 'El análisis competitivo detrás de la presentación: el mercado, la competencia y el plan, a fondo.',
+          },
+          cta: { en: 'Read the analysis', es: 'Leer el análisis' },
         },
         {
           key: 'deck',

@@ -148,7 +148,8 @@ and GTM is not loaded on these paths.
   frame that is not same-origin, with a bridge that reports the slide on screen) and a
   video (`kind: 'video'`, an unlisted YouTube id, embedded from youtube-nocookie.com
   through the IFrame API). A video with an empty `youtubeId` keeps its button; its page says the video is on its way.
-  `/d/viva` is the first: report, deck (`content/d/viva-deck.html`, 30 slides), video.
+  `/d/viva` is the first: report, full analysis (`content/d/viva-analysis.html`, a
+  report piece with its own `file`), deck (`content/d/viva-deck.html`, 30 slides), video.
   Every page is a visit in the app's data room (room link `room.slug`): the hub on the
   room link, each piece on its document (`documentId`). The deck reports a page per
   slide, the video a page per 30 second segment of watched time plus play, pause, jump
