@@ -72,6 +72,11 @@ export type LeadInput = {
   lines: string[];
   /** Honeypot. Must stay empty. */
   hp: string;
+  /**
+   * 'none' records the lead and pings no one (2026-11-20): a report gate, whose opens
+   * already reach Daniel alone, by DM, from the app's tracker.
+   */
+  notify?: 'none';
 };
 
 export type LeadResult = { ok: true } | { ok: false; status: number };
@@ -103,6 +108,7 @@ export async function sendLead(p: LeadInput): Promise<LeadResult> {
     phone: p.phone?.trim() || undefined,
     message: leadMessage(p),
     hp: p.hp,
+    notify: p.notify,
   };
   if (import.meta.env.MODE === 'mock') {
     console.info('[lead] mock submit', body);

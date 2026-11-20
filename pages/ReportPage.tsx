@@ -1,13 +1,15 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Seo from '../lib/SeoHead';
 import { SITE } from '../data/siteConfig';
 import { localePath, useLang, useUi } from '../lib/i18n';
 import { attribution, readStore, writeStore } from '../lib/ai/context';
 import { sendLead } from '../lib/lead';
-import { loadReportHtml, reportBySlug } from '../data/reports';
-import { startReportTracking } from '../lib/reportTrack';
+import { loadReportHtml, reportBySlug, roomItem, roomItems, type Report, type RoomItem } from '../data/reports';
+import { linkTrackUrl, roomDocTrackUrl, startVisit, type Visit } from '../lib/visitTrack';
 import { LeadFields, validateFields, type LeadField } from '../components/LeadFields';
+import DeckView from '../components/report/DeckView';
+import VideoView from '../components/report/VideoView';
 import NotFoundPage from './NotFoundPage';
 
 // A gated report: /d/<slug> (English interface) and /es/d/<slug> (Spanish
@@ -17,8 +19,10 @@ import NotFoundPage from './NotFoundPage';
 // Gate. Name optional, email required, no code. The reader is recorded through
 // lib/lead.ts like every other form on the site (unboundoperators.app
 // /api/contact, site danielforeroj, header "[danielforeroj.com/d/<slug>] report
-// gate"). The browser remembers the reader in localStorage (dfj_reader), so a
-// returning reader, on this report or another one, is not asked again.
+// gate"), with notify none (2026-11-20): the gate pings no one, because the app's
+// tracker tells Daniel, by DM only, when someone opens the page. The browser
+// remembers the reader in localStorage (dfj_reader), so a returning reader, on
+// this report or another one, is not asked again.
 //
 // The report file is not in the prerendered HTML: it is a separate chunk loaded
 // only after the gate (data/reports.ts). It is drawn in a sandboxed iframe
@@ -28,8 +32,14 @@ import NotFoundPage from './NotFoundPage';
 // color-scheme: dark (ai.css .rpt-frame), so the report's own prefers-color-scheme
 // resolves to dark like the rest of the site, whatever the reader's OS says.
 //
-// Visits (visible time, scroll depth, referrer, ?r=) go to the Unbound app
-// (lib/reportTrack.ts). noindex here and X-Robots-Tag in vercel.json.
+// A report room (2026-11-20, data/reports.ts `room`): after the same gate, /d/<slug>
+// is a hub with a button per piece (the report, a deck, a video) and each piece has
+// its own page at /d/<slug>/<key>. Every page is its own visit in the app's data
+// room: the hub on the room's link, each piece on its document in the room, so the
+// app shows who opened what, in what order, for how long, slide by slide for the
+// deck and segment by segment for the video (lib/visitTrack.ts).
+//
+// noindex here and X-Robots-Tag in vercel.json.
 
 const READER_KEY = 'dfj_reader';
 
@@ -126,9 +136,31 @@ const ReportFrame: React.FC<{ html: string; title: string; onHeight: () => void 
   );
 };
 
+/** Where a page's visit is reported, and as what. */
+function visitTarget(
+  report: Report,
+  item: RoomItem | undefined,
+): { url: string; mode: 'stack' | 'slide'; pagesTotal?: number; startActive?: boolean } | null {
+  if (report.room) {
+    // The hub: the room's own link, its time is the time on the hub.
+    if (!item) return { url: linkTrackUrl(report.room.slug), mode: 'stack', pagesTotal: 1 };
+    const url = roomDocTrackUrl(report.room.slug, item.documentId);
+    if (item.kind === 'deck') return { url, mode: 'slide', pagesTotal: item.slides };
+    // A video counts only while it plays, one page per 30 second segment.
+    if (item.kind === 'video') return { url, mode: 'slide', startActive: false };
+    return { url, mode: 'stack', pagesTotal: 1 };
+  }
+  return report.trackSlug ? { url: linkTrackUrl(report.trackSlug), mode: 'stack', pagesTotal: 1 } : null;
+}
+
 const ReportPage: React.FC = () => {
-  const { slug } = useParams();
+  const { slug, item: itemKey } = useParams();
   const report = reportBySlug(slug);
+  const item = itemKey ? roomItem(report, itemKey) : undefined;
+  const isHub = Boolean(report?.room) && !item;
+  // The file this page draws: a deck, or the report itself (a report with no room, or the
+  // room's report piece). The hub and the video draw none.
+  const file = item?.kind === 'deck' ? item.file : report && (!report.room || item?.kind === 'report') ? report.slug : null;
   const lang = useLang();
   const ui = useUi();
   const t = ui.report;
@@ -145,6 +177,7 @@ const ReportPage: React.FC = () => {
   const [loadFailed, setLoadFailed] = React.useState(false);
   const frameWrap = React.useRef<HTMLDivElement>(null);
   const remeasure = React.useRef<() => void>(() => {});
+  const visit = React.useRef<Visit | null>(null);
 
   React.useEffect(() => {
     attribution();
@@ -153,11 +186,13 @@ const ReportPage: React.FC = () => {
 
   const email = reader && reader !== 'unknown' ? reader.email : '';
 
-  // Load the report only once there is a reader.
+  // Load the file only once there is a reader.
   React.useEffect(() => {
-    if (!report || !email) return;
+    setHtml(null);
+    setLoadFailed(false);
+    if (!email || !file) return;
     let alive = true;
-    const p = loadReportHtml(report.slug);
+    const p = loadReportHtml(file);
     if (!p) {
       setLoadFailed(true);
       return;
@@ -166,32 +201,40 @@ const ReportPage: React.FC = () => {
     return () => {
       alive = false;
     };
-  }, [report, email]);
+  }, [email, file]);
 
-  // Track the visit once the report is on screen.
+  // Track the visit once the page is on screen: the hub and the video right away, a file
+  // once it has loaded.
+  const ready = Boolean(email) && (file ? Boolean(html) : true);
   React.useEffect(() => {
-    if (!report?.trackSlug || !email || !html) return;
+    if (!report || !email || !ready) return;
+    const target = visitTarget(report, item);
+    if (!target) return;
     const attr = attribution();
-    const tracking = startReportTracking({
-      trackSlug: report.trackSlug,
+    const v = startVisit({
+      ...target,
       email,
       src: attr.src,
       referrer: attr.referrer,
-      target: () => frameWrap.current,
+      scrollTarget: target.mode === 'stack' ? () => frameWrap.current : undefined,
     });
-    remeasure.current = () => window.dispatchEvent(new Event('scroll'));
+    visit.current = v;
+    remeasure.current = () => v.measureScroll();
     return () => {
       remeasure.current = () => {};
-      tracking.stop();
+      visit.current = null;
+      v.stop();
     };
-  }, [report, email, html]);
+  }, [report, item, email, ready]);
 
   const onHeight = React.useCallback(() => remeasure.current(), []);
 
-  if (!report) return <NotFoundPage />;
+  if (!report || (itemKey && !item)) return <NotFoundPage />;
 
   const title = report.title[lang];
-  const path = localePath(`/d/${report.slug}`, lang);
+  const pageTitle = item ? `${item.title[lang]}: ${title}` : title;
+  const hubPath = localePath(`/d/${report.slug}`, lang);
+  const path = item ? localePath(`/d/${report.slug}/${item.key}`, lang) : hubPath;
 
   const fields: LeadField[] = [
     { key: 'email', label: l.email, type: 'email', required: true, autoComplete: 'email' },
@@ -219,6 +262,7 @@ const ReportPage: React.FC = () => {
       email: next.email,
       lines: [`Abrió el informe: ${report.title.es}`, `nombre: ${next.name || '(no lo dio)'}`],
       hp,
+      notify: 'none',
     });
     // The reader gets in whatever the endpoint answered: the visit itself carries the
     // email to the app, so a failed capture is still recorded there.
@@ -231,13 +275,18 @@ const ReportPage: React.FC = () => {
 
   return (
     <section className={showReport ? 'aif rpt rpt--open' : 'aif rpt'}>
-      <Seo title={`${title} | ${SITE.name}`} description={report.description[lang]} path={path} noIndex />
+      <Seo title={`${pageTitle} | ${SITE.name}`} description={report.description[lang]} path={path} noIndex />
       <div className="aif-panel rpt-head">
+        {item && showReport ? (
+          <Link className="aif-link rpt-back" to={hubPath}>
+            ← {t.back}
+          </Link>
+        ) : null}
         <p className="aif-kicker">{t.kicker}</p>
-        <h1 className="aif-title">{title}</h1>
+        <h1 className="aif-title">{item ? item.title[lang] : title}</h1>
         <p className="aif-meta">
-          {t.byline}
-          {report.lang !== lang && t.inLanguage ? `. ${t.inLanguage}` : ''}
+          {item ? title : t.byline}
+          {(!item || item.kind === 'report') && report.lang !== lang && t.inLanguage ? `. ${t.inLanguage}` : ''}
         </p>
 
         {reader === null ? (
@@ -260,7 +309,7 @@ const ReportPage: React.FC = () => {
             />
             <div className="aif-actions">
               <button type="submit" className="aif-btn" disabled={busy}>
-                {t.submit}
+                {report.room ? t.submitRoom : t.submit}
               </button>
             </div>
           </form>
@@ -283,15 +332,41 @@ const ReportPage: React.FC = () => {
             </button>
           </p>
         ) : null}
+
+        {showReport && isHub && report.room ? (
+          <div className="aif-step rpt-hub" ref={frameWrap}>
+            <p className="aif-body">{report.room.intro[lang]}</p>
+            <div className="aif-offers">
+              {roomItems(report).map((it, i) => (
+                <div key={it.key} className={i === 0 ? 'aif-offer' : 'aif-offer aif-offer--secondary'} data-piece={it.key}>
+                  <p className="aif-kicker">{String(i + 1).padStart(2, '0')}</p>
+                  <p className="aif-offer__title">{it.title[lang]}</p>
+                  <p className="aif-offer__body">{it.body[lang]}</p>
+                  <Link className={i === 0 ? 'aif-btn' : 'aif-btn aif-btn--o'} to={localePath(`/d/${report.slug}/${it.key}`, lang)}>
+                    {it.cta[lang]}
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
 
-      {showReport ? (
-        <div ref={frameWrap} className="rpt-body">
-          {html ? (
+      {showReport && item?.kind === 'video' ? (
+        <div className="rpt-body">
+          <VideoView youtubeId={item.youtubeId} title={item.title[lang]} visit={visit} t={t.video} />
+        </div>
+      ) : null}
+
+      {showReport && file ? (
+        <div ref={item?.kind === 'deck' ? undefined : frameWrap} className="rpt-body">
+          {html && item?.kind === 'deck' ? (
+            <DeckView html={html} slides={item.slides} visit={visit} t={t.deck} />
+          ) : html ? (
             <ReportFrame html={html} title={`${t.frameTitle}: ${title}`} onHeight={onHeight} />
           ) : (
             <p className="aif-meta rpt-status" role="status">
-              {loadFailed ? t.loadError : t.loading}
+              {loadFailed ? (item ? t.loadErrorPiece : t.loadError) : item ? t.loadingPiece : t.loading}
             </p>
           )}
         </div>

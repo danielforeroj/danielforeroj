@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viva | Head of Marketing Assessment | Daniel Forero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#051651; --purple:#8015E8; --purple-deep:#6610C2; --tint:#F5EEFD; --bg-tint:#FAFAFE;
+  --gray:#4A4F66; --muted:#7E84A0; --line:#E6E6EE; --turq:#26F4CE; --amber:#F5A623; --white:#ffffff; --red:#D2344A;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#1b1f33;font-family:"Open Sans",-apple-system,Segoe UI,sans-serif;color:var(--navy)}
+.stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.slide{width:1280px;height:720px;background:var(--white);position:absolute;left:50%;top:50%;transform-origin:center center;padding:56px 72px 64px;display:none;overflow:hidden}
+.slide.active{display:block}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:14px}
+h1{font-size:38px;line-height:1.15;font-weight:800;margin:0 0 22px;max-width:1080px;letter-spacing:-.01em}
+h2{font-size:20px;font-weight:700;margin:0 0 10px}
+p,li{font-size:17px;line-height:1.5;color:var(--gray)}
+p{margin:0 0 10px}
+ul{margin:0;padding-left:20px} li{margin:4px 0}
+strong{color:var(--navy)}
+.foot{position:absolute;left:72px;right:72px;bottom:22px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--muted);gap:24px}
+.foot .src{max-width:960px;line-height:1.35}
+.logo{height:26px}
+.cols{display:grid;gap:28px}
+.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:repeat(3,1fr)}.c4{grid-template-columns:repeat(4,1fr)}.c64{grid-template-columns:1.35fr 1fr}
+.card{background:var(--bg-tint);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.card.tint{background:var(--tint);border-color:#E7D6FB}
+.card h2{font-size:17px}
+.card p,.card li{font-size:15px}
+.big{font-size:44px;font-weight:800;color:var(--purple);line-height:1}
+.big.navy{color:var(--navy)}
+.lbl{font-size:13px;font-weight:600;color:var(--gray);margin-top:6px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);text-align:left;font-weight:700;padding:7px 10px;border-bottom:2px solid var(--line)}
+td{padding:8px 10px;border-bottom:1px solid var(--line);color:var(--gray)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.viva td{background:var(--tint);color:var(--navy);font-weight:700}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--tint);color:var(--purple-deep)}
+.pill.amber{background:#FFF3DE;color:#9A5B00}
+.pill.turq{background:#E8FBF5;color:#0B7A64}
+.bars{display:grid;gap:9px}
+.bar{display:grid;grid-template-columns:110px 1fr 70px;align-items:center;gap:12px;font-size:15px}
+.bar .track{height:22px;background:var(--bg-tint);border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.bar .fill{height:100%;background:var(--purple);border-radius:6px}
+.bar.viva .fill{background:var(--red)}
+.bar.viva{font-weight:800;color:var(--navy)}
+.bar .v{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.cover{background:linear-gradient(135deg,var(--navy) 0%,#2A0E6E 60%,var(--purple-deep) 100%);color:#fff;padding:72px}
+.cover h1{color:#fff;font-size:50px;max-width:980px}
+.cover p{color:#D9CCF5;font-size:20px}
+.cover .eyebrow{color:var(--turq)}
+.cover .who{position:absolute;left:72px;bottom:64px;color:#fff;font-size:18px;font-weight:600}
+.cover .who span{display:block;color:#B9A6E8;font-weight:400;font-size:15px;margin-top:4px}
+.cover .logo{position:absolute;right:72px;bottom:66px;height:34px;filter:brightness(0) invert(1)}
+.divider{background:var(--tint)}
+.divider h1{font-size:56px;margin-top:150px}
+.divider p{font-size:22px;max-width:900px}
+.num{display:inline-flex;width:30px;height:30px;border-radius:50%;background:var(--purple);color:#fff;font-weight:800;font-size:15px;align-items:center;justify-content:center;margin-right:10px;flex:none}
+.row{display:flex;align-items:flex-start;gap:4px;margin:10px 0}
+.row p{margin:3px 0 0}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.flow .step{background:var(--bg-tint);border:1px solid var(--line);border-top:4px solid var(--purple);border-radius:10px;padding:12px 14px}
+.flow .step h2{font-size:15px;margin-bottom:6px}
+.flow .step p,.flow .step li{font-size:13px;line-height:1.4}
+.front{background:var(--bg-tint);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.front b{display:block;color:var(--purple);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.front h2{font-size:16px;margin:0 0 4px}
+.front p{font-size:13.5px;line-height:1.4;margin:0}
+.result{margin-top:14px;background:var(--navy);color:#fff;border-radius:12px;padding:14px 18px;font-size:16px;font-weight:600}
+.result span{color:var(--turq)}
+.small p,.small li{font-size:14.5px}
+.xs td,.xs th{font-size:12.5px;padding:5px 8px}
+.nav{position:fixed;bottom:14px;right:18px;color:#c9c6e4;font-size:13px;z-index:5}
+.nav button{background:#2b2f4a;color:#fff;border:0;border-radius:8px;padding:6px 12px;margin-left:6px;cursor:pointer;font:inherit}
+.note{font-size:13px;color:var(--muted)}
+
+.slide.active{display:flex;flex-direction:column}
+.slide > h1{flex:none}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;min-height:0;padding-bottom:18px}
+.body > *{margin-top:0!important}
+.cols{align-items:stretch}
+.cols > *{min-width:0}
+h1{font-size:40px}
+p,li{font-size:18px}
+.card p,.card li,.small p,.small li{font-size:16.5px}
+.card h2{font-size:19px}
+table{font-size:16px}
+td{padding:10px 12px}
+.xs td,.xs th{font-size:14px;padding:7px 9px}
+.bar{font-size:17px}
+.bar .track{height:28px}
+.bars{gap:12px}
+.front h2{font-size:18px}.front p{font-size:15px}
+.flow .step h2{font-size:17px}.flow .step p,.flow .step li{font-size:15px}
+.big{font-size:52px}
+.divider{display:none}
+.divider.active{display:flex;flex-direction:column;justify-content:center}
+.divider h1{margin-top:0}
+.cover.active{display:flex;flex-direction:column;justify-content:center}
+.roomy p,.roomy li{font-size:20px}
+.roomy .card{padding:30px 32px}
+.roomy .card p,.roomy .card li{font-size:18.5px}
+.roomy .card h2{font-size:23px}
+.roomy .big{font-size:68px}
+.roomy .lbl{font-size:16px}
+.roomy table{font-size:18px}.roomy td{padding:15px 14px}
+.roomy .xs td{font-size:16px;padding:12px 10px}
+.roomy .front{padding:22px 24px}.roomy .front h2{font-size:21px}.roomy .front p{font-size:16.5px}
+.roomy .flow .step{padding:24px}.roomy .flow .step h2{font-size:24px}.roomy .flow .step li{font-size:19px;margin:8px 0}
+.roomy .result{font-size:20px;padding:18px 22px}
+.roomy .row{margin:16px 0}.roomy .row p{font-size:19.5px}.roomy .num{width:36px;height:36px;font-size:17px}
+.roomy .note{font-size:15px}
+
+.divider.active{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.divider h1{margin:0 auto 18px;max-width:1000px}
+.divider p{margin:0 auto;max-width:860px}
+.divider .eyebrow{margin-bottom:18px}
+@media print{.divider{align-items:center;text-align:center}}
+
+@media print{.slide{display:flex!important;flex-direction:column}.divider,.cover{justify-content:center}}
+
+@media print{
+  html,body{background:#fff}
+  .stage{position:static;display:block}
+  .slide{display:block!important;position:relative;left:auto;top:auto;transform:none!important;page-break-after:always;break-after:page}
+  .nav{display:none}
+  @page{size:1280px 720px;margin:0}
+}
+img.logo{content:url(data:image/png;base64,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);}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+<!-- 1 COVER -->
+<section class="slide cover">
+  <div class="eyebrow">Head of Marketing · Skills assessment</div>
+  <h1>From 5 to 10 inbound deals a month in 90 days, and the engine that keeps compounding to month 12</h1>
+  <p>Where Viva stands today, how we close the gap, and what it takes.</p>
+  <div class="who">Daniel Forero<span>November 2026</span></div>
+  <img class="logo" alt="Viva Talent">
+</section>
+
+<!-- 2 WHAT THIS COVERS -->
+<section class="slide roomy">
+  <div class="eyebrow">What this covers</div>
+  <h1>First the baseline, then the plan, then what it costs and what I need</h1>
+  <div class="body">
+  <div class="cols c3">
+    <div class="card"><div class="big">1</div><h2 style="margin-top:12px">Where Viva stands today</h2><p>Viva against six direct competitors: size, social, ads, search and AI visibility. Summarized from a full benchmark.</p></div>
+    <div class="card"><div class="big">2</div><h2 style="margin-top:12px">The plan</h2><p>How we get to 10 closed-won a month by day 90, and to 15 to 20 a month by month 12.</p></div>
+    <div class="card"><div class="big">3</div><h2 style="margin-top:12px">Team and budget</h2><p>A lean, AI-native team of three and a $400K budget that fits.</p></div>
+  </div>
+  <p class="note" style="margin-top:26px">Brief figures (20 calls, 5 deals, $100K ACV, $400K) are the illustrative numbers from the assessment. All market data is real and was collected on November 19, 2026.</p>
+  </div>
+  <div class="foot"><span class="src">Daniel Forero · Viva Head of Marketing assessment</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- DIVIDER PART 1 -->
+<section class="slide divider">
+  <div class="eyebrow">Part 1</div>
+  <h1>Where Viva stands today</h1>
+  <p>The baseline: what we start from and how Viva compares with the market.</p>
+</section>
+
+<!-- 3 STARTING POINT -->
+<section class="slide">
+  <div class="eyebrow">Part 1 · The starting point</div>
+  <h1>Today: 20 inbound calls and 5 closed-won a month. The target doubles closed-won in 90 days.</h1>
+  <div class="body">
+  <div class="cols c64">
+    <div>
+      <table>
+        <tr><th>From the brief</th><th class="n">Value</th></tr>
+        <tr><td>Inbound calls booked / month</td><td class="n">20</td></tr>
+        <tr><td>Inbound closed-won / month</td><td class="n">5 (25%)</td></tr>
+        <tr><td>New ACV / month today</td><td class="n">$500K</td></tr>
+        <tr><td>Target by day 90</td><td class="n"><strong>10 / month ($1M ACV)</strong></td></tr>
+        <tr><td>Budget, 12 months</td><td class="n">$400K</td></tr>
+        <tr><td>SEO/AEO agency</td><td class="n">$15K/mo, 4 months left</td></tr>
+        <tr><td>Attribution</td><td class="n">Many "direct / unknown"</td></tr>
+        <tr><td>Past paid tests</td><td class="n">Google Ads, LinkedIn Lead Gen</td></tr>
+      </table>
+    </div>
+    <div class="card tint small">
+      <h2>What my team validates in week 1</h2>
+      <ul>
+        <li><strong>Timing.</strong> A $100K deal booked on day 80 won't close by day 90, so the first 60 days focus on turning existing demand into booked calls.</li>
+        <li><strong>Sources.</strong> Where today's calls really come from. "Direct / unknown" usually hides AI answers and word of mouth.</li>
+        <li><strong>The agency.</strong> What it has delivered against what was promised, especially on AEO and GEO.</li>
+        <li><strong>What converts.</strong> Which pages, offers and lead magnets already turn visits into booked calls.</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Source: assessment brief (illustrative figures).</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 4 HOW WE MEASURED -->
+<section class="slide roomy">
+  <div class="eyebrow">Part 1 · Method</div>
+  <h1>Viva benchmarked against six direct competitors, using public data only</h1>
+  <div class="body">
+  <div class="cols c2">
+    <div class="card">
+      <h2>Who</h2>
+      <p>Viva, BELAY, Athena, Boldly, Prialto, Magic and Persona. Only the accounts each company links from its own website.</p>
+      <h2 style="margin-top:16px">When</h2>
+      <p>November 19, 2026.</p>
+    </div>
+    <div class="card">
+      <h2>What</h2>
+      <ul class="small">
+        <li><strong>Size:</strong> employees on LinkedIn.</li>
+        <li><strong>Social:</strong> LinkedIn, Instagram, X, YouTube, TikTok. Followers, last 7 days, last 90 days.</li>
+        <li><strong>Ads:</strong> Meta, Google and LinkedIn ad libraries, every ad classified by purpose.</li>
+        <li><strong>Search:</strong> US Google demand by intent and Viva's rankings.</li>
+        <li><strong>AI visibility:</strong> 5 buyer questions, 5 runs each in ChatGPT, per brand. 175 answers, collected through the DataForSEO API, not a personal account, so no IP, history or memory bias.</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Sources: public company pages and ad libraries (reviewed in the browser); DataForSEO API for search data and clean ChatGPT sessions; SpyFu spend estimates via treg.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 5 SIZE -->
+<section class="slide">
+  <div class="eyebrow">Part 1 · Size and presence</div>
+  <h1>Viva has the fourth-largest LinkedIn audience in the set with one of the smallest teams</h1>
+  <div class="body">
+  <table>
+    <tr><th>Brand</th><th class="n">Employees on LinkedIn</th><th class="n">LinkedIn</th><th class="n">Instagram</th><th class="n">X</th><th class="n">YouTube</th><th class="n">TikTok</th></tr>
+    <tr><td>Athena</td><td class="n">4,611</td><td class="n">216K</td><td class="n">15K</td><td class="n">4.0K</td><td class="n">broken link</td><td class="n">54.5K (hiring)</td></tr>
+    <tr><td>Persona</td><td class="n">3,953</td><td class="n">926K</td><td class="n">5.2K</td><td class="n">311</td><td class="n">not linked</td><td class="n">not linked</td></tr>
+    <tr><td>Magic</td><td class="n">1,854</td><td class="n">101K</td><td class="n">10K</td><td class="n">8.2K</td><td class="n">not linked</td><td class="n">not linked</td></tr>
+    <tr><td>BELAY</td><td class="n">1,137</td><td class="n">41K</td><td class="n">11K</td><td class="n">not linked</td><td class="n">1.3K</td><td class="n">not linked</td></tr>
+    <tr><td>Prialto</td><td class="n">835</td><td class="n">13K</td><td class="n">not linked</td><td class="n">1.2K</td><td class="n">not linked</td><td class="n">not linked</td></tr>
+    <tr class="viva"><td>Viva</td><td class="n">347</td><td class="n">79K</td><td class="n">6.5K</td><td class="n">25</td><td class="n">375</td><td class="n">not linked</td></tr>
+    <tr><td>Boldly</td><td class="n">146</td><td class="n">36K</td><td class="n">4.1K</td><td class="n">not linked</td><td class="n">320</td><td class="n">not linked</td></tr>
+  </table>
+  <p style="margin-top:16px">Plus the founders: <strong>Fineas 14.1K</strong> and <strong>Adnan 7.5K</strong> LinkedIn followers. About <strong>100K people on LinkedIn</strong> already follow Viva or its founders.</p>
+  </div>
+  <div class="foot"><span class="src">Source: company pages on LinkedIn, Instagram, X, YouTube and TikTok, Nov 19, 2026. "Employees on LinkedIn" = associated members, includes EAs.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 6 ACTIVITY -->
+<section class="slide">
+  <div class="eyebrow">Part 1 · Activity</div>
+  <h1>In the last 7 days Viva published 0 times. Its competitors published up to 21.</h1>
+  <div class="body">
+  <div class="cols c64">
+    <div class="bars">
+      <div class="bar"><span>Magic</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">21</span></div>
+      <div class="bar"><span>BELAY</span><div class="track"><div class="fill" style="width:95%"></div></div><span class="v">20</span></div>
+      <div class="bar"><span>Persona</span><div class="track"><div class="fill" style="width:57%"></div></div><span class="v">12</span></div>
+      <div class="bar"><span>Boldly</span><div class="track"><div class="fill" style="width:48%"></div></div><span class="v">10</span></div>
+      <div class="bar"><span>Athena</span><div class="track"><div class="fill" style="width:10%"></div></div><span class="v">2</span></div>
+      <div class="bar"><span>Prialto</span><div class="track"><div class="fill" style="width:5%"></div></div><span class="v">1</span></div>
+      <div class="bar viva"><span>Viva</span><div class="track"><div class="fill" style="width:0%"></div></div><span class="v">0</span></div>
+      <p class="note" style="margin-top:6px">Posts across LinkedIn, Instagram, X, YouTube and TikTok, last 7 days.</p>
+    </div>
+    <div class="card tint small">
+      <h2>Viva's last post per channel</h2>
+      <ul>
+        <li><strong>LinkedIn company page:</strong> Feb 12, 2026 (9 months).</li>
+        <li><strong>Instagram:</strong> Dec 9, 2025. Employer brand, in Spanish.</li>
+        <li><strong>YouTube:</strong> about a year ago. The website links to a channel that returns 404.</li>
+        <li><strong>X:</strong> June 2023.</li>
+        <li><strong>Founders:</strong> Fineas, 8 posts since February, 6 of them job posts. Adnan, 7 since August.</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Source: public profiles, Nov 19, 2026. Only accounts linked from each company's website.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 7 PAID -->
+<section class="slide">
+  <div class="eyebrow">Part 1 · Paid media</div>
+  <h1>Today BELAY runs 61 Google ads and 165 on Meta. Viva runs none: only LinkedIn lead magnets.</h1>
+  <div class="body">
+  <div class="cols c64">
+    <table class="xs">
+      <tr><th>Brand</th><th class="n">Google, live today</th><th class="n">Meta, active</th><th class="n">LinkedIn, last 12 mo</th><th class="n">Google spend / mo (est.)</th></tr>
+      <tr><td>BELAY</td><td class="n">61</td><td class="n">165</td><td class="n">5 (finance line)</td><td class="n">~$337K</td></tr>
+      <tr><td>Magic</td><td class="n">14</td><td class="n">9</td><td class="n">61 (half sell support)</td><td class="n">~$246K</td></tr>
+      <tr><td>Athena</td><td class="n">11</td><td class="n">22</td><td class="n">32</td><td class="n">~$61K</td></tr>
+      <tr><td>Prialto</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">~$1.3K</td></tr>
+      <tr class="viva"><td>Viva</td><td class="n">0 (none in 30 days)</td><td class="n">0</td><td class="n">76</td><td class="n">~$0.3K</td></tr>
+      <tr><td>Boldly</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">$0</td></tr>
+      <tr><td>Persona</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">$0</td></tr>
+    </table>
+    <div class="card small">
+      <h2>What the ads are for</h2>
+      <table class="xs" style="margin-bottom:10px">
+        <tr><th>Running now</th><th class="n">Hiring</th><th class="n">Lead magnet</th><th class="n">Client funnel</th></tr>
+        <tr><td>BELAY, Meta</td><td class="n">4</td><td class="n">44</td><td class="n">117</td></tr>
+        <tr><td>Athena, Meta</td><td class="n">0</td><td class="n">0</td><td class="n">22</td></tr>
+        <tr><td>Magic, Meta</td><td class="n">0</td><td class="n">0</td><td class="n">9</td></tr>
+        <tr class="viva"><td>Viva, LinkedIn</td><td class="n">0</td><td class="n">72</td><td class="n">4</td></tr>
+      </table>
+      <p>Competitors spend on the client funnel: pain-led copy to a landing page or "book a free call". Google ads are almost all search ads selling the service. Viva's budget sits in lead magnets with no visible link to booked calls.</p>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Checked Nov 19, 2026 in the browser: Google Ads Transparency Center (US, "Today"), Meta Ad Library (active, all countries, by page), LinkedIn Ad Library (verified by logo and payer; no live status in the US). Spend: SpyFu modeled estimates, Oct 2026, via treg.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 8 SEARCH -->
+<section class="slide">
+  <div class="eyebrow">Part 1 · Search</div>
+  <h1>Buyers don't Google a $100K EA service. They search for brands they already heard of.</h1>
+  <div class="body">
+  <div class="cols c64">
+    <table>
+      <tr><th>US Google searches / month</th><th class="n">Volume</th></tr>
+      <tr><td>Competitor names (BELAY alone: 27,100)</td><td class="n">46,740</td></tr>
+      <tr><td>Job seekers ("executive assistant jobs")</td><td class="n">35,290</td></tr>
+      <tr><td>Cheap virtual assistants</td><td class="n">20,690</td></tr>
+      <tr><td><strong>Real EA-service buyers</strong> (avg. CPC ~$50, range $5 to $177)</td><td class="n"><strong>~3,300</strong></td></tr>
+      <tr class="viva"><td>Viva brand</td><td class="n">330</td></tr>
+    </table>
+    <div class="card tint small">
+      <h2>Where Viva's search stands</h2>
+      <ul>
+        <li>976 ranked keywords, ~1,040 visits a month. Only ~145 come from real buyer terms.</li>
+        <li>Much of the rest is the wrong intent: "data entry virtual assistant", "what is an executive assistant", careers.</li>
+        <li>Past Google Ads bought job-seeker terms ("executive assistant", "work from home job").</li>
+        <li>One brand, four names: Viva Talent, Viva - Executive Assistants, Exec Viva Inc., execviva.com. And "Viva" collides with Microsoft Viva.</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Sources: DataForSEO API, Google Ads search volume and average CPC, US, Nov 2026 (13 buyer keyword clusters, volume-weighted CPC $50); ranked keywords; SpyFu paid keyword history via treg.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 9 AI VISIBILITY -->
+<section class="slide">
+  <div class="eyebrow">Part 1 · AI visibility</div>
+  <h1>ChatGPT recommends Viva in 3 to 4 of 25 buyer answers. Ad spend doesn't buy your way in.</h1>
+  <div class="body">
+  <div class="cols c64">
+    <table>
+      <tr><th>Brand</th><th class="n">Named in (of 25)</th><th class="n">Google spend / mo</th></tr>
+      <tr><td>Athena</td><td class="n">25</td><td class="n">~$61K</td></tr>
+      <tr><td>Boldly</td><td class="n"><strong>25</strong></td><td class="n"><strong>$0</strong></td></tr>
+      <tr><td>Prialto</td><td class="n">25</td><td class="n">~$1.3K</td></tr>
+      <tr><td>BELAY</td><td class="n">24 to 25</td><td class="n">~$337K</td></tr>
+      <tr><td>Persona</td><td class="n">4 to 5</td><td class="n">$0</td></tr>
+      <tr class="viva"><td>Viva</td><td class="n">3 to 4</td><td class="n">~$0.3K</td></tr>
+      <tr><td>Magic</td><td class="n"><strong>0</strong></td><td class="n"><strong>~$246K</strong></td></tr>
+    </table>
+    <div class="card small">
+      <h2>What ChatGPT cites</h2>
+      <p>prialto.com (38), basehq.com (33), boldly.com (30), belaysolutions.com (29), athena.com (20). <strong>execviva.com is not in the top 10.</strong></p>
+      <h2 style="margin-top:14px">The 5 questions</h2>
+      <p class="note">Best EA services for busy US executives · Best companies for a dedicated remote EA for a C&#8209;level · Top EA services for tech startups and scale-ups · "I'm a CEO drowning in email and meetings" · Best alternatives to an in-house EA.</p>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Source: ChatGPT with web search, US, 5 questions × 5 runs per brand, Nov 19, 2026, collected through the DataForSEO API in clean sessions (not a personal account). Spend: SpyFu estimates via treg.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 10 WHAT IT ADDS UP TO -->
+<section class="slide roomy">
+  <div class="eyebrow">Part 1 · What it adds up to</div>
+  <h1>Viva already has the assets. They are idle.</h1>
+  <div class="body">
+  <div class="cols c3">
+    <div class="card tint">
+      <div class="big">1</div>
+      <h2 style="margin-top:12px">The proof is there, the volume isn't</h2>
+      <p>Clients like Notion, Fortune and Forbes coverage, a real mission, 100K people on LinkedIn and 240+ EAs with know-how. Zero posts this week.</p>
+    </div>
+    <div class="card tint">
+      <div class="big">2</div>
+      <h2 style="margin-top:12px">Demand is created off Google</h2>
+      <p>Buyers search brands they already know. BELAY earns that through Ramsey's EntreLeadership podcast, which it has sponsored since 2018. The job is to be heard of.</p>
+    </div>
+    <div class="card tint">
+      <div class="big">3</div>
+      <h2 style="margin-top:12px">AI follows volume and proof</h2>
+      <p>Boldly spends $0 on ads, publishes daily, has 245 videos, and is named in 25 of 25 answers. Magic spends ~$246K a month and is named in none.</p>
+    </div>
+  </div>
+  <div class="result">The plan: turn Viva's idle assets into <span>volume, third-party proof and booked calls</span>, measured from week 1.</div>
+  </div>
+  <div class="foot"><span class="src">Sources: slides 5 to 9; BELAY EntreLeadership landing page.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- DIVIDER PART 2 -->
+<section class="slide divider">
+  <div class="eyebrow">Part 2</div>
+  <h1>The plan</h1>
+  <p>Ten closed-won a month by day 90, and an engine that gets to 15 to 20 a month by month 12.</p>
+</section>
+
+<!-- 11 THE ANSWER -->
+<section class="slide roomy">
+  <div class="eyebrow">Part 2 · The answer</div>
+  <h1>Day 90 is won by turning existing demand into booked calls. Month 12 is won by building audience.</h1>
+  <div class="body">
+  <div class="cols c4">
+    <div class="card"><div class="big">10</div><div class="lbl">closed-won / month by day 90</div><p style="margin-top:12px">Measurement, booking flow, referrals, rebuilt ads, reactivation.</p></div>
+    <div class="card"><div class="big">15-20</div><div class="lbl">closed-won / month by month 12</div><p style="margin-top:12px">60 to 80 calls a month from content, PR, events, paid and AI search.</p></div>
+    <div class="card"><div class="big navy">$400K</div><div class="lbl">12 months, fits the budget</div><p style="margin-top:12px">41% goes to reach: ads, PR and paid media.</p></div>
+    <div class="card tint"><div class="big navy">3</div><div class="lbl">people, AI-native</div><p style="margin-top:12px">A Content Engineer, a Growth Lead and a Marketing Ops and Events lead, plus the web developer.</p></div>
+  </div>
+  <div class="result">At $100K ACV, every extra deal pays for a quarter of the year's budget.</div>
+  </div>
+  <div class="foot"><span class="src">Assumptions: brief figures; sales cycle under 45 days for part of the pipeline.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 12 WEEK 1 -->
+<section class="slide roomy">
+  <div class="eyebrow">Part 2 · Week 1</div>
+  <h1>Week 1: make every booked call traceable, or nothing else can be measured</h1>
+  <div class="body">
+  <div class="cols c2">
+    <div class="small">
+      <div class="row"><span class="num">1</span><p><strong>"How did you hear about us?"</strong> as a required field on the booking form. Self-reported source beats last click for $100K deals.</p></div>
+      <div class="row"><span class="num">2</span><p><strong>UTMs on everything</strong>, and AI referrers (chatgpt.com, perplexity.ai) as their own source in HubSpot.</p></div>
+      <div class="row"><span class="num">3</span><p><strong>A "qualified call" event</strong> from HubSpot to LinkedIn, Meta and Google, so ad platforms optimize for ICP calls, not cheap leads.</p></div>
+      <div class="row"><span class="num">4</span><p><strong>Agency audit:</strong> deliverables and results against what was promised. SEO shows results; AEO and GEO don't yet.</p></div>
+    </div>
+    <div class="card tint">
+      <h2>The weekly dashboard</h2>
+      <p>By source: calls booked, qualified calls, pipeline, closed-won, cost per qualified call.</p>
+      <p>Plus: AI mentions out of 25, posts published, list growth, event registrations.</p>
+      <p style="margin-top:14px"><span class="pill">Headline first, every Monday</span></p>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">The brief notes a large share of inbound shows as "direct" or "unknown" in HubSpot.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 13 DAY 0-90 -->
+<section class="slide roomy">
+  <div class="eyebrow">Part 2 · Day 0 to 90</div>
+  <h1>From 5 to 10 closed-won: five fast levers, most of them conversion</h1>
+  <div class="body">
+  <table>
+    <tr><th>Lever</th><th>What changes</th><th class="n">Extra deals / month</th></tr>
+    <tr><td><strong>Booking flow and speed</strong></td><td>Fewer fields, instant calendar, routing by company size, reply in minutes</td><td class="n">+1 to 2</td></tr>
+    <tr><td><strong>Referrals and partners</strong></td><td>Referral program for 300+ executives served, first partner intros</td><td class="n">+1 to 2</td></tr>
+    <tr><td><strong>Ads rebuilt by niche</strong></td><td>Buyer terms only, negatives for jobs, LinkedIn measured to qualified calls</td><td class="n">+1 to 2</td></tr>
+    <tr><td><strong>Reactivation</strong></td><td>Calls that didn't close and no-shows from the last 6 months</td><td class="n">+1</td></tr>
+    <tr><td><strong>The 76 lead magnets, connected</strong></td><td>Measured by ICP and tied to an email sequence that books calls</td><td class="n">+0.5 to 1</td></tr>
+    <tr class="viva"><td>Total</td><td>From 5 today</td><td class="n">10 to 13</td></tr>
+  </table>
+  <p class="note" style="margin-top:14px">Content, PR, events and AI visibility are planted in the first 90 days and pay from month 4.</p>
+  </div>
+  <div class="foot"><span class="src">Assumptions, to be validated against Viva's HubSpot data in week 1.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 14 THE ENGINE -->
+<section class="slide roomy">
+  <div class="eyebrow">Part 2 · The engine</div>
+  <h1>Nine fronts that feed each other. AI visibility is the result, not a separate project.</h1>
+  <div class="body">
+  <div class="cols c3" style="gap:14px">
+    <div class="front"><b>Owned · A</b><h2>LinkedIn</h2><p>Company page daily, co&#8209;CEOs 3 to 5 times a week each.</p></div>
+    <div class="front"><b>Owned · B</b><h2>Content engine</h2><p>Captured, not invented. Pain by role, mission through people.</p></div>
+    <div class="front"><b>Owned · G</b><h2>Email</h2><p>Where all the attention we earn ends up.</p></div>
+    <div class="front"><b>Earned · C</b><h2>PR with our own data</h2><p>Reports journalists and LLMs cite. Speakers at events.</p></div>
+    <div class="front"><b>Earned · I</b><h2>Side events</h2><p>Every registration is a qualified lead, with a sales handoff.</p></div>
+    <div class="front"><b>Partners · F</b><h2>Partnerships</h2><p>Credibility badges, VC platforms, referrals.</p></div>
+    <div class="front"><b>Paid · E</b><h2>Advertising</h2><p>Google, Meta, LinkedIn. Win on niches, not budget.</p></div>
+    <div class="front"><b>Paid · D</b><h2>Paid media</h2><p>Borrowed audiences: podcasts, newsletters, creators.</p></div>
+    <div class="front"><b>Result · H</b><h2>AEO / GEO</h2><p>LLMs recommend Viva. From 3-4 of 25 to 15+.</p></div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Detail on the next slides.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 15 OWNED VOICE -->
+<section class="slide">
+  <div class="eyebrow">Part 2 · Owned voice (A, B)</div>
+  <h1>The co&#8209;CEOs post 3 to 5 times a week each, tactical, C&#8209;level to C&#8209;level</h1>
+  <div class="body">
+  <div class="cols c2">
+    <div class="small">
+      <h2>LinkedIn</h2>
+      <ul>
+        <li>Company page daily. Fineas and Adnan 3 to 5 posts a week each, from voice notes, approved in 10 minutes.</li>
+        <li>Tactical, not only mission: "The 15-minute Monday handoff I run with my EA". "40 tasks a CFO should never touch during close".</li>
+        <li>10 to 20 comments a day on ICP accounts. Vivans and EAs amplify.</li>
+      </ul>
+      <h2 style="margin-top:14px">The content mix</h2>
+      <div class="bars">
+        <div class="bar"><span>Pain by role</span><div class="track"><div class="fill" style="width:75%"></div></div><span class="v">70-80%</span></div>
+        <div class="bar"><span>Mission</span><div class="track"><div class="fill" style="width:20%;background:var(--turq)"></div></div><span class="v">15-25%</span></div>
+        <div class="bar"><span>Promotional</span><div class="track"><div class="fill" style="width:5%;background:var(--amber)"></div></div><span class="v">5%</span></div>
+      </div>
+    </div>
+    <div class="card small">
+      <h2>The content engine: captured, not invented</h2>
+      <ul>
+        <li><strong>Sources:</strong> 240+ EAs and their systems, client calls, existing video testimonials, founders' voice notes, events.</li>
+        <li><strong>Matrix:</strong> role (CEO, CFO, CMO, CRO, COO, Chief of Staff, VP) × moment (fundraise, close, board prep, hiring sprint).</li>
+        <li><strong>Mission through people:</strong> EA stories, Vivans in first person, the impact report.</li>
+        <li><strong>Production:</strong> AI pipeline, faceless video with cloned voices (with consent), 1 long video becomes 8 to 10 pieces.</li>
+        <li><strong>Every week:</strong> 7 company posts, 6 to 10 founder posts, 5 short videos, 2 carousels, 1 long video, 1 SEO/AEO page, 1 newsletter.</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">In B2B, most buyers are out of market at any given time. Volume keeps Viva remembered until they are in.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 16 EARNED -->
+<section class="slide">
+  <div class="eyebrow">Part 2 · Earned media (C)</div>
+  <h1>Earn media with data nobody else has, and put the co&#8209;CEOs on stage</h1>
+  <div class="body">
+  <div class="cols c2">
+    <div class="card tint small">
+      <h2>Four reports a year</h2>
+      <ul>
+        <li><strong>"2026 State of the EA: is AI replacing executive assistants?"</strong> Where it is happening, where it isn't, how. Clients, prospects, Viva's EAs and public data.</li>
+        <li><strong>The Executive Time Report:</strong> hours lost per role. Builds on the 300+ client survey (9+ hours a week saved).</li>
+        <li><strong>The impact report:</strong> 1,000 meaningful jobs for women in LatAm.</li>
+        <li><strong>A cut per event,</strong> e.g. what security leaders delegate, launched before RSAC.</li>
+      </ul>
+    </div>
+    <div class="small">
+      <h2>Why it compounds</h2>
+      <p>Journalists get data they can't get elsewhere. LLMs index the report and cite Viva in conversations it isn't part of today: "how do I replace this role with AI", "how do I monitor operations with AI".</p>
+      <h2 style="margin-top:14px">Speakers</h2>
+      <p>Fineas, Adnan, myself, or anyone at Viva who can speak with authority, media-trained. Stage, panels and partner side events at 4 of the 6 committed events.</p>
+      <h2 style="margin-top:14px">How</h2>
+      <p>Exclusive with one top outlet, then wide. The team pitches week to week; a PR agency runs 3 sprints for the big launches.</p>
+      <p><span class="pill">Day 90: first report, 3 to 5 placements</span> <span class="pill turq">Month 12: 4 reports, 25+ placements</span></p>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Viva has already been covered by AP, Fortune, Forbes, Fast Company and Inc. The plan makes it constant.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 17 PAID -->
+<section class="slide">
+  <div class="eyebrow">Part 2 · Advertising and paid media (E, D)</div>
+  <h1>Beat bigger budgets on strategy: niches nobody attacks and creative volume</h1>
+  <div class="body">
+  <div class="cols c64">
+    <div class="small">
+      <h2>Advertising, $130K: Google, Meta, LinkedIn</h2>
+      <ul>
+        <li><strong>Niches nobody attacks:</strong> Recruiting Coordinators (no competitor advertises it), EA by role, AI and security startups, event geofencing, EMEA, "BELAY alternative", "Is AI replacing EAs?".</li>
+        <li><strong>Creative volume:</strong> 20 to 30 new creatives a month, hooks and bodies recorded separately and recombined. Losers off every week.</li>
+        <li><strong>LinkedIn:</strong> Thought Leader Ads on the co&#8209;CEOs' posts, the existing lead magnets measured to qualified calls.</li>
+        <li><strong>Meta:</strong> with detailed targeting gone and lookalikes reduced to suggestions, the creative is the targeting. The "qualified call" event trains the algorithm.</li>
+        <li><strong>Google:</strong> brand, competitor alternatives and the ~3,000 real buyer searches, with job-seeker negatives. Recruiting in its own account.</li>
+      </ul>
+    </div>
+    <div class="card tint small">
+      <h2>Paid media, $15K: borrowed audiences</h2>
+      <p>Pay to be inside someone else's content: a podcast host read, a newsletter, a creator. One bet, amplified: a co&#8209;CEO as guest, a "Friends of X" landing page, clips for ads and content.</p>
+      <p>It's BELAY's playbook with Ramsey's EntreLeadership: <strong>574 clients from that audience since 2018</strong>, by its own count.</p>
+      <p><span class="pill">KPI: cost per qualified call, by channel and niche</span></p>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Sources: competitor ad libraries; BELAY's EntreLeadership landing page.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 18 EVENTS -->
+<section class="slide">
+  <div class="eyebrow">Part 2 · Side events (I)</div>
+  <h1>Six side events committed. Five more only if a sponsor or the results pay for them.</h1>
+  <div class="body">
+  <div class="cols c64">
+    <div>
+      <table class="xs">
+        <tr><th>When</th><th>Event</th><th>City</th><th>Status</th></tr>
+        <tr><td>Mar</td><td>HumanX</td><td>Las Vegas</td><td><span class="pill">Committed</span></td></tr>
+        <tr><td>Apr</td><td>RSAC</td><td>San Francisco</td><td><span class="pill">Committed</span></td></tr>
+        <tr><td>May</td><td>Consensus</td><td>Miami</td><td><span class="pill">Committed</span></td></tr>
+        <tr><td>May</td><td>SaaStr AI Annual</td><td>San Mateo</td><td><span class="pill">Committed</span></td></tr>
+        <tr><td>Jun</td><td>NY Tech Week</td><td>New York</td><td><span class="pill">Committed</span></td></tr>
+        <tr><td>Oct</td><td>SF Tech Week</td><td>San Francisco</td><td><span class="pill">Committed</span></td></tr>
+        <tr><td colspan="3">Transform, London Tech Week, Black Hat, Money20/20, Web Summit</td><td><span class="pill amber">Conditional</span></td></tr>
+      </table>
+      <p class="note" style="margin-top:8px">Cap per event: $9K. 2 people, $5K for the event, up to $1K per person for flights and $1K for hotel. Sponsors are upside, not assumed.</p>
+    </div>
+    <div class="small">
+      <div class="flow" style="grid-template-columns:1fr">
+        <div class="step"><h2>1 · Register</h2><p>Luma or Partiful, per the event's norm. Enriched and scored in minutes: ICP, partner or other.</p></div>
+        <div class="step"><h2>2 · Before</h2><p>Human touch to every ICP within 24 hours. Validated ICPs become SQLs and get an AE before the event.</p></div>
+        <div class="step"><h2>3 · During</h2><p>Deliver the promised value. Each of us owns a list of ICPs. Real check-in, notes to HubSpot.</p></div>
+        <div class="step"><h2>4 · After</h2><p>AE follow-up in 24 to 48 hours, call within 7 days. Everyone else into email.</p></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Per event (base case): 150 to 300 registrations, 50 to 60 in the room, 10 to 15 calls in 30 days, 2 to 5 deals. Sales SLA: first touch on an SQL within 1 business day.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 19 PARTNERSHIPS EMAIL AEO -->
+<section class="slide">
+  <div class="eyebrow">Part 2 · Partnerships, email, AEO/GEO (F, G, H)</div>
+  <h1>Partners bring trust, email keeps the attention, AEO/GEO turns both into recommendations</h1>
+  <div class="body">
+  <div class="cols c3">
+    <div class="card small">
+      <h2>Partnerships</h2>
+      <ul>
+        <li><strong>Badges:</strong> Anthropic and OpenAI partner programs; partner directories of the tools EAs use (Notion, HubSpot, Superhuman, Calendly).</li>
+        <li><strong>Distribution:</strong> portfolio-perk pages of the VCs behind Viva's clients, YC Deals, founder and Chief of Staff communities, EOR and HR tech.</li>
+        <li><strong>Referrals:</strong> 300+ executives served.</li>
+      </ul>
+    </div>
+    <div class="card small">
+      <h2>Email</h2>
+      <ul>
+        <li>Every channel captures to email: lead magnets, reports, events, comment-to-DM on LinkedIn.</li>
+        <li>A weekly, tactical newsletter signed by a co&#8209;CEO.</li>
+        <li>Sequences by role and vertical, before and after events, closed-lost recycling, expansion and referral asks.</li>
+      </ul>
+    </div>
+    <div class="card tint small">
+      <h2>AEO / GEO</h2>
+      <ul>
+        <li><strong>Measure</strong> weekly: mentions out of 25, citations.</li>
+        <li><strong>Fix the site:</strong> one name, schema, 284 duplicate titles, mobile speed, broken links.</li>
+        <li><strong>Be where LLMs read:</strong> third-party lists they already cite, G2, Clutch, Trustpilot (zero reviews today), Reddit, Wikidata.</li>
+        <li><strong>Target:</strong> 8 of 25 by day 90, 15+ by month 12.</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">The agency's remaining months are refocused on this list, with AI mention and citation KPIs, after the audit.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 20 TEAM -->
+<section class="slide">
+  <div class="eyebrow">Part 2 · Team and AI stack</div>
+  <h1>A lean team of three, AI-native, plus the web developer Viva already has</h1>
+  <div class="body">
+  <div class="cols c64">
+    <table class="xs">
+      <tr><th>Role</th><th>Owns</th><th class="n">Cost</th></tr>
+      <tr><td><strong>Content Engineer</strong></td><td>The AI content engine: capture, founders' voice, cloned voices, video, distribution, SEO/AEO pages, newsletter</td><td class="n">$3,000/mo</td></tr>
+      <tr><td><strong>Growth Lead</strong></td><td>Advertising and creatives, paid media, partnerships, event sponsorships, day-to-day PR with Ops</td><td class="n">$3,000/mo</td></tr>
+      <tr><td><strong>Marketing Ops and Events</strong></td><td>Event production and travel, HubSpot (email, attribution, sales handoff), referrals, weekly reporting</td><td class="n">$2,500/mo</td></tr>
+      <tr><td>Web developer (existing)</td><td>Site, niche and partner landing pages, event pages, calculators, tracking</td><td class="n">existing</td></tr>
+      <tr><td>PR agency</td><td>Retainer activated only in amplification sprints</td><td class="n">$5-6K / active month</td></tr>
+      <tr><td>Fineas and Adnan</td><td>3 to 5 posts a week, spokespeople, podcast guests, event hosts</td><td class="n">2-3 h / week each</td></tr>
+    </table>
+    <div class="card small">
+      <h2>AI stack, ~$21K a year</h2>
+      <ul>
+        <li>Claude Max for everyone on the team</li>
+        <li>ChatGPT Pro for three</li>
+        <li>ElevenLabs (voice), Higgsfield (video)</li>
+        <li>Metricool (scheduling for up to 15 brands)</li>
+        <li>DataForSEO and API data on demand (SEO, backlinks, AI visibility)</li>
+        <li>Luma, only in event months</li>
+      </ul>
+      <p class="note">No separate SEO suite, design, editing or survey tools: the stack covers them.</p>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">The Head of Marketing is outside the $400K and runs the budget.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 21 BUDGET -->
+<section class="slide">
+  <div class="eyebrow">Part 2 · Budget</div>
+  <h1>$400K, with the weight on reach. Sponsorships are upside, not assumed.</h1>
+  <div class="body">
+  <div class="cols c64">
+    <div class="bars">
+      <div class="bar"><span>Advertising</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">$130K</span></div>
+      <div class="bar"><span>Team (3)</span><div class="track"><div class="fill" style="width:78%;background:var(--navy)"></div></div><span class="v">$102K</span></div>
+      <div class="bar"><span>SEO/AEO agency</span><div class="track"><div class="fill" style="width:46%;background:var(--muted)"></div></div><span class="v">$60K</span></div>
+      <div class="bar"><span>Side events</span><div class="track"><div class="fill" style="width:42%"></div></div><span class="v">$54K</span></div>
+      <div class="bar"><span>AI stack</span><div class="track"><div class="fill" style="width:16%;background:var(--navy)"></div></div><span class="v">$21K</span></div>
+      <div class="bar"><span>PR sprints</span><div class="track"><div class="fill" style="width:14%"></div></div><span class="v">$18K</span></div>
+      <div class="bar"><span>Paid media</span><div class="track"><div class="fill" style="width:12%"></div></div><span class="v">$15K</span></div>
+      <p style="margin-top:6px"><strong>Total: $400K.</strong> Reach (advertising, PR, paid media) is 41%; team 26%.</p>
+    </div>
+    <div class="card tint small">
+      <h2>How it is managed</h2>
+      <ul>
+        <li><strong>Advertising</strong> ramps: ~$7K/mo for 3 months testing niches, ~$12K/mo on the winners.</li>
+        <li><strong>The agency</strong> ($60K committed) is audited in week 1 and renegotiated toward AEO/GEO results.</li>
+        <li><strong>Every sponsorship dollar</strong> funds a conditional event or goes to advertising.</li>
+        <li><strong>The return:</strong> 60 to 90 extra deals in the year is $6M to $9M in new ACV. If month-6 targets are met, I'll ask to scale what works.</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">AI tool prices: public list prices, Nov 2026. Event costs: caps above, not quotes.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 22 MONTH 12 -->
+<section class="slide">
+  <div class="eyebrow">Part 2 · Month 12</div>
+  <h1>Month 12: 60 to 80 qualified calls and 15 to 20 deals a month</h1>
+  <div class="body">
+  <div class="cols c2">
+    <table>
+      <tr><th>Metric</th><th class="n">Today</th><th class="n">Day 90</th><th class="n">Month 12</th></tr>
+      <tr><td>Inbound calls / month</td><td class="n">20</td><td class="n">30-40</td><td class="n">60-80</td></tr>
+      <tr><td>Closed-won / month</td><td class="n">5</td><td class="n">10</td><td class="n">15-20</td></tr>
+      <tr><td>ChatGPT mentions (of 25)</td><td class="n">3-4</td><td class="n">8</td><td class="n">15+</td></tr>
+      <tr><td>Posts / week, all channels</td><td class="n">0</td><td class="n">25+</td><td class="n">25+</td></tr>
+      <tr><td>Media placements</td><td class="n">ad hoc</td><td class="n">3-5</td><td class="n">25+ / yr</td></tr>
+      <tr><td>Side events run</td><td class="n">0</td><td class="n">1</td><td class="n">6-11</td></tr>
+    </table>
+    <div class="card tint small">
+      <h2>What my team delivers</h2>
+      <ul>
+        <li><strong>Qualified pipeline:</strong> every call with its source, company, role and context in HubSpot, so each conversation starts warm.</li>
+        <li><strong>Proof:</strong> 6 client case studies, 4 data reports, a security one-pager for regulated buyers.</li>
+        <li><strong>Presence:</strong> the co&#8209;CEOs' voice every week, 6 to 11 side events, speakers on stage.</li>
+        <li><strong>AI visibility:</strong> Viva named in 15+ of 25 buyer answers.</li>
+        <li><strong>A weekly number:</strong> one dashboard, reviewed every Monday, headline first.</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Targets are planning assumptions, to be re-baselined after week 1 with Viva's real HubSpot data.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- 23 FIRST 30 DAYS -->
+<section class="slide roomy">
+  <div class="eyebrow">Part 2 · Next steps</div>
+  <h1>The first 30 days</h1>
+  <div class="body">
+  <div class="flow" style="grid-template-columns:repeat(4,1fr)">
+    <div class="step"><h2>Week 1</h2><ul><li>Attribution fixed</li><li>Agency audit</li><li>HubSpot baseline</li><li>Hiring started</li></ul></div>
+    <div class="step"><h2>Week 2</h2><ul><li>Booking flow live</li><li>Co-CEOs posting</li><li>Ads rebuilt by niche</li><li>Referral program</li></ul></div>
+    <div class="step"><h2>Week 3</h2><ul><li>Content engine running</li><li>Newsletter #1</li><li>First report fielded</li><li>Event #1 page live</li></ul></div>
+    <div class="step"><h2>Week 4</h2><ul><li>Reactivation sent</li><li>Site fixes shipped</li><li>First AI visibility re-scan</li><li>Month-1 review</li></ul></div>
+  </div>
+  <div class="result" style="margin-top:28px">One number per person, reviewed every Monday, <span>headline first</span>.</div>
+  </div>
+  <div class="foot"><span class="src">Daniel Forero · Viva Head of Marketing assessment · November 2026</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- APPENDIX DIVIDER -->
+<section class="slide divider">
+  <div class="eyebrow">Appendix</div>
+  <h1>The research behind the plan</h1>
+  <p>Competitor detail, events, verticals and the event funnel.</p>
+</section>
+
+<!-- A1 COMPETITORS -->
+<section class="slide roomy">
+  <div class="eyebrow">Appendix · Competitors</div>
+  <h1>Where each competitor wins and where it is weak</h1>
+  <div class="body">
+  <table class="xs">
+    <tr><th>Brand</th><th>Wins on</th><th>Weak on</th></tr>
+    <tr><td>BELAY</td><td>Daily volume, the biggest ad budget, Ramsey and Maxwell audiences, own podcast and book</td><td>Low engagement per post; spread across three product lines (EA, finance, marketing)</td></tr>
+    <tr><td>Athena</td><td>LinkedIn scale and engagement, founder-led video ads, creator referral pages; now recruiting in LatAm</td><td>Instagram and X quiet; social leans to recruiting</td></tr>
+    <tr><td>Boldly</td><td>Daily content and 245 videos with no ad spend; named in every AI answer</td><td>Small audiences, no ads</td></tr>
+    <tr><td>Prialto</td><td>SEO: the source ChatGPT cites most</td><td>Social almost dormant</td></tr>
+    <tr><td>Magic</td><td>Ad spend and social volume; LinkedIn ads sell managed customer support</td><td>Invisible in AI answers</td></tr>
+    <tr><td>Persona</td><td>LinkedIn followers</td><td>Mostly employer brand, no client ads</td></tr>
+    <tr class="viva"><td>Viva</td><td>Clients like Notion, top-tier press, the mission, LatAm talent, 100K LinkedIn audience, good lead magnets</td><td>Zero posts this week, low AI visibility, split name, broken links, Google bought the wrong intent</td></tr>
+  </table>
+  </div>
+  <div class="foot"><span class="src">Sources: slides 5 to 9.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- A2 VERTICALS -->
+<section class="slide roomy">
+  <div class="eyebrow">Appendix · Verticals</div>
+  <h1>Target verticals ordered by legal and security friction, lowest first</h1>
+  <div class="body">
+  <table>
+    <tr><th>#</th><th>Vertical</th><th>Friction</th><th>What Viva needs</th></tr>
+    <tr><td>1</td><td>Frontier tech: AI, deep tech, crypto (Series A to C)</td><td><span class="pill turq">Low</span></td><td>NDA, background checks, security one-pager. EAs never touch model weights, repos or keys</td></tr>
+    <tr><td>2</td><td>Commercial cybersecurity</td><td><span class="pill">Low to medium</span></td><td>A real SOC 2 Type II report</td></tr>
+    <tr><td>3</td><td>General corporate (201-500 non-regulated first; 2,000+ is slower)</td><td><span class="pill">Medium to high</span></td><td>SOC 2 Type II, DPA with SCCs, sub-processor list</td></tr>
+    <tr><td>4</td><td>Fintech (startups yes, banks later)</td><td><span class="pill amber">High</span></td><td>SOC 2 Type II, third-party risk requirements</td></tr>
+    <tr><td>5</td><td>Government contractors</td><td><span class="pill amber">Very high</span></td><td>Commercial divisions only. CUI and ITAR work is out for offshore staff</td></tr>
+  </table>
+  </div>
+  <div class="foot"><span class="src">Marketing input, not legal advice. Viva's site states "ISO 27001-aligned" and "SOC 2 alignment", without a report.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- A3 EVENTS UNIVERSE -->
+<section class="slide">
+  <div class="eyebrow">Appendix · Events</div>
+  <h1>The 20 most relevant conferences for Viva's buyers in 2027</h1>
+  <div class="body">
+  <div class="cols c2">
+    <table class="xs">
+      <tr><th>Event</th><th>Vertical</th><th>City</th><th>2027</th></tr>
+      <tr><td>SaaStr AI Annual</td><td>Founders</td><td>San Mateo</td><td>May 11-12</td></tr>
+      <tr><td>Transform</td><td>HR / TA</td><td>Las Vegas</td><td>Apr 12-14</td></tr>
+      <tr><td>RSAC</td><td>Security</td><td>San Francisco</td><td>Apr 5-8</td></tr>
+      <tr><td>SF Tech Week</td><td>Frontier</td><td>San Francisco</td><td>Early Oct</td></tr>
+      <tr><td>Money20/20 USA</td><td>Fintech</td><td>Las Vegas</td><td>Oct 19-21</td></tr>
+      <tr><td>Web Summit</td><td>Frontier</td><td>Lisbon</td><td>Nov 8-11</td></tr>
+      <tr><td>HumanX</td><td>AI</td><td>Las Vegas</td><td>Mar 7-10</td></tr>
+      <tr><td>London Tech Week</td><td>Frontier</td><td>London</td><td>Jun 7-11</td></tr>
+      <tr><td>Money20/20 Europe</td><td>Fintech</td><td>Amsterdam</td><td>Jun 8-10</td></tr>
+      <tr><td>Gartner HR Symposium</td><td>HR</td><td>Orlando</td><td>Oct 25-27</td></tr>
+    </table>
+    <table class="xs">
+      <tr><th>Event</th><th>Vertical</th><th>City</th><th>2027</th></tr>
+      <tr><td>SHRM HR-X Live</td><td>HR</td><td>Chicago</td><td>Jun 27-30</td></tr>
+      <tr><td>NVIDIA GTC</td><td>AI, robotics</td><td>San Jose</td><td>Mar 15-18</td></tr>
+      <tr><td>Black Hat USA</td><td>Security</td><td>Las Vegas</td><td>Jul 31-Aug 5</td></tr>
+      <tr><td>Consensus</td><td>Crypto</td><td>Miami</td><td>May 4-6</td></tr>
+      <tr><td>Gartner Cybersecurity</td><td>Security</td><td>National Harbor</td><td>Jun 14-16</td></tr>
+      <tr><td>Infosecurity Europe</td><td>Security</td><td>London</td><td>Jun 8-10</td></tr>
+      <tr><td>ASAP APC</td><td>EAs</td><td>Kissimmee</td><td>Sep 12-15</td></tr>
+      <tr><td>The PA Show</td><td>EAs / CoS</td><td>London</td><td>Mar 3-4</td></tr>
+      <tr><td>Chief of Staff Connect</td><td>CoS</td><td>SF, NY, London</td><td>May, Oct, Nov</td></tr>
+      <tr><td>VivaTech</td><td>Corporate</td><td>Paris</td><td>Jun 16-19</td></tr>
+    </table>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Plus NY Tech Week (early June, typical). Dates from organizers or listings; confirm before booking. 6 are committed in the plan.</span><img class="logo" alt="Viva"></div>
+</section>
+
+<!-- A4 EVENT FUNNEL -->
+<section class="slide">
+  <div class="eyebrow">Appendix · Event funnel and sales handoff</div>
+  <h1>From registration to closed-won, with a handoff to sales at every step</h1>
+  <div class="body">
+  <div class="cols c64">
+    <div class="small">
+      <ul>
+        <li><strong>Registration:</strong> scored in minutes as ICP, partner or other. Not ICP is re-scored as a potential partner.</li>
+        <li><strong>Approval:</strong> the event's own standard; a room that is 50 to 60% ICP; overbook by expected show rate.</li>
+        <li><strong>MQL:</strong> ICP by company and role. <strong>SQL:</strong> an MQL that confirms 2 of 3 in a human touch (executives to support, timing, current pain).</li>
+        <li><strong>Routing:</strong> 201-500 employees to an AE; 2,000+ to the Head of Strategic Accounts; partners stay with marketing.</li>
+        <li><strong>SLA:</strong> sales first touch within 1 business day; outcome in HubSpot within 24 hours; an SQL with no meeting in 30 days goes back to marketing nurture.</li>
+        <li><strong>Feedback:</strong> a weekly 15-minute sync; lost reasons feed content and the next event's form.</li>
+      </ul>
+    </div>
+    <table>
+      <tr><th>Per event (base case)</th><th class="n">#</th></tr>
+      <tr><td>Registrations</td><td class="n">200</td></tr>
+      <tr><td>ICP / partner / other</td><td class="n">60 / 30 / 110</td></tr>
+      <tr><td>ICPs in the room</td><td class="n">~30</td></tr>
+      <tr><td>ICP conversations</td><td class="n">~25</td></tr>
+      <tr><td>Calls within 30 days</td><td class="n">10-15</td></tr>
+      <tr class="viva"><td>Deals (25%)</td><td class="n">2-5</td></tr>
+    </table>
+  </div>
+  </div>
+  <div class="foot"><span class="src">Assumptions; validated after the first event.</span><img class="logo" alt="Viva"></div>
+</section>
+
+</div>
+<div class="nav"><span id="count"></span><button id="prev" aria-label="Previous">&larr;</button><button id="next" aria-label="Next">&rarr;</button></div>
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')]; let i=0;
+  const count=document.getElementById('count');
+  function fit(){const s=Math.min(window.innerWidth/1280,(window.innerHeight-40)/720); slides.forEach(el=>el.style.transform='translate(-50%,-50%) scale('+s+')');}
+  function show(n){i=Math.max(0,Math.min(slides.length-1,n)); slides.forEach((el,k)=>el.classList.toggle('active',k===i)); count.textContent=(i+1)+' / '+slides.length; history.replaceState(null,'','#'+(i+1));}
+  document.getElementById('prev').onclick=()=>show(i-1);
+  document.getElementById('next').onclick=()=>show(i+1);
+  document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)} if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1)} if(e.key==='Home')show(0); if(e.key==='End')show(slides.length-1);});
+  window.addEventListener('resize',fit); fit();
+  const h=parseInt(location.hash.slice(1),10); show(isNaN(h)?0:h-1);
+})();
+</script>
+</body>
+</html>

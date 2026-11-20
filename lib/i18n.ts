@@ -262,6 +262,21 @@ const UI = {
       inLanguage: 'The report is in Spanish.',
       frameTitle: 'Report',
       notFoundTitle: 'This report is not available',
+      // A report room (2026-11-20): the hub at /d/<slug> and a page per piece.
+      submitRoom: 'Continue',
+      loadingPiece: 'Loading.',
+      loadErrorPiece: 'This did not load. Refresh the page to try again.',
+      back: 'All the materials',
+      deck: {
+        prev: 'Previous slide',
+        next: 'Next slide',
+        slideOf: (n: number, total: number) => `${n} / ${total}`,
+        fullscreen: 'Full screen',
+        exitFullscreen: 'Exit full screen',
+        rotate: 'On a phone, turn it sideways and use full screen to read the slides larger.',
+        frameTitle: 'Presentation',
+      },
+      video: { loadError: 'The video did not load. Refresh the page to try again.' },
     },
 
     grow: {
@@ -476,6 +491,20 @@ const UI = {
       inLanguage: 'El informe está en inglés.',
       frameTitle: 'Informe',
       notFoundTitle: 'Este informe no está disponible',
+      submitRoom: 'Continuar',
+      loadingPiece: 'Cargando.',
+      loadErrorPiece: 'Esto no cargó. Recarga la página para intentarlo de nuevo.',
+      back: 'Todos los materiales',
+      deck: {
+        prev: 'Slide anterior',
+        next: 'Slide siguiente',
+        slideOf: (n: number, total: number) => `${n} / ${total}`,
+        fullscreen: 'Pantalla completa',
+        exitFullscreen: 'Salir de pantalla completa',
+        rotate: 'En el celular, gíralo de lado y usa pantalla completa para leer los slides más grandes.',
+        frameTitle: 'Presentación',
+      },
+      video: { loadError: 'El video no cargó. Recarga la página para intentarlo de nuevo.' },
     },
 
     grow: {

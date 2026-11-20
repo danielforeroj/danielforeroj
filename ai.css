@@ -632,3 +632,37 @@
 .rpt-status { padding: 24px 16px 56px; text-align: center; }
 /* color-scheme dark: the site is dark only, so the report's prefers-color-scheme resolves to dark inside the frame (Daniel 2026-11-14: his personal brand). */
 .rpt-frame { display: block; width: 100%; max-width: 100%; border: 0; background: var(--aif-void); color-scheme: dark; }
+
+/* Report room (2026-11-20): the hub at /d/<slug> and its pieces at /d/<slug>/<key>. */
+.rpt-back { display: inline-block; margin-bottom: 10px; text-decoration: none; }
+.rpt-hub { margin-top: 22px; }
+.rpt-hub .aif-offer .aif-kicker { color: var(--muted-2); }
+
+/* The deck: the frame keeps the slides' 16:9, edge to edge on a phone. */
+.deck { padding: 0 0 40px; }
+@media (min-width: 720px) { .deck { padding: 0 16px 40px; } }
+.deck-stage { position: relative; width: min(100%, calc((100svh - 150px) * 16 / 9)); aspect-ratio: 16 / 9; margin: 0 auto; background: #1b1f33; }
+.deck-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.deck-bar { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 12px 0 4px; flex-wrap: wrap; }
+.deck-btn {
+  min-width: 52px; min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--gold-dark); background: transparent; color: var(--aif-paper);
+  font-size: 20px; cursor: pointer;
+}
+.deck-btn:hover:not(:disabled) { background: rgba(201, 161, 91, 0.1); }
+.deck-btn:disabled { opacity: 0.35; cursor: default; }
+.deck-btn:focus-visible, .deck-full:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+.deck-count { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.06em; color: var(--aif-paper); min-width: 64px; text-align: center; }
+.deck-full { background: none; border: 0; cursor: pointer; }
+.deck-rotate { text-align: center; padding-top: 6px; }
+@media (min-width: 900px) { .deck-rotate { display: none; } }
+/* Full screen: the frame over the whole viewport, the bar under it. */
+.deck--full { position: fixed; inset: 0; z-index: 100; padding: 0; background: #1b1f33; display: flex; flex-direction: column; }
+.deck--full .deck-stage { flex: 1; width: 100%; aspect-ratio: auto; }
+.deck--full .deck-bar { padding: 6px 0 calc(6px + env(safe-area-inset-bottom)); background: var(--aif-void); }
+
+/* The video: 16:9, edge to edge on a phone. */
+.vid { padding: 0 0 40px; }
+.vid-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; }
+.vid-stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+@media (min-width: 720px) { .vid { padding: 0 16px 40px; } }

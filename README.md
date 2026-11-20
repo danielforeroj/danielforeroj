@@ -139,7 +139,22 @@ and GTM is not loaded on these paths.
   gate, never in the prerendered HTML. It is drawn in a sandboxed `iframe srcdoc` (no
   scripts) at the height of its content, with the site's IBM Plex fonts injected, so
   its CSS and the site's never touch.
-- **Visits.** `lib/reportTrack.ts` posts to the Unbound app,
+- **Room (2026-11-20).** A report with a `room` in `data/reports.ts` turns `/d/<slug>`
+  into a hub after the gate, with a button per piece, and each piece gets its own page
+  at `/d/<slug>/<key>`: the report (`kind: 'report'`), a slide deck (`kind: 'deck'`,
+  `content/d/<file>.html`, slides are `.slide` sections, drawn in an `allow-scripts`
+  frame that is not same-origin, with a bridge that reports the slide on screen) and a
+  video (`kind: 'video'`, an unlisted YouTube id, embedded from youtube-nocookie.com
+  through the IFrame API). A video with an empty `youtubeId` is left out of the hub.
+  `/d/viva` is the first: report, deck (`content/d/viva-deck.html`, 30 slides), video.
+  Every page is a visit in the app's data room (room link `room.slug`): the hub on the
+  room link, each piece on its document (`documentId`). The deck reports a page per
+  slide, the video a page per 30 second segment of watched time plus play, pause, jump
+  and end on the timeline. The gate posts with `notify: 'none'`: the app DMs Daniel
+  alone on the hub open and on each piece opened, and the team group hears nothing.
+  Read it in the app under Data rooms ("Viva at danielforeroj.com/d/viva", Analytics
+  tab) or with `get_data_room_analytics`.
+- **Visits.** `lib/visitTrack.ts` (it was `lib/reportTrack.ts`) posts to the Unbound app,
   `unboundoperators.app/d/<trackSlug>/external-track`: the gated email, open time,
   visible seconds, scroll marks (25, 50, 75, 100), the referring host and the `?r=` tag.
   They land on the app document whose email link is the report's `trackSlug`: read

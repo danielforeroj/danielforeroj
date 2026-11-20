@@ -17,7 +17,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import { PostType } from './types';
 import { posts } from './data/mockData';
 import { SECTIONS } from './data/siteConfig';
-import { REPORTS } from './data/reports';
+import { REPORTS, roomItems } from './data/reports';
 import { localePath, type Lang } from './lib/i18n';
 
 // Every route below is prerendered to real HTML at build time. The dynamic
@@ -59,6 +59,12 @@ const sitePages = (lang: Lang): Child[] => {
       path: p('/d/:slug'),
       element: <ReportPage />,
       getStaticPaths: () => REPORTS.map((r) => localePath(`/d/${r.slug}`, lang)),
+    },
+    // A piece of a report room (2026-11-20): /d/<slug>/<key>, after the same gate.
+    {
+      path: p('/d/:slug/:item'),
+      element: <ReportPage />,
+      getStaticPaths: () => REPORTS.flatMap((r) => roomItems(r).map((i) => localePath(`/d/${r.slug}/${i.key}`, lang))),
     },
   ];
 };
