@@ -4,11 +4,21 @@
   "headers": [
     {
       "source": "/d/:path*",
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }]
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
     },
     {
       "source": "/es/d/:path*",
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }]
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -60,6 +70,66 @@
       "source": "/en/about",
       "destination": "/about",
       "permanent": true
+    },
+    {
+      "source": "/kit/deck",
+      "destination": "/en/kit/deck",
+      "permanent": false
+    },
+    {
+      "source": "/kit/raise",
+      "destination": "/en/kit/raise",
+      "permanent": false
+    },
+    {
+      "source": "/kit/pipeline",
+      "destination": "/en/kit/pipeline",
+      "permanent": false
+    },
+    {
+      "source": "/kit/focus",
+      "destination": "/en/kit/focus",
+      "permanent": false
+    },
+    {
+      "source": "/kit/loop",
+      "destination": "/en/kit/loop",
+      "permanent": false
+    },
+    {
+      "source": "/en/kit/medir",
+      "destination": "/kit/medir",
+      "permanent": false
+    },
+    {
+      "source": "/en/kit/foco",
+      "destination": "/kit/foco",
+      "permanent": false
+    },
+    {
+      "source": "/en/kit/ventas",
+      "destination": "/kit/ventas",
+      "permanent": false
+    },
+    {
+      "source": "/en/kit/marca",
+      "destination": "/kit/marca",
+      "permanent": false
+    },
+    {
+      "source": "/es/kit/:path*",
+      "destination": "/kit/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/es/kit",
+      "destination": "/kit",
+      "permanent": false
+    },
+    {
+      "source": "/kits",
+      "destination": "/kit",
+      "permanent": false
     }
   ]
 }

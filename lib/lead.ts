@@ -48,7 +48,7 @@ export function geoScanUrl(src: string): string {
 }
 
 /** Which entry page sent the lead. Also the tag at the top of the message. */
-export type LeadPage = 'crecer' | 'geo' | 'work' | 'report';
+export type LeadPage = 'crecer' | 'geo' | 'work' | 'report' | 'kit';
 
 const TAG: Record<LeadPage, string> = {
   crecer: 'diagnostico de crecimiento',
@@ -56,6 +56,8 @@ const TAG: Record<LeadPage, string> = {
   work: 'work with me',
   // The email gate of a report at /d/<slug> (pages/ReportPage.tsx).
   report: 'report gate',
+  // The gate of a kit a faceless video promises, /kit/<slug> (pages/KitPage.tsx).
+  kit: 'kit del video',
 };
 
 export type LeadInput = {

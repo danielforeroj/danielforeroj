@@ -3,7 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import Seo from '../lib/SeoHead';
 import { SITE } from '../data/siteConfig';
 import { localePath, useLang, useUi } from '../lib/i18n';
-import { attribution, readStore, writeStore } from '../lib/ai/context';
+import { attribution } from '../lib/ai/context';
+import { forgetReader, rememberReader, savedReader, type Reader } from '../lib/reader';
 import { sendLead } from '../lib/lead';
 import { loadReportHtml, reportBySlug, roomItem, roomItems, type Report, type RoomItem } from '../data/reports';
 import { linkTrackUrl, roomDocTrackUrl, startVisit, type Visit } from '../lib/visitTrack';
@@ -41,73 +42,6 @@ import NotFoundPage from './NotFoundPage';
 // deck and segment by segment for the video (lib/visitTrack.ts).
 //
 // noindex here and X-Robots-Tag in vercel.json.
-
-const READER_KEY = 'dfj_reader';
-
-// A reader who passed the gate is let back in without the form for 96 hours (Daniel,
-// 2026-11-20), on every browser they used, with no limit on how many. The key is kept twice:
-// in localStorage, and in a first-party cookie for the browsers that clear or block storage
-// (in-app browsers, some private modes). Whichever is still there and in time lets them in.
-// The 96 hours run from the moment they gave the email, never extended by a return visit.
-const READER_TTL_MS = 96 * 60 * 60 * 1000;
-
-type Reader = { email: string; name: string };
-type SavedReader = Reader & { at: string };
-
-function parseReader(raw: string | null): SavedReader | null {
-  if (!raw) return null;
-  try {
-    const r = JSON.parse(raw) as Partial<SavedReader>;
-    if (typeof r.email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.email)) return null;
-    const at = typeof r.at === 'string' ? Date.parse(r.at) : NaN;
-    if (!Number.isFinite(at) || Date.now() - at > READER_TTL_MS || at - Date.now() > 60_000) return null;
-    return { email: r.email, name: typeof r.name === 'string' ? r.name : '', at: r.at as string };
-  } catch {
-    return null;
-  }
-}
-
-function readCookie(): string | null {
-  try {
-    const m = document.cookie.match(new RegExp(`(?:^|; )${READER_KEY}=([^;]*)`));
-    return m ? decodeURIComponent(m[1]) : null;
-  } catch {
-    return null;
-  }
-}
-
-function writeCookie(value: string | null, maxAgeSeconds: number) {
-  try {
-    const secure = window.location.protocol === 'https:' ? '; Secure' : '';
-    document.cookie = `${READER_KEY}=${value === null ? '' : encodeURIComponent(value)}; Max-Age=${maxAgeSeconds}; Path=/; SameSite=Lax${secure}`;
-  } catch {
-    /* cookies unavailable */
-  }
-}
-
-function savedReader(): Reader | null {
-  const r = parseReader(readStore(READER_KEY, 'local')) ?? parseReader(readCookie());
-  if (!r) {
-    forgetReader();
-    return null;
-  }
-  return { email: r.email, name: r.name };
-}
-
-function rememberReader(r: Reader) {
-  const value = JSON.stringify({ ...r, at: new Date().toISOString() });
-  writeStore(READER_KEY, value, 'local');
-  writeCookie(value, READER_TTL_MS / 1000);
-}
-
-function forgetReader() {
-  try {
-    window.localStorage.removeItem(READER_KEY);
-  } catch {
-    /* storage unavailable */
-  }
-  writeCookie(null, 0);
-}
 
 // The site's own fonts (the same Google Fonts link as index.html), made available
 // to the report at render time: a report file is written with the site's tokens

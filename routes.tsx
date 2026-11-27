@@ -10,6 +10,8 @@ import GrowPage from './pages/GrowPage';
 import GeoPage from './pages/GeoPage';
 import LinksPage from './pages/LinksPage';
 import ReportPage from './pages/ReportPage';
+import KitPage from './pages/KitPage';
+import KitIndexPage from './pages/KitIndexPage';
 import AiFunnelPage from './pages/ai/AiFunnelPage';
 import AiLibraryPage from './pages/ai/AiLibraryPage';
 import AiResourcePage, { RESOURCE_SHELL_KEY } from './pages/ai/AiResourcePage';
@@ -18,6 +20,7 @@ import { PostType } from './types';
 import { posts } from './data/mockData';
 import { SECTIONS } from './data/siteConfig';
 import { REPORTS, roomItems } from './data/reports';
+import { kitPath, publishedKits } from './data/kits';
 import { localePath, type Lang } from './lib/i18n';
 
 // Every route below is prerendered to real HTML at build time. The dynamic
@@ -81,6 +84,14 @@ const entryPages = (lang: Lang): Child[] => {
     { path: p('/geo'), element: <GeoPage /> },
     // The bio link hub (2026-10-05): /links and /en/links. See pages/LinksPage.tsx.
     { path: p('/links'), element: <LinksPage /> },
+    // The kits of the faceless videos (2026-11-27): /kit and /en/kit list them, and each
+    // kit is prerendered only in the languages it exists in. See pages/KitPage.tsx.
+    { path: p('/kit'), element: <KitIndexPage /> },
+    {
+      path: p('/kit/:slug'),
+      element: <KitPage />,
+      getStaticPaths: () => publishedKits().filter((k) => k.title[lang]).map((k) => kitPath(k.slug, lang)),
+    },
   ];
 };
 

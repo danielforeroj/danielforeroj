@@ -28,7 +28,8 @@ export const OG_LOCALE: Record<Lang, string> = { en: 'en_US', es: 'es_LA' };
 // Pages written in Spanish first: the AI funnel and the two entry points built
 // for the Spanish social feeds (2026-09-24), the growth diagnostic and the GEO
 // scan. Their unprefixed URL is Spanish and their translation lives under /en.
-const ES_FIRST = ['/ai', '/crecer', '/geo', '/links'];
+// /kit (2026-11-27): the kits of the faceless videos, Spanish at /kit/<slug>, English at /en/kit/<slug>.
+const ES_FIRST = ['/ai', '/crecer', '/geo', '/links', '/kit'];
 const isEsFirst = (base: string) => ES_FIRST.some((b) => base === b || base.startsWith(`${b}/`));
 
 // A page whose translation has its own slug instead of the same slug under a

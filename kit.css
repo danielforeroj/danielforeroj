@@ -1,0 +1,177 @@
+/* =========================================================================
+   KITS: /kit/<slug>, /en/kit/<slug>, and the list at /kit (2026-11-27).
+   The AI funnel's console look (ai.css .aif-*) for tools the reader works with:
+   checklists, templates to copy, sheets, calculators. Mobile first: the link
+   arrives by Instagram DM and opens in the in-app browser.
+   ========================================================================= */
+
+.kit .aif-panel { width: min(820px, 100%); }
+.kit-head { display: grid; gap: 14px; padding-bottom: 8px; }
+.kit-promise { color: var(--aif-paper); }
+.kit-from { color: var(--muted); line-height: 1.6; }
+
+.kit-toc { margin-top: 10px; border-top: 1px solid var(--aif-line); padding-top: 18px; }
+.kit-toc ol { margin: 12px 0 0; padding: 0; list-style: none; counter-reset: toc; display: grid; gap: 12px; }
+.kit-toc li { counter-increment: toc; display: grid; gap: 2px; padding-left: 34px; position: relative; }
+.kit-toc li::before {
+  content: counter(toc, decimal-leading-zero);
+  position: absolute; left: 0; top: 2px;
+  font-family: var(--font-mono); font-size: 11px; color: var(--gold);
+}
+.kit-toc a, .kit-toc li > span:first-child { color: var(--aif-paper); font-weight: 600; text-decoration: none; font-size: 16px; }
+.kit-toc a:hover { color: var(--gold-light); }
+.kit-toc__intro { color: var(--muted-2); font-size: 14px; line-height: 1.5; }
+
+.kit-gate { margin-top: 6px; }
+.kit-who { gap: 4px 16px; }
+
+.kit-body { display: grid; gap: 8px; padding-top: 8px; }
+
+.kit-howto {
+  border: 1px solid var(--aif-line);
+  background: var(--surface);
+  padding: 18px 18px 14px;
+  border-radius: 2px;
+}
+.kit-howto ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.6; }
+
+.kit-section { display: grid; gap: 16px; padding: 40px 0 8px; border-top: 1px solid var(--aif-line); margin-top: 24px; scroll-margin-top: 72px; }
+.kit-section__title {
+  margin: -6px 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(24px, 5vw, 34px);
+  line-height: 1.1;
+  color: var(--aif-paper);
+  text-wrap: balance;
+}
+.kit-section__intro { color: var(--aif-paper); }
+.kit-p { max-width: 68ch; }
+.kit code, .kit-pre { font-family: var(--font-mono); }
+.kit code { font-size: 0.9em; color: var(--gold-light); }
+
+.kit-rule {
+  margin: 0;
+  padding: 14px 16px;
+  border-left: 3px solid var(--gold);
+  background: rgba(201, 161, 91, 0.08);
+  color: var(--ivory);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.kit-steps { margin: 0; padding: 0; list-style: none; counter-reset: st; display: grid; gap: 14px; }
+.kit-steps li { counter-increment: st; position: relative; padding-left: 40px; }
+.kit-steps li::before {
+  content: counter(st);
+  position: absolute; left: 0; top: 0;
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  font-family: var(--font-mono); font-size: 12px; color: var(--gold);
+}
+.kit-steps__title { margin: 2px 0 0; color: var(--aif-paper); font-weight: 600; line-height: 1.45; }
+.kit-steps__body { margin: 4px 0 0; color: var(--muted); line-height: 1.6; }
+
+.kit-card {
+  border: 1px solid var(--aif-line);
+  background: var(--surface);
+  border-radius: 2px;
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.kit-card__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.kit-card__title { margin: 0; font-weight: 600; color: var(--aif-paper); font-size: 15px; }
+.kit-note { line-height: 1.6; }
+
+.kit-btn { min-height: 40px; padding: 0 16px; font-size: 11px; }
+.kit-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.kit-check { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.kit-check label { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0; cursor: pointer; color: var(--muted); line-height: 1.5; }
+.kit-check input { flex: none; width: 20px; height: 20px; margin-top: 1px; accent-color: var(--gold); }
+.kit-check input:checked + span { color: var(--muted-2); text-decoration: line-through; text-decoration-color: rgba(201, 161, 91, 0.6); }
+
+.kit-pre {
+  margin: 0;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--aif-line-soft);
+  color: var(--ivory);
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 460px;
+  overflow: auto;
+}
+
+.kit-table-wrap { overflow-x: auto; margin: 0 -16px; padding: 0 16px; }
+.kit-table { border-collapse: collapse; min-width: 100%; font-size: 13px; }
+.kit-table th, .kit-table td { border: 1px solid var(--aif-line); padding: 8px 10px; text-align: left; vertical-align: top; }
+.kit-table thead th { background: rgba(201, 161, 91, 0.08); color: var(--aif-paper); font-weight: 600; min-width: 120px; }
+.kit-table thead th:first-child, .kit-rownum { min-width: 0; width: 1%; }
+.kit-col, .kit-rownum { display: block; font-family: var(--font-mono); font-size: 10px; color: var(--muted-2); font-weight: 400; }
+.kit-rownum { display: table-cell; text-align: center; }
+.kit-table td { color: var(--muted); }
+.kit-formula { font-family: var(--font-mono); color: var(--gold-light) !important; white-space: nowrap; }
+
+.kit-calc__inputs { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.kit-calc__field { display: grid; gap: 6px; color: var(--muted); font-size: 14px; }
+.kit-calc__field input {
+  min-height: 44px;
+  padding: 0 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--aif-line);
+  border-radius: 2px;
+  color: var(--ivory);
+  font-family: var(--font-mono);
+  font-size: 16px;
+}
+.kit-calc__field input:focus { outline: 1px solid var(--gold); border-color: var(--gold); }
+.kit-calc__out { margin: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.kit-calc__out div { border-top: 1px solid var(--aif-line); padding-top: 8px; }
+.kit-calc__out dt { color: var(--muted-2); font-size: 13px; }
+.kit-calc__out dd { margin: 2px 0 0; font-family: var(--font-mono); font-size: 20px; color: var(--ivory); }
+.kit-verdict { margin: 0; padding: 12px 14px; border: 1px solid var(--aif-line); line-height: 1.5; }
+.kit-verdict--pass { border-color: rgba(136, 149, 118, 0.7); background: rgba(136, 149, 118, 0.12); color: var(--ivory); }
+.kit-verdict--fail { border-color: rgba(177, 58, 88, 0.7); background: rgba(177, 58, 88, 0.12); color: var(--ivory); }
+
+.kit-compare { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.kit-compare__col { border: 1px solid var(--aif-line); padding: 14px 16px; border-radius: 2px; }
+.kit-compare__col ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.55; display: grid; gap: 6px; }
+.kit-compare__col--bad { border-top: 3px solid var(--signal); }
+.kit-compare__col--good { border-top: 3px solid var(--green); }
+
+.kit-next { margin-top: 40px; }
+
+/* the list at /kit */
+.kit-list { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.kit-list__sep { margin-top: 18px; }
+.kit-list__item {
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  border: 1px solid var(--aif-line);
+  background: var(--surface);
+  text-decoration: none;
+  border-radius: 2px;
+}
+.kit-list__item:hover { border-color: var(--gold); }
+.kit-list__word { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em; color: var(--gold); }
+.kit-list__title { color: var(--aif-paper); font-weight: 600; font-size: 17px; }
+.kit-list__line { color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+/* Print: a clean sheet to keep. Everything that is not the kit goes away. */
+@media print {
+  header, footer, nav[aria-label], .kit-gate, .kit-who, .kit-btn, .kit-actions, .kit-next .aif-btn, .skip-link { display: none !important; }
+  .aif, .kit { background: #fff !important; color: #000 !important; padding: 0 !important; min-height: 0 !important; }
+  .kit * { color: #000 !important; background: transparent !important; border-color: #bbb !important; box-shadow: none !important; }
+  .kit-pre { max-height: none; overflow: visible; border: 1px solid #bbb; }
+  .kit-section { break-inside: auto; }
+  .kit-card, .kit-calc, .kit-compare__col { break-inside: avoid; }
+  .kit-table-wrap { overflow: visible; }
+}

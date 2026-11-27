@@ -119,7 +119,10 @@ type DataLayerEvent =
   | { event: 'ai_funnel_identify'; lang: Lang }
   | { event: 'ai_funnel_verified'; lang: Lang }
   | { event: 'ai_resource_open'; resource_key: string; lang: Lang }
-  | { event: 'lead_submit'; page: 'crecer' | 'geo' | 'work' | 'report'; lang: Lang }
+  | { event: 'lead_submit'; page: 'crecer' | 'geo' | 'work' | 'report' | 'kit'; lang: Lang }
+  // The kits of the faceless videos (pages/KitPage.tsx): opened, unlocked, a template or sheet used.
+  | { event: 'kit_view' | 'kit_unlock'; kit: string; lang: Lang; r: string }
+  | { event: 'kit_copy' | 'kit_download'; kit: string; lang: Lang; block: string }
   | { event: 'links_click'; entry: string; r: string; lang: Lang };
 
 export function pushEvent(e: DataLayerEvent) {

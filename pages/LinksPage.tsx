@@ -100,6 +100,14 @@ const LinksPage: React.FC = () => {
               );
             })}
           </div>
+          {/* The kits the faceless videos promise (2026-11-27), for whoever saw a video and did not comment. */}
+          <a
+            className="aif-link"
+            href={`${localePath('/kit', lang)}${r === 'links' ? '' : `?r=${encodeURIComponent(r.replace(/-bio$/, ''))}`}`}
+            onClick={() => pushEvent({ event: 'links_click', entry: 'kits', r, lang })}
+          >
+            {lang === 'es' ? 'Los kits de los videos →' : 'The kits from the videos →'}
+          </a>
         </div>
       </div>
     </section>

@@ -30,6 +30,8 @@ and the logic lives in `lib/i18n.ts`.
 | Free GEO scan | `/en/geo` | `/geo` |
 | Bio link hub (noindex) | `/en/links` | `/links` |
 | Gated report (noindex) | `/d/:slug` | `/es/d/:slug` |
+| Video kit (noindex) | `/en/kit/:slug` | `/kit/:slug` |
+| Kit list (noindex) | `/en/kit` | `/kit` |
 
 Every URL that existed before keeps working and keeps its language: the site was
 written in English, so its translation lives under `/es`; the `/ai` guide was
@@ -168,3 +170,30 @@ and GTM is not loaded on these paths.
 New version of a report: replace `content/d/<slug>.html`, commit, push (Vercel builds
 `main`). New report: the file, one entry in `data/reports.ts`, and a `trackSlug` from an
 app HTML document plus an email-mode link (`create_html_document`, `create_document_link`).
+
+## Video kits (/kit/:slug)
+
+The kits the faceless videos promise (2026-11-27). Each video closes with "Comente PALABRA y le
+mando el kit..." / "Comment WORD and I'll send you..."; the commenter gets the link by DM.
+Spanish kits at `/kit/<slug>`, English at `/en/kit/<slug>` (`/kit` is Spanish-first); a kit in
+one language redirects its other URL (`vercel.json`), so a typed `danielforeroj.com/kit/deck`
+lands. CONTROL is the one kit in both languages. `/kit` lists them all.
+
+- **Content.** `data/kits/<slug>.ts`, typed by `data/kits/types.ts`: sections of blocks the reader
+  works with (checklists that keep their ticks, templates with a copy button, sheets that paste
+  into Sheets or Excel with their formulas or download as CSV, calculators, a bad/good
+  comparison). A kit is online when it is in `KITS` (`data/kits/index.ts`) and its file exists.
+  Each kit file is its own chunk, loaded only on its page.
+- **Rules.** `npm run check:kits` checks every kit: no em or en dashes, no exclamation marks,
+  usted in Spanish, unique ids, calculators that compute, formulas inside the sheet. Run it
+  before every push that touches a kit. Figures come only from the scripts' sources or
+  `Evidencia de Daniel.md` (studio), cited in a code comment next to them.
+- **Gate and capture.** The same gate as `/d` reports (`lib/reader.ts`, 96 hours, shared, so a
+  reader of one kit or report opens the next without the form). On unlock, `/api/contact` with
+  `notify: 'none'` and the header `[danielforeroj.com/kit/<slug>] kit del video`, then
+  `r:`, `idioma:`, and lines `kit:`, `red:`, `video:`. A reader the browser already knew is
+  recorded once per kit too.
+- **Attribution.** unbound-os sends one link per word: `r=<net>-fd-<word>` (`ig-fd-medir`,
+  `yt-fd-deck`); the app tells the videos apart from the comment thread it answered, and counts
+  Instagram DM clicks on its own tracked link. `parseKitRef` also reads a per-video
+  `<net>-fd-es01`. dataLayer: `kit_view`, `kit_unlock`, `kit_copy`, `kit_download`.

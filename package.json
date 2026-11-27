@@ -9,6 +9,7 @@
     "build": "vite-react-ssg build && node scripts/gen-sitemap.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.json",
+    "check:kits": "npx --yes tsx scripts/check-kits.ts",
     "seo:ping": "node scripts/indexnow.mjs"
   },
   "dependencies": {
