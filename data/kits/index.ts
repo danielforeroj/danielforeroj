@@ -29,6 +29,8 @@ export type KitEntry = {
    * like /d reports). Without it the kit records the lead on unlock and nothing else.
    */
   trackSlug?: string;
+  /** Written but not online: not routed, not listed. LOOP waits for its repo to go public. */
+  draft?: boolean;
 };
 
 export const KITS: KitEntry[] = [
@@ -98,6 +100,16 @@ export const KITS: KitEntry[] = [
     line: { en: 'So you prove demand before you burn runway building a platform.' },
     firstVideo: '2026-12-10',
   },
+  {
+    // The one-off storytelling video (2026-11-27). Draft until github.com/danielforeroj/hook-loop-skill
+    // is public: studio confirms, then remove `draft`.
+    word: 'LOOP',
+    slug: 'loop',
+    title: { en: 'The hook loop kit' },
+    line: { en: 'The hook loop skill for Claude, the guide to set it up, and the script template.' },
+    firstVideo: '2026-12-11',
+    draft: true,
+  },
 ];
 
 // Every kit file in this folder, loaded on demand. The keys are known at build time
@@ -107,7 +119,7 @@ const FILES = import.meta.glob<{ default: Kit }>(['./*.ts', '!./index.ts', '!./t
 const fileOf = (slug: string) => `./${slug}.ts`;
 
 /** The kits that are online: in the registry and with their file written. */
-export const publishedKits = (): KitEntry[] => KITS.filter((k) => fileOf(k.slug) in FILES);
+export const publishedKits = (): KitEntry[] => KITS.filter((k) => !k.draft && fileOf(k.slug) in FILES);
 
 /** The kit entry for a URL slug in a language, if it is online in that language. */
 export function kitEntry(slug: string | undefined, lang: Lang): KitEntry | undefined {
